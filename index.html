@@ -147,7 +147,20 @@
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1"></div>
+          <div class="index-text mb-1">
+title: Jarvis OJ port 51date: 2019-12-21 22:52:01tags:WEB
+
+题目链接: http://web.jarvisoj.com:32770/访问页面之后，页面显示：
+Please use port 51 to visit this site.
+当时看到了这个还以为是需要访问这个网站的51端口，但是这个网址已经确定了是访问32770端口，后来一直都没有思路。最后才发现是要求本地以51端口去访问这个网址。payload如下：
+
+curl –local-port 51 http://web.jarvisoj.com:32770/
+
+最后就可以拿到flag
+
+curl，全称CommandLine URL 或 CommandLine Uniform Resource Locator，顾名思义，curl命令是在命令行方式下工作，利用URL的语法进行数据的传输或者文件的传输。
+CURL具体用法(https://itbilu.com/linux/man/4yZ9qH_7X.html)
+</div>
         </div>
       </a>
 
