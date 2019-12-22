@@ -43,7 +43,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>loser的博客</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -169,6 +169,8 @@
           <div class="markdown-body">
             <p>##堆叠注入</p>
 <p>预编译绕过<br>预编译相关语法如下：</p>
+<a id="more"></a>
+
 <p>set用于设置变量名和值<br>prepare用于预备一个语句，并赋予名称，以后可以引用该语句<br>execute执行语句<br>deallocate prepare用来释放掉预处理的语句</p>
 <p>直接看payload就懂了：</p>
 <p>-1’;set @sql = CONCAT(‘se’,’lect * from <code>1919810931114514</code>;’);prepare stmt from @sql;EXECUTE stmt;#</p>
