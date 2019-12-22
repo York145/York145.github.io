@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Categories - WEB ~ Hexo</title>
+  <title>Categories - web ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -132,22 +132,16 @@
                 
 
 <div class="list-group">
-<!--  <p class="h4">2 posts in total.</p>-->
+<!--  <p class="h4">1 posts in total.</p>-->
   <hr>
   
     
       
       <p class="h5">2019</p>
     
-    <a href="/2019/12/22/PHP%E4%BB%A3%E7%A0%81%E6%BC%8F%E6%B4%9E%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">PHP代码漏洞（一）</span>
+    <a href="/2019/12/22/Jarvis-OJ-admin/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">Jarvis OJ admin</span>
       <span style="float: right;">12-22</span>
-    </a>
-  
-    
-    <a href="/2019/12/21/Jarvis-OJ-port-51/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ port 51</span>
-      <span style="float: right;">12-21</span>
     </a>
   
 </div>
@@ -273,7 +267,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Category - WEB&nbsp;",
+        "Category - web&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -370,6 +364,28 @@
           //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
           $i.animate({
             //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+</body>
+</html>
+�上移动180
             "top": y - 180,
             "opacity": 0
             //1500动画的速度

