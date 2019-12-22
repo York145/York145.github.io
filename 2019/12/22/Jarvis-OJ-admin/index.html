@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Hexo</title>
+  <title>Jarvis OJ admin ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 100vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,12 +113,43 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, December 22nd 2019, 9:34 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    108 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="fas fa-angle-down scroll-down-arrow"></i>
-            </div>
           
         </div>
       </div>
@@ -127,220 +158,83 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="admin"><a href="#admin" class="headerlink" title="admin"></a>admin</h1><hr>
+<p>题目链接：http ://web.jarvisoj.com:32792 /</p>
+<p>点开页面后是一个hello world，看了看F12什么都没发现，用bp也没发现什么东西。用御剑先扫一波，马上发现了robots.txt。<br>&lt;—more—&gt;<br>进去后出现了：</p>
+<blockquote>
+<p>Disallow: /admin_s3cr3t.php</p>
+</blockquote>
+<p>激动的点开了网站</p>
+<p><img src="/img/1.png" srcset="/img/loading.gif" alt=""></p>
+<p>提交以后发现是错的。<br>再次进入网站用bp拦截，发现cookie的值是</p>
+<blockquote>
+<p>admin = 0</p>
+</blockquote>
+<p>将0改成1.出现flag。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
                 
-
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/22/Jarvis-OJ-admin/">
-        <p class="h4 index-header">Jarvis OJ admin</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">admin
-题目链接：http ://web.jarvisoj.com:32792 /
-点开页面后是一个hello world，看了看F12什么都没发现，用bp也没发现什么东西。用御剑先扫一波，马上发现了robots.txt。&lt;—more—&gt;进去后出现了：
-
-Disallow: /admin_s3cr3t.php
-
-激动的点开了网站
-
-提交以后发现是错的。再次进入网站用bp拦截，发现cookie的值是
-
-admin = 0
-
-将0改成1.出现flag。
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/web">web</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/web%EF%BC%8CJARvis%20OJ">web，JARvis OJ</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/22/PHP%E4%BB%A3%E7%A0%81%E6%BC%8F%E6%B4%9E%EF%BC%88%E4%B8%80%EF%BC%89/">
-        <p class="h4 index-header">PHP代码漏洞（一）</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">常见危险函数php代码执行相关eval()mixed eval ( string $code )把字符串code作为php代码执行。常见的一句话木马：（)
-&lt;?php
-    eval($_GET[&#39;pass&#39;])
-?&gt;
-()访问：
-
-http://xxx/codeexec.php?pass=phpinfo();
-
-得到phpinfo()页面。
-assert()PHP 5
-bool assert ( mixed $assertion [, string $description ] )PHP 7
-bool assert ( mixed $assertion [, Throwable $exception ] )assert() 会检查指定的 assertion 并在结果为 FALSE 时采取适当的响应。如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行。
-一句话木马：()
-&lt;?php
-    assert($_GET[&#39;pass&#39;]);
-?&gt;
-()访问：
-
-http://xxx/codeexe</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/WEB">WEB</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/PHP">PHP</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/21/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/">
-        <p class="h4 index-header">堆叠注入</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">##堆叠注入
-预编译绕过预编译相关语法如下：
-set用于设置变量名和值prepare用于预备一个语句，并赋予名称，以后可以引用该语句execute执行语句deallocate prepare用来释放掉预处理的语句
-直接看payload就懂了：
--1’;set @sql = CONCAT(‘se’,’lect * from 1919810931114514;’);prepare stmt from @sql;EXECUTE stmt;#
-拆分开来如下-1’;set @sql = CONCAT(‘se’,’lect * from 1919810931114514;’);prepare stmt from @sql;EXECUTE stmt;
-我们将表1919810931114514名字改为words，flag列名字改为id，那么就能得到flag的内容了。
-修改表名和列名的语法如下：
-修改表名(将表名user改为users)alter table user rename to users;
-修改列名(将字段名username改为name)alter table users change ue</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/21/Jarvis-OJ-port-51/">
-        <p class="h4 index-header">Jarvis OJ port 51</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">题目链接: http://web.jarvisoj.com:32770/访问页面之后，页面显示：
-Please use port 51 to visit this site.
-当时看到了这个还以为是需要访问这个网站的51端口，但是这个网址已经确定了是访问32770端口，后来一直都没有思路。最后才发现是要求本地以51端口去访问这个网址。payload如下：
-
-curl –local-port 51 http://web.jarvisoj.com:32770/
-
-最后就可以拿到flag
-
-curl，全称CommandLine URL 或 CommandLine Uniform Resource Locator，顾名思义，curl命令是在命令行方式下工作，利用URL的语法进行数据的传输或者文件的传输。
-CURL具体用法(https://itbilu.com/linux/man/4yZ9qH_7X.html)
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/WEB">WEB</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/Jarvis%20OJ">Jarvis OJ</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-              </div>
-            </div>
+                  <a class="hover-with-bg" href="/categories/web">web</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/web%EF%BC%8CJARvis%20OJ">web，JARvis OJ</a>
+                
+              </span>
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -415,6 +309,11 @@ CURL具体用法(https://itbilu.com/linux/man/4yZ9qH_7X.html)
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -455,7 +354,7 @@ CURL具体用法(https://itbilu.com/linux/man/4yZ9qH_7X.html)
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "真正的大师永远怀着一颗学徒的心♥♥&nbsp;",
+        "Jarvis OJ admin&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
