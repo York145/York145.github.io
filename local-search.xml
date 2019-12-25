@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>__wakeup漏洞绕过</title>
+    <link href="/2019/12/25/wakeup%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87/"/>
+    <url>/2019/12/25/wakeup%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87/</url>
+    
+    <content type="html"><![CDATA[<h2 id="wakeup-函数用法"><a href="#wakeup-函数用法" class="headerlink" title="__wakeup()函数用法"></a>__wakeup()函数用法</h2><p><strong>wakeup()是用在反序列化操作中。unserialize()会检查存在一个</strong>wakeup()方法。如果存在，则先会调用__wakeup()方法。</p><pre><code>&lt;?phpclass A{function __wakeup(){echo &#39;Hello&#39;;}}$c = new A();$d=unserialize(&#39;O:1:&quot;A&quot;:0:{}&#39;);?&gt;</code></pre><p>最后页面输出了Hello。在反序列化的时候存在__wakeup()函数，所以最后就会输出Hello<br>__wakeup()函数漏洞说明</p><pre><code>&lt;?phpclass Student{public $full_name = &#39;zhangsan&#39;;public $score = 150;public $grades = array();function __wakeup() {echo &quot;__wakeup is invoked&quot;;}}$s = new Student();var_dump(serialize($s));?&gt;</code></pre><p>最后页面上输出的就是Student对象的一个序列化输出，<br>O:7:”Student”:3:{s:9:”full_name”;s:8:”zhangsan”;s:5:”score”;i:150;s:6:”grades”;a:0:{}}。其中在Stuedent类后面有一个数字3，整个3表示的就是Student类存在3个属性。<br><strong>wakeup()漏洞就是与整个属性个数值有关。当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过</strong>wakeup的执行。<br>当我们将上述的序列化的字符串中的对象属性修改为5，变为<br>O:7:”Student”:5:{s:9:”full_name”;s:8:”zhangsan”;s:5:”score”;i:150;s:6:”grades”;a:0:{}}。<br>最后执行运行的代码如下：</p><pre><code>class Student{public $full_name = &#39;zhangsan&#39;;public $score = 150;public $grades = array();function __wakeup() {echo &quot;__wakeup is invoked&quot;;}function __destruct() {var_dump($this);}}$s = new Student();$stu = unserialize(&#39;O:7:&quot;Student&quot;:5:{s:9:&quot;full_name&quot;;s:8:&quot;zhangsan&quot;;s:5:&quot;score&quot;;i:150;s:6:&quot;grades&quot;;a:0:{}}&#39;);</code></pre><p>可以看到这样就成功地绕过了__wakeup()函数。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>WEB</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>WEB</tag>
+      
+      <tag>PHP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SQL注入(一）</title>
     <link href="/2019/12/22/SQL%E6%B3%A8%E5%85%A5(%E4%B8%80)/"/>
     <url>/2019/12/22/SQL%E6%B3%A8%E5%85%A5(%E4%B8%80)/</url>

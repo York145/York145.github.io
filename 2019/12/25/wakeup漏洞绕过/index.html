@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Categories - web ~ Hexo</title>
+  <title>__wakeup漏洞绕过 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Wednesday, December 25th 2019, 4:41 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    381 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,36 +158,111 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-<!--  <p class="h4">1 posts in total.</p>-->
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/12/22/Jarvis-OJ-admin/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ admin</span>
-      <span style="float: right;">12-22</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="wakeup-函数用法"><a href="#wakeup-函数用法" class="headerlink" title="__wakeup()函数用法"></a>__wakeup()函数用法</h2><p><strong>wakeup()是用在反序列化操作中。unserialize()会检查存在一个</strong>wakeup()方法。如果存在，则先会调用__wakeup()方法。</p>
+<pre><code>&lt;?php
+class A{
+function __wakeup(){
+echo &#39;Hello&#39;;
+}
+}
+$c = new A();
+$d=unserialize(&#39;O:1:&quot;A&quot;:0:{}&#39;);
+?&gt;</code></pre><p>最后页面输出了Hello。在反序列化的时候存在__wakeup()函数，所以最后就会输出Hello<br>__wakeup()函数漏洞说明</p>
+<pre><code>&lt;?php
+class Student{
+public $full_name = &#39;zhangsan&#39;;
+public $score = 150;
+public $grades = array();
 
+function __wakeup() {
+echo &quot;__wakeup is invoked&quot;;
+}
+}
 
-              </div>
-            </div>
+$s = new Student();
+var_dump(serialize($s));
+?&gt;</code></pre><p>最后页面上输出的就是Student对象的一个序列化输出，<br>O:7:”Student”:3:{s:9:”full_name”;s:8:”zhangsan”;s:5:”score”;i:150;s:6:”grades”;a:0:{}}。其中在Stuedent类后面有一个数字3，整个3表示的就是Student类存在3个属性。<br><strong>wakeup()漏洞就是与整个属性个数值有关。当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过</strong>wakeup的执行。<br>当我们将上述的序列化的字符串中的对象属性修改为5，变为<br>O:7:”Student”:5:{s:9:”full_name”;s:8:”zhangsan”;s:5:”score”;i:150;s:6:”grades”;a:0:{}}。<br>最后执行运行的代码如下：</p>
+<pre><code>class Student{
+public $full_name = &#39;zhangsan&#39;;
+public $score = 150;
+public $grades = array();
+
+function __wakeup() {
+echo &quot;__wakeup is invoked&quot;;
+}
+function __destruct() {
+var_dump($this);
+}
+}
+
+$s = new Student();
+$stu = unserialize(&#39;O:7:&quot;Student&quot;:5:{s:9:&quot;full_name&quot;;s:8:&quot;zhangsan&quot;;s:5:&quot;score&quot;;i:150;s:6:&quot;grades&quot;;a:0:{}}&#39;);</code></pre><p>可以看到这样就成功地绕过了__wakeup()函数。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/WEB">WEB</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/WEB">WEB</a>
+                
+                  <a class="hover-with-bg" href="/tags/PHP">PHP</a>
+                
+              </span>
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -227,6 +337,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -267,7 +382,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Category - web&nbsp;",
+        "__wakeup漏洞绕过&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -361,31 +476,6 @@
           $("body").append($i);
           //animate() 方法执行 CSS 属性集的自定义动画。
           //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
-
-
-
-
-
-
-
-</body>
-</html>
-素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
           //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
           $i.animate({
             //将原来的位置向上移动180

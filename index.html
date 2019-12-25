@@ -140,6 +140,65 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/25/wakeup%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87/">
+        <p class="h4 index-header">__wakeup漏洞绕过</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">__wakeup()函数用法wakeup()是用在反序列化操作中。unserialize()会检查存在一个wakeup()方法。如果存在，则先会调用__wakeup()方法。
+&lt;?php
+class A{
+function __wakeup(){
+echo &#39;Hello&#39;;
+}
+}
+$c = new A();
+$d=unserialize(&#39;O:1:&quot;A&quot;:0:{}&#39;);
+?&gt;最后页面输出了Hello。在反序列化的时候存在__wakeup()函数，所以最后就会输出Hello__wakeup()函数漏洞说明
+&lt;?php
+class Student{
+public $full_name = &#39;zhangsan&#39;;
+public $score = 150;
+public $grades = array();
+
+function __wakeup() {
+echo &quot;__wakeup is invoked&quot;;
+}
+}
+
+$s = new Student();
+var_dump(serial</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB">WEB</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/PHP">PHP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2019/12/22/SQL%E6%B3%A8%E5%85%A5(%E4%B8%80)/">
         <p class="h4 index-header">SQL注入(一）</p>
         
