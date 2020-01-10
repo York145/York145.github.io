@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>python模板注入</title>
+    <link href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/"/>
+    <url>/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.freebuf.com/column/187845.html" target="_blank" rel="noopener">https://www.freebuf.com/column/187845.html</a></p><p>攻防世界中模板注入例题的wp:<a href="https://blog.csdn.net/qq_40884727/article/details/101605002" target="_blank" rel="noopener">https://blog.csdn.net/qq_40884727/article/details/101605002</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>WEB，python</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>攻防世界web进阶区Web_php_include</title>
     <link href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6%E5%8C%BA/"/>
     <url>/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6%E5%8C%BA/</url>
