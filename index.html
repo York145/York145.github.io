@@ -140,6 +140,51 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/">
+        <p class="h4 index-header">Jarvis OJ 神盾局的秘密</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">神盾局的秘密题目链接：http://web.jarvisoj.com:32768/题目提示:
+这里有个通向神盾局内部网络的秘密入口，你能通过漏洞发现神盾局的秘密吗？
+访问链接之后，得到就是一张图片，通过burp抓包，发现在中途访问了网址http://web.jarvisoj.com:32768/showimg.php?img=c2hpZWxkLnBocA==，看链接是一个文件读取，文件名是使用base64加密了。读取showimg.php的内容:
+&lt;?php
+    $f = $_GET[&#39;img&#39;];
+    if (!empty($f)) {
+        $f = base64_decode($f);
+        if (stripos($f,&#39;..&#39;)===FALSE &amp;&amp; stripos($f,&#39;/&#39;)===FALSE &amp;&amp; stripos($f,&#39;\\&#39;)===FALSE
+        &amp;&amp; stripos($f,&#39;pctf&#39;)===</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB">WEB</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/Jarvis%20OJ">Jarvis OJ</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
         <p class="h4 index-header">python模板注入</p>
         
@@ -149,6 +194,7 @@
         <div class="index-excerpt" >
           <div class="index-text mb-1">https://www.freebuf.com/column/187845.html
 攻防世界中模板注入例题的wp:https://blog.csdn.net/qq_40884727/article/details/101605002
+https://blog.csdn.net/qq_17204441/article/details/102857726
 </div>
         </div>
       </a>

