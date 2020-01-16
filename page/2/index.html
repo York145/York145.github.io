@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -116,6 +116,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="fas fa-angle-down scroll-down-arrow"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -131,56 +135,228 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">15 posts in total.</p>
-  <hr>
-  
+
+  <div class="row mb-4 mx-auto">
     
-      
-      <p class="h5">2020</p>
     
-    <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux下安装UPX</span>
-      <span style="float: right;">01-16</span>
-    </a>
-  
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/22/SQL%E6%B3%A8%E5%85%A5(%E4%B8%80)/">
+        <p class="h4 index-header">SQL注入(一）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">万能密码—very easy题目入口：http://lab1.xseclab.com/sqli2_3265b4852c13383560327d1c31550b60/index.php 
+题目来源：hacking lab inject 01~
+
+源代码有提示：
+
+&lt;!--ps login as admin–&gt;
+
+万能密码登录语句构造： 
+select * from admin where username=’admin’and 1=1 #’ and password=’123456′ 
+OR 
+select * from admin where username=’admin’or 1 #’ and password=’123456′ 
+或者不需要admin 
+select * from admin where username=’1′or 1 or 1 #’ and password=’123456′ 
+还可以用#来注释 
+select * from admin where username=’admin’#’ and password=’123456′
+万能密码题目入口：</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
-    <a href="/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">pwnable.kr解题（一）</span>
-      <span style="float: right;">01-15</span>
-    </a>
-  
     
-    <a href="/2020/01/14/overthewire-narnia%E8%A7%A3%E9%A2%98-%E4%B8%80/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire narnia解题(一)</span>
-      <span style="float: right;">01-14</span>
-    </a>
-  
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/22/Jarvis-OJ-admin/">
+        <p class="h4 index-header">Jarvis OJ admin</p>
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">admin
+题目链接：http ://web.jarvisoj.com:32792 /
+点开页面后是一个hello world，看了看F12什么都没发现，用bp也没发现什么东西。用御剑先扫一波，马上发现了robots.txt。...</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/web">web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/web%EF%BC%8CJARvis%20OJ">web，JARvis OJ</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
-    <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（二）</span>
-      <span style="float: right;">01-13</span>
-    </a>
-  
     
-    <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（一）</span>
-      <span style="float: right;">01-12</span>
-    </a>
-  
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/22/PHP%E4%BB%A3%E7%A0%81%E6%BC%8F%E6%B4%9E%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">PHP代码漏洞（一）</p>
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">常见危险函数php代码执行相关eval()mixed eval ( string $code )把字符串code作为php代码执行。常见的一句话木马：...</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB">WEB</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/PHP">PHP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
-    <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ 神盾局的秘密</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
     
-    <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">python模板注入</span>
-      <span style="float: right;">01-10</span>
-    </a>
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/21/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/">
+        <p class="h4 index-header">堆叠注入</p>
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">##堆叠注入
+预编译绕过预编译相关语法如下：...</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/21/Jarvis-OJ-port-51/">
+        <p class="h4 index-header">Jarvis OJ port 51</p>
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">题目链接: http://web.jarvisoj.com:32770/访问页面之后，页面显示：
+Please use port 51 to visit this site.
+当时看到了这个还以为是需要访问这个网站的51端口，但是这个网址已经确定了是访问32770端口，后来一直都没有思路。最后才发现是要求本地以51端口去访问这个网址。payload如下：...</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB">WEB</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/Jarvis%20OJ">Jarvis OJ</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
   
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
+
 
 
               </div>
@@ -302,7 +478,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "真正的大师永远怀着一颗学徒的心♥♥&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

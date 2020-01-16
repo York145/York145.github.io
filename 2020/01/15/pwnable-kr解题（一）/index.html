@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>pwnable.kr解题（一） ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Wednesday, January 15th 2020, 12:24 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    392 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,71 +158,120 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">15 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux下安装UPX</span>
-      <span style="float: right;">01-16</span>
-    </a>
-  
-    
-    <a href="/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">pwnable.kr解题（一）</span>
-      <span style="float: right;">01-15</span>
-    </a>
-  
-    
-    <a href="/2020/01/14/overthewire-narnia%E8%A7%A3%E9%A2%98-%E4%B8%80/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire narnia解题(一)</span>
-      <span style="float: right;">01-14</span>
-    </a>
-  
-    
-    <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（二）</span>
-      <span style="float: right;">01-13</span>
-    </a>
-  
-    
-    <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（一）</span>
-      <span style="float: right;">01-12</span>
-    </a>
-  
-    
-    <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ 神盾局的秘密</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-    
-    <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">python模板注入</span>
-      <span style="float: right;">01-10</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="fd"><a href="#fd" class="headerlink" title="fd"></a>fd</h1><p>ssh <a href="mailto:fd@pwnable.kr">fd@pwnable.kr</a> -p2222 (pw:guest)</p>
+<pre><code>fd@pwnable:~$ cat fd.c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+char buf[32];
+int main(int argc, char* argv[], char* envp[]){
+    if(argc&lt;2){
+        printf(&quot;pass argv[1] a number\n&quot;);
+        return 0;
+    }
+    int fd = atoi( argv[1] ) - 0x1234;
+    int len = 0;
+    len = read(fd, buf, 32);
+    if(!strcmp(&quot;LETMEWIN\n&quot;, buf)){
+        printf(&quot;good job :)\n&quot;);
+        system(&quot;/bin/cat flag&quot;);
+        exit(0);
+    }
+    printf(&quot;learn about Linux file IO\n&quot;);
+    return 0;
 
-              </div>
-            </div>
+}</code></pre><p>目标：执行system(“/bin/cat flag”);<br>则：strcmp(“LETMEWIN\n”, buf) == 0<br>则：buf = “LETMEWIN\n”<br>则：read(fd, buf, 32)将buf设为”LETMEWIN\n”<br>fd == 0为标准输入<br>fd == 1为标准输出<br>fd == 2为标准错误输出<br>所以我们可以使fd == 0，然后从终端输入LETMEWIN后回车<br>要使fd == 0，<br>则：输入的参数 == 0x1234，即4660<br>flag:</p>
+<blockquote>
+<p>mommy! I think I know what a file descriptor is!!</p>
+</blockquote>
+<h1 id="collision"><a href="#collision" class="headerlink" title="collision"></a>collision</h1><p>ssh <a href="mailto:col@pwnable.kr">col@pwnable.kr</a> -p2222 (pw:guest)</p>
+<pre><code>col@pwnable:~$ cat col.c
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+unsigned long hashcode = 0x21DD09EC;
+unsigned long check_password(const char* p){
+    int* ip = (int*)p;
+    int i;
+    int res=0;
+    for(i=0; i&lt;5; i++){
+        res += ip[i];
+    }
+    return res;
+}
+
+int main(int argc, char* argv[]){
+    if(argc&lt;2){
+        printf(&quot;usage : %s [passcode]\n&quot;, argv[0]);
+        return 0;
+    }
+    if(strlen(argv[1]) != 20){
+        printf(&quot;passcode length should be 20 bytes\n&quot;);
+        return 0;
+    }
+
+    if(hashcode == check_password( argv[1] )){
+        system(&quot;/bin/cat flag&quot;);
+        return 0;
+    }
+    else
+        printf(&quot;wrong passcode.\n&quot;);
+    return 0;
+}</code></pre><p> 因为用\x01填充16位数据，剩下的4位 0x21DD09EC-0x04040404=1DD905E8</p>
+<p>col@pwnable:<del>$ ./col $(python -c “print ‘\x01’ *16+ ‘\xE8\x05\xD9\x1D’”)<br>daddy! I just managed to create a hash collision :)<br>col@pwnable:</del>$ </p>
+<h1 id="bof"><a href="#bof" class="headerlink" title="bof"></a>bof</h1><p><a href="https://www.jianshu.com/p/b7a2e255d243" target="_blank" rel="noopener">https://www.jianshu.com/p/b7a2e255d243</a></p>
+<h1 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h1><p>这道题需要进行脱壳首先checksec flag<br>发现它是upx加壳的。<br>下载upx<br>upx -d flag<br>用IDA打开 alt -t 搜素flag找到flag即可。</p>
+<blockquote>
+<p>UPX…? sounds like a delivery service :)</p>
+</blockquote>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -262,6 +346,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -302,7 +391,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "pwnable.kr解题（一）&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

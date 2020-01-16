@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>overthewire解题（二） ~ Hexo</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/动漫4.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Monday, January 13th 2020, 10:52 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.9k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      14 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="level-13"><a href="#level-13" class="headerlink" title="level 13"></a>level 13</h1><p>用账号：bandit13，密码：8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL进入本关</p>
+<pre><code>    bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+    Could not create directory &#39;/home/bandit13/.ssh&#39;.
+    The authenticity of host &#39;localhost (127.0.0.1)&#39; can&#39;t be established.
+    ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Failed to add the host to the list of known hosts (/home/bandit13/.ssh/known_hosts).
+    This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+    Linux bandit 4.18.12 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---. 
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .&#39;  :     .--&#39;.  &#39; ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .&#39;___,/    ,&#39; .--&#39;.  &#39;   \&#39; .
+  ;   |  ; \ ; | |    :     | /___/ \ |    &#39; &#39; 
+  |   :  | ; | &#39; ;    |.&#39;;  ; ;   \  \;      : 
+  .   |  &#39; &#39; &#39; : `----&#39;  |  |  \   ;  `      |
+  &#39;   ;  \; /  |     &#39;   :  ;   .   \    .\  ; 
+   \   \  &#39;,  /      |   |  &#39;    \   \   &#39; \ |
+    ;   :    /       &#39;   :  |     :   &#39;  |--&quot;  
+     \   \ .&#39;        ;   |.&#39;       \   \ ;     
+  www. `---` ver     &#39;---&#39; he       &#39;---&quot; ire.org     
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames. 
+  If you are playing &quot;somegame&quot;, then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command &quot;mktemp -d&quot; in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with 
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don&#39;t leave orphan processes running
+    * don&#39;t leave exploit-files laying around
+    * don&#39;t annoy other players
+    * don&#39;t post passwords or spoilers
+    * again, DONT POST SPOILERS! 
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro 
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e</code></pre><p> 密码：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="level-14"><a href="#level-14" class="headerlink" title="level 14"></a>level 14</h1><p>用账号：bandit14，密码：4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e进入本关</p>
+<pre><code>bandit14@bandit:~$ nc localhost 30000
+
+Wrong! Please enter the correct current password
+bandit14@bandit:~$ nc localhost 30000
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr</code></pre><p>密码：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>BfMYroe26WYalil77FoDi9qh59eK5xNr</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="level-15"><a href="#level-15" class="headerlink" title="level 15"></a>level 15</h1><p>用账号：bandit15，密码：BfMYroe26WYalil77FoDi9qh59eK5xNr进入本关</p>
+<pre><code>bandit15@bandit:~$ openssl s_client -connect localhost:30001 -quite
+s_client: Option unknown option -quite
+s_client: Use -help for summary.
+bandit15@bandit:~$ openssl s_client -connect localhost:30001 -quiet
+depth=0 CN = localhost
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 CN = localhost
+verify return:1
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+Correct!
+cluFn7wTiGryunymYOu4RcffSxQluehd</code></pre><p>密码：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>cluFn7wTiGryunymYOu4RcffSxQluehd</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="level-16"><a href="#level-16" class="headerlink" title="level 16"></a>level 16</h1><p>用账号：bandit16，密码：cluFn7wTiGryunymYOu4RcffSxQluehd进入本关</p>
+<pre><code>bandit16@bandit:~$ nmap -sV -A -p 31000-32000 localhost | grep open
+31046/tcp open  echo
+31518/tcp open  ssl/echo
+31691/tcp open  echo
+31790/tcp open  ssl/unknown
+31960/tcp open  echo
+bandit16@bandit:~$ openssl s_client -connect localhost:31790 -quiet
+depth=0 CN = bandit
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 CN = bandit
+verify return:1
+cluFn7wTiGryunymYOu4RcffSxQluehd
+Correct!
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+bandit16@bandit:~$ mkdir /tmp/rtm2
+bandit16@bandit:~$ nano /tmp/rtm2/sshkey
+
+[PASTE CONTENTS OF PRIVATE KEY INTO EMPTY FILE]
+
+bandit16@bandit:~$ chmod 600 /tmp/rtm2/sshkey
+bandit16@bandit:~$ ssh -i /tmp/rtm2/sshkey bandit17@localhost</code></pre><p>我们首先对运行在31000和32000之间的开放端口上的服务执行Nmap扫描。为了整洁，输出通过grep传递。</p>
+<p>我们发现五个端口报告为打开，其中三个报告其服务为回声。不是我们感兴趣的内容。我们还发现有两个ssl服务正在侦听，但是其中一个也在运行echo。</p>
+<p>我们尝试与端口31790建立连接，输入先前的密码，然后返回并返回似乎是bandit17的ssh私钥！</p>
+<p>在使用它访问bandit17之前，我们首先需要在/ tmp中创建一个新目录。使用nano（或您喜欢的文本编辑器）在其中创建一个新的文本文件，并将ssh私钥的内容粘贴到空文件中。</p>
+<p>如果从现在开始尝试使用刚才创建的ssh密钥文件登录bandit17，将会遇到错误。在没有首先使用’chmod’锁定ssh密钥文件的权限的情况下，我们将返回“ Unprotected Private Key File！”警告。将权限修改为600将解决此问题。</p>
+<h1 id="level-17"><a href="#level-17" class="headerlink" title="level 17"></a>level 17</h1><p>bandit17@bandit:~$ diff passwords.old passwords.new<br>42c42<br>&lt; hlbSBPAWJmL6WFDb06gpTx1pPButblOA</p>
+<hr>
+<pre><code>&gt; kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+bandit17@bandit:~$ </code></pre><h1 id="level-18"><a href="#level-18" class="headerlink" title="level 18"></a>level 18</h1><p>用账号：bandit18，密码：kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd进入本关</p>
+<p>描述：下一级别的密码存储在家庭目录中的文件自述文件中。不幸的是， 当你使用SSH登录时，有人修改了.bashrc将你注销。</p>
+<p>过程：</p>
+<pre><code>  Enjoy your stay!
+  Byebye !
+  Connection closing...Socket close.
+
+      bandit17@bandit:~$ ssh bandit18@localhost cat readme
+The authenticity of host &#39;localhost (127.0.0.1)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit17/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0640 for &#39;/home/bandit17/.ssh/id_rsa&#39; are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+Load key &quot;/home/bandit17/.ssh/id_rsa&quot;: bad permissions
+bandit18@localhost&#39;s password: 
+IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x</code></pre><h1 id="level-19"><a href="#level-19" class="headerlink" title="level 19"></a>level 19</h1><p>用账号：bandit19，密码：IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x进入本关</p>
+<pre><code>bandit19@bandit:~$ ls     
+bandit20-do
+bandit19@bandit:~$ ls -l bandit20-do 
+-rwsr-x--- 1 bandit20 bandit19 7408 Dec 28 14:34 bandit20-do
+bandit19@bandit:~$ ./bandit20-do 
+Run a command as another user.
+  Example: ./bandit20-do id
+bandit19@bandit:~$ ./bandit20-do id
+uid=11019(bandit19) gid=11019(bandit19) euid=11020(bandit20) groups=11019(bandit19)
+bandit19@bandit:~$ ./bandit20-do whoami
+bandit20
+bandit19@bandit:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j        </code></pre><p>一步一步就知道这个文件的作用以及用法</p>
+<p>密码：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>GbKksEFF4yrVs6il55v6gwY5aVje5f0j</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="level-20"><a href="#level-20" class="headerlink" title="level 20"></a>level 20</h1><p>用账号：bandit20，密码：GbKksEFF4yrVs6il55v6gwY5aVje5f0j进入本关</p>
+<p>描述：homedirectory中有一个setuid二进制文件，它执行以下操作：它在您指定为命令行参数的端口上连接到localhost。然后它从连接中读取一行文本，并将其与前一级别的密码（bandit20）进行比较。如果密码正确，它将传输下一级密码（bandit21）。</p>
+<p>注意：尝试连接到您自己的网络守护程序，以查看它是否按照您的想法工作，这个程序会访问 localhost 的[你提供的端口号]来获取数据。这里我们需要处理两件事情：1.运行这个程序。2.创建一个监听事件并会回复这个程序当前关的密码。</p>
+<p>过程：</p>
+<p>首先使用nc 监听一个端口，并推送/etc/bandit_pass/bandit20文件内容，即bandit20的密码</p>
+<pre><code>bandit20@bandit:~$ ls
+suconnect
+bandit20@bandit:~$ ./suconnect 
+Usage: ./suconnect &lt;portnumber&gt;
+This program will connect to the given port on localhost using TCP. If it receives the correct password from the other side, the next password is transmitted back.
+bandit20@bandit:~$ nc -l -p 2333 &lt; /etc/bandit_pass/bandit20</code></pre><p>此时2333端口处于监听状态，再建立一个ssh连接</p>
+<pre><code>bandit20@bandit:~$ ls
+suconnect
+bandit20@bandit:~$ ./suconnect 2333
+Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+Password matches, sending next password</code></pre><p>成功读取到文件以后，就把下一关的密码发送到监听端口</p>
+<pre><code>bandit20@bandit:~$ ls
+suconnect
+bandit20@bandit:~$ ./suconnect 
+Usage: ./suconnect &lt;portnumber&gt;
+This program will connect to the given port on localhost using TCP. If it receives the correct password from the other side, the next password is transmitted back.
+bandit20@bandit:~$ nc -l -p 2333 &lt; /etc/bandit_pass/bandit20
+gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr</code></pre><p>成功获得密码 。</p>
+<p>密码：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="level-21"><a href="#level-21" class="headerlink" title="level 21"></a>level 21</h1><p>用账号：bandit21，密码：gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr进入本关</p>
+<p>描述：一个程序从cron（基于时间的作业调度程序）定期自动运行 。查看/etc/cron.d/中的配置并查看正在执行的命令。</p>
+<p>过程：</p>
+<pre><code>bandit21@bandit:~$ cd /etc/cron.d/
+bandit21@bandit:/etc/cron.d$ ls -al
+total 28
+drwxr-xr-x   2 root root 4096 Dec 28 14:34 .
+drwxr-xr-x 100 root root 4096 Mar 12 09:51 ..
+-rw-r--r--   1 root root  102 Apr  5  2016 .placeholder
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit22
+-rw-r--r--   1 root root  122 Dec 28 14:34 cronjob_bandit23
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit24
+-rw-r--r--   1 root root  190 Oct 31 13:21 popularity-contest
+bandit21@bandit:/etc/cron.d$ cat cronjob_bandit22 
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &amp;&gt; /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &amp;&gt; /dev/null
+bandit21@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit22.sh
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 &gt; /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+bandit21@bandit:/etc/cron.d$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI</code></pre><p>cron指Linux系统下一个自动执行指定任务的程序（计划任务），” bandit22 /usr/bin/cronjob_bandit22.sh &amp;&gt; /dev/null” 中的”“表示每分钟执行一次这个脚本，再用cat查询该脚本的内容，不停把/etc/bandit_pass/bandit22文件内容（即下一关的密码）写入/tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv，并且更改了权限。</p>
+<p>密码：Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI</p>
+<h1 id="level-22"><a href="#level-22" class="headerlink" title="level 22"></a>level 22</h1><p>用账号：bandit22，密码：Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI进入本关</p>
+<p>描述：一个程序从cron（基于时间的作业调度程序）定期自动运行 。查看/etc/cron.d/中的配置并查看正在执行的命令。</p>
+<p>注意：查看其他人编写的shell脚本是非常有用的技巧。这个级别的脚本有意使其易于阅读。如果您在理解它的功能时遇到问题，请尝试执行它以查看它打印的调试信息。</p>
+<p>过程：</p>
+<pre><code>bandit22@bandit:~$ cd /etc/cron.d
+bandit22@bandit:/etc/cron.d$ ls -al
+total 28
+drwxr-xr-x   2 root root 4096 Dec 28 14:34 .
+drwxr-xr-x 100 root root 4096 Mar 12 09:51 ..
+-rw-r--r--   1 root root  102 Apr  5  2016 .placeholder
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit22
+-rw-r--r--   1 root root  122 Dec 28 14:34 cronjob_bandit23
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit24
+-rw-r--r--   1 root root  190 Oct 31 13:21 popularity-contest
+bandit22@bandit:/etc/cron.d$ cat -n cronjob_bandit23
+     1    @reboot bandit23 /usr/bin/cronjob_bandit23.sh  &amp;&gt; /dev/null
+     2    * * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &amp;&gt; /dev/null
+bandit22@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh 
+
+# !/bin/bash
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d &#39; &#39; -f 1)
+
+echo &quot;Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget&quot;
+
+cat /etc/bandit_pass/$myname &gt; /tmp/$mytarget
+bandit22@bandit:/etc/cron.d$ echo I am user bandit23 | md5sum | cut -d &#39; &#39; -f 1
+8ca319486bfbbc3663ea0fbe81326349
+bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n</code></pre><p>直接赋值执行。</p>
+<p>密码：</p>
+<blockquote>
+<p>jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n</p>
+</blockquote>
+<h1 id="level-23"><a href="#level-23" class="headerlink" title="level 23"></a>level 23</h1><p>用账号：bandit23，密码：jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n进入本关</p>
+<p>描述：一个程序从cron（基于时间的作业调度程序）定期自动运行 。查看/etc/cron.d/中的配置并查看正在执行的命令。</p>
+<p>注意：此级别要求您创建自己的第一个shell脚本。这是非常大的一步，当你击败这个级别时，你应该为自己感到自豪！</p>
+<p>注2：请记住，你的shell脚本一旦被执行就被删除，所以你可能想保留一份副本……</p>
+<p>过程：</p>
+<pre><code>bandit23@bandit:~$ cd /etc/cron.d
+bandit23@bandit:/etc/cron.d$ ls
+cronjob_bandit22  cronjob_bandit23  cronjob_bandit24  popularity-contest
+bandit23@bandit:/etc/cron.d$ cat cronjob_bandit24
+@reboot bandit24 /usr/bin/cronjob_bandit24.sh &amp;&gt; /dev/null
+* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &amp;&gt; /dev/null
+bandit23@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname
+echo &quot;Executing and deleting all scripts in /var/spool/$myname:&quot;
+for i in * .*;
+do
+    if [ &quot;$i&quot; != &quot;.&quot; -a &quot;$i&quot; != &quot;..&quot; ];
+    then
+    echo &quot;Handling $i&quot;
+    timeout -s 9 60 ./$i
+    rm -f ./$i
+    fi
+done
+
+bandit23@bandit:/etc/cron.d$ mkdir /tmp/crayon   
+bandit23@bandit:/etc/cron.d$ cd /tmp/crayon
+bandit23@bandit:/tmp/crayon$ vim bandit24.sh
+bandit23@bandit:/tmp/crayon$ cat bandit24.sh 
+#!/bin/bash
+cat /etc/bandit_pass/bandit24 &gt;&gt; /tmp/crayon/level24
+bandit23@bandit:/tmp/crayon$ chmod 777 bandit24.sh 
+bandit23@bandit:/tmp/crayon$ cp bandit24.sh /var/spool/bandit24/
+bandit23@bandit:/tmp/crayon$ chmod 777 /tmp/crayon
+bandit23@bandit:/tmp/crayon$ ls /var/spool/bandit24/
+ls: cannot open directory &#39;/var/spool/bandit24/&#39;: Permission denied
+bandit23@bandit:/tmp/crayon$ ls
+bandit24.sh
+bandit23@bandit:/tmp/crayon$ ls
+bandit24.sh
+bandit23@bandit:/tmp/crayon$ ls
+bandit24.sh
+bandit23@bandit:/tmp/crayon$ ls
+bandit24.sh
+# 等一会儿就有了
+bandit23@bandit:/tmp/crayon$ ls
+bandit24.sh  level24
+bandit23@bandit:/tmp/crayon$ cat level24 
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ</code></pre><p>在/tmp/文件夹中创建一个目录。创建一个shell脚本将/etc/bandit_pass /bandit24复制到我们的/tmp/文件夹。将shell脚本复制到/var/spool/bandit24/。给shell脚本和/tmp/文件夹适当的权限。/usr/bin/cronjob_bandit24.sh这个shell的作用就是执行 /var/spool/bandit24 的脚本，60s 如果还没之行结束会强制kill掉，然后删除。所以我们写了一个把 /etc/bandit_pass/bandit24/ 输出到 /tmp/crayon的脚本到这个目录下，然后付了个权限。</p>
+<p>密码：UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "overthewire解题（二）&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+</body>
+</html>

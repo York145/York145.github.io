@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>Linux下安装UPX ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Thursday, January 16th 2020, 1:15 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    244 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,71 +158,84 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">15 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux下安装UPX</span>
-      <span style="float: right;">01-16</span>
-    </a>
-  
-    
-    <a href="/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">pwnable.kr解题（一）</span>
-      <span style="float: right;">01-15</span>
-    </a>
-  
-    
-    <a href="/2020/01/14/overthewire-narnia%E8%A7%A3%E9%A2%98-%E4%B8%80/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire narnia解题(一)</span>
-      <span style="float: right;">01-14</span>
-    </a>
-  
-    
-    <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（二）</span>
-      <span style="float: right;">01-13</span>
-    </a>
-  
-    
-    <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（一）</span>
-      <span style="float: right;">01-12</span>
-    </a>
-  
-    
-    <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ 神盾局的秘密</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-    
-    <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">python模板注入</span>
-      <span style="float: right;">01-10</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>upx 是一款压缩可执行文件的软件，压缩率在 20% 到 %70 之间。在可执行文件运行的时候并不需要解压软件，程序在内存中自动展开。</p>
+<p>本教程在 linux 下进行，理论上支持所有 linux 发型版。</p>
+<p>安装 upx<br>upx 请从 upx 官网下载，不要用包管理器进下载。一般来说发行版默认源的软件比较老可能不支持比较新的语言生成的二进制文件，有压坏二进制的风险。</p>
+<p>本教程的下载地址可能不是最新版请访问 <a href="https://upx.github.io" target="_blank" rel="noopener">https://upx.github.io</a> 下载最新版</p>
+<p>下载 upx</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>wget <a href="https://github.com/upx/upx/releases/download/v3.95/upx-3.95-amd64_linux.tar.xz" target="_blank" rel="noopener">https://github.com/upx/upx/releases/download/v3.95/upx-3.95-amd64_linux.tar.xz</a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>解压二进制</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>tar -Jxf upx*.tar.xz</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>为了方便使用移动 upx 到系统变量目录，如果不愿意使用 root 的话可以将 upx 目录添加到环境变量</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>sudo cp upx*/upx /usr/bin</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>然后就可以使用了</p>
 
-              </div>
-            </div>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -262,6 +310,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -302,7 +355,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "Linux下安装UPX&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
