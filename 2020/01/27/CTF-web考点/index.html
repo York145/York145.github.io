@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Tags ~ Hexo</title>
+  <title>CTF web考点 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Monday, January 27th 2020, 10:42 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    418 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,22 +158,56 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center tagcloud">
-  <a href="/tags/Jarvis-OJ/" style="font-size: 20px; color: #8ea5dc">Jarvis OJ</a> <a href="/tags/PHP/" style="font-size: 20px; color: #8ea5dc">PHP</a> <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" style="font-size: 20px; color: #8ea5dc">SQL注入</a> <a href="/tags/WEB/" style="font-size: 30px; color: #337ab7">WEB</a> <a href="/tags/WEB%EF%BC%8Cphp/" style="font-size: 15px; color: #bbe">WEB，php</a> <a href="/tags/WEB%EF%BC%8Cupload/" style="font-size: 20px; color: #8ea5dc">WEB，upload</a> <a href="/tags/buuctf/" style="font-size: 15px; color: #bbe">buuctf</a> <a href="/tags/jarvisoj/" style="font-size: 15px; color: #bbe">jarvisoj</a> <a href="/tags/pwn/" style="font-size: 25px; color: #6090c9">pwn</a> <a href="/tags/web%EF%BC%8CJARvis-OJ/" style="font-size: 15px; color: #bbe">web，JARvis OJ</a>
-</div>
-              </div>
-            </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="WEB常见出题套路"><a href="#WEB常见出题套路" class="headerlink" title="WEB常见出题套路"></a>WEB常见出题套路</h1><p>1.爆破：包括爆破md5、爆破随机数、验证码识别等；<br>2.绕WAF：包括花式绕MySQL、绕文件读取关键字检测之类的拦截<br>3.花式玩弄几个PHP特性：包括弱类型，反序列化+destruct、\0截断、iconv截断；<br>4.密码题：包括hash长度扩展、异或、移位加密各种变形、32位随机数过小、随机数种子可预测等；<br>5.各种找源码技巧，包括git、svn、xxx.php.swp、<em>www</em>.(zip|tar.gz|rar|7z)、xxx.php.bak；<br>6.文件上传：包括花式文件后缀.php345、inc、phtml、phpt、phps、各种文件内容检测&lt;?php &lt;? &lt;%；<script language=php>、花式解析漏洞；<br>7.MySQL类型差异：包括和PHP弱类型类似的特性，0x、0b、0e之类，varchar和integer相关转换，非strict模式截断等；<br>8.open_basedir、disable_functions花式绕过技巧，包括dl、mail、imagick、bash漏洞、Directorylterator及各种二进制选手插足的方法；<br>9.条件竞争：包括竞争删除前生成shell、竞争数据库无锁多扣钱；<br>10.社工：包括花式查社工库、微博、QQ签名、whois；<br>11.Windows特性：包括端文件名、iis解析漏洞、NTFS文件系统通配符、::$DATA、冒号截断；<br>12.SSRF：包括花式探测端口、302跳转、花式协议漏洞、gophar直接取shell等；<br>13.XSS：各种浏览器auditor绕过、富文本过滤黑名单绕过、flashxss、CSP绕过；<br>14.XXE：各种XML存在的地方（rss/word/流媒体）、各种XXE利用方法（SSRF、文件读取）；<br>15.协议：花式IP伪造X-Forwarded-For/X-Client-IP/X-Real-IP/CDN-Src-IP、花式改UA、花式藏Flag、花式分析数据包；</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -213,6 +282,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -253,7 +327,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Tag&nbsp;",
+        "CTF web考点&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Tags ~ Hexo</title>
+  <title>Archives ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -131,9 +131,40 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  <a href="/tags/Jarvis-OJ/" style="font-size: 20px; color: #8ea5dc">Jarvis OJ</a> <a href="/tags/PHP/" style="font-size: 20px; color: #8ea5dc">PHP</a> <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" style="font-size: 20px; color: #8ea5dc">SQL注入</a> <a href="/tags/WEB/" style="font-size: 30px; color: #337ab7">WEB</a> <a href="/tags/WEB%EF%BC%8Cphp/" style="font-size: 15px; color: #bbe">WEB，php</a> <a href="/tags/WEB%EF%BC%8Cupload/" style="font-size: 20px; color: #8ea5dc">WEB，upload</a> <a href="/tags/buuctf/" style="font-size: 15px; color: #bbe">buuctf</a> <a href="/tags/jarvisoj/" style="font-size: 15px; color: #bbe">jarvisoj</a> <a href="/tags/pwn/" style="font-size: 25px; color: #6090c9">pwn</a> <a href="/tags/web%EF%BC%8CJARvis-OJ/" style="font-size: 15px; color: #bbe">web，JARvis OJ</a>
+<div class="list-group">
+  <p class="h4">22 posts in total.</p>
+  <hr>
+  
+    
+      
+      <p class="h5">2019</p>
+    
+    <a href="/2019/12/21/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">堆叠注入</span>
+      <span style="float: right;">12-21</span>
+    </a>
+  
+    
+    <a href="/2019/12/21/Jarvis-OJ-port-51/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">Jarvis OJ port 51</span>
+      <span style="float: right;">12-21</span>
+    </a>
+  
 </div>
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <a class="extend prev" rel="prev" href="/archives/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
               </div>
             </div>
           </div>
@@ -253,7 +284,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Tag&nbsp;",
+        "Archive&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
