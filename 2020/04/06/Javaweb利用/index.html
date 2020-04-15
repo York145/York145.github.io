@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>Javaweb利用 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -113,6 +113,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Monday, April 6th 2020, 4:05 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    521 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -123,77 +158,82 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">40 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</span>
-      <span style="float: right;">02-27</span>
-    </a>
-  
-    
-    <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界pwn1</span>
-      <span style="float: right;">02-15</span>
-    </a>
-  
-    
-    <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界stack2</span>
-      <span style="float: right;">02-11</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/CG-CTF-Stack-Overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CG-CTF Stack Overflow</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界forgot</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界Mary_Morton</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/03/XCTF-int-overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XCTF int_overflow</span>
-      <span style="float: right;">02-03</span>
-    </a>
-  
-    
-    <a href="/2020/02/01/jarvisoj-pwn-smashes/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">jarvisoj pwn smashes</span>
-      <span style="float: right;">02-01</span>
-    </a>
-  
-</div>
 
-
-              </div>
-            </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"><a href="#WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码" class="headerlink" title="WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"></a>WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</h2><h4 id="https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java"><a href="#https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java" class="headerlink" title="[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)"></a>[<a href="https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]</a>(<a href="https://buuoj.cn/challenges#[RoarCTF" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF</a> 2019]Easy Java)</h4><h3 id="首先看到一个页面-点击下help看看啥情况。"><a href="#首先看到一个页面-点击下help看看啥情况。" class="headerlink" title="首先看到一个页面,点击下help看看啥情况。"></a>首先看到一个页面,点击下help看看啥情况。</h3><p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p>发现输出一串</p>
+<pre><code>java.io.FileNotFoundException:{help.docx}</code></pre><p>可能是报错信息，打开Brup截取请求信息</p>
+<pre><code>GET /Download?filename=help.docx HTTP/1.1
+Host: a6360be7-edf9-4caa-9461-3f2c7a89df9e.node3.buuoj.cn
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Pragma: no-cache
+Cache-Control: no-cache</code></pre><p>通过查询发现要改成POST，得到许多有用信息</p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<pre><code>com.Wm.ctf.DownloadController.doPost</code></pre><p>这个信息跟CTF可能有关,记一下一般有这样都有泄露。</p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<h3 id="因为缺少JAVA项目的开发经验，所以查了大量的资料"><a href="#因为缺少JAVA项目的开发经验，所以查了大量的资料" class="headerlink" title="因为缺少JAVA项目的开发经验，所以查了大量的资料"></a>因为缺少JAVA项目的开发经验，所以查了大量的资料</h3><p>我们访问下WEB-INF/web.xml这个文件</p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p>得到了个flag的路径!!!!</p>
+<h2 id="插入一个知识点"><a href="#插入一个知识点" class="headerlink" title="插入一个知识点"></a>插入一个知识点</h2><pre><code>WEB-INF主要包含一下文件或目录:
+/WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。
+/WEB-INF/classes/：含了站点所有用的 class 文件，包括 servlet class 和非servlet class，他们不能包含在 .jar文件中
+/WEB-INF/lib/：存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件
+/WEB-INF/src/：源码目录，按照包名结构放置各个java文件。
+/WEB-INF/database.properties：数据库配置文件
+漏洞检测以及利用方法：通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</code></pre><h2 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload:"></a>构造payload:</h2><pre><code>filename=WEB-INF/classes/com/wm/ctf/FlagController.class</code></pre><p>base64解码得到flag</p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<h3 id="PS-GET不能读取文件有点懵，没想到居然要改成POST"><a href="#PS-GET不能读取文件有点懵，没想到居然要改成POST" class="headerlink" title="PS: GET不能读取文件有点懵，没想到居然要改成POST"></a>PS: GET不能读取文件有点懵，没想到居然要改成POST</h3>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -268,6 +308,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -308,7 +353,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "Javaweb利用&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

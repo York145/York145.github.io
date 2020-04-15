@@ -140,6 +140,88 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/">
+        <p class="h4 index-header">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Intval函数获取变量整数数值Intval最大的值取决于操作系统。 32 位系统最大带符号的 integer 范围是 -2147483648 到 2147483647。举例，在这样的系统上， intval(‘1000000000000’) 会返回 2147483647。64 位系统上，最大带符号的 integer 值是 9223372036854775807。
+这个有个应用就是在判断数值是不是回文上，如果参数为2147483647，那么当它反过来，由于超出了限制，所以依然等于2147483647。即为回文。
+is_numeric()  判断变量是否为数字或数字字符串，不仅检查10进制，16进制是可以。
+is_numeric函数对于空字符%00，无论是%00放在前后都可以判断为非数值，而%20空格字符只能放在数值后。所以，查看函数发现该函数对对于第一个空格字符会跳过空格字符判断，接着后面的判断！
+该函数还可能造成sql注入，例如将‘1 or 1’转换为16进制形式，再传参，就可以造成sql注入
+intval($req[“number”])=intval(strrev($req[“num</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-27&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/">
+        <p class="h4 index-header">攻防世界pwn1</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.cnblogs.com/lxy8584099/p/11887235.html
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-15&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/">
+        <p class="h4 index-header">攻防世界stack2</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.baidu.com/link?url=-3Q6-OV7phmsr2vIhz1F6gc28uCq2Df3acVV7copeZK-3AMH0Z5yrLieNixXsm7qz460CyNrc2eZKTcxElefoRhr5d1XDuzzpjIFpsJejTC&amp;wd=&amp;eqid=c16734cb001ae96e000000065e425ba0
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-11&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/02/10/CG-CTF-Stack-Overflow/">
         <p class="h4 index-header">CG-CTF Stack Overflow</p>
         
@@ -361,154 +443,6 @@ system</div>
       <div>
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-27&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/23/buuctf-pwn-%E4%B8%80/">
-        <p class="h4 index-header">buuctf pwn(一)</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">test_your_nc首先checksec test
-py@ubuntu:~/Desktop/123$ checksec test 
-[*] &#39;/home/py/Desktop/123/test&#39;
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      PIE enabled直接就出现了system(“/bin/sh”)
-py@ubuntu:~/Desktop/123$ nc node3.buuoj.cn 25832
-ls
-bin
-boot
-dev
-etc
-flag
-home
-lib
-lib32
-lib64
-media
-mnt
-opt
-proc
-pwn
-root
-run
-sbin
-srv
-sys
-tmp
-usr
-var
-cat flag
-flag{dbbbc714-136c-42fe-9eb0-cd653b4ae85a}
-flag{dbbbc714-136c-42fe-9e</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-23&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/pwn">pwn</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/buuctf">buuctf</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCGfsb/">
-        <p class="h4 index-header">攻防世界CGfsb</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">CGfsb将文件checksec一下
-  py@ubuntu:~/Desktop/123$ checksec CGfsb
-  [*] &#39;/home/py/Desktop/123/CGfsb&#39;
-      Arch:     i386-32-little
-      RELRO:    Partial RELRO
-      Stack:    Canary found
-      NX:       NX enabled
-      PIE:      No PIE (0x8048000)用IDA观察一下
-int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  int buf; // [esp+1Eh] [ebp-7Eh]
-  int v5; // [esp+22h] [ebp-7Ah]
-  __int16 v6; // [esp+26h] [ebp-76h]
-  char s; // [esp+28h] [ebp-74h]
-  unsigned int v8; // [esp+8Ch] </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-20&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn-get-shell/">
-        <p class="h4 index-header">攻防世界pwn get_shell</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">get_shellpy@ubuntu:~$ cd Desktop/123
-py@ubuntu:~/Desktop/123$ checksec web_shell 
-[*] &#39;/home/py/Desktop/123/web_shell&#39;
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)
-py@ubuntu:~/Desktop/123$ 发现是64位有nx保护。先放到IDA pro进行反编译。
-  int __cdecl main(int argc, const char **argv, const char **envp)
-  {
-    puts(&quot;OK,this time we will get a shell.&quot;);
-    system(&quot;/bin/sh&quot;);
-    return 0;</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-20&nbsp;&nbsp;
         
         
         

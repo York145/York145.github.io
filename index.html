@@ -140,6 +140,100 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/14/%5BGWCTF%202019%5D%E6%88%91%E6%9C%89%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/">
+        <p class="h4 index-header">[GWCTF 2019]我有一个数据库</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[GWCTF 2019]我有一个数据库打开网页，查看网页源码，发现什么都没有。进行目录扫描，发现了：phpmyadmin ，phpinfo.php。
+打开phpmyadmin，直接登录了不需要密码，猜测应该是提权。
+提权说道写shell不得不说 MYSQL secure_file_priv对读写文件的影响。首先我们先查看这个参数的值
+SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;返回参数为NULL。
+secure_file_priv的值为null ，表示限制mysql不允许导入|导出
+
+当secure_file_priv的值为/tmp/ ，表示限制mysql的导入|导出只能发生在/tmp/目录下
+
+当secure_file_priv的值没有具体值时，表示不对mysql的导入|导出做限制这个时候就可以利用(general_log、general_log file)日志文件getshell，general_log就是记录输入的日志文件，general_log file就是规定日志保存在哪个路径，我们只要输入一句话然后保存网站目录下的php</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/">
+        <p class="h4 index-header">python反序列化漏洞浅析</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">0x01 前言数据序列化常见的应用场景：数据结构网络传输，session存储，cache存储，或者配置文件上传，参数接收等接口处。
+主要作用：能够让数据在存储或者传输的时候能够单单只用string的类型去表述相对复杂的数据结构，方便应用所见即所得，直接进行数据交流处理。
+引发的安全问题：PHP的unserialize/__wakeup()漏洞、struts的ognl、xml解析的一系列漏洞、Ruby on Rails的xml/yaml，本文即将要讲的Python pickle/cPickle库的反序列化漏洞
+此类漏洞常会导致RCE，原因：和我们所提到的应用场景有关。语言需要从string去解析出自己的语言数据结构，必然要去从这个string中做固定格式的解析，然后在内部把解析出来的结果去eval一下；或者，为了保证解析出来的内容为被序列化时候的Object状态，要调用一下状态保存的函数wakeup
+0x02 Pickle模块
+pickle模块用来对Python对象执行序列化和反序列化。Python的任何对象都可以通过它永久保存到硬盘文件。Pickle实际上是先把Python对象（lis</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-09&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/06/Javaweb%E5%88%A9%E7%94%A8/">
+        <p class="h4 index-header">Javaweb利用</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)首先看到一个页面,点击下help看看啥情况。
+发现输出一串
+java.io.FileNotFoundException:{help.docx}可能是报错信息，打开Brup截取请求信息
+GET /Download?filename=help.docx HTTP/1.1
+Host: a6360be7-edf9-4caa-9461-3f2c7a89df9e.node3.buuoj.cn
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0
+Accept: text/html,application/xhtml+xm</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-06&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/04/02/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019%E3%80%91PHP/">
         <p class="h4 index-header">【极客大挑战2019】PHP</p>
         
@@ -365,88 +459,6 @@ subprocess.call([&quot;tesseract&quot;, &#39;code2.jpg&#39;, &quot;output&quot;]
       <div>
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-03&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/">
-        <p class="h4 index-header">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Intval函数获取变量整数数值Intval最大的值取决于操作系统。 32 位系统最大带符号的 integer 范围是 -2147483648 到 2147483647。举例，在这样的系统上， intval(‘1000000000000’) 会返回 2147483647。64 位系统上，最大带符号的 integer 值是 9223372036854775807。
-这个有个应用就是在判断数值是不是回文上，如果参数为2147483647，那么当它反过来，由于超出了限制，所以依然等于2147483647。即为回文。
-is_numeric()  判断变量是否为数字或数字字符串，不仅检查10进制，16进制是可以。
-is_numeric函数对于空字符%00，无论是%00放在前后都可以判断为非数值，而%20空格字符只能放在数值后。所以，查看函数发现该函数对对于第一个空格字符会跳过空格字符判断，接着后面的判断！
-该函数还可能造成sql注入，例如将‘1 or 1’转换为16进制形式，再传参，就可以造成sql注入
-intval($req[“number”])=intval(strrev($req[“num</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-27&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/">
-        <p class="h4 index-header">攻防世界pwn1</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">https://www.cnblogs.com/lxy8584099/p/11887235.html
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-15&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/">
-        <p class="h4 index-header">攻防世界stack2</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">https://www.baidu.com/link?url=-3Q6-OV7phmsr2vIhz1F6gc28uCq2Df3acVV7copeZK-3AMH0Z5yrLieNixXsm7qz460CyNrc2eZKTcxElefoRhr5d1XDuzzpjIFpsJejTC&amp;wd=&amp;eqid=c16734cb001ae96e000000065e425ba0
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-11&nbsp;&nbsp;
         
         
         

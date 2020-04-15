@@ -140,6 +140,139 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/">
+        <p class="h4 index-header">Jarvis OJ 神盾局的秘密</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">神盾局的秘密题目链接：http://web.jarvisoj.com:32768/题目提示:
+这里有个通向神盾局内部网络的秘密入口，你能通过漏洞发现神盾局的秘密吗？
+访问链接之后，得到就是一张图片，通过burp抓包，发现在中途访问了网址http://web.jarvisoj.com:32768/showimg.php?img=c2hpZWxkLnBocA==，看链接是一个文件读取，文件名是使用base64加密了。读取showimg.php的内容:
+&lt;?php
+    $f = $_GET[&#39;img&#39;];
+    if (!empty($f)) {
+        $f = base64_decode($f);
+        if (stripos($f,&#39;..&#39;)===FALSE &amp;&amp; stripos($f,&#39;/&#39;)===FALSE &amp;&amp; stripos($f,&#39;\\&#39;)===FALSE
+        &amp;&amp; stripos($f,&#39;pctf&#39;)===</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB">WEB</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/Jarvis%20OJ">Jarvis OJ</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
+        <p class="h4 index-header">python模板注入</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.freebuf.com/column/187845.html
+攻防世界中模板注入例题的wp:https://blog.csdn.net/qq_40884727/article/details/101605002
+https://blog.csdn.net/qq_17204441/article/details/102857726
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-10&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB%EF%BC%8Cpython">WEB，python</a>&nbsp;
+          &nbsp;
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6%E5%8C%BA/">
+        <p class="h4 index-header">攻防世界web进阶区Web_php_include</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Web_php_include
+strstr() 函数搜索字符串在另一字符串中的第一次出现。注释：该函数是二进制安全的。注释：该函数对大小写敏感。如需进行不区分大小写的搜索，请使用 stristr() 函数。
+那就利用大小写绕过输入：
+
+
+?page=phP://input
+
+
+图片里我忘记打成大写了。
+
+直接访问flag发现一片空白。
+
+那就继续在burp里用cat命令访问，成功取得flag。
+事后观看其他人的思路还可以用data直接查看：
+
+
+?page=data:text/plain,
+
+
+或者麻烦一点用菜刀也可以做出来。
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cupload">WEB，upload</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cupload1%E6%80%BB%E7%BB%93/">
         <p class="h4 index-header">攻防世界upload1总结</p>
         
