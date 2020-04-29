@@ -141,6 +141,47 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/14/overthewire-narnia%E8%A7%A3%E9%A2%98-%E4%B8%80/">
+        <p class="h4 index-header">overthewire narnia解题(一)</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 0账号：narnia0 密码：narnia0SSH为narnia.labs.overthewire.orgas后narnia0，将目录更改为/narnia并运行ls -l。从输出中，我们可以看到我们具有的读取权限narnia0.c。我们还可以看到该资源narnia0归该narnia0组所有（通过运行我们可以看到它属于该组），并且我们对该组id拥有执行权限。此外，由于setuid位已设置（如的输出左侧所示），并且归所有者所有，因此我们可以看到它narnia0可以作为narnia1用户执行。从输出中我们可以看到是x86 ELF二进制文件。似乎很清楚，那就是它的源代码，我们需要利用sls -lnarnia1file narnia0narnia0narnia0.cnarnia0narnia0以某种方式编写程序，这样我们就可以运行任意命令narnia1。运行cat narnia0.c给出以下输出。
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(){
+    long val=0x41414141;
+    c</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/">
         <p class="h4 index-header">overthewire解题（二）</p>
         
@@ -571,44 +612,6 @@ select * from admin where username=’admin’#’ and password=’123456′
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/web%EF%BC%8CJARvis%20OJ">web，JARvis OJ</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/22/PHP%E4%BB%A3%E7%A0%81%E6%BC%8F%E6%B4%9E%EF%BC%88%E4%B8%80%EF%BC%89/">
-        <p class="h4 index-header">PHP代码漏洞（一）</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">常见危险函数php代码执行相关eval()mixed eval ( string $code )把字符串code作为php代码执行。常见的一句话木马：...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/WEB">WEB</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB">WEB</a>&nbsp;
-          
-            <a href="/tags/PHP">PHP</a>&nbsp;
           
         
       </div>

@@ -141,6 +141,36 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/10/%E5%85%B3%E4%BA%8Ephp%E7%9A%84session-serialize-handler%E7%9A%84%E9%97%AE%E9%A2%98/">
+        <p class="h4 index-header">关于php的session.serialize_handler的问题</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">前言php的session信息是储存在文件中的
+session.save_path=”” 指定储存的路径session.save_handler=”” 指定储存时使用的函数（默认是file）session.auto_start boolensession.serialize_handler=”” 定义序列化和反序列化的处理器的名字，默认是php(5.5.4后改为php_serialize)session.serialize_handler存在以下几种
+php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值php 键名+竖线（|）+经过serialize()函数处理过的值php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化使用过程中如果想要修改，使用
+ini_set(‘session.serialize_handler’,’php_serialize’);但这里设置的handler如果和默认的不同，就会出问题
+比如默认是php的handler，在该页面设置为php_serialize
+这是如果</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-10&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/08/PHP-RCE/">
         <p class="h4 index-header">PHP_RCE</p>
         
@@ -426,32 +456,6 @@ r.recvuntil(&#39;0</div>
       <div>
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-03&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/01/jarvisoj-pwn-smashes/">
-        <p class="h4 index-header">jarvisoj pwn smashes</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">smasheshttps://blog.csdn.net/kevin66654/article/details/86773547
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-01&nbsp;&nbsp;
         
         
         
