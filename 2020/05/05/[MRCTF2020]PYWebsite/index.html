@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>[MRCTF2020]PYWebsite ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -114,6 +114,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Tuesday, May 5th 2020, 7:17 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    209 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -124,77 +159,153 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">49 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</span>
-      <span style="float: right;">02-27</span>
-    </a>
-  
-    
-    <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界pwn1</span>
-      <span style="float: right;">02-15</span>
-    </a>
-  
-    
-    <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界stack2</span>
-      <span style="float: right;">02-11</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/CG-CTF-Stack-Overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CG-CTF Stack Overflow</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界forgot</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界Mary_Morton</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/03/XCTF-int-overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XCTF int_overflow</span>
-      <span style="float: right;">02-03</span>
-    </a>
-  
-    
-    <a href="/2020/02/01/jarvisoj-pwn-smashes/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">jarvisoj pwn smashes</span>
-      <span style="float: right;">02-01</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="MRCTF2020-PYWebsite"><a href="#MRCTF2020-PYWebsite" class="headerlink" title="[MRCTF2020]PYWebsite"></a>[MRCTF2020]PYWebsite</h2><p>F12发现了</p>
+<blockquote>
+<p>/js/md5.js</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>function enc(code){</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>hash = hex_md5(code);</td>
+</tr>
+<tr>
+<td></td>
+<td>return hash;</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>function validate(){</td>
+</tr>
+<tr>
+<td></td>
+<td>var code = document.getElementById(“vcode”).value;</td>
+</tr>
+<tr>
+<td></td>
+<td>if (code != “”){</td>
+</tr>
+<tr>
+<td></td>
+<td>if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”){</td>
+</tr>
+<tr>
+<td></td>
+<td>alert(“您通过了验证！”);</td>
+</tr>
+<tr>
+<td></td>
+<td>window.location = “./flag.php”</td>
+</tr>
+<tr>
+<td></td>
+<td>}else{</td>
+</tr>
+<tr>
+<td></td>
+<td>alert(“你的授权码不正确！”);</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>}else{</td>
+</tr>
+<tr>
+<td></td>
+<td>alert(“请输入授权码”);</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+</tbody></table>
+<p>说输入code与某值进行比较，相等就出现flag。所以现在就是分析加密函数。</p>
+<blockquote>
+<p> if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”)</p>
+</blockquote>
+<blockquote>
+<pre><code>function hex_md5(s){ return binl2hex(core_md5(str2binl(s), s.length * 8));}</code></pre></blockquote>
+<p>可以看到hex_md5就是通过core_md5加密str2bin1加密后的code先去看看strbin函数</p>
+<pre><code>function str2binl(str)
+{
+  var bin = Array();
+  var mask = (1 &lt;&lt; 8) - 1;//mask=255
+  for(var i = 0; i &lt; str.length * 8; i += 8)
+    bin[i&gt;&gt;5] |= (str.charCodeAt(i / chrsz) &amp; mask) &lt;&lt; (i%32);
+  return bin;
+}</code></pre><p>额，算了好麻烦。。。换个思路直接读取flag.php(强行狡辩，其实我忘记可以直接读取的了)</p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200505180527740.png" srcset="/img/loading.gif" alt="image-20200505180527740"></p>
+<p>xff绕过。</p>
+<p>flag{abd61860-ad51-41aa-8a19-6d7c43cbac68}</p>
 
-              </div>
-            </div>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -269,6 +380,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -309,7 +425,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "[MRCTF2020]PYWebsite&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

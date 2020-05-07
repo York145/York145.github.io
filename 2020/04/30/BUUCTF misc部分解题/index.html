@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>BUUCTF misc部分解题 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -114,6 +114,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Thursday, April 30th 2020, 4:51 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    321 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -124,77 +159,93 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">49 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</span>
-      <span style="float: right;">02-27</span>
-    </a>
-  
-    
-    <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界pwn1</span>
-      <span style="float: right;">02-15</span>
-    </a>
-  
-    
-    <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界stack2</span>
-      <span style="float: right;">02-11</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/CG-CTF-Stack-Overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CG-CTF Stack Overflow</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界forgot</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界Mary_Morton</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/03/XCTF-int-overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XCTF int_overflow</span>
-      <span style="float: right;">02-03</span>
-    </a>
-  
-    
-    <a href="/2020/02/01/jarvisoj-pwn-smashes/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">jarvisoj pwn smashes</span>
-      <span style="float: right;">02-01</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="BUUCTF-misc部分解题"><a href="#BUUCTF-misc部分解题" class="headerlink" title="BUUCTF misc部分解题"></a>BUUCTF misc部分解题</h1><h2 id="N种方法解决"><a href="#N种方法解决" class="headerlink" title="N种方法解决"></a>N种方法解决</h2><p>是个exe文件利用file进行查看</p>
+<blockquote>
+<p>$ file KEY.exe<br>KEY.exe: ASCII text, with very long lines, with no line terminators</p>
+</blockquote>
+<p>将后缀名改为txt。</p>
+<p>bases64解密然后改为png，发现没有用。</p>
+<p>直接复制到url栏试试看。扫描二维码就可以了。</p>
+<h2 id="大白"><a href="#大白" class="headerlink" title="大白"></a>大白</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200430152341644.png" srcset="/img/loading.gif" alt="image-20200430152341644"></p>
+<p>IHDR后面的8个字节为图片的宽高修改宽高，就出现了flag。</p>
+<h2 id="基础破解"><a href="#基础破解" class="headerlink" title="基础破解"></a>基础破解</h2><p>根据提示，是压缩包破解的事情。直接爆破,在kali中输入。</p>
+<blockquote>
+<p>1、安装rarcrack</p>
+<pre><code class="bash">apt-get install rarcrack</code></pre>
+<p>2、指定文件进行爆破，其中type有 rar、zip、7z 三种类型</p>
+<pre><code class="bash">rarcrack 文件名 --threads 50 --type rar</code></pre>
+</blockquote>
+<p>爆破出来是</p>
+<blockquote>
+<p>ZmxhZ3s3MDM1NDMwMGE1MTAwYmE3ODA2ODgwNTY2MWI5M2E1Y30=</p>
+</blockquote>
+<p>flag{70354300a5100ba78068805661b93a5c}</p>
+<h2 id="你竟然赶我走"><a href="#你竟然赶我走" class="headerlink" title="你竟然赶我走"></a>你竟然赶我走</h2><p>用png打开图片，winhex打开直接就发现了。</p>
+<blockquote>
+<p>flag{stego_is_s0_bor1ing}</p>
+</blockquote>
+<h2 id="乌镇峰会种图"><a href="#乌镇峰会种图" class="headerlink" title="乌镇峰会种图"></a>乌镇峰会种图</h2><blockquote>
+<p>flag{97314e7864a8f62627b26f3f998c37f1}</p>
+</blockquote>
+<h2 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a>LSB</h2><p>题目直接写出来了，<strong>LSB隐写</strong></p>
+<p>使用工具<strong>Stegsolve</strong>分析，这个工具是misc最常用工具，需要配置java环境，配置教程和资源在百度比较容易找到，这里不再提供。</p>
+<p>查看<strong>各个色道</strong>，没有发现隐藏信息，</p>
+<p>点击<strong>Analyse→Data Extract</strong></p>
+<p>选中<strong>LSB First</strong></p>
+<p>参数如下时发现隐藏信息,有一个明显的<strong>PNG头</strong>，<strong>save bin</strong>提取出来保存为图片</p>
+<p><img src="https://blog.xiafeng2333.top/content/images/2019/09/15.png" srcset="/img/loading.gif" alt="15"></p>
+<p>是一张二维码，</p>
+<p><img src="https://blog.xiafeng2333.top/content/images/2019/09/16.png" srcset="/img/loading.gif" alt="16"></p>
+<p>扫码得到flag</p>
 
-              </div>
-            </div>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -269,6 +320,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -309,7 +365,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "BUUCTF misc部分解题&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

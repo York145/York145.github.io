@@ -141,6 +141,296 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
+        <p class="h4 index-header">python模板注入</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.freebuf.com/column/187845.html
+攻防世界中模板注入例题的wp:https://blog.csdn.net/qq_40884727/article/details/101605002
+https://blog.csdn.net/qq_17204441/article/details/102857726
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-10&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB%EF%BC%8Cpython">WEB，python</a>&nbsp;
+          &nbsp;
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6%E5%8C%BA/">
+        <p class="h4 index-header">攻防世界web进阶区Web_php_include</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Web_php_include
+strstr() 函数搜索字符串在另一字符串中的第一次出现。注释：该函数是二进制安全的。注释：该函数对大小写敏感。如需进行不区分大小写的搜索，请使用 stristr() 函数。
+那就利用大小写绕过输入：
+
+
+?page=phP://input
+
+
+图片里我忘记打成大写了。
+
+直接访问flag发现一片空白。
+
+那就继续在burp里用cat命令访问，成功取得flag。
+事后观看其他人的思路还可以用data直接查看：
+
+
+?page=data:text/plain,
+
+
+或者麻烦一点用菜刀也可以做出来。
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cupload">WEB，upload</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cupload1%E6%80%BB%E7%BB%93/">
+        <p class="h4 index-header">攻防世界upload1总结</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">攻防世界web进阶区upload1打开题目网站，直接出现了一个上传的界面，试着直接点一个php文件进行上传。发现上传的那个按钮直接变灰，无法点击。于是又点了一个1.jpg文件。
+
+
+
+
+
+
+
+然后上传用burp suite进行拦截直接改名为php。发现上传成功。并且页面显示上传文件后的路径，进行访问。果真显示了phpinfo的界面嗯。。。。那就用菜刀进行连接，传一个一句话代码。
+
+
+
+
+
+
+
+然后打开菜刀进行连接。额。。。。失败了。然后进行百度发现我传入菜刀时，忘记修改后缀名，将jpg改成php。
+
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cupload">WEB，upload</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/25/wakeup%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87/">
+        <p class="h4 index-header">__wakeup漏洞绕过</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">__wakeup()函数用法wakeup()是用在反序列化操作中。unserialize()会检查存在一个wakeup()方法。如果存在，则先会调用__wakeup()方法。
+&lt;?php
+class A{
+function __wakeup(){
+echo &#39;Hello&#39;;
+}
+}
+$c = new A();
+$d=unserialize(&#39;O:1:&quot;A&quot;:0:{}&#39;);
+?&gt;最后页面输出了Hello。在反序列化的时候存在__wakeup()函数，所以最后就会输出Hello__wakeup()函数漏洞说明
+&lt;?php
+class Student{
+public $full_name = &#39;zhangsan&#39;;
+public $score = 150;
+public $grades = array();
+
+function __wakeup() {
+echo &quot;__wakeup is invoked&quot;;
+}
+}
+
+$s = new Student();
+var_dump(serial</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB">WEB</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/PHP">PHP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/22/SQL%E6%B3%A8%E5%85%A5(%E4%B8%80)/">
+        <p class="h4 index-header">SQL注入(一）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">万能密码—very easy题目入口：http://lab1.xseclab.com/sqli2_3265b4852c13383560327d1c31550b60/index.php 
+题目来源：hacking lab inject 01~
+
+源代码有提示：
+
+&lt;!--ps login as admin–&gt;
+
+万能密码登录语句构造： 
+select * from admin where username=’admin’and 1=1 #’ and password=’123456′ 
+OR 
+select * from admin where username=’admin’or 1 #’ and password=’123456′ 
+或者不需要admin 
+select * from admin where username=’1′or 1 or 1 #’ and password=’123456′ 
+还可以用#来注释 
+select * from admin where username=’admin’#’ and password=’123456′
+万能密码题目入口：</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/22/Jarvis-OJ-admin/">
+        <p class="h4 index-header">Jarvis OJ admin</p>
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">admin
+题目链接：http ://web.jarvisoj.com:32792 /
+点开页面后是一个hello world，看了看F12什么都没发现，用bp也没发现什么东西。用御剑先扫一波，马上发现了robots.txt。...</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-22&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/web">web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/web%EF%BC%8CJARvis%20OJ">web，JARvis OJ</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2019/12/22/PHP%E4%BB%A3%E7%A0%81%E6%BC%8F%E6%B4%9E%EF%BC%88%E4%B8%80%EF%BC%89/">
         <p class="h4 index-header">PHP代码漏洞（一）</p>
         
