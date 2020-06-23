@@ -201,7 +201,7 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h2 id="WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"><a href="#WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码" class="headerlink" title="WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"></a>WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</h2><h4 id="https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java"><a href="#https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java" class="headerlink" title="[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)"></a>[<a href="https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]</a>(<a href="https://buuoj.cn/challenges#[RoarCTF" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF</a> 2019]Easy Java)</h4><h3 id="首先看到一个页面-点击下help看看啥情况。"><a href="#首先看到一个页面-点击下help看看啥情况。" class="headerlink" title="首先看到一个页面,点击下help看看啥情况。"></a>首先看到一个页面,点击下help看看啥情况。</h3><p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+      		<h2 id="WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"><a href="#WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码" class="headerlink" title="WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"></a>WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</h2><h4 id="https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java"><a href="#https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java" class="headerlink" title="[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)"></a>[<a href="https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]</a>(<a href="https://buuoj.cn/challenges#[RoarCTF" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF</a> 2019]Easy Java)</h4><h3 id="首先看到一个页面-点击下help看看啥情况。"><a href="#首先看到一个页面-点击下help看看啥情况。" class="headerlink" title="首先看到一个页面,点击下help看看啥情况。"></a>首先看到一个页面,点击下help看看啥情况。</h3><p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" alt="img"></a></p>
 <p>发现输出一串</p>
 <pre><code>java.io.FileNotFoundException:{help.docx}</code></pre><p>可能是报错信息，打开Brup截取请求信息</p>
 <pre><code>GET /Download?filename=help.docx HTTP/1.1
@@ -214,11 +214,11 @@ Connection: close
 Upgrade-Insecure-Requests: 1
 Pragma: no-cache
 Cache-Control: no-cache</code></pre><p>通过查询发现要改成POST，得到许多有用信息</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" alt="img"></a></p>
 <pre><code>com.Wm.ctf.DownloadController.doPost</code></pre><p>这个信息跟CTF可能有关,记一下一般有这样都有泄露。</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" alt="img"></a></p>
 <h3 id="因为缺少JAVA项目的开发经验，所以查了大量的资料"><a href="#因为缺少JAVA项目的开发经验，所以查了大量的资料" class="headerlink" title="因为缺少JAVA项目的开发经验，所以查了大量的资料"></a>因为缺少JAVA项目的开发经验，所以查了大量的资料</h3><p>我们访问下WEB-INF/web.xml这个文件</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" alt="img"></a></p>
 <p>得到了个flag的路径!!!!</p>
 <h2 id="插入一个知识点"><a href="#插入一个知识点" class="headerlink" title="插入一个知识点"></a>插入一个知识点</h2><pre><code>WEB-INF主要包含一下文件或目录:
 /WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。
@@ -227,7 +227,7 @@ Cache-Control: no-cache</code></pre><p>通过查询发现要改成POST，得到�
 /WEB-INF/src/：源码目录，按照包名结构放置各个java文件。
 /WEB-INF/database.properties：数据库配置文件
 漏洞检测以及利用方法：通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</code></pre><h2 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload:"></a>构造payload:</h2><pre><code>filename=WEB-INF/classes/com/wm/ctf/FlagController.class</code></pre><p>base64解码得到flag</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" alt="img"></a></p>
 <h3 id="PS-GET不能读取文件有点懵，没想到居然要改成POST"><a href="#PS-GET不能读取文件有点懵，没想到居然要改成POST" class="headerlink" title="PS: GET不能读取文件有点懵，没想到居然要改成POST"></a>PS: GET不能读取文件有点懵，没想到居然要改成POST</h3>
             <div class="clearfix"></div>
             <hr class="nogutter">

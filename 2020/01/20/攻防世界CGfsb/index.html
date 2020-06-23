@@ -243,7 +243,7 @@
   }
   return 0;
 }</code></pre><p>看到printf（&amp;s）知道这是一个格式化漏洞。<br>双击pwnme知道他的地址是0x0804A068<br>在观察一下printf的偏移量<br>这里通过输入的‘21’带出了偏移地址</p>
-<p><img src="/img/19.png" srcset="/img/loading.gif" alt=""><br><img src="/img/18.png" srcset="/img/loading.gif" alt=""><br>程序会将 %10$n 之前字符的个数写入到指定内存中，因此前面我们构造八个字符即可。</p>
+<p><img src="/img/19.png" alt=""><br><img src="/img/18.png" alt=""><br>程序会将 %10$n 之前字符的个数写入到指定内存中，因此前面我们构造八个字符即可。</p>
 <p>这里除了 p32(0x0804A068) + aaaa%10$n 这种形式我们也可以使用 p32(0x0804A068) + ‘%4c%10$n 能同样的达到效果</p>
 
             <div class="clearfix"></div>
