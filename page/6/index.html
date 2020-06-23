@@ -224,6 +224,52 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
+                    <h3><a href="/2019/12/25/wakeup漏洞绕过/">__wakeup漏洞绕过</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2019-12-25T08:41:13.000Z" itemprop="datePublished">
+          2019-12-25
+      </time>
+    
+    
+    | 
+    <a href='/tags/WEB/'>WEB</a>,
+    
+    <a href='/tags/PHP/'>PHP</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        __wakeup()函数用法wakeup()是用在反序列化操作中。unserialize()会检查存在一个wakeup()方法。如果存在，则先会调用__wakeup()方法。
+&lt;?php
+class A{
+function __wakeup(){
+echo &#39;Hello&#39;;
+}
+}
+$c = new A();
+$d=unserialize(&#39;O:1:&quot;A&quot;:0:{}&#39;);
+?&g
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2019/12/25/wakeup漏洞绕过/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
                     <h3><a href="/2019/12/22/SQL注入(一)/">SQL注入(一）</a></h3>
                     <span>
                         <span class="post-meta">

