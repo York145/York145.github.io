@@ -141,6 +141,54 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/07/14/TSGctf%20web/">
+        <p class="h4 index-header">TSGctf web</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">TSGctf web
+Code：
+const fastify = require(&#39;fastify&#39;);
+const nunjucks = require(&#39;nunjucks&#39;);
+const crypto = require(&#39;crypto&#39;);
+
+
+const converters = {};
+
+const flagConverter = (input, callback) =&gt; {
+  const flag = &#39;*** CENSORED ***&#39;;
+  callback(null, flag);
+};
+
+const base64Converter = (input, callback) =&gt; {
+  try {
+    const result = Buffer.from(input).toString(&#39;base64&#39;);
+    callback(null, result)
+  } catch (error) {
+    callback(error);
+  }
+};
+
+const </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/06/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/">
         <p class="h4 index-header">代码审计练习（一）</p>
         
@@ -564,35 +612,6 @@ eyJjc3JmX3Rva2VuIjoiOTAzM2UwYTY2YzhhOTM3N2NjYmNlMTIwNDcyZmZkYWVhMTg3YTljNyJ9.Xq5
       <div>
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-03&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/05/02/%5BFBCTF2019%5DRCEService/">
-        <p class="h4 index-header">[FBCTF2019]RCEService</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[FBCTF2019]RCEService
-当输入{“cmd”:”ls”}有回显，但是不能读取。
-本来想拼接字符串的但是没有成功。
-https://xz.aliyun.com/t/5399
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-02&nbsp;&nbsp;
         
         
         
