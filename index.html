@@ -141,6 +141,229 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/">
+        <p class="h4 index-header">Webgoat代码审计（二）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Webgoat代码审计（二）protected AttackResult injectableQuery(String login_count, String accountName) {
+    String queryString = &quot;SELECT * From user_data WHERE Login_Count = ? and userid= &quot; + accountName;
+    try (Connection connection = dataSource.getConnection()) {
+        PreparedStatement query = connection.prepareStatement(queryString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+        int count = 0;
+        try {
+            count = Integer.parseInt(login_count);
+   </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-01&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">Webgoat8代码审计（一）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Webgoat8代码审计（一）先看看/SqlInjection/attack2
+
+    @PostMapping(&quot;/SqlInjection/attack2&quot;)
+    @ResponseBody
+    public AttackResult completed(@RequestParam String query) {
+        return injectableQuery(query);
+    }
+
+    protected AttackResult injectableQuery(String query) {
+        try (var connection = dataSource.getConnection()) {
+            Statement statement = connection.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
+            ResultSet results = statement.executeQuery(</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-31&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/07/31/%5BGYCTF2020%5DNode%20Game/">
+        <p class="h4 index-header">[GYCTF2020]Node Game</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">[GYCTF2020]Node Game最近总是遇到Node.js的题目可是我都不会
+下面是这题的源码：
+
+
+
+
+var express = require(‘express’);
+
+
+
+
+var app = express();
+
+
+
+var fs = require(‘fs’);
+
+
+
+var path = require(‘path’);
+
+
+
+var http = require(‘http’);
+
+
+
+var pug = require(‘pug’);
+
+
+
+var morgan = require(‘morgan’);
+
+
+
+const multer = require(‘multer’);
+
+
+
+
+
+
+
+
+
+
+
+app.use(multer({dest: ‘./dist’}).array(‘file’));
+
+
+
+app.use(morgan(‘short’));
+
+
+
+app.use(“/uploads”,express.static(path.join(__dirname, ‘/uploads’)))
+
+
+
+app.use(“/template”,express.st</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-31&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/07/26/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8(%E4%BA%8C)/">
+        <p class="h4 index-header">Java代码审计入门(二)</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Java代码审计入门(二)MyBatis基础篇提到的 JEESNS 用的就是 MyBatis，略过介绍。
+MyBatis 使用内联参数 ${example} 或 #{example}，将查询的属性和参数做绑定，如下：
+${}
+&lt;select id=&quot;selectStudentByStuId&quot; resultMap=&quot;studentMap&quot;&gt;
+    SELECT *
+    FROM student
+    WHERE stu_id = ${stuId}
+&lt;/select&gt;#{}
+&lt;select id=&quot;selectStudentByStuId&quot; resultMap=&quot;studentMap&quot;&gt;
+    SELECT *
+    FROM student
+    WHERE stu_id = #{stuId}
+&lt;/select&gt;两种方式有什么区别呢？接着看。
+${} （不安全的写法）使用 ${foo} 这样格式的传入参数会直接参与SQL编译，类似字符串拼接的效果，</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-26&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/07/26/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8(%E4%B8%80)/">
+        <p class="h4 index-header">Java代码审计入门(一)</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Java代码审计入门(一)基本环境目前，JDK已经出到11了，JDK每个版本都会有些新特性出来。很多情况下JDK并不向下兼容，导致一些软件在较新的JDK中无法正常运行，所以推荐用现在比较主流的JDK8。而且有些漏洞需要在低版本的JDK上才能复现出来，比如反序列化用到的JNDI Bean Property类型的Gadget，需要在小于JDK8_113的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JDK安装时自带的控制面板程序，可以帮助我们很方便的切换版本。
+
+我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。
+本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。
+JEESNSJEESNS，是一款基于 JAVA 企业级平台研发的社交管理系统，在 github 上有 200+ star，在开源的 Java Web 项目中算是还不错的了。
+项目地址： https://github.com/zchuanzhao/jeesns
+
+项目结构在项目根目录吓，有一个pom.xml的文件，这个文件的</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-26&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/07/14/TSGctf%20web/">
         <p class="h4 index-header">TSGctf web</p>
         
@@ -355,275 +578,11 @@ func=file_get_contents&amp;p=index.php
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/05/17/%5BHFCTF2020%5DJustEscape/">
-        <p class="h4 index-header">[HFCTF2020]JustEscape</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[HFCTF2020]JustEscape最近老遇到js的题目，表示完全不会。
-看网上的wp，是基于node.js的网站，如输入Error().stack 即可报错（同时发现VM沙箱机制）。
-这是网上的payload：
-&quot;use strict&quot;;const {VM} = require(&#39;vm2&#39;);const untrusted = &#39;(&#39; + function(){
-    TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();
-    try{
-        Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;
-    }catch(e){
-        return e.get_process(()=&gt;{}).mainModule.require(&quot;child_process&quot;).execSync(&quot;whoami</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-17&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/05/13/%5BXNUCA2019Qualifier%5DEasyPHP/">
-        <p class="h4 index-header">[XNUCA2019Qualifier]EasyPHP</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[XNUCA2019Qualifier]EasyPHP
-解法一
-[1、error_log结合log_errors自定义错误日志]
-[2、include_path设置包含路径]
-[3、php_value zend.multibyte 1结合php_value zend.script_encoding “UTF-7”绕过尖括号&lt;过滤]
-[4、# \ 绕过.htaccess中多余字符]
-
-
-解法二
-[5、.htaccess配置prce绕过正则匹配]
-
-
-[解法三]
-
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-13&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/05/06/%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5%5DCyberPunk/">
-        <p class="h4 index-header">[CISCN2019 华北赛区 Day1 Web5]CyberPunk</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[CISCN2019 华北赛区 Day1 Web5]CyberPunk
-发现敏感信息。
-利用PHP伪协议读取源码
-index.php：
-&lt;?php
-
-ini_set(&#39;open_basedir&#39;, &#39;/var/www/html/&#39;);
-
-// $file = $_GET[&quot;file&quot;];
-$file = (isset($_GET[&#39;file&#39;]) ? $_GET[&#39;file&#39;] : null);
-if (isset($file)){
-    if (preg_match(&quot;/phar|zip|bzip2|zlib|data|input|%00/i&quot;,$file)) {
-        echo(&#39;no way!&#39;);
-        exit;
-    }
-    @include($file);
-}
-?&gt;
-这里的正则因为是/i对大小写不敏感所以我没办法绕过。
-search.php
-&lt;?php
-
-require_once &quot;config.p</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-06&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/05/05/%5BMRCTF2020%5DPYWebsite/">
-        <p class="h4 index-header">[MRCTF2020]PYWebsite</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[MRCTF2020]PYWebsiteF12发现了
-
-/js/md5.js
-
-
-
-
-function enc(code){
-
-
-
-
-
-hash = hex_md5(code);
-
-
-
-return hash;
-
-
-
-}
-
-
-
-function validate(){
-
-
-
-var code = document.getElementById(“vcode”).value;
-
-
-
-if (code != “”){
-
-
-
-if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”){
-
-
-
-alert(“您通过了验证！”);
-
-
-
-window.location = “./flag.php”
-
-
-
-}else{
-
-
-
-alert(“你的授权码不正确！”);
-
-
-
-}
-
-
-
-}else{
-
-
-
-alert(“请输入授权码”);
-
-
-
-}
-
-
-
-
-
-
-
-}
-
-
-说输入code与某值进行比较，相等就出现flag。所以现在就是分析加密函数。
-
- if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d65</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-05&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/05/03/%5BGYCTF2020%5DFlaskApp/">
-        <p class="h4 index-header">[GYCTF2020]FlaskApp</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">[GYCTF2020]FlaskApp在提示页面f12发现了一段神奇的cookie
-
-eyJjc3JmX3Rva2VuIjoiOTAzM2UwYTY2YzhhOTM3N2NjYmNlMTIwNDcyZmZkYWVhMTg3YTljNyJ9.Xq5hWQ.wd9G8fR8lwO4P_W-GS9Dxbp70kQ
-
-在网站的解密页面解密一下。突然就跳转到了一个神奇的页面
-
-发现这是WSGI
-在加密界面输入12，解密解密成功回显12
-这里有个脚本
-
-{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('filename', 'r').read() }}{% endif %}{% endfor %}
-> ```
-
-![image-20200503183556194](C:\Users\ykpc\AppData\Roaming\Typora\typora-user-images\</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-03&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

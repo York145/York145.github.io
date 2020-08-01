@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <title>Archives ~ Xiaotan</title>
+  <title>Java代码审计入门(二) ~ Xiaotan</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -103,7 +103,7 @@
 </nav>
 
     <div class="view intro-2" id="background"
-         style="background: url('/img/动漫4.jpg')no-repeat center center;
+         style="background: url('/img/bg_img.jpg')no-repeat center center;
            background-size: cover;
            background-attachment: fixed;">
       <div class="full-bg-img">
@@ -113,6 +113,41 @@
               
             </span>
 
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, July 26th 2020, 4:33 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    697 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
             
           </div>
 
@@ -124,65 +159,122 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">62 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/01/13/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（二）</span>
-      <span style="float: right;">01-13</span>
-    </a>
-  
-    
-    <a href="/2020/01/12/overthewire%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">overthewire解题（一）</span>
-      <span style="float: right;">01-12</span>
-    </a>
-  
-    
-    <a href="/2020/01/11/Jarvis-OJ-%E7%A5%9E%E7%9B%BE%E5%B1%80%E7%9A%84%E7%A7%98%E5%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Jarvis OJ 神盾局的秘密</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-    
-    <a href="/2020/01/10/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">python模板注入</span>
-      <span style="float: right;">01-10</span>
-    </a>
-  
-</div>
 
-  <nav aria-label="index posts navigation">
-    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2020/01/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/archives/2020/01/">1</a><span class="page-number current">2</span>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
-      ele.href += '#board';
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="Java代码审计入门-二"><a href="#Java代码审计入门-二" class="headerlink" title="Java代码审计入门(二)"></a>Java代码审计入门(二)</h1><h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><p>基础篇提到的 <code>JEESNS</code> 用的就是 <code>MyBatis</code>，略过介绍。</p>
+<p><code>MyBatis</code> 使用内联参数 <code>${example}</code> 或 <code>#{example}</code>，将查询的属性和参数做绑定，如下：</p>
+<p>${}</p>
+<pre><code>&lt;select id=&quot;selectStudentByStuId&quot; resultMap=&quot;studentMap&quot;&gt;
+    SELECT *
+    FROM student
+    WHERE stu_id = ${stuId}
+&lt;/select&gt;</code></pre><p>#{}</p>
+<pre><code>&lt;select id=&quot;selectStudentByStuId&quot; resultMap=&quot;studentMap&quot;&gt;
+    SELECT *
+    FROM student
+    WHERE stu_id = #{stuId}
+&lt;/select&gt;</code></pre><p>两种方式有什么区别呢？接着看。</p>
+<h2 id="（不安全的写法）"><a href="#（不安全的写法）" class="headerlink" title="${} （不安全的写法）"></a>${} <em>（不安全的写法）</em></h2><p>使用 <code>${foo}</code> 这样格式的传入参数会直接参与SQL编译，类似字符串拼接的效果，是存在SQL注入漏洞的。所以一般情况下，不会用这种方式绑定参数。</p>
+<h2 id=""><a href="#" class="headerlink" title="#{}"></a>#{}</h2><p>使用 <code>#{}</code> 做参数绑定时， <code>MyBatis</code> 会将SQL语句进行预编译，避免SQL注入的问题。</p>
+<p><code>MyBatis</code> 预编译模式的实现，在底层同样是依赖于 <code>java.sql.PreparedStatement</code>，所以 <code>PreparedStatement</code> 存在的问题，这里也会存在。</p>
+<p><code>ORDER BY</code> 只能通过 <code>${}</code> 传递。为了避免SQL注入，需要手动过滤，或者在SQL里硬编码 <code>ORDER BY</code> 的字段名。</p>
+<p>此外，还有一种情况 —— <code>LIKE</code> 模糊查询。</p>
+<p>看下面这个写法：</p>
+<pre><code>&lt;select id=&quot;selectStudentByFuzzyQuery&quot; resultMap=&quot;studentMap&quot;&gt;
+    SELECT *
+    FROM student
+    WHERE student.stu_name
+            LIKE &#39;%#{stuName}%&#39;
+&lt;/select&gt;</code></pre><p>在这里，<code>MyBatis</code> 会把 <code>%#{stuName}%</code> 作为要查询的参数，数据库会执行 <code>SELECT * FROM student WHERE student.stu_name LIKE &#39;%#{stuName}%&#39;</code>，导致查询失败，所以这里只能用 <code>${}</code> 的方式传入。而如果用 <code>${}</code> 又存在SQL注入的风险，怎么办呢？</p>
+<p>最好的方法是，使用数据库自带的 <code>CONCAT</code> ，将 <code>%</code> 和我们用 <code>#{}</code> 传入参数连接起来，这样就既不存在注入的问题，也能满足需求啦。示例：</p>
+<pre><code>&lt;select id=&quot;selectStudentByFuzzyQuery&quot; resultMap=&quot;studentMap&quot;&gt;
+    SELECT *
+    FROM student
+    WHERE student.stu_name
+            LIKE CONCAT(&#39;%&#39;,#{stuName},&#39;%&#39;)
+&lt;/select&gt;</code></pre><h2 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h2><h1 id="发起请求的流程"><a href="#发起请求的流程" class="headerlink" title="发起请求的流程"></a>发起请求的流程</h1><p>构造一个简单的 <code>http</code> 请求：</p>
+<pre><code>try {
+    URL u = new URL(url);
+    URLConnection urlConnection = u.openConnection();
+    InputStream inputStream = urlConnection.getInputStream();
+
+    //...
+} catch (IOException e) {
+    e.printStackTrace();
+}</code></pre><p>简述下这个过程，首先，构造一个 <code>URL</code> 对象，调用 <code>url</code> 的 <code>openConnection()</code> 方法来获取一个 <code>URLConnection</code> 实例，然后再调 <code>getInputStream()</code> 拿到 <code>InputStream</code>，也就是请求的响应流。之后，再做我们想要的其它事情。</p>
+<p>在这个过程中，如果 <code>URL</code> 是可控的，那么就会存在 <code>SSRF</code> 漏洞。</p>
+<p>这是 <code>JDK</code> 自带的类，它的 <code>read()</code> 方法，用来加载图片。它可以传入一个 <code>URL</code> 对象，且没有协议限制，如下：</p>
+<p>ImageIO.java:1386</p>
+<pre><code>public static BufferedImage read(URL input) throws IOException {
+    if (input == null) {
+        throw new IllegalArgumentException(&quot;input == null!&quot;);
     }
-  </script>
 
+    InputStream istream = null;
+    try {
+        istream = input.openStream();
+    } catch (IOException e) {
+        throw new IIOException(&quot;Can&#39;t get input stream from URL!&quot;, e);
+    }
+    ImageInputStream stream = createImageInputStream(istream);
+    BufferedImage bi;
+    try {
+        bi = read(stream);
+        if (bi == null) {
+            stream.close();
+        }
+    } finally {
+        istream.close();
+    }
+    return bi;
+}</code></pre><p><strong>如果服务器在加载图片时，<code>URL</code> 是用户可控的，那么就会存在 <code>SSRF</code> 漏洞。</strong></p>
 
-              </div>
-            </div>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -257,6 +349,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -297,7 +394,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "Java代码审计入门(二)&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
