@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">donate | xiaotan&#39;s blog</title>
+  <title itemprop="name">xiaotan&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -389,107 +389,155 @@
   </div>
 </header>
 
-      <link rel="stylesheet" href="/css/donate.css">
-<div class="pattern-center-blank">
-</div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.4/img/banner/donate.jpg" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.4/img/banner/donate.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-  </div>
-  <header class="pattern-header ">
-    <h1 class="entry-title">谢谢饲主了喵~</h1>
-  </header>
-</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
 <div id="content" class="site-content">
-  <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
-  如果喜欢我的博客，可以考虑资助一下哦~非常感激！
-    <div id="root">
-      <div class="root">
-        <a href="https://github.com/Kaiyuan/donate-page" target="_blank" class="pos-f tr3" title="Github"><span id="github"></span></a>
-        <ul id="donateBox" class="list pos-f tr3">
-          <!-- <li id="BTC" data-footnote="Copy addres and show QRCod"><button id="BTCBn"  data-clipboard-target="#btc-key" alt="Copy to clipboard">Bitcoin</button></li> -->
-          <li id="PayPal"><a href="https://www.paypal.me/hojuncn" target="_blank">PayPal</a></li>
-          <li id="AliPay">AliPay</li>
-          <li id="WeChat">WeChat</li>
-        </ul>
-        <div id="DonateText" class="tr3">Donate</div>
-        <div id="QRBox" class="pos-f left-100">
-          <div id="MainBox"></div>
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+          <header class="entry-header">
+            <h1 class="entry-title"></h1>
+            <p class="entry-census">&nbsp;·&nbsp;2020-9-4&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
+
+            <hr>
+          </header>
+        
+        <div class="entry-content">
+          <h1 id="Java反射的学习"><a href="#Java反射的学习" class="headerlink" title="Java反射的学习"></a>Java反射的学习</h1><p>之前Java的 反射一直没弄懂，今天学习一下。</p>
+<p>从这个简单的例子可以看出，一般情况下我们使用反射获取一个对象的步骤：</p>
+<ul>
+<li>获取类的 Class 对象实例</li>
+</ul>
+<pre><code>Class clz = Class.forName(&quot;com.zhenai.api.Apple&quot;);</code></pre><ul>
+<li>根据 Class 对象实例获取 Constructor 对象</li>
+</ul>
+<pre><code>Constructor appleConstructor = clz.getConstructor();</code></pre><ul>
+<li>使用 Constructor 对象的 newInstance 方法获取反射类对象</li>
+</ul>
+<pre><code>Object appleObj = appleConstructor.newInstance();</code></pre><p>而如果要调用某一个方法，则需要经过下面的步骤：</p>
+<ul>
+<li>获取方法的 Method 对象</li>
+</ul>
+<pre><code>Method setPriceMethod = clz.getMethod(&quot;setPrice&quot;, int.class);</code></pre><ul>
+<li>利用 invoke 方法调用方法</li>
+</ul>
+<pre><code>setPriceMethod.invoke(appleObj, 14);</code></pre><p>下面是执行系统命令的payload：</p>
+<pre><code>&#39;&#39;.getClass()
+// class java.lang.String
+
+&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;)
+// class java.lang.Runtime
+
+&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;ex&#39;+&#39;ec&#39;,&#39;&#39;.getClass())
+// public java.lang.Process java.lang.Runtime.exec(java.lang.String) throws java.io.IOException
+
+&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;)
+// public static java.lang.Runtime java.lang.Runtime.getRuntime()
+
+&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;).invoke(null)
+// java.lang.Runtime@c2939a
+
+&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;ex&#39;+&#39;ec&#39;,&#39;&#39;.getClass()).invoke(&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;).invoke(null),&#39;calc&#39;)
+// java.lang.ProcessImpl@f2f85c</code></pre><p>静下心看看还是很简单的。在网上找到了一个代码</p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200807100414075.png" alt="image-20200807100414075"></p>
+<p>通过上面的学习，将这个代码修改一下在本地运行。</p>
+<pre><code>package forname;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+public class MAin &#123;
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException, IOException, NoSuchMethodException, InvocationTargetException &#123;
+        Method method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;,null);
+        Runtime run = (Runtime) method.invoke(null,null);
+        run.exec(&quot;calc&quot;);
+//        Method exec_method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;exec&quot;,&quot;&quot;.getClass());
+//        exec_method.invoke(&quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null),&quot;calc&quot;);
+//        System.out.println(&quot;&quot;.getClass());
+    &#125;
+&#125;</code></pre><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200807100513630.png" alt="image-20200807100513630"></p>
+<p>可以看见运行成功。我们再改一下。</p>
+<pre><code>public class MAin &#123;
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException, IOException, NoSuchMethodException, InvocationTargetException &#123;
+//        Method method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;,null);
+//        Runtime run = (Runtime) method.invoke(null,null);
+//        run.exec(&quot;calc&quot;);
+        Method exec_method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;exec&quot;,&quot;&quot;.getClass());
+        exec_method.invoke(&quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null),&quot;calc&quot;);
+        System.out.println(&quot;&quot;.getClass());
+    &#125;
+&#125;</code></pre><p>也同样运行成功了。</p>
+
         </div>
-        <!-- Bitcoin 账号 -->
-        <!-- <input id="btc-key" type="text" value="14JkMR68n4PBASB3TgvpjtaPTbfffSwFbW" readonly="readonly"> -->
-      </div>
-    </div>
-    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-    <footer class="post-footer">
-      <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-      <div class="post-tags">
-      </div>
-      <div class="post-share">
-        <div class="social-share sharehidden share-component"></div>
-        <i class="iconfont show-share icon-forward"></i>
-      </div>
-    </footer><!-- .entry-footer -->
-  </article>
-  <section class="author-profile">
-    <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-      <a href="/about/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/images/header.jpg" itemprop="image" alt="hojun" height="70" width="70"></a>
-      <div class="meta">
-        <span class="title">Author</span>
-        <h3 itemprop="name">
-        <a href="https://york145.github.io/" itemprop="url" rel="author">hojun</a>
-        </h3>
-      </div>
-    </div>
-    <hr>
-    <p><i class="iconfont icon-write"></i>我用三生的期许 换回三世相思雨 三千浮沉里的你 迷失轮回的自己</p>
-  </section>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="" class="profile gravatar"><img src="" itemprop="image" alt="" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="" itemprop="url" rel="author"></a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script> -->
-  <script>
-    jQuery(document).ready(function() {
-    var QRBox = $('#QRBox');
-    var MainBox = $('#MainBox');
-    var BTCQR = '/images/donate/BTCQR.png'; // 二维码路径
-    var AliPayQR  = 'https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/AliPayQR.jpg';
-    var WeChanQR  = 'https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/WeChanSQ.jpg';
 
-    function showQR(QR) {
-      if (QR) {
-        MainBox.css('background-image','url('+QR+')');
-      }
-      $('#DonateText,#donateBox,#github').addClass('blur');
-      QRBox.fadeIn(300,function(argument) {
-        MainBox.addClass('showQR');
-      });
-    }
 
-    $('#donateBox>li').click(function(event) {
-      var thisID  = $(this).attr('id');
-      if (thisID === 'BTC') {
-        new ClipboardJS('#BTCBn');
-        new ClipboardJS('.btnsss');
-        showQR(BTCQR);
-      } else if (thisID === 'AliPay') {
-        showQR(AliPayQR);
-      } else if (thisID === 'WeChat') {
-        showQR(WeChanQR);
-      }
-    });
-
-    MainBox.click(function(event) {
-      MainBox.removeClass('showQR').addClass('hideQR');
-      setTimeout (function(a) {
-        QRBox.fadeOut(300,function(argument) {
-          MainBox.removeClass('hideQR');
-        });
-        $('#DonateText,#donateBox,#github').removeClass('blur');
-      },600);
-
-    });
-  });
-  </script>
 
     </div>    
     <div class="ins-search">
