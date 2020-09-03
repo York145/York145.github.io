@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://york145.github.io/"/>
-  <updated>2020-08-07T02:06:22.958Z</updated>
+  <updated>2020-09-03T16:44:12.848Z</updated>
   <id>https://york145.github.io/</id>
   
   <author>
@@ -17,25 +17,25 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>Java反射的学习</title>
     <link href="https://york145.github.io/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
     <id>https://york145.github.io/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
-    <published>2020-09-03T16:34:15.924Z</published>
-    <updated>2020-08-07T02:06:22.958Z</updated>
+    <published>2020-09-04T14:16:01.000Z</published>
+    <updated>2020-09-03T16:44:12.848Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;Java反射的学习&quot;&gt;&lt;a href=&quot;#Java反射的学习&quot; class=&quot;headerlink&quot; title=&quot;Java反射的学习&quot;&gt;&lt;/a&gt;Java反射的学习&lt;/h1&gt;&lt;p&gt;之前Java的
-        
-      
+      Java反射的学习
     
     </summary>
     
     
+      <category term="Java" scheme="https://york145.github.io/categories/Java/"/>
+    
+    
+      <category term="web" scheme="https://york145.github.io/tags/web/"/>
+    
+      <category term="悦读" scheme="https://york145.github.io/tags/%E6%82%A6%E8%AF%BB/"/>
     
   </entry>
   
