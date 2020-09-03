@@ -461,7 +461,7 @@
 
 &#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;ex&#39;+&#39;ec&#39;,&#39;&#39;.getClass()).invoke(&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;).invoke(null),&#39;calc&#39;)
 // java.lang.ProcessImpl@f2f85c</code></pre><p>静下心看看还是很简单的。在网上找到了一个代码</p>
-<p><img src="images%5Cimage-20200807100414075.png" alt="image-20200807100414075"></p>
+<p><img src="images/image-20200807100414075.png" alt="image-20200807100414075"></p>
 <p>通过上面的学习，将这个代码修改一下在本地运行。</p>
 <pre><code>package forname;
 
@@ -479,7 +479,7 @@ public class MAin &#123;
 //        exec_method.invoke(&quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null),&quot;calc&quot;);
 //        System.out.println(&quot;&quot;.getClass());
     &#125;
-&#125;</code></pre><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200807100513630.png" alt="image-20200807100513630"></p>
+&#125;</code></pre><p><img src="images/image-20200807100513630.png" alt="image-20200807100513630"></p>
 <p>可以看见运行成功。我们再改一下。</p>
 <pre><code>public class MAin &#123;
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException,
