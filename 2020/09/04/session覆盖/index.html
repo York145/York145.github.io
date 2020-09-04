@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Java反射的学习 | xiaotan&#39;s blog</title>
+  <title itemprop="name">session覆盖学习 | xiaotan&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -378,11 +378,11 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://raw.githubusercontent.com/York145/CDN/master/images/zm9kpy.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/CDN/master/images/zm9kpy.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      Java反射的学习</h1>
+      session覆盖学习</h1>
       <p class="entry-census">
         <span>
           <a href="york145.github.io/">
@@ -408,73 +408,72 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="Java反射的学习"><a href="#Java反射的学习" class="headerlink" title="Java反射的学习"></a>Java反射的学习</h1><p>之前Java的 反射一直没弄懂，今天学习一下。</p>
-<p>从这个简单的例子可以看出，一般情况下我们使用反射获取一个对象的步骤：</p>
+          <h1 id="session覆盖"><a href="#session覆盖" class="headerlink" title="session覆盖"></a>session覆盖</h1><p>上次挖到的某大学信息门户任意用户越权漏洞用的就是这个原理，所以想记录一下。</p>
+<p>吐槽： 我交了五次报告都没让我过，EDUSRC的审核太强了吧。</p>
+<p>例如登录、忘记密码、查看个人信息等。一般情况下，相关的业务凭证存在设计缺陷的话，会存在类似平行/垂直越权等安全问题。常见的业务凭证及越权场景有：</p>
 <ul>
-<li>获取类的 Class 对象实例</li>
+<li>用户身份id（userid，例如通过userid越权查看用户信息）</li>
+<li>对象id（fileid，例如通过fileid越权查看其他用户的备案资料（身份证、手机号、住址等））</li>
+<li>基于文件名（例如可以遍历时间戳组成的文件名获取用户订单）</li>
+<li>Cookie中的字段（例如增加user=admin，即可垂直越权访问管理员模块）</li>
+<li>Session中的内容（例如session覆盖）</li>
+<li>…</li>
 </ul>
-<pre><code>Class clz = Class.forName(&quot;com.zhenai.api.Apple&quot;);</code></pre><ul>
-<li>根据 Class 对象实例获取 Constructor 对象</li>
-</ul>
-<pre><code>Constructor appleConstructor = clz.getConstructor();</code></pre><ul>
-<li>使用 Constructor 对象的 newInstance 方法获取反射类对象</li>
-</ul>
-<pre><code>Object appleObj = appleConstructor.newInstance();</code></pre><p>而如果要调用某一个方法，则需要经过下面的步骤：</p>
-<ul>
-<li>获取方法的 Method 对象</li>
-</ul>
-<pre><code>Method setPriceMethod = clz.getMethod(&quot;setPrice&quot;, int.class);</code></pre><ul>
-<li>利用 invoke 方法调用方法</li>
-</ul>
-<pre><code>setPriceMethod.invoke(appleObj, 14);</code></pre><p>下面是执行系统命令的payload：</p>
-<pre><code>&#39;&#39;.getClass()
-// class java.lang.String
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;)
-// class java.lang.Runtime
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;ex&#39;+&#39;ec&#39;,&#39;&#39;.getClass())
-// public java.lang.Process java.lang.Runtime.exec(java.lang.String) throws java.io.IOException
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;)
-// public static java.lang.Runtime java.lang.Runtime.getRuntime()
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;).invoke(null)
-// java.lang.Runtime@c2939a
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;ex&#39;+&#39;ec&#39;,&#39;&#39;.getClass()).invoke(&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;).invoke(null),&#39;calc&#39;)
-// java.lang.ProcessImpl@f2f85c</code></pre><p>静下心看看还是很简单的。在网上找到了一个代码</p>
-<p><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0/images/image-20200807100414075.png" alt="image-20200807100414075"></p>
-<p>通过上面的学习，将这个代码修改一下在本地运行。</p>
-<pre><code>package forname;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-public class MAin &#123;
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, IOException, NoSuchMethodException, InvocationTargetException &#123;
-        Method method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;,null);
-        Runtime run = (Runtime) method.invoke(null,null);
-        run.exec(&quot;calc&quot;);
-//        Method exec_method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;exec&quot;,&quot;&quot;.getClass());
-//        exec_method.invoke(&quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null),&quot;calc&quot;);
-//        System.out.println(&quot;&quot;.getClass());
+<p>  一般在测试时，可以通过寻找相关的凭证，通过遍历、猜解等方式，进行业务逻辑缺陷的发掘。<br>  前段时间审计某项目时发现一处结合忘记密码发送短信功能进行session覆盖越权的业务缺陷，下面是具体的发现过程。</p>
+<h2 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h2><p>在实际代码中，用户登入后会将用户凭证于session会话进行绑定，当访问业务接口时，因为业务凭证不再是userid这种可控的参数，从而一定程度的防范了越权的缺陷。</p>
+<p>下面是登陆过程的实现：</p>
+<pre><code class="java">@RequestMapping(value = &quot;/loginAuth&quot;)
+public String login(String loginName,String password,String captcha,HttpSession session)&#123;
+    String VerifyCode = session.getAttribute(&quot;captcha&quot;);
+    if(StringUtils.isBlank(loginName))&#123;
+        return ResponseData.fail(&quot;用户名为空&quot;);
     &#125;
-&#125;</code></pre><p><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0/images/image-20200807100513630.png" alt="image-20200807100513630"></p>
-<p>可以看见运行成功。我们再改一下。</p>
-<pre><code>public class MAin &#123;
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, IOException, NoSuchMethodException, InvocationTargetException &#123;
-//        Method method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;,null);
-//        Runtime run = (Runtime) method.invoke(null,null);
-//        run.exec(&quot;calc&quot;);
-        Method exec_method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;exec&quot;,&quot;&quot;.getClass());
-        exec_method.invoke(&quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null),&quot;calc&quot;);
-        System.out.println(&quot;&quot;.getClass());
+    if(StringUtils.isBlank(password))&#123;
+        return ResponseData.fail(&quot;password&quot;);
     &#125;
-&#125;</code></pre><p>也同样运行成功了。</p>
+    if(StringUtils.isBlank(VerifyCode)||StringUtils.isBlank(captcha)||!VerifyCode.equals(&quot;captcha&quot;))&#123;
+        return ResponseData.fail(&quot;验证码错误&quot;);
+    &#125;
+    //防止验证码复用问题
+    session.removeAttribute(&quot;captcha&quot;);
+    //登录逻辑
+    User user=userService.loginAuth(loginName,password);
+    if(user!=null)&#123;
+        session.setAttribute(&quot;loginName&quot;,user.getName());
+        ......
+    &#125;else&#123;
+        return ResponseData.fail(&quot;账号密码错误&quot;);
+    &#125;
+&#125;</code></pre>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程<img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/wKg0C18umDqAdXgVAABPnhyXh3w286.png" alt="image.png"></h3><p>通过拦截器拦截未授权访问：</p>
+<pre><code class="java">String loginName=(String)session.getAttribute(&quot;loginName&quot;);
+if(StringUtils.isBlank(loginName))&#123;
+        throw new Exception(&quot;Not logged in Exception&quot;);
+&#125;</code></pre>
+<pre><code class="java">@RequestMapping(value = &quot;/getUserCard&quot;)
+public Object getUserCard(HttpSession session)&#123;
+    List&lt;String&gt; cardIds = userService.getUserCard(session.getAttribute(&quot;loginName&quot;));
+    return CardService.getCardInfo(cardIds);
+&#125;//查询用户信息</code></pre>
+<p>然而在忘记密码处确存在session覆盖漏洞，和我上次的在修改密码找到的session覆盖处原理大致相同。</p>
+<pre><code class="java">@RequestMapping(value=&#123;&quot;/getMessage&quot;&#125;)
+@ResponseBody
+public Object getSecPwdQuestion(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception
+&#123;
+    String loginName = request.getParameter(“loginName”);
+    if (StringUtils.isNotBlank(loginName)) &#123;
+    session.setAttribute(&quot;loginName&quot;,loginName);
+    User user = this.UserService.getUserByLoginName(loginName);
+    if (user != null) &#123;
+        //获取短信
+    ......
+    &#125;else&#123;
+        return ResponseData.fail(&quot;用户不存在&quot;);
+    &#125;
+&#125;</code></pre>
+<p><strong>可以看到这里其实是可以通过发送短信的方式来控制session会话中的loginName参数的</strong>。首先通过忘记密码模块/getMessage接口发送请求，通过忘记密码的手机号设置对应的loginName，然后再访问/getUserCard接口，即可越权获取对应用户的卡号信息了。</p>
+<p>同理上次的越权漏洞流程应该是修改密码-&gt;后台修改session-&gt;在系统弹出前进入信息门户（类似于竞争上传的原理）-&gt;成功越权。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>因为上传挖到的漏洞无法获得源码，所以以上是我对上次挖洞的原理猜测，如果有误还请大佬告知。</p>
 
         </div>
         <!-- .entry-content -->
@@ -504,39 +503,22 @@ public class MAin &#123;
       <section class="post-squares nextprev">
         
           
-            <div class="post-nepre half previous">
+            <div class="post-nepre full previous">
           
-            <a href="/2020/09/04/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/" rel="prev">
+            <a href="/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/CDN/master/images/oxxw29.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://raw.githubusercontent.com/York145/CDN/master/images/oxxw29.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/CDN/master/images/zm9kpy.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://raw.githubusercontent.com/York145/CDN/master/images/zm9kpy.jpg">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                Java反序列化的学习</h3>
+                Java反射的学习</h3>
                 <hr>
               </div>
             </a>
           </div>
         
-        
-          
-            <div class="post-nepre half next">
-          
-            <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/" rel="next">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg">
-              </div>
-              <span class="label">
-              Next Post</span>
-              <div class="info">
-                <h3>
-                session覆盖学习</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
         
       </section>
       
@@ -565,7 +547,7 @@ public class MAin &#123;
           </div>
         </div>
         <hr>
-        <p><i class="iconfont icon-write"></i>一个好奇的人</p>
+        <p><i class="iconfont icon-write"></i>一个超菜的人</p>
       </section>
     </main><!-- #main -->
   </div><!-- #primary -->
