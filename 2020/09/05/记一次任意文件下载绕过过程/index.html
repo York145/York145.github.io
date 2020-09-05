@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: Java 越权 Session | xiaotan&#39;s blog</title>
+  <title itemprop="name">记一次任意文件下载绕过过程 | xiaotan&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -217,16 +217,16 @@
                   <ul class="sub-menu">
                     
                       <li>
-                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                        <a href="/categories/Java/">
                           <i class="fa fa-code" aria-hidden="true"></i>
-                          技术
+                          Java
                         </a>
                       </li>
                     
                       <li>
-                        <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                        <a href="/categories/web/">
                           <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                          生活
+                          WEB
                         </a>
                       </li>
                     
@@ -273,9 +273,9 @@
                       </li>
                     
                       <li>
-                        <a href="/bangumi/">
+                        <a href="/tags/web/">
                           <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
-                          番组
+                          web
                         </a>
                       </li>
                     
@@ -372,105 +372,264 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="Java 越权 Session.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/0jepq4.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/0jepq4.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      记一次任意文件下载绕过过程</h1>
+      <p class="entry-census">
+        <span>
+          <a href="york145.github.io/">
+            <img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="york145.github.io/">xiaotan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-9-5<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">Java 越权 Session.zh</h1>
-    <span class="cat-des">
-      <p>Java 越权 Session.en</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="挖掘过程"><a href="#挖掘过程" class="headerlink" title="挖掘过程"></a>挖掘过程</h1><h2 id="转载：https-www-sec-in-com-article-486"><a href="#转载：https-www-sec-in-com-article-486" class="headerlink" title="转载：https://www.sec-in.com/article/486"></a>转载：<a target="_blank" rel="noopener" href="https://www.sec-in.com/article/486">https://www.sec-in.com/article/486</a></h2><p>  一般来说，在文件下载/查看功能处，当文件名参数可控，且系统未对参数进行过滤或者过滤不全时，就可以实现下载服务器上的任何文件，产生任意文件下载漏洞。<br>  一般可以通过相关的业务关键字（例如download、filename等）或者相关的操作类（例如InputStream、File等）快速定位相关的模块进行审计挖掘。<br>  前段时间审计某项目时发现一处任意文件下载的绕过。<br>  系统基于Springboot进行开发，首先是发现任意文件下载接口:</p>
+<pre><code class="java">@Value(&quot;$&#123;CERTIFICATE.PATH&#125;&quot;)
+private String uploadPath;
+
+@GetMapping(&quot;/downloadFile.do&quot;)
+public void uploadFileDownload(HttpServletResponse response,String fileName) throws IOException &#123;
+    ServletOutputStream outputStream =response.getOutputStream();
+    String contentType =&quot;application/octet-stream&quot;;
+    response.setContentType(contentType);
+    String filePath = uploadPath+fileName;
+    System.out.println(filePath);
+    outputStream.write(FileUtils.readFileToByteArray(filePath));
+    outputStream.flush();
+    outputStream.close();
+&#125;</code></pre>
+<p>  相关的接口是下载用户上传的凭证材料的，整个下载过程从配置文件中获取uploadPath，然后与用户输入的fileName进行拼接，最后调用工具类FileUtils的readFileToByteArray()方法进行下载。<br>  查看工具类readFileToByteArray()方法的具体实现：</p>
+<pre><code class="java">public static byte[] readFileToByteArray(String path) &#123;
+    StringBuffer buf = new StringBuffer();
+    try &#123;
+        File file = new File(path);
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), &quot;utf-8&quot;));
+        String row;
+        while ((row = br.readLine()) != null) &#123;
+            buf.append(row);
+        &#125;
+    &#125; catch (IOException e) &#123;
+        e.printStackTrace();
+    &#125;
+    if (buf.length() == 0) &#123;
+        buf.append(&quot;&quot;);
+    &#125;
+    return buf.toString().getBytes();
+&#125;</code></pre>
+<p>  可以看到相关的工具类方法直接将传入的地址进行文件内容读取，封装后进行返回，整个文件下载的过程是没有过滤掉”./“、”…/“、”/“等特殊字符，防止用户进行目录回溯的，同时也没有限制下载目录。初步判断是存在任意文件下载风险的。<br>  这里尝试去测试环境访问对应的下载接口进行复现，发现失败了：<br><img src="https://www.sec-in.com/img/sin/M00/00/37/wKg0C18fmMuAEoN4AAB_-fUuTxw134.png" alt="图片.png"><br>  回去查看源代码，发现有一个安全过滤器SecurityFilter，里面针对相关的敏感字符进行了过滤处理。上述任意文件下载接口无法利用很大原因是过滤器Filter的防护导致的，下面来看看能不能绕过过滤器进行利用。</p>
+<h1 id="绕过分析"><a href="#绕过分析" class="headerlink" title="绕过分析"></a>绕过分析</h1><p>  一般来说审计过滤器缺陷主要分以下几个点：</p>
+<ul>
+<li>获取数据的方式是否覆盖全面</li>
+<li>过滤的规则内容</li>
+<li>过滤器的顺序</li>
+</ul>
+<p>  首先是定位过滤器了，这里是通过注解的方式进行过滤器注册的：</p>
+<pre><code class="java">@WebFilter(filterName = &quot;SecurityFilter&quot;, urlPatterns = &quot;/*&quot; )
+public class SecurityFilter implements Filter &#123;
+
+    FilterConfig filterConfig = null;
+
+    @Override
+    public void destroy() &#123;
+        this.filterConfig = null;
+    &#125;
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException &#123;
+        chain.doFilter(new XssHttpServletRequestWrapper((HttpServletRequest) request), response);
+    &#125;
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException &#123;
+        this.filterConfig = filterConfig;
+    &#125;
+&#125;</code></pre>
+<p>  具体实现是通过HttpServletRequestWrapper来获取request的内容，然后通过重写getParameterValues()、getParameter()方法进行处理的。</p>
+<pre><code class="java">public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper &#123;
+
+
+    public XssHttpServletRequestWrapper(HttpServletRequest servletRequest) &#123;
+        super(servletRequest);
+    &#125;
+
+    @Override
+    public String[] getParameterValues(String parameter) &#123;
+        String[] values = super.getParameterValues(parameter);
+        if (values == null) &#123;
+            return null;
+        &#125;
+        int count = values.length;
+        String[] encodedValues = new String[count];
+        for (int i = 0; i &lt; count; i++) &#123;
+            System.out.println(&quot;before:&quot;+values[i]);
+            encodedValues[i] = JsoupUtil.clean(cleanAnyFileRead((String) values[i]));
+            System.out.println(&quot;after:&quot;+encodedValues[i]);
+        &#125;
+        return encodedValues;
+    &#125;</code></pre>
+<p>  这里存在第一种绕过方式，因为对于multipart/form-data这种数据类型上述过滤器明显也是无法获取request提交内容的，那么可以尝试转换multipart的方式进行提交，尝试绕过相关的过滤器：<br><img src="https://www.sec-in.com/img/sin/M00/00/37/wKg0C18fnFqAfHSbAAChd3ThyBA362.png" alt="图片.png"><br>  比较可惜的是，这里对任意文件下载接口并不适用，因为其是用@GetMapping(“/downloadFile.do”)进行注解的，限制了请求方法为GET。<br>  获取数据的方式虽然不全面，但是仅针对/downloadFile.do接口来说的话是足够的了，那么继续往下看相关的过滤规则是否存在缺陷。<br>  这里存在两层过滤，一层是通过cleanAnyFileRead()过滤任意文件上传的敏感输入的，第二层是调用工具类JsoupUtil.clean()方法进行XSS输入过滤。</p>
+<pre><code class="java">@Override
+public String getParameter(String parameter) &#123;
+    String value = super.getParameter(parameter);
+    if (value == null) &#123;
+        return null;
+    &#125;
+    return JsoupUtil.clean(cleanAnyFileRead((String) value));
+&#125;</code></pre>
+<p>  首先看任意文件下载的过滤，这里是简单的使用正则进行过滤，出现一次或者多次的.且以/结尾的内容都进行过滤，例如…/、./等，这也就解释了为什么前面测试时输入…/…/…/etc/passwd失败了，过滤后返回的内容为/etc/passwd，拼接uploadPath后不存在相关的文件，路径穿越失败：</p>
+<pre><code class="java">private static String cleanAnyFileRead(String value) &#123;
+    value = value.replaceAll(&quot;\\.+/&quot;, &quot;&quot;);
+    return value;
+&#125;</code></pre>
+<p>  继续往下看xss的过滤，JsoupUtil.clean()方法的具体实现如下：</p>
+<pre><code class="java">public class JsoupUtil &#123;
+    /**
+     * 配置白名单为基本使用的标签再加上img标签
+     */
+    private static final Whitelist WHITELIST = Whitelist.basicWithImages();
+
+    /**
+     * 配置过滤的参数，不对代码格式化
+     */
+    private static final Document.OutputSettings OUTPUT_SETTINGS = new Document.OutputSettings().prettyPrint(false);
+
+    static &#123;
+        //富文本编辑时一些样式是使用style来进行实现的 比如红色字体 style=&quot;color:red;&quot; 所以需要给所有标签添加style属性
+        WHITELIST.addAttributes(&quot;:all&quot;,&quot;style&quot;);
+    &#125;
+
+    public static String clean(String content)&#123;
+        return Jsoup.clean(content,&quot;&quot;,WHITELIST,OUTPUT_SETTINGS);
+    &#125;
+&#125;</code></pre>
+<p>  比较简单粗暴，直接使用jsoup组件进行了过滤。这里简单介绍下jsoup的api：<br>  使用Jsoup的clean方法进行清除HTML标签操作，该方法会清除在你所指定的白名单whitelist中的所有HTML标签。默认的Jsoup提供了5种Whitelist的API</p>
+<ul>
+<li>none()<br>该API会清除所有HTML标签，仅保留文本节点。</li>
+<li>impleTest()<br>该API仅会保留b, em, i, strong, u 标签，除此之外的所有HTML标签都会被清除。</li>
+<li>basic()<br>该API会保留 a, b, blockquote, br, cite, code, dd, dl, dt, em, i, li, ol, p, pre, q, small, span, strike, strong, sub, sup, u, ul 和其适当的属性标签，除此之外的所有HTML标签都会被清除，且该API不允许出现图片(img tag)。另外该API中允许出现的超链接中可以允许其指定http, https, ftp, mailto 且在超链接中强制追加rel=nofollow属性。</li>
+<li>basicWithImages()<br>该API在保留basic()中允许出现的标签的同时也允许出现图片(img tag)和img的相关适当属性，且其src允许其指定 http 或 https。</li>
+<li>relaxed()<br>该API仅会保留 a, b, blockquote, br, caption, cite, code, col, colgroup, dd, div, dl, dt, em, h1, h2, h3, h4, h5, h6, i, img, li, ol, p, pre, q, small, span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, tr, u, ul 标签，除此之外的所有HTML标签都会被清除，且在超链接中不会强制追加rel=nofollow属性。</li>
+<li>clean()<br>此外Jsoup的Whitelist提供了addTags方法，利用该方法可以对whitelist进行自定义扩展：</li>
+</ul>
+<pre><code>public Whitelist addTags(String... tags)</code></pre><p>  所以JsoupUtil.clean()方法的效果应该是输入<script>类的内容时,会自动转换为null。<br>  这么一看，相关的恶意数据被过滤了，好像也没啥问题。仔细琢磨下过滤的顺序问题，可以发现其实其中过滤方式是可以绕过进行任意文件下载的。<br>  要想对任意文件下载的接口进行利用，目的是让最后提交下载的地址为…/…/…/…/…/etc/passwd的方式，首先…/、./这种提交方式是直接被过滤掉了的，但是结合前面的正则表达式（出现一次或者多次的.且以/结尾的内容都进行过滤），…tkswifty/这种格式是可以通过过滤器安全检查的。<br>  此时再结合xss过滤，jsoup组件会把类似<script>内容替换为空。然后过滤的顺序是：</p>
+<pre><code>任意文件下载-&gt;xss</code></pre><p>  那么也就是说，尝试使用…<details>/…<details>/…<details>/etc/passwd进行访问可以达到任意文件下载的效果：<br><img src="https://www.sec-in.com/img/sin/M00/00/37/wKg0C18fpaSAKCBbAABQJfgA-5M950.png" alt="图片.png"><br>  到环境上进行验证，成功绕过相关的过滤器安全限制读取了/etc/passwd内容：<br><img src="https://www.sec-in.com/img/sin/M00/00/37/wKg0C18fozWAdmbUAADT-6RGUwQ255.png" alt="图片.png"></p>
+<h1 id="拓展与延伸"><a href="#拓展与延伸" class="headerlink" title="拓展与延伸"></a>拓展与延伸</h1><p>  上面的案例中一个过滤顺序的问题导致了相关的漏洞bypass，越复杂的设计可能存在的安全隐患就越多，针对文件下载业务，一般可以直接在对应的接口进行相关的检查，例如：</p>
+<ul>
+<li>对下载的文件类型进行白名单控制，限制下载的文件后缀；</li>
+<li>使用类似Java的file.getCanonicalPath()判断文件的真实路径，仅允许下载规定路径下的文件。</li>
+</ul>
+<p>  此外，在日常的黑盒测试中，也可以结合常见的过滤器设计进行相关的FUZZ，尝试进行相关任意文件下载的绕过，例如可以结合SQL注入的过滤关键字：</p>
+<pre><code>..|/..|/..|/..|/..|/..|/..|/..|/etc/passwd #Oracle的拼接符是||
+.|./.|./.|./.|./.|./.|./.|./.|./etc/passwd #调整关键字的位置</code></pre><p>  又比如上述例子中的结合xss的关键字：</p>
+<pre><code>..&lt;details&gt;/..&lt;details&gt;/..&lt;details&gt;/etc/passwd
+.&lt;details&gt;./.&lt;details&gt;./.&lt;details&gt;./etc/passwd</code></pre><p>  又比如命令执行的关键字nc等。</p>
+
         </div>
-        <img width="150" height="150" src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/">
-    session覆盖学习</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-9-4</div>
-    <p>
-    Session覆盖学习</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                session覆盖学习</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="york145.github.io/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/avatar.jpg" itemprop="image" alt="xiaotan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="york145.github.io/" itemprop="url" rel="author">xiaotan</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>一个超菜的人</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/lmxw32.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/">
-    session覆盖学习</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-9-4</div>
-    <p>
-    Session覆盖学习</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2020/09/04/session%E8%A6%86%E7%9B%96/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
@@ -640,16 +799,16 @@ $(document).ready(function() {
           <ul class="sub-menu">
             
               <li>
-                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                <a href="/categories/Java/">
                   <i class="fa fa-code" aria-hidden="true"></i>
-                  技术
+                  Java
                 </a>
               </li>
             
               <li>
-                <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                <a href="/categories/web/">
                   <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                  生活
+                  WEB
                 </a>
               </li>
             
@@ -696,9 +855,9 @@ $(document).ready(function() {
               </li>
             
               <li>
-                <a href="/bangumi/">
+                <a href="/tags/web/">
                   <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
-                  番组
+                  web
                 </a>
               </li>
             
