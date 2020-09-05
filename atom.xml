@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://york145.github.io/"/>
-  <updated>2020-09-05T04:25:20.197Z</updated>
+  <updated>2020-09-05T06:22:33.934Z</updated>
   <id>https://york145.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://york145.github.io/2020/09/05/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87%E8%BF%87%E7%A8%8B/"/>
     <id>https://york145.github.io/2020/09/05/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87%E8%BF%87%E7%A8%8B/</id>
     <published>2020-09-05T03:25:01.000Z</published>
-    <updated>2020-09-05T04:25:20.197Z</updated>
+    <updated>2020-09-05T06:22:33.934Z</updated>
     
     <summary type="html">
     
@@ -30,12 +30,14 @@
     </summary>
     
     
-      <category term="web" scheme="https://york145.github.io/categories/web/"/>
+      <category term="转载" scheme="https://york145.github.io/categories/%E8%BD%AC%E8%BD%BD/"/>
     
     
       <category term="web" scheme="https://york145.github.io/tags/web/"/>
     
       <category term="悦读" scheme="https://york145.github.io/tags/%E6%82%A6%E8%AF%BB/"/>
+    
+      <category term="转载" scheme="https://york145.github.io/tags/%E8%BD%AC%E8%BD%BD/"/>
     
   </entry>
   
@@ -44,7 +46,7 @@
     <link href="https://york145.github.io/2020/09/04/session%E8%A6%86%E7%9B%96/"/>
     <id>https://york145.github.io/2020/09/04/session%E8%A6%86%E7%9B%96/</id>
     <published>2020-09-04T12:50:01.000Z</published>
-    <updated>2020-09-05T03:21:19.403Z</updated>
+    <updated>2020-09-05T06:22:53.916Z</updated>
     
     <summary type="html">
     
@@ -54,6 +56,8 @@
     
     
       <category term="web" scheme="https://york145.github.io/categories/web/"/>
+    
+      <category term="Java" scheme="https://york145.github.io/categories/web/Java/"/>
     
     
       <category term="web" scheme="https://york145.github.io/tags/web/"/>
