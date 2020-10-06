@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://york145.github.io/"/>
-  <updated>2020-09-05T06:22:33.934Z</updated>
+  <updated>2020-10-06T10:07:20.252Z</updated>
   <id>https://york145.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://york145.github.io/2020/10/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8A/"/>
+    <id>https://york145.github.io/2020/10/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8A/</id>
+    <published>2020-10-06T09:15:19.948Z</published>
+    <updated>2020-10-06T10:07:20.252Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;title: 红日靶场练习（一）上&lt;br&gt;author: xiaotan&lt;br&gt;avatar: &lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>记一次任意文件下载绕过过程</title>
@@ -46,7 +69,7 @@
     <link href="https://york145.github.io/2020/09/04/session%E8%A6%86%E7%9B%96/"/>
     <id>https://york145.github.io/2020/09/04/session%E8%A6%86%E7%9B%96/</id>
     <published>2020-09-04T12:50:01.000Z</published>
-    <updated>2020-09-05T06:22:53.916Z</updated>
+    <updated>2020-09-05T06:26:12.741Z</updated>
     
     <summary type="html">
     
@@ -56,8 +79,6 @@
     
     
       <category term="web" scheme="https://york145.github.io/categories/web/"/>
-    
-      <category term="Java" scheme="https://york145.github.io/categories/web/Java/"/>
     
     
       <category term="web" scheme="https://york145.github.io/tags/web/"/>
