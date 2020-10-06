@@ -1,176 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
-
-
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="utf-8">
   
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <title>WEB-INF ~ Xiaotan</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+  
+  <title>WEB-INF | 小叹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码[https:&#x2F;&#x2F;buuoj.cn&#x2F;challenges#[RoarCTF%202019\]Easy%20Java](https:&#x2F;&#x2F;buuoj.cn&#x2F;challenges#[RoarCTF 2019]Easy Java)首先看到一个页面,点击下help看看啥情况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEB-INF">
+<meta property="og:url" content="http://yoursite.com/2020/04/06/Javaweb%E5%88%A9%E7%94%A8/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码[https:&#x2F;&#x2F;buuoj.cn&#x2F;challenges#[RoarCTF%202019\]Easy%20Java](https:&#x2F;&#x2F;buuoj.cn&#x2F;challenges#[RoarCTF 2019]Easy Java)首先看到一个页面,点击下help看看啥情况">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg">
+<meta property="og:image" content="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg">
+<meta property="og:image" content="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg">
+<meta property="og:image" content="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg">
+<meta property="og:image" content="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg">
+<meta property="article:published_time" content="2020-04-06T08:31:58.000Z">
+<meta property="article:modified_time" content="2020-04-15T02:18:11.551Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
-
-
-
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
-
-<link rel="stylesheet" href="/css/main.css"  >
-
-
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
-
-
-<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Xiaotan" type="application/atom+xml">
-</head>
-
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">Archives</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/categories/">Categories</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">Tags</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">About</a>
-          </li>
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
-      </ul>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小叹</a>
+      </h1>
+      
     </div>
-  </div>
-</nav>
-
-    <div class="view intro-2" id="background"
-         style="background: url('/img/bg_img.jpg')no-repeat center center;
-           background-size: cover;
-           background-attachment: fixed;">
-      <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  Monday, April 6th 2020, 4:31 pm
-                </p>
-              
-
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    521 字
-                  </span>&nbsp;
-                
-
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      2 分钟
-                  </span>&nbsp;
-                
-
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
-            
-          </div>
-
-          
-        </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
     </div>
-  </header>
-
-  <main>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Javaweb利用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/06/Javaweb%E5%88%A9%E7%94%A8/" class="article-date">
+  <time datetime="2020-04-06T08:31:58.000Z" itemprop="datePublished">2020-04-06</time>
+</a>
     
-      
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WEB-INF
+    </h1>
+  
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h2 id="WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"><a href="#WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码" class="headerlink" title="WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"></a>WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</h2><h4 id="https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java"><a href="#https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java" class="headerlink" title="[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)"></a>[<a href="https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]</a>(<a href="https://buuoj.cn/challenges#[RoarCTF" target="_blank" rel="noopener">https://buuoj.cn/challenges#[RoarCTF</a> 2019]Easy Java)</h4><h3 id="首先看到一个页面-点击下help看看啥情况。"><a href="#首先看到一个页面-点击下help看看啥情况。" class="headerlink" title="首先看到一个页面,点击下help看看啥情况。"></a>首先看到一个页面,点击下help看看啥情况。</h3><p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"><a href="#WEB-INF主要通过找到web-xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码" class="headerlink" title="WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码"></a>WEB-INF主要通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</h2><h4 id="https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java"><a href="#https-buuoj-cn-challenges-RoarCTF-202019-Easy-20Java-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Java" class="headerlink" title="[https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Java)"></a>[<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]">https://buuoj.cn/challenges#[RoarCTF%202019\]Easy%20Java]</a>(<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[RoarCTF">https://buuoj.cn/challenges#[RoarCTF</a> 2019]Easy Java)</h4><h3 id="首先看到一个页面-点击下help看看啥情况。"><a href="#首先看到一个页面-点击下help看看啥情况。" class="headerlink" title="首先看到一个页面,点击下help看看啥情况。"></a>首先看到一个页面,点击下help看看啥情况。</h3><p><a target="_blank" rel="noopener" href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/1.jpg" alt="img"></a></p>
 <p>发现输出一串</p>
-<pre><code>java.io.FileNotFoundException:{help.docx}</code></pre><p>可能是报错信息，打开Brup截取请求信息</p>
+<pre><code>java.io.FileNotFoundException:&#123;help.docx&#125;</code></pre><p>可能是报错信息，打开Brup截取请求信息</p>
 <pre><code>GET /Download?filename=help.docx HTTP/1.1
 Host: a6360be7-edf9-4caa-9461-3f2c7a89df9e.node3.buuoj.cn
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0
@@ -181,11 +104,11 @@ Connection: close
 Upgrade-Insecure-Requests: 1
 Pragma: no-cache
 Cache-Control: no-cache</code></pre><p>通过查询发现要改成POST，得到许多有用信息</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/3.jpg" alt="img"></a></p>
 <pre><code>com.Wm.ctf.DownloadController.doPost</code></pre><p>这个信息跟CTF可能有关,记一下一般有这样都有泄露。</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/4.jpg" alt="img"></a></p>
 <h3 id="因为缺少JAVA项目的开发经验，所以查了大量的资料"><a href="#因为缺少JAVA项目的开发经验，所以查了大量的资料" class="headerlink" title="因为缺少JAVA项目的开发经验，所以查了大量的资料"></a>因为缺少JAVA项目的开发经验，所以查了大量的资料</h3><p>我们访问下WEB-INF/web.xml这个文件</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/5.jpg" alt="img"></a></p>
 <p>得到了个flag的路径!!!!</p>
 <h2 id="插入一个知识点"><a href="#插入一个知识点" class="headerlink" title="插入一个知识点"></a>插入一个知识点</h2><pre><code>WEB-INF主要包含一下文件或目录:
 /WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。
@@ -194,281 +117,153 @@ Cache-Control: no-cache</code></pre><p>通过查询发现要改成POST，得到�
 /WEB-INF/src/：源码目录，按照包名结构放置各个java文件。
 /WEB-INF/database.properties：数据库配置文件
 漏洞检测以及利用方法：通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</code></pre><h2 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload:"></a>构造payload:</h2><pre><code>filename=WEB-INF/classes/com/wm/ctf/FlagController.class</code></pre><p>base64解码得到flag</p>
-<p><a href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" target="_blank" rel="noopener"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg"><img src="https://chen.oinsm.com/2019/10/20/RoarCTF-2019-Easy-Java/6.jpg" alt="img"></a></p>
 <h3 id="PS-GET不能读取文件有点懵，没想到居然要改成POST"><a href="#PS-GET不能读取文件有点懵，没想到居然要改成POST" class="headerlink" title="PS: GET不能读取文件有点懵，没想到居然要改成POST"></a>PS: GET不能读取文件有点懵，没想到居然要改成POST</h3>
-            <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-            </p>
-            
-          </div>
-        </div>
-      </div>
+      
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
-    
-      <br><br>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/06/Javaweb%E5%88%A9%E7%94%A8/" data-id="ckemqkeaj000aasty6mx527k7" class="article-share-link">Share</a>
       
       
-
-    
+    </footer>
   </div>
-</div>
-
-    
-  </main>
-
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/09/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python反序列化漏洞浅析
+        
+      </div>
     </a>
   
+  
+    <a href="/2020/04/02/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019%E3%80%91PHP/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">【极客大挑战2019】PHP</div>
+    </a>
+  
+</nav>
 
   
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB%EF%BC%8Cpython/">WEB，python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb/">攻防世界，web</a></li></ul>
     </div>
   </div>
-</div>
+
+
   
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jarvis-OJ/" rel="tag">Jarvis OJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cphp/" rel="tag">WEB，php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cupload/" rel="tag">WEB，upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/buuctf/" rel="tag">buuctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%EF%BC%8CJARvis-OJ/" rel="tag">web，JARvis OJ</a></li></ul>
+    </div>
+  </div>
+
+
   
-    <!-- 不蒜子统计PV -->
     
-    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Jarvis-OJ/" style="font-size: 13.33px;">Jarvis OJ</a> <a href="/tags/PHP/" style="font-size: 13.33px;">PHP</a> <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" style="font-size: 13.33px;">SQL注入</a> <a href="/tags/WEB/" style="font-size: 20px;">WEB</a> <a href="/tags/WEB%EF%BC%8Cphp/" style="font-size: 10px;">WEB，php</a> <a href="/tags/WEB%EF%BC%8Cupload/" style="font-size: 13.33px;">WEB，upload</a> <a href="/tags/buuctf/" style="font-size: 10px;">buuctf</a> <a href="/tags/pwn/" style="font-size: 16.67px;">pwn</a> <a href="/tags/web%EF%BC%8CJARvis-OJ/" style="font-size: 10px;">web，JARvis OJ</a>
+    </div>
+  </div>
+
   
-  
-    <!-- 不蒜子统计UV -->
     
-    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
   
-  <br>
-
-
-
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/11/%5BMRCTF2020%5DEzpop_Reveng/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/WebGoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89XXE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 小叹<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
   </div>
 </footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-<!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
   
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-<!-- Plugins -->
-
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
   
-
-  
-
-  
-
-  
-
-  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
-  </script>
-
-
-
-  <script src="/lib/typed/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "WEB-INF&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script src="/lib/anchor/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "false",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      getSearchFile(path);
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
-  <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
-      function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
-        $(this).wrap(element);
-      }
-    );
-  </script>
+<script src="/js/script.js"></script>
 
 
 
 
-
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
-
-
-
-
-
-
-
+  </div>
 </body>
 </html>

