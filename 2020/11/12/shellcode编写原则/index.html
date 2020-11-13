@@ -410,19 +410,31 @@
         <div class="entry-content">
           <h1 id="shellcode编写原则"><a href="#shellcode编写原则" class="headerlink" title="shellcode编写原则"></a>shellcode编写原则</h1><p>杜绝绝对地址的绝对调用</p>
 <p>VS开发平台中，双引号字符串会被编译到只读数据段，以引用绝对地址的方式使用。而在shellcode编程中，要尽量避免一切绝对地址的使用。</p>
-<p><code>char Data[] = &quot;xxxx&quot; [×]</code></p>
-<p><code>char *Data = &quot;xxx&quot;[×]</code></p>
-<p><code>sprintf(Data,&quot;%s%d&quot;,....)[×]</code></p>
-<p><code>memcpy(Data, &quot;xxxx&quot;) [×]</code></p>
-<p><code>char Data[] = &#123;&#39;x&#39;,&#39;x&#39;,&#39;x&#39;&#125; [√]</code></p>
-<p><code>__asm</code></p>
-<p><code>&#123;</code></p>
-<p><code>_EMIT &#39;x&#39;</code></p>
-<p>`_EMIT ‘x’                [√]``</p>
-<p><code>_EMIT &#39;x&#39;</code></p>
-<p><code>_EMIT 0</code></p>
-<p><code>&#125;</code></p>
-<h2 id="函数的动态调用"><a href="#函数的动态调用" class="headerlink" title="函数的动态调用"></a>函数的动态调用</h2><p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20201112134843851.png" alt="image-20201112134843851"></p>
+<pre><code>char Data[] = &quot;xxxx&quot; [×]`
+
+`char *Data = &quot;xxx&quot;[×]`
+
+`sprintf(Data,&quot;%s%d&quot;,....)[×]`
+
+`memcpy(Data, &quot;xxxx&quot;) [×]`
+
+
+
+`char Data[] = &#123;&#39;x&#39;,&#39;x&#39;,&#39;x&#39;&#125; [√]`
+
+`__asm`
+
+`&#123;`
+
+`_EMIT &#39;x&#39;`
+
+`_EMIT &#39;x&#39;                [√]``
+
+`_EMIT &#39;x&#39;`
+
+`_EMIT 0`
+
+`&#125;</code></pre><h2 id="函数的动态调用"><a href="#函数的动态调用" class="headerlink" title="函数的动态调用"></a>函数的动态调用</h2><p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20201112134843851.png" alt="image-20201112134843851"></p>
 <p>编译器实际上是把我们调用的MessageBox转换成系统中真正执行弹框功能的函数的入口地址。把MessageBox转换成实际地址的过程实际上是在vs编译器生成EXE的过程中完成的。</p>
 <p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20201112135653931.png" alt="image-20201112135653931"></p>
 <p>因为如果我们直接将这里的代码拿出放在别的机器上运行，那个机器在该地址所放的不一定是这个系统函数，会发生报错，因此我们需要使用的任何系统功能的函数都不能让编译器来转换它的地址。需要在程序执行的过程中动态的自己获取。</p>
@@ -473,8 +485,8 @@ FN_CreatefileA fn_CreateFileA;
 fn_CreateFileA = (FN_CreatefileA)GetProcAddress(LoadLibraryA(&quot;kernel32.dll&quot;), &quot;CreateFileA&quot;);
 fn_CreateFileA(&quot;Hello.txt&quot;, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
 
-return 0;</code></pre><p>}</p>
-<p><code>typedef HANDLE (WINAPI* FN_CreatefileA)(</code><br>    <code>_In_ LPCSTR lpFileName,</code><br>    <code>_In_ DWORD dwDesiredAccess,</code><br>    <code>_In_ DWORD dwShareMode,</code><br>    <code>_In_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes,</code><br>    <code>_In_ DWORD dwCreationDisposition,</code><br>    <code>_In_ DWORD dwFlagsAndAttributes,</code><br>    <code>_In_opt_ HANDLE hTemplateFile</code><br>    <code>);</code></p>
+return 0;
+&#125;</code></pre><p><code>typedef HANDLE (WINAPI* FN_CreatefileA)(</code><br>    <code>_In_ LPCSTR lpFileName,</code><br>    <code>_In_ DWORD dwDesiredAccess,</code><br>    <code>_In_ DWORD dwShareMode,</code><br>    <code>_In_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes,</code><br>    <code>_In_ DWORD dwCreationDisposition,</code><br>    <code>_In_ DWORD dwFlagsAndAttributes,</code><br>    <code>_In_opt_ HANDLE hTemplateFile</code><br>    <code>);</code></p>
 <p>这段代码可以在vs中CreateFileA按ctrl左键查看。</p>
 <p>下面是printf的动态调用</p>
 <pre><code>//printf(&quot;%s\n&quot;, &quot;Hello world!&quot;); 首先找到函数原型
@@ -524,8 +536,34 @@ FARPROC _GetProcAddress(HMODULE hModuleBase) &#123;
     PIMAGE_EXPORT_DIRECTORY lpExports = (PIMAGE_EXPORT_DIRECTORY)((DWORD)hModuleBase + (DWORD)lpNtHeader-&gt;OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
     PDWORD lpdwFunName = (PDWORD)((PDWORD)hModuleBase + (DWORD)lpExports-&gt;AddressOfNames);
     PWORD lpword = (PWORD)((DWORD)hModuleBase + (DWORD)lpExports-&gt;AddressOfNameOrdinals);
-    PWORD lpdwFunAddr = (PWORD)((DWORD)hModuleBase + (DWORD)lpExports-&gt;AddressOfFunctions);</code></pre><p>​<br>        DWORD dwLoop = 0;<br>        FARPROC pRet = NULL;<br>        for (; dwLoop &lt;= lpExports-&gt;NumberOfNames - 1; dwLoop++)<br>        {<br>            char* pFunName = (char*)(lpdwFunName[dwLoop] + (DWORD)hModuleBase);<br>            if (pFunName[0] == ‘G’ &amp;&amp;<br>                pFunName[1] == ‘e’ &amp;&amp;<br>                pFunName[2] == ‘t’ &amp;&amp;<br>                pFunName[3] == ‘P’ &amp;&amp;<br>                pFunName[4] == ‘r’ &amp;&amp;<br>                pFunName[5] == ‘o’ &amp;&amp;<br>                pFunName[6] == ‘c’ &amp;&amp;<br>                pFunName[7] == ‘A’ &amp;&amp;<br>                pFunName[8] == ‘d’ &amp;&amp;<br>                pFunName[9] == ‘d’ &amp;&amp;<br>                pFunName[10] == ‘r’ &amp;&amp;<br>                pFunName[11] == ‘e’ &amp;&amp;<br>                pFunName[12] == ‘s’ &amp;&amp;<br>                pFunName[13] == ‘s’)<br>            {<br>                pRet = (FARPROC)(lpdwFunAddr[lpword[dwLoop]] + (DWORD)hModuleBase);<br>                break;<br>            }<br>        }<br>        return pRet;<br>    }</p>
-<pre><code>int main() &#123;
+    PWORD lpdwFunAddr = (PWORD)((DWORD)hModuleBase + (DWORD)pExports-&gt;AddressOfFunctions);
+    DWORD dwLoop = 0;
+        FARPROC pRet = NULL;
+        for (; dwLoop &lt;= lpExports-&gt;NumberOfNames - 1; dwLoop++)
+        &#123;
+            char* pFunName = (char*)(lpdwFunName[dwLoop] + (DWORD)hModuleBase);
+            if (pFunName[0] == &#39;G&#39; &amp;&amp;
+                pFunName[1] == &#39;e&#39; &amp;&amp;
+                pFunName[2] == &#39;t&#39; &amp;&amp;
+                pFunName[3] == &#39;P&#39; &amp;&amp;
+                pFunName[4] == &#39;r&#39; &amp;&amp;
+                pFunName[5] == &#39;o&#39; &amp;&amp;
+                pFunName[6] == &#39;c&#39; &amp;&amp;
+                pFunName[7] == &#39;A&#39; &amp;&amp;
+                pFunName[8] == &#39;d&#39; &amp;&amp;
+                pFunName[9] == &#39;d&#39; &amp;&amp;
+                pFunName[10] == &#39;r&#39; &amp;&amp;
+                pFunName[11] == &#39;e&#39; &amp;&amp;
+                pFunName[12] == &#39;s&#39; &amp;&amp;
+                pFunName[13] == &#39;s&#39;)
+            &#123;
+                pRet = (FARPROC)(lpdwFunAddr[lpword[dwLoop]] + (DWORD)hModuleBase);
+                break;
+            &#125;
+        &#125;
+        return pRet;
+    &#125;
+    int main() &#123;
 
     HMODULE hLoadLibraryA = (HMODULE)getKernel32; 
     //LPVOID lploadLibraryA = GetProcAddress(hLoadLibraryA, &quot;LoadLibraryA&quot;);
