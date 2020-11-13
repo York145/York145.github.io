@@ -410,21 +410,11 @@
         <div class="entry-content">
           <h1 id="shellcode编写原则"><a href="#shellcode编写原则" class="headerlink" title="shellcode编写原则"></a>shellcode编写原则</h1><p>杜绝绝对地址的绝对调用</p>
 <p>VS开发平台中，双引号字符串会被编译到只读数据段，以引用绝对地址的方式使用。而在shellcode编程中，要尽量避免一切绝对地址的使用。</p>
-<pre><code>char Data[] = &quot;xxxx&quot; [×]
-char *Data = &quot;xxx&quot;[×]
-sprintf(Data,&quot;%s%d&quot;,....)[×]
-memcpy(Data, &quot;xxxx&quot;) [×]
-
-char Data[] = &#123;&#39;x&#39;,&#39;x&#39;,&#39;x&#39;&#125; [√]
-
-__asm
-&#123;
-    _EMIT &#39;x&#39;
-    _EMIT &#39;x&#39;               [√]
-    _EMIT &#39;x&#39;
-    _EMIT 0
-
-&#125;</code></pre><h2 id="函数的动态调用"><a href="#函数的动态调用" class="headerlink" title="函数的动态调用"></a>函数的动态调用</h2><p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20201112134843851.png" alt="image-20201112134843851"></p>
+<p><code>char Data[] = &quot;xxxx&quot; [×]</code><br><code>char *Data = &quot;xxx&quot;[×]</code><br><code>sprintf(Data,&quot;%s%d&quot;,....)[×]</code><br><code>memcpy(Data, &quot;xxxx&quot;) [×]</code></p>
+<p><code>char Data[] = &#123;&#39;x&#39;,&#39;x&#39;,&#39;x&#39;&#125; [√]</code></p>
+<p><code>__asm</code><br><code>&#123;</code><br>    <code>_EMIT &#39;x&#39;</code><br>    <code>_EMIT &#39;x&#39;               [√]</code><br>    <code>_EMIT &#39;x&#39;</code><br>    <code>_EMIT 0</code></p>
+<p><code>&#125;</code></p>
+<h2 id="函数的动态调用"><a href="#函数的动态调用" class="headerlink" title="函数的动态调用"></a>函数的动态调用</h2><p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20201112134843851.png" alt="image-20201112134843851"></p>
 <p>编译器实际上是把我们调用的MessageBox转换成系统中真正执行弹框功能的函数的入口地址。把MessageBox转换成实际地址的过程实际上是在vs编译器生成EXE的过程中完成的。</p>
 <p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20201112135653931.png" alt="image-20201112135653931"></p>
 <p>因为如果我们直接将这里的代码拿出放在别的机器上运行，那个机器在该地址所放的不一定是这个系统函数，会发生报错，因此我们需要使用的任何系统功能的函数都不能让编译器来转换它的地址。需要在程序执行的过程中动态的自己获取。</p>
