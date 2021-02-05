@@ -469,9 +469,9 @@
             putVal(hash(key), key, value, false, false);
         &#125;
     &#125;
-&#125;</code></pre><p><img src="../tags/%E5%9B%BE%E9%9B%86/image-20210205152346946.png" alt="image-20210205152346946"></p>
+&#125;</code></pre><p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20210205152346946.png" alt="image-20210205152346946"></p>
 <p>这里的hashCode是一个个 java.net.URL对象，单步进入后，进入了URL中：</p>
-<p><img src="../tags/%E5%9B%BE%E9%9B%86/image-20210205152904344.png" alt="image-20210205152904344"></p>
+<p><img src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/image-20210205152904344.png" alt="image-20210205152904344"></p>
 <p>从图上发现URL.hashcode()方法中判断了hashCode是否为-1如果不等于-1则会返回。</p>
 <p>在URLDNS的代码中有一行是：</p>
 <pre><code>Reflections.setFieldValue(u, &quot;hashCode&quot;, -1); // 在上面的put过程中，计算并缓存URL的hashCode。这将重置该值，以便下次调用hashCode时触发DNS查找。</code></pre><p>因此代码进入判断后会向下执行。继续跟进。</p>
