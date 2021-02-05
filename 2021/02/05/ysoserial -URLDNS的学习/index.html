@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">donate | xiaotan&#39;s blog</title>
+  <title itemprop="name">ysoserial -URLDNS的学习 | xiaotan&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -372,107 +372,250 @@
   </div>
 </header>
 
-      <link rel="stylesheet" href="/css/donate.css">
-<div class="pattern-center-blank">
-</div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.4/img/banner/donate.jpg" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.4/img/banner/donate.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/r2e391.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/r2e391.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      ysoserial -URLDNS的学习</h1>
+      <p class="entry-census">
+        <span>
+          <a href="york145.github.io/">
+            <img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="york145.github.io/">xiaotan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-2-5<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="entry-title">谢谢饲主了喵~</h1>
-  </header>
-</div>
+
 <div id="content" class="site-content">
-  <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
-  如果喜欢我的博客，可以考虑资助一下哦~非常感激！
-    <div id="root">
-      <div class="root">
-        <a href="https://github.com/Kaiyuan/donate-page" target="_blank" class="pos-f tr3" title="Github"><span id="github"></span></a>
-        <ul id="donateBox" class="list pos-f tr3">
-          <!-- <li id="BTC" data-footnote="Copy addres and show QRCod"><button id="BTCBn"  data-clipboard-target="#btc-key" alt="Copy to clipboard">Bitcoin</button></li> -->
-          <li id="PayPal"><a href="https://www.paypal.me/hojuncn" target="_blank">PayPal</a></li>
-          <li id="AliPay">AliPay</li>
-          <li id="WeChat">WeChat</li>
-        </ul>
-        <div id="DonateText" class="tr3">Donate</div>
-        <div id="QRBox" class="pos-f left-100">
-          <div id="MainBox"></div>
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="ysoserial-URLDNS的学习"><a href="#ysoserial-URLDNS的学习" class="headerlink" title="ysoserial -URLDNS的学习"></a>ysoserial -URLDNS的学习</h1><p>好久没碰Java了忘记的差不多了来重新复习一下。</p>
+<p>在本地搭建ysoserial的时候报错报了一堆，解决了好久都没解决，最后多亏了天下大木头爷爷才解决，这可能就是我菜的原因吧QAQ（Java的版本别弄太高）。</p>
+<p>版本：java 1.8</p>
+<p>先看看作者的说明</p>
+<pre><code>*   The Java URL class has an interesting property on its equals and
+*   hashCode methods. The URL class will, as a side effect, do a DNS lookup
+*   during a comparison (either equals or hashCode).
+*
+*   As part of deserialization, HashMap calls hashCode on each key that it
+*   deserializes, so using a Java URL object as a serialized key allows
+*   it to trigger a DNS lookup.
+*
+*   Gadget Chain:
+*     HashMap.readObject()
+*       HashMap.putVal()
+*         HashMap.hash()
+*           URL.hashCode()</code></pre><p>可以看见利用链是：</p>
+<pre><code>*   Gadget Chain:
+        HashMap.readObject()
+            HashMap.putVal()
+                 HashMap.hash()
+                     URL.hashCode()</code></pre><p>跟进hashmap中的readObject找到了倒数几行中的putval，很容易发现第一个参数就引用了hash的方法。跟进下断点。</p>
+<pre><code>private void readObject(java.io.ObjectInputStream s)
+    throws IOException, ClassNotFoundException &#123;
+    // Read in the threshold (ignored), loadfactor, and any hidden stuff
+    s.defaultReadObject();
+    reinitialize();
+    if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))
+        throw new InvalidObjectException(&quot;Illegal load factor: &quot; +
+                                         loadFactor);
+    s.readInt();                // Read and ignore number of buckets
+    int mappings = s.readInt(); // Read number of mappings (size)
+    if (mappings &lt; 0)
+        throw new InvalidObjectException(&quot;Illegal mappings count: &quot; +
+                                         mappings);
+    else if (mappings &gt; 0) &#123; // (if zero, use defaults)
+        // Size the table using given load factor only if within
+        // range of 0.25...4.0
+        float lf = Math.min(Math.max(0.25f, loadFactor), 4.0f);
+        float fc = (float)mappings / lf + 1.0f;
+        int cap = ((fc &lt; DEFAULT_INITIAL_CAPACITY) ?
+                   DEFAULT_INITIAL_CAPACITY :
+                   (fc &gt;= MAXIMUM_CAPACITY) ?
+                   MAXIMUM_CAPACITY :
+                   tableSizeFor((int)fc));
+        float ft = (float)cap * lf;
+        threshold = ((cap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; MAXIMUM_CAPACITY) ?
+                     (int)ft : Integer.MAX_VALUE);
+        @SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)
+            Node&lt;K,V&gt;[] tab = (Node&lt;K,V&gt;[])new Node[cap];
+        table = tab;
+
+        // Read the keys and values, and put the mappings in the HashMap
+        for (int i = 0; i &lt; mappings; i++) &#123;
+            @SuppressWarnings(&quot;unchecked&quot;)
+                K key = (K) s.readObject();
+            @SuppressWarnings(&quot;unchecked&quot;)
+                V value = (V) s.readObject();
+            putVal(hash(key), key, value, false, false);
+        &#125;
+    &#125;
+&#125;</code></pre><p><img src="D:%5Cblog%5CSakura%5Csource_posts%5Cpost-name%5Cimage-20210205152346946.png" alt="image-20210205152346946"></p>
+<p>这里的hashCode是一个个 java.net.URL对象，单步进入后，进入了URL中：</p>
+<p><img src="D:%5Cblog%5CSakura%5Csource_posts%5Cpost-name%5Cimage-20210205152904344.png" alt="image-20210205152904344"></p>
+<p>从图上发现URL.hashcode()方法中判断了hashCode是否为-1如果不等于-1则会返回。</p>
+<p>在URLDNS的代码中有一行是：</p>
+<pre><code>Reflections.setFieldValue(u, &quot;hashCode&quot;, -1); // 在上面的put过程中，计算并缓存URL的hashCode。这将重置该值，以便下次调用hashCode时触发DNS查找。</code></pre><p>因此代码进入判断后会向下执行。继续跟进。</p>
+<pre><code>protected int hashCode(URL u) &#123;
+    int h = 0;
+
+    // Generate the protocol part.
+    String protocol = u.getProtocol();
+    if (protocol != null)
+        h += protocol.hashCode();
+
+    // Generate the host part.
+    InetAddress addr = getHostAddress(u);
+    if (addr != null) &#123;
+        h += addr.hashCode();
+    &#125; else &#123;
+        String host = u.getHost();
+        if (host != null)
+            h += host.toLowerCase().hashCode();
+    &#125;</code></pre><p>这里有个getHostAddress跟进。</p>
+<pre><code>protected synchronized InetAddress getHostAddress(URL u) &#123;
+    if (u.hostAddress != null)
+        return u.hostAddress;
+
+    String host = u.getHost();
+    if (host == null || host.equals(&quot;&quot;)) &#123;
+        return null;
+    &#125; else &#123;
+        try &#123;
+            u.hostAddress = InetAddress.getByName(host);
+        &#125; catch (UnknownHostException ex) &#123;
+            return null;
+        &#125; catch (SecurityException se) &#123;
+            return null;
+        &#125;
+    &#125;
+    return u.hostAddress;
+&#125;</code></pre><p>看见了InetAddress.getByName(host)这里对我们输入的URL进行了解析。</p>
+<p>所以，⾄此，整个 URLDNS 的Gadget： </p>
+<ol>
+<li>HashMap-&gt;readObject() </li>
+<li>HashMap-&gt;hash() </li>
+<li>URL-&gt;hashCode() </li>
+<li>URLStreamHandler-&gt;hashCode() </li>
+<li>URLStreamHandler-&gt;getHostAddress() </li>
+<li>InetAddress-&gt;getByName()</li>
+</ol>
+
         </div>
-        <!-- Bitcoin 账号 -->
-        <!-- <input id="btc-key" type="text" value="14JkMR68n4PBASB3TgvpjtaPTbfffSwFbW" readonly="readonly"> -->
-      </div>
-    </div>
-    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-    <footer class="post-footer">
-      <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-      <div class="post-tags">
-      </div>
-      <div class="post-share">
-        <div class="social-share sharehidden share-component"></div>
-        <i class="iconfont show-share icon-forward"></i>
-      </div>
-    </footer><!-- .entry-footer -->
-  </article>
-  <section class="author-profile">
-    <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-      <a href="/about/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/avatar.jpg" itemprop="image" alt="hojun" height="70" width="70"></a>
-      <div class="meta">
-        <span class="title">Author</span>
-        <h3 itemprop="name">
-        <a href="https://york145.github.io/" itemprop="url" rel="author">hojun</a>
-        </h3>
-      </div>
-    </div>
-    <hr>
-    <p><i class="iconfont icon-write"></i>我用三生的期许 换回三世相思雨 三千浮沉里的你 迷失轮回的自己</p>
-  </section>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2021/02/05/post-name/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                post_name</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/11/12/shellcode%E7%BC%96%E5%86%99%E5%8E%9F%E5%88%99/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/eyw5qw.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/eyw5qw.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                shellcode编写原则</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="york145.github.io/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/avatar.jpg" itemprop="image" alt="xiaotan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="york145.github.io/" itemprop="url" rel="author">xiaotan</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>一个超菜的人</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script> -->
-  <script>
-    jQuery(document).ready(function() {
-    var QRBox = $('#QRBox');
-    var MainBox = $('#MainBox');
-    var BTCQR = '/images/donate/BTCQR.png'; // 二维码路径
-    var AliPayQR  = 'https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/donate/AliPayQR.jpg';
-    var WeChanQR  = 'https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/donate/WeChanSQ.jpg';
 
-    function showQR(QR) {
-      if (QR) {
-        MainBox.css('background-image','url('+QR+')');
-      }
-      $('#DonateText,#donateBox,#github').addClass('blur');
-      QRBox.fadeIn(300,function(argument) {
-        MainBox.addClass('showQR');
-      });
-    }
 
-    $('#donateBox>li').click(function(event) {
-      var thisID  = $(this).attr('id');
-      if (thisID === 'BTC') {
-        new ClipboardJS('#BTCBn');
-        new ClipboardJS('.btnsss');
-        showQR(BTCQR);
-      } else if (thisID === 'AliPay') {
-        showQR(AliPayQR);
-      } else if (thisID === 'WeChat') {
-        showQR(WeChanQR);
-      }
-    });
-
-    MainBox.click(function(event) {
-      MainBox.removeClass('showQR').addClass('hideQR');
-      setTimeout (function(a) {
-        QRBox.fadeOut(300,function(argument) {
-          MainBox.removeClass('hideQR');
-        });
-        $('#DonateText,#donateBox,#github').removeClass('blur');
-      },600);
-
-    });
-  });
-  </script>
 
     </div>    
     <div class="ins-search">
