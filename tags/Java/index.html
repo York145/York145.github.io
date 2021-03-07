@@ -238,9 +238,9 @@
                       </li>
                     
                       <li>
-                        <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                        <a href="/categories/%E9%80%86%E5%90%91/">
                           <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                          随想
+                          逆向
                         </a>
                       </li>
                     
@@ -620,9 +620,9 @@ $(document).ready(function() {
               </li>
             
               <li>
-                <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                <a href="/categories/%E9%80%86%E5%90%91/">
                   <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                  随想
+                  逆向
                 </a>
               </li>
             
@@ -757,6 +757,66 @@ $(document).ready(function() {
 <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 <style>
   .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="2660651585"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>player .aplayer-lrc {
     height: 35px;
   }
   .aplayer .aplayer-lrc p{
