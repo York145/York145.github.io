@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://york145.github.io/"/>
-  <updated>2021-03-11T12:14:52.374Z</updated>
+  <updated>2021-03-11T12:22:17.384Z</updated>
   <id>https://york145.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>fastjson 1.22-1.24 Templateslmpl漏洞复习与分析</title>
+    <title>再探fastjson</title>
     <link href="https://york145.github.io/2021/03/11/%E5%86%8D%E6%8E%A2fastjson/"/>
     <id>https://york145.github.io/2021/03/11/%E5%86%8D%E6%8E%A2fastjson/</id>
     <published>2021-03-11T12:12:01.000Z</published>
-    <updated>2021-03-11T12:14:52.374Z</updated>
+    <updated>2021-03-11T12:22:17.384Z</updated>
     
     <summary type="html">
     
