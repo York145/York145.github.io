@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">CommonsCollections 1分析 | pyshare&#39;s blog</title>
+  <title itemprop="name">Category: Java | pyshare&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -372,173 +372,110 @@
   </div>
 </header>
 
-      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+      
 <div class="pattern-center-blank"></div>
-
-  <div class="pattern-center single-center">
-    <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg">
-    </div>
-    <header class="pattern-header single-header">
-      <h1 class="entry-title">
-      CommonsCollections 1分析</h1>
-      <p class="entry-census">
-        <span>
-          <a href="york145.github.io/">
-            <img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg">
-          </a>
-        </span>
-        <span>
-          <a href="york145.github.io/">xiaotan</a>
-        </span>
-        <span class="bull">
-        ·</span>
-        2021-3-3<span class="bull">
-        ·</span>
-      <span id="busuanzi_value_page_pv"></span>次阅读</p>
-    </header>
+<div class="pattern-center ">
+  <div class="pattern-attachment-img">
+    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
   </div>
-
+  <header class="pattern-header ">
+    <h1 class="cat-title">野生技术协会</h1>
+    <span class="cat-des">
+      <p>Geek – Only for Love</p>
+    </span>
+  </header>
+</div>
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
-        <div class="toc"></div>
-        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-        
-        <div class="entry-content">
-          <h1 id="solr漏洞分析–CVE-2017-3163"><a href="#solr漏洞分析–CVE-2017-3163" class="headerlink" title="solr漏洞分析–CVE-2017-3163"></a>solr漏洞分析–CVE-2017-3163</h1><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>solr 6.4.0<br>java 1.8</p>
-<p>solr 所有版本下载地址：<a target="_blank" rel="noopener" href="http://archive.apache.org/dist/lucene/solr/">http://archive.apache.org/dist/lucene/solr/</a></p>
-<p>启动低版本启动，在example目录下：</p>
-<blockquote>
-<p>java -Xdebug -Xrunjdwp:transport=dt_socket,address=10010,server=y,suspend=y -jar start.jar</p>
-</blockquote>
-<p>高版本启动,bin目录下：</p>
-<blockquote>
-<p>./solr.cmd -f -a “-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=10010” -port 8983 -s “./Solr/solr-6.4.0/example/example-DIH/solr”</p>
-</blockquote>
-<p>IDEA:<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeu966q2jj31b90u0n3r.jpg" alt=""></p>
-<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><h3 id="影响范围"><a href="#影响范围" class="headerlink" title="影响范围"></a>影响范围</h3><ul>
-<li>1.4.0-6.4.0</li>
-</ul>
-<p>低版本：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://127.0.0.1:8983/solr/replication?command=filecontent&amp;file=../../../../../../../../../../../../../etc/passwd&amp;wt=filestream&amp;generation=1">http://127.0.0.1:8983/solr/replication?command=filecontent&amp;file=../../../../../../../../../../../../../etc/passwd&amp;wt=filestream&amp;generation=1</a></p>
-</blockquote>
-<p>较高版本：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://127.0.0.1:8983/solr/db/replication?command=filecontent&amp;file=../../../../../../../../../../../../../etc/passwd&amp;wt=filestream&amp;generation=1">http://127.0.0.1:8983/solr/db/replication?command=filecontent&amp;file=../../../../../../../../../../../../../etc/passwd&amp;wt=filestream&amp;generation=1</a></p>
-</blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeudj1f4pj30y40kijwt.jpg" alt=""></p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeugygyfpj322w0f8q8b.jpg" alt=""></p>
-<p>首先在filter下断点，可以看见这里将request，response，chain传入了重写的filter。</p>
-<p>org.apache.solr.servlet.SolrDispatchFilter#getHttpSolrCall<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeuqzidu6j31800mmgq1.jpg" alt=""></p>
-<p>其中对一些变量进行了赋值，主要是解析req从中获取core名称，并向req中写入一些属性，初始化一些core相关的参数，检查core在不在corecontainer中，并做一些错误异常抛出的处理，以及得到当前url的action类型。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeusvume8j31q20ciwmw.jpg" alt=""></p>
-<p>后面跟入httpsolrall类的call方法<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeuur8rjaj31300teafz.jpg" alt=""><br>继续跟进到init函数中，init中进行初始化的一些解析操作，比如handler、path、action等成员的解析赋值，比如这里的action为PROCESS<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeuwresf4j313u0pgwno.jpg" alt=""></p>
-<p>下面根据action的值进入不同的分支中：<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpeuy77tisj31d60r04e0.jpg" alt=""><br>进入execute函数中，并继续跟入execute中，<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpev2j6ni2j314m08uq7s.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpev4d0w4dj31ce0eyadb.jpg" alt=""><br>跟入hanlderRequest中，<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpev4d0w4dj31ce0eyadb.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpev6v82lnj31ka0cu10d.jpg" alt=""><br>在handleRequestBody中，对commadn进行赋值<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpev6v82lnj31ka0cu10d.jpg" alt=""></p>
-<p>solr/core/src/java/org/apache/solr/handler/ReplicationHandler.java<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpevbfszbuj316g0gkn1c.jpg" alt=""></p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpevcptqu4j31l80n40y9.jpg" alt=""><br>基本上都是从SolrParams对象中取值并赋值到DirectoryFileStream对象成员<br>solr/core/src/java/org/apache/solr/handler/ReplicationHandler.java</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpevi8w7wwj31760u0tpw.jpg" alt=""><br>将恶意文件读取的参数传入dir.openInput，查看IndexInput类对象in<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpevlh2va4j31m209mdmi.jpg" alt=""></p>
-<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewm40h1qj31na0jcgq5.jpg" alt=""><br>在6.4.2中添加了如下代码，判断是否存在..，如果存在则会返回403<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewnkpmcfj30po0eygn9.jpg" alt=""></p>
-
-        </div>
-        <!-- .entry-content -->
-        <div class="single-reward">
-          <div class="reward-open">赏
-            <div class="reward-main">
-              <ul class="reward-row">
-                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/custom/donate/AliPayQR.jpg"></li>
-                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/custom/donate/WeChanQR.jpg"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-        <footer class="post-footer">
-          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-          <div class="post-tags">
-          </div>
-          <div class="post-share">
-            <div class="social-share sharehidden share-component"></div>
-            <i class="iconfont show-share icon-forward"></i>
-          </div>
-        </footer><!-- .entry-footer -->
-      </article>
-      <!-- #post-## -->
-      <div class="toc" style="background: none;"></div>
-      <section class="post-squares nextprev">
-        
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/2021/03/03/CommonsCollections%201%E5%88%86%E6%9E%90/" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                CommonsCollections 1分析</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
-        
-          
-            <div class="post-nepre half next">
-          
-            <a href="/2021/03/01/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E6%8A%80%E5%B7%A7/" rel="next">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1go5bvx6zc3j21hc0u0dp2.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go5bvx6zc3j21hc0u0dp2.jpg">
-              </div>
-              <span class="label">
-              Next Post</span>
-              <div class="info">
-                <h3>
-                静态分析技巧</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
-      </section>
       
-<div id="vcomments"></div>
-<script>
-  window.onload = function(){
-      var valine = new Valine();
-      valine.init({
-        el: '#vcomments',
-        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
-        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
-        path: window.location.pathname,
-        placeholder: "你是我一生只会遇见一次的惊喜 ..."
-      })
-  }
-</script>
-
-      <section class="author-profile">
-        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="york145.github.io/" class="profile gravatar"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg" itemprop="image" alt="xiaotan" height="70" width="70"></a>
-          <div class="meta">
-            <span class="title">Author</span>
-            <h3 itemprop="name">
-            <a href="york145.github.io/" itemprop="url" rel="author">xiaotan</a>
-            </h3>
-          </div>
+  <!-- 首页默认取最最新文章集 -->
+  
+    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
+  <div class="post-entry">
+    <div class="feature">
+      <a href="/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+        <div class="overlay">
+          <i class="iconfont icon-text">
+          </i>
         </div>
-        <hr>
-        <p><i class="iconfont icon-write"></i>一个超菜的人</p>
-      </section>
-    </main><!-- #main -->
-  </div><!-- #primary -->
+        <img width="150" height="150" src="https://raw.githubusercontent.com/York145/CDN/master/images/zm9kpy.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
+      </a>
+    </div>
+    <h1 class="entry-title">
+    <a href="/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+    Java反射的学习</a>
+    </h1>
+    <div class="p-time">
+      <i class="iconfont icon-time">
+      </i>
+    2020-9-4</div>
+    <p>
+    Java反射的学习</p>
+    <footer class="entry-footer">
+      <div class="post-more">
+        <a href="/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+          <i class="iconfont icon-caidan">
+          </i>
+        </a>
+      </div>
+    </footer>
+  </div>
+  <hr>
+</article>
+  
+
+
+      <div class="clearer">
+      </div>
+    </main>
+    <!-- 
+      <nav class="navigator">
+        
+        <a class="extend prev" rel="prev" href="/categories/Java/">&lt;i class&#x3D;&quot;iconfont icon-back&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/categories/Java/">1</a><span class="page-number current">2</span>
+      </nav>
+     -->
+    
+  </div>
 </div>
 
+<!-- 
+  
+    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
+  <div class="post-entry">
+    <div class="feature">
+      <a href="/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+        <div class="overlay">
+          <i class="iconfont icon-text">
+          </i>
+        </div>
+        <img width="150" height="150" src="https://raw.githubusercontent.com/York145/CDN/master/images/zm9kpy.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
+      </a>
+    </div>
+    <h1 class="entry-title">
+    <a href="/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+    Java反射的学习</a>
+    </h1>
+    <div class="p-time">
+      <i class="iconfont icon-time">
+      </i>
+    2020-9-4</div>
+    <p>
+    Java反射的学习</p>
+    <footer class="entry-footer">
+      <div class="post-more">
+        <a href="/2020/09/04/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+          <i class="iconfont icon-caidan">
+          </i>
+        </a>
+      </div>
+    </footer>
+  </div>
+  <hr>
+</article>
+  
 
-
+ -->
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
