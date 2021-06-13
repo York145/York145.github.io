@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://york145.github.io/"/>
-  <updated>2021-05-27T10:21:03.425Z</updated>
+  <updated>2021-06-13T11:14:11.057Z</updated>
   <id>https://york145.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Shiro反序列化漏洞学习</title>
+    <link href="https://york145.github.io/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://york145.github.io/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/</id>
+    <published>2021-06-13T11:16:01.000Z</published>
+    <updated>2021-06-13T11:14:11.057Z</updated>
+    
+    <summary type="html">
+    
+      Shiro反序列化漏洞学习
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://york145.github.io/categories/Java/"/>
+    
+    
+      <category term="悦读" scheme="https://york145.github.io/tags/%E6%82%A6%E8%AF%BB/"/>
+    
+      <category term="web" scheme="https://york145.github.io/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>Java agent学习</title>

