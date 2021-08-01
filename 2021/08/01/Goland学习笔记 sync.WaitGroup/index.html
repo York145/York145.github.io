@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Goland学习笔记 sync.WaitGroup | 小叹</title><meta name="keywords" content="go"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Goland学习笔记 sync.WaitGroup">
+<meta property="og:url" content="http://yoursite.com/2021/08/01/Goland%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20sync.WaitGroup/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="go">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gt1aq42qdej30u00u0n1o.jpg">
+<meta property="article:published_time" content="2021-08-01T07:00:01.000Z">
+<meta property="article:modified_time" content="2021-08-01T07:01:33.022Z">
+<meta property="article:tag" content="悦读">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gt1aq42qdej30u00u0n1o.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2021/08/01/Goland%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20sync.WaitGroup/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="XGwjLQtdgDNnEDwkeuCK-ucz-j3-gHvZkeARGhb9hJU"/><meta name="baidu-site-verification" content="code-n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Goland学习笔记 sync.WaitGroup',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-08-01 15:01:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008i3skNly1gt1aq42qdej30u00u0n1o.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Goland学习笔记 sync.WaitGroup</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-08-01T07:00:01.000Z" title="Created 2021-08-01 15:00:01">2021-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-08-01T07:01:33.022Z" title="Updated 2021-08-01 15:01:33">2021-08-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/go/">go</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>3min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Goland学习笔记 sync.WaitGroup"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Goland学习笔记-sync-WaitGroup"><a href="#Goland学习笔记-sync-WaitGroup" class="headerlink" title="Goland学习笔记 sync.WaitGroup"></a>Goland学习笔记 sync.WaitGroup</h1><p>go语言是原生支持并发的语言，在学习并发之前，我们先来学习一下进程、线程以及协程的概念。下面的内容取至《计算机操作系统基础》</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>  我们都知道计算机的核心是CPU，它承担了所有的计算任务；而操作系统是计算机的管理者，它负责任务的调度、资源的分配和管理，统领整个计算机硬件；应用程序则是具有某种功能的程序，程序是运行于操作系统之上的。</p>
+<p>  进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。进程是一种抽象的概念，从来没有统一的标准定义。</p>
+<p>进程一般由程序、数据集合和进程控制块三部分组成。</p>
+<p>程序用于描述进程要完成的功能，是控制进程执行的指令集；<br>数据集合是程序在执行时所需要的数据和工作区；<br>程序控制块(Program Control Block，简称PCB)，包含进程的描述信息和控制信息，是进程存在的唯一标志。<br>进程具有的特征：</p>
+<p>动态性：进程是程序的一次执行过程，是临时的，有生命期的，是动态产生，动态消亡的；<br>并发性：任何进程都可以同其他进程一起并发执行；<br>独立性：进程是系统进行资源分配和调度的一个独立单位；<br>结构性：进程由程序、数据和进程控制块三部分组成。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>  在早期的操作系统中并没有线程的概念，进程是能拥有资源和独立运行的最小单位，也是程序执行的最小单位。任务调度采用的是时间片轮转的抢占式调度方式，而进程是任务调度的最小单位，每个进程有各自独立的一块内存，使得各个进程之间内存地址相互隔离。</p>
+<p>  后来，随着计算机的发展，对CPU的要求越来越高，进程之间的切换开销较大，已经无法满足越来越复杂的程序的要求了。于是就发明了线程。</p>
+<p>  线程是程序执行中一个单一的顺序控制流程，是程序执行流的最小单元，是处理器调度和分派的基本单位。一个进程可以有一个或多个线程，各个线程之间共享程序的内存空间(也就是所在进程的内存空间)。一个标准的线程由线程ID、当前指令指针(PC)、寄存器和堆栈组成。而进程由内存空间(代码、数据、进程空间、打开的文件)和一个或多个线程组成。</p>
+<h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>协程，英文Coroutines，是一种基于线程之上，但又比线程更加轻量级的存在，这种由程序员自己写程序来管理的轻量级线程叫做『用户空间线程』，具有对内核来说不可见的特性。</p>
+<p>因为是自主开辟的异步任务，所以很多人也更喜欢叫它们纤程（Fiber），或者绿色线程（GreenThread）。正如一个进程可以拥有多个线程一样，一个线程也可以拥有多个协程。</p>
+<h2 id="sync-waitGroup"><a href="#sync-waitGroup" class="headerlink" title="sync.waitGroup"></a>sync.waitGroup</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>waitGroup有一个内置的计数器，最初从0开始。它具有三个方法Add(),Done(),Wait()。Add()计数器加1，Done()计数器减1，Wait()阻塞代码运行，直到计数器为0.</p>
+<p>直白的说就是一堆小弟在干活，干完活就跑到一个通道里面发送一个空消息，老大在通道等着小弟们的汇报。来一个小弟就记录一个小弟干完了活，直到记录的小弟干完活的数量等于小弟的人数就完成了。</p>
+<p>下面是不使用sync.waitGroup的代码实现：</p>
+<pre><code class="go">works := 3
+ch := make(chan struct&#123;&#125;)
+
+work := func()&#123;
+    // 搬砖
+    ch &lt;- struct&#123;&#125; //    通知老大
+&#125;
+
+leader := func() &#123;
+  cnt := 0
+  for range ch &#123;
+    cnt++
+    if cnt == workers &#123;
+      break
+    &#125;
+  &#125;
+  close(ch)
+  // 检查工作成果
+&#125;
+
+go leader()
+
+for i := 0; i &lt; workers; i++ &#123;
+  go worker()
+&#125;</code></pre>
+<p>那么如果采用sync.waitGroup则</p>
+<pre><code class="go">wg := &amp;sync.WaitGroup&#123;&#125;
+workers := 3
+wg.Add(workers)
+worker := func() &#123;
+  defer wg.Done()
+  // 干活
+&#125;
+leader := func() &#123;
+  wg.Wait()
+  // 检查工作成果
+&#125;
+go leader()
+for i := 0; i &lt; workers; i++ &#123;
+  go worker()
+&#125;</code></pre>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><a class="post-meta__tags" href="/tags/go/">go</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/008i3skNly1gt1aq42qdej30u00u0n1o.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/"><img class="next-cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gss9nrp63zj30ul0u00x0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">ATT&amp;CK红队评估实战靶场（一） 练习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/07/24/ATT&CK红队评估实战靶场（一） 练习/" title="ATT&CK红队评估实战靶场（一） 练习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gss9nrp63zj30ul0u00x0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-24</div><div class="title">ATT&CK红队评估实战靶场（一） 练习</div></div></a></div><div><a href="/2021/03/03/CommonsCollections 1分析/" title="CommonsCollections 1分析"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">CommonsCollections 1分析</div></div></a></div><div><a href="/2020/09/04/Java反序列化的学习/" title="Java反序列化的学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-04</div><div class="title">Java反序列化的学习</div></div></a></div><div><a href="/2021/06/13/Shiro反序列化漏洞学习/" title="Shiro反序列化漏洞学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-13</div><div class="title">Shiro反序列化漏洞学习</div></div></a></div><div><a href="/2020/09/04/Java反射的学习/" title="Java反射的学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-04</div><div class="title">Java反射的学习</div></div></a></div><div><a href="/2021/05/09/Java agent学习/" title="Java agent学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="title">Java agent学习</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Goland%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-sync-WaitGroup"><span class="toc-number">1.</span> <span class="toc-text">Goland学习笔记 sync.WaitGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.1.2.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">协程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sync-waitGroup"><span class="toc-number">1.2.</span> <span class="toc-text">sync.waitGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text">介绍</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/08/01/Goland%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20sync.WaitGroup/" title="Goland学习笔记 sync.WaitGroup"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gt1aq42qdej30u00u0n1o.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Goland学习笔记 sync.WaitGroup"/></a><div class="content"><a class="title" href="/2021/08/01/Goland%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20sync.WaitGroup/" title="Goland学习笔记 sync.WaitGroup">Goland学习笔记 sync.WaitGroup</a><time datetime="2021-08-01T07:00:01.000Z" title="Created 2021-08-01 15:00:01">2021-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gss9nrp63zj30ul0u00x0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK红队评估实战靶场（一） 练习"/></a><div class="content"><a class="title" href="/2021/07/24/ATT&amp;CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89%20%E7%BB%83%E4%B9%A0/" title="ATT&amp;CK红队评估实战靶场（一） 练习">ATT&amp;CK红队评估实战靶场（一） 练习</a><time datetime="2021-07-24T11:31:01.000Z" title="Created 2021-07-24 19:31:01">2021-07-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习"><img src="https://tva1.sinaimg.cn/large/008i3skNgy1grgup9s1bdj31hc0u0h12.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shiro反序列化漏洞学习"/></a><div class="content"><a class="title" href="/2021/06/13/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Shiro反序列化漏洞学习">Shiro反序列化漏洞学习</a><time datetime="2021-06-13T11:16:01.000Z" title="Created 2021-06-13 19:16:01">2021-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java agent学习"/></a><div class="content"><a class="title" href="/2021/05/09/Java%20agent%E5%AD%A6%E4%B9%A0/" title="Java agent学习">Java agent学习</a><time datetime="2021-05-09T06:31:01.000Z" title="Created 2021-05-09 14:31:01">2021-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gq0wmy7qiej31hc0u0dom.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透--远程桌面"/></a><div class="content"><a class="title" href="/2021/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F--%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" title="内网渗透--远程桌面">内网渗透--远程桌面</a><time datetime="2021-04-29T12:05:01.000Z" title="Created 2021-04-29 20:05:01">2021-04-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+      appKey: 'NI4yNO6pe0VGcyaXWOjKtYkk',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
