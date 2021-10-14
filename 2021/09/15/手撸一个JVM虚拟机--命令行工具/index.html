@@ -1,0 +1,632 @@
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Apereo Cas 4.1.X 反序列化漏洞复现 | 小叹</title><meta name="keywords" content="Java"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Apereo Cas 4.1.X 反序列化漏洞复现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apereo Cas 4.1.X 反序列化漏洞复现">
+<meta property="og:url" content="http://yoursite.com/2021/09/15/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="Apereo Cas 4.1.X 反序列化漏洞复现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg">
+<meta property="article:published_time" content="2021-09-15T08:23:01.000Z">
+<meta property="article:modified_time" content="2021-10-14T09:53:50.517Z">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="悦读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2021/09/15/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="XGwjLQtdgDNnEDwkeuCK-ucz-j3-gHvZkeARGhb9hJU"/><meta name="baidu-site-verification" content="code-n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Apereo Cas 4.1.X 反序列化漏洞复现',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-10-14 17:53:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Apereo Cas 4.1.X 反序列化漏洞复现</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-09-15T08:23:01.000Z" title="Created 2021-09-15 16:23:01">2021-09-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-10-14T09:53:50.517Z" title="Updated 2021-10-14 17:53:50">2021-10-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>12min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Apereo Cas 4.1.X 反序列化漏洞复现"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="手撸一个JVM虚拟机–命令行工具"><a href="#手撸一个JVM虚拟机–命令行工具" class="headerlink" title="手撸一个JVM虚拟机–命令行工具"></a>手撸一个JVM虚拟机–命令行工具</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>转眼就十月份了，最近都没有好好学习，暑假去安恒实习学到了很多，第一次自己尝试使用go和Java写工具，不过也感觉到了自己在一些基础知识上的薄弱，所以这里打算自己尝试使用go写一个Java虚拟机，希望能坚持写完。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li>Goland 2021.2</li>
+<li>go version go1.16 darwin/arm64</li>
+</ul>
+<p>首先在%GOPATH%\src目录下创建一个gojvm目录，在目录下创建ch01目录，工作空间的目录结构如下：</p>
+<pre><code>/Users/xiaotan/go/src
+  |-gojvm
+    |-ch01</code></pre><h2 id="Java-工作原理"><a href="#Java-工作原理" class="headerlink" title="Java 工作原理"></a>Java 工作原理</h2><p>JVM虚拟机的工作原理就是运行Java应用程序，而main函数则是Java应用程序的入口点，这个类可以用来启动Java应用程序，我们把这个类称为主类。而对于Java虚拟机并没有明确规定如何寻找类来启动应用程序，也就是说由Java虚拟机自行决定，例如Oracle的Java虚拟机实现是通过java命令来启动的，主类名由命令行参数指定。Java命令有如下四种形式：</p>
+<pre><code>java [-options] class [args]
+java [-options] -jar jarfile [args]
+javaw [-options] class [args]
+javaw [-options] -jar jarfile [args]</code></pre><p>第一个非选项参数给出主类的完全限定名（fully qualified name）。但是如果用户提供了-jar选项，则第一个非选项参数表示JAR文件名，java命令必须从这个JAR文件中寻找主类。javaw命令和java命令几乎一样，唯一的差别在于，javaw命令不显示命令行窗口，因此特别适合于启动GUI应用程序。</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">–version</td>
+<td align="center">输出版本信息然后退出</td>
+</tr>
+<tr>
+<td align="center">-？/-help</td>
+<td align="center">输出帮助信息，然后退出</td>
+</tr>
+<tr>
+<td align="center">-cp/-classpath</td>
+<td align="center">指定用户类路径</td>
+</tr>
+<tr>
+<td align="center">-Dproperty=vlaue</td>
+<td align="center">指定Java系统属性</td>
+</tr>
+<tr>
+<td align="center">-Xms<size></td>
+<td align="center">设置初始堆空间大小</td>
+</tr>
+<tr>
+<td align="center">-Xmx<size></td>
+<td align="center">设置最大堆空间大小</td>
+</tr>
+<tr>
+<td align="center">-Xss<size></td>
+<td align="center">设置线程栈空间大小</td>
+</tr>
+</tbody></table>
+<h2 id="编写命令行工具"><a href="#编写命令行工具" class="headerlink" title="编写命令行工具"></a>编写命令行工具</h2><p>在ch01下创建一个cmd.go文件</p>
+<pre><code class="go">package main
+
+import (
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;os&quot;
+)
+
+type CMD struct &#123;
+    helpFlag bool
+    versionFlag bool
+    cpOption string
+    class string
+    args []string
+&#125;
+
+func parseCmd() *CMD&#123;
+    cmd := &amp;CMD&#123;&#125;
+    flag.Usage = printUsage
+    flag.BoolVar(&amp;cmd.helpFlag, &quot;help&quot;, false, &quot;print help message&quot;)
+    flag.BoolVar(&amp;cmd.helpFlag, &quot;?&quot;, false, &quot;print help message&quot;)
+    flag.BoolVar(&amp;cmd.versionFlag, &quot;version&quot;, false, &quot;print the version&quot;)
+    flag.StringVar(&amp;cmd.cpOption, &quot;classpath&quot;, &quot;&quot;, &quot;classpath&quot;)
+    flag.StringVar(&amp;cmd.cpOption, &quot;cp&quot;, &quot;&quot;, &quot;classpath&quot;)
+    flag.Parse()
+    args := flag.Args()
+    if len(args) &gt; 0&#123;
+        cmd.class = args[0]
+        cmd.args = args[1:]
+    &#125;
+
+    return cmd
+&#125;
+
+func printUsage()&#123;
+    fmt.Printf(&quot;Usage: %s [-options] class [args......]\n&quot;, os.Args[0])
+&#125;</code></pre>
+<p>这里应用了go的内置包flag，通过不同的参数，调用不同的函数。这里先将printUsage()传给flag.Usage然后进行解析，如果解析失败则调用printUsage()函数。</p>
+<p>再创建一个main.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main()&#123;
+    cmd := parseCmd()
+    if cmd.versionFlag&#123;
+        fmt.Println(&quot;1.0.0&quot;)
+    &#125;else if cmd.helpFlag || cmd.class == &quot;&quot;&#123;
+        printUsage()
+    &#125;else&#123;
+        startJVM(cmd)
+    &#125;
+&#125;
+
+func startJVM(cmd *CMD)&#123;
+    fmt.Printf(&quot;classpath: %s class %s args: %v\n&quot;, cmd.cpOption, cmd.class, cmd.args)
+&#125;</code></pre>
+<h2 id="搜索class文件"><a href="#搜索class文件" class="headerlink" title="搜索class文件"></a>搜索class文件</h2><h3 id="加载类文件的流程"><a href="#加载类文件的流程" class="headerlink" title="加载类文件的流程"></a>加载类文件的流程</h3><p>下面是一个Java的hello world代码</p>
+<pre><code class="java">public class HelloWorld&#123;
+    public static void main(String[] args)&#123;
+        System.out.println(&quot;Hello, world! &quot;);
+    &#125;
+&#125;</code></pre>
+<p>加载HelloWorld类之前，首先要加载它的超类，也就是java.lang.Object。在调用main()方法之前，因此虚拟机需要准备好参数数组，所以需要加载java.lang.String和java.lang.String[]类。把字节符打印到控制台还需要加载java.lang.System类等等。</p>
+<h3 id="类路径加载"><a href="#类路径加载" class="headerlink" title="类路径加载"></a>类路径加载</h3><p>   Java虚拟机规范并没有规定虚拟机应该从哪里寻找类，因此不同的虚拟机实现可以采用不同的方法。Oracle的Java虚拟机实现根据类路径（class path）来搜索类。会先后搜索启动类路径（bootstrap classpath），拓展类路径（extension classpath），用户类（user classpath）。启动类路径默认对应jre\lib目录，Java标准库（大部分在rt.jar里）位于该路径。拓展类路径默认对应jre\lib\ext目录，使用Java拓展机制的类位于这个路径。我们自己实现的类，以及第三方类库则位于用户类路径。可以通过- Xbootclasspath选项修改启动类路径，不过通常并不需要这样做，所以这里就不详细介绍。</p>
+<p>用户类的默认值是当前目录及”.”。可以修改CLASSPATH环境变量来修改用户类路径，但是这样不够灵活，所以不推荐使用。更好的办法是给java命令传递-classpath。</p>
+<h3 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h3><p>将ch01复制一份重命名为ch02，并在目录中创建classpath文件夹。<br>我们的Java虚拟机将使用JDK的启动类路径寻找和加载Java标准库中的类，所以需要中ch02/cmd.go中添加一个参数XjreOption来获得jre路径。</p>
+<pre><code class="go">type CMD struct &#123;
+    helpFlag bool
+    versionFlag bool
+    cpOption string
+    XjreOption string
+    class string
+    args []string
+&#125;
+
+func parseCmd() *CMD&#123;
+    cmd := &amp;CMD&#123;&#125;
+    flag.Usage = printUsage
+    flag.BoolVar(&amp;cmd.helpFlag, &quot;help&quot;, false, &quot;print help message&quot;)
+    flag.BoolVar(&amp;cmd.helpFlag, &quot;?&quot;, false, &quot;print help message&quot;)
+    flag.BoolVar(&amp;cmd.versionFlag, &quot;version&quot;, false, &quot;print the version&quot;)
+    flag.StringVar(&amp;cmd.cpOption, &quot;classpath&quot;, &quot;&quot;, &quot;classpath&quot;)
+    flag.StringVar(&amp;cmd.cpOption, &quot;cp&quot;, &quot;&quot;, &quot;classpath&quot;)
+    flag.StringVar(&amp;cmd.XjreOption, &quot;Xjre&quot;, &quot;&quot;, &quot;path to jre&quot;)
+    flag.Parse()
+    args := flag.Args()
+    if len(args) &gt; 0&#123;
+        cmd.class = args[0]
+        cmd.args = args[1:]
+    &#125;
+
+    return cmd
+&#125;</code></pre>
+<h4 id="Entry接口"><a href="#Entry接口" class="headerlink" title="Entry接口"></a>Entry接口</h4><p>在classpath目录下创建entry.go</p>
+<pre><code class="go">package classpath
+
+import (
+    &quot;os&quot;
+    &quot;strings&quot;
+)
+
+const pathListSeparator = string(os.PathListSeparator)//存放路径分隔符
+type Entry interface &#123;
+    readClass(className string)([]byte, Entry, error)
+    String() string
+&#125;
+func newEntry(path string) Entry&#123;
+    if strings.Contains(path, pathListSeparator)&#123;
+        return newCompositeEntry(path)
+    &#125;
+    //判断是否是*结尾
+    if strings.HasSuffix(path, &quot;*&quot;)&#123;
+        return newWildcardEntry(path)
+    &#125;
+
+    if strings.HasSuffix(path, &quot;.jar&quot;) || 
+        strings.HasSuffix(path, &quot;.JAR&quot;) || 
+        strings.HasSuffix(path, &quot;.zip&quot;) ||
+        strings.HasSuffix(path, &quot;.ZIP&quot;)&#123;
+        return newZipEntry(path)
+    &#125;
+    return newDirEntry(path)
+&#125;
+</code></pre>
+<p>定义常量pathListSeparator表示路径分隔符，定义一个接口Entry其中包含readClass方法和String方法，String类似于Java的toString方法，用来打印。</p>
+<h5 id="DirEntry"><a href="#DirEntry" class="headerlink" title="DirEntry"></a>DirEntry</h5><p>在相同目录下创建entry_dir.go，DirEntry用来存放绝对路径。</p>
+<pre><code class="go">package classpath
+
+import (
+    &quot;io/ioutil&quot;
+    &quot;path/filepath&quot;
+)
+
+type DirEntry struct &#123;
+    absDir string
+&#125;
+
+func (self *DirEntry) String() string &#123;
+    return self.absDir
+&#125;
+
+func newDirEntry(path string) *DirEntry&#123;
+    absDir, err := filepath.Abs(path)
+    if err != nil &#123;
+        panic(err)
+    &#125;
+    return &amp;DirEntry&#123;absDir&#125;
+&#125;
+
+func (self *DirEntry) readClass(className string)([]byte, Entry, error)&#123;
+    fileName := filepath.Join(self.absDir, className)
+    data, err := ioutil.ReadFile(fileName)
+    return data, self, err
+&#125;</code></pre>
+<h5 id="ZipEntry"><a href="#ZipEntry" class="headerlink" title="ZipEntry"></a>ZipEntry</h5><p>ZipEntry表示ZIP和JAR文件的类路径因为寻找一次类文件关闭一次会导致效率降低因此在结构体中增加一个zipRC</p>
+<pre><code class="go">package classpath
+
+import (
+    &quot;archive/zip&quot;
+    &quot;errors&quot;
+    &quot;io/ioutil&quot;
+    &quot;path/filepath&quot;
+)
+
+type ZipEntry struct &#123;
+    absPath string
+    zipRC   *zip.ReadCloser
+&#125;
+
+func newZipEntry(path string) *ZipEntry &#123;
+    absPath, err := filepath.Abs(path)
+    if err != nil &#123;
+        panic(err)
+    &#125;
+    return &amp;ZipEntry&#123;absPath, nil&#125;
+&#125;
+
+func (self *ZipEntry) readClass(className string) ([]byte, Entry, error) &#123;
+    if self.zipRC == nil &#123;
+        err := self.openJar()
+        if err != nil &#123;
+            return nil, nil, err
+        &#125;
+    &#125;
+    classFile := self.findClass(className)
+    if classFile == nil &#123;
+        return nil, nil, errors.New(&quot;class not found: &quot; + className)
+    &#125;
+
+    data, err := readClass(classFile)
+    return data, self, err
+&#125;
+
+// todo: close zip
+func (self *ZipEntry) openJar() error &#123;
+    r, err := zip.OpenReader(self.absPath)
+    if err == nil &#123;
+        self.zipRC = r
+    &#125;
+    return err
+&#125;
+
+func (self *ZipEntry) findClass(className string) *zip.File &#123;
+    for _, f := range self.zipRC.File &#123;
+        if f.Name == className &#123;
+            return f
+        &#125;
+    &#125;
+    return nil
+&#125;
+
+func readClass(classFile *zip.File) ([]byte, error) &#123;
+    rc, err := classFile.Open()
+    if err != nil &#123;
+        return nil, err
+    &#125;
+    // read class data
+    data, err := ioutil.ReadAll(rc)
+    rc.Close()
+    if err != nil &#123;
+        return nil, err
+    &#125;
+    return data, nil
+&#125;
+
+func (self *ZipEntry) String() string &#123;
+    return self.absPath
+&#125;</code></pre>
+<h5 id="CompositeEntry"><a href="#CompositeEntry" class="headerlink" title="CompositeEntry"></a>CompositeEntry</h5><pre><code class="go">package classpath
+
+import (
+    &quot;errors&quot;
+    &quot;strings&quot;
+)
+
+type CompositeEntry []Entry
+func newCompositeEntry(pathList string) CompositeEntry&#123;
+    compositeEntry := []Entry&#123;&#125;
+    for _, path := range strings.Split(pathList,
+        pathListSeparator)&#123;
+        entry := newEntry(path)
+        compositeEntry = append(compositeEntry, entry)
+    &#125;
+    return compositeEntry
+&#125;
+
+func (self CompositeEntry) readClass(className string)([]byte, Entry, error)&#123;
+    for _, entry := range self &#123;
+        data, from, err := entry.readClass(className)
+        if err == nil&#123;
+            return data, from, nil
+        &#125;
+    &#125;
+    return nil, nil, errors.New(&quot;class not found: &quot; +
+        className)
+&#125;
+
+func (self CompositeEntry) String() string&#123;
+    strs := make([]string, len(self))
+    for i, entry := range self&#123;
+        strs[i] = entry.String()
+    &#125;
+    return strings.Join(strs, pathListSeparator)
+&#125;</code></pre>
+<h5 id="WildcardEntry"><a href="#WildcardEntry" class="headerlink" title="WildcardEntry"></a>WildcardEntry</h5><p>本质上WildcardEntry也是CompositeEntry，调用Walk函数编列aseDir创建ZIP实体。这里用到了函数式编程。</p>
+<pre><code class="go">package classpath
+
+import (
+    &quot;os&quot;
+    &quot;path/filepath&quot;
+    &quot;strings&quot;
+)
+
+func newWildcardEntry(path string) CompositeEntry&#123;
+    baseDir := path[:len(path) - 1] //去除 *
+    compositeEntry := []Entry&#123;&#125;
+    walkFn := func(path string, info os.FileInfo, err error) error&#123;
+        if err != nil &#123;
+            return err
+        &#125;
+        if info.IsDir() &amp;&amp; path != baseDir&#123;
+            return filepath.SkipDir
+        &#125;
+        if strings.HasSuffix(path, &quot;.jar&quot;) ||
+    strings.HasSuffix(path, &quot;.JAR&quot;)&#123;
+            jarEntry := newZipEntry(path)
+            compositeEntry = append(compositeEntry, jarEntry)
+        &#125;
+        return nil
+    &#125;
+    filepath.Walk(baseDir, walkFn)
+    return compositeEntry
+&#125;</code></pre>
+<p>优先使用用户输入-Xjre选项作为jre目录。如果没有输入该选项，则中当前目录下寻找jre目录。如果找不到，尝试使用JAVA_HOME。<br>classpath.go</p>
+<pre><code class="go">package classpath
+
+import (
+    &quot;os&quot;
+    &quot;path/filepath&quot;
+)
+
+type Classpath struct&#123;
+    bootClasspath Entry
+    extClasspath Entry
+    userClasspath Entry
+&#125;
+func Parse(jreOption, cpOption string) *Classpath&#123;
+    cp := &amp;Classpath&#123;&#125;
+    cp.parseBootAndExtClasspath(jreOption)
+    cp.parseUserClasspath(cpOption)
+    return cp
+&#125;
+
+func (self *Classpath) parseBootAndExtClasspath(jreOption string)&#123;
+    jreDir := getJreDir(jreOption)
+    // jre/lib/*
+    jreLibPath := filepath.Join(jreDir, &quot;lib&quot;, &quot;*&quot;)
+    self.bootClasspath = newWildcardEntry(jreLibPath)
+    // jre/lib/ext/*
+    jreExtPAth := filepath.Join(jreDir, &quot;lib&quot;, &quot;ext&quot;, &quot;*&quot;)
+    self.extClasspath = newWildcardEntry(jreExtPAth)
+&#125;
+
+func getJreDir(jreOption string) string&#123;
+    if jreOption != &quot;&quot; &amp;&amp; exists(jreOption)&#123;
+        return jreOption
+    &#125;
+    if exists(&quot;./jre&quot;)&#123;
+        return &quot;./jre&quot;
+    &#125;
+    if jh := os.Getenv(&quot;JAVA_HOME&quot;); jh != &quot;&quot; &#123;
+        return filepath.Join(jh, &quot;jre&quot;)
+    &#125;
+    panic(&quot;Can not find jre folder! &quot;)
+&#125;
+
+func exists(path string) bool &#123;
+    if _, err := os.Stat(path); err != nil&#123;
+        if os.IsNotExist(err) &#123;
+            return false
+        &#125;
+    &#125;
+    return true
+&#125;
+
+func (self *Classpath) parseUserClasspath(cpOption string)&#123;
+    if cpOption == &quot;&quot;&#123;
+        cpOption = &quot;.&quot;
+    &#125;
+    self.userClasspath = newEntry(cpOption)
+&#125;
+
+// 如果用户未提供-cp选项则使用当前目录作为用户路径
+
+func (self *Classpath) ReadClass(className string) ([]byte, Entry, error)&#123;
+    className = className + &quot;.class&quot;
+    if data, entry, err :=
+        self.bootClasspath.readClass(className); err == nil &#123;
+        return data, entry, err
+    &#125;
+    if data, entry, err :=
+        self.extClasspath.readClass(className); err == nil&#123;
+        return data, entry, err
+    &#125;
+    return self.userClasspath.readClass(className)
+&#125;
+
+func (self *Classpath) String() string&#123;
+    return self.userClasspath.String()
+&#125;</code></pre>
+<p>然后修改一下StartJVM</p>
+<pre><code class="go">func startJVM(cmd *CMD)&#123;
+    cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
+    fmt.Printf(&quot;classpath: %v class: %v args: %v\n&quot;,
+        cp, cmd.class, cmd.args)
+    className := strings.Replace(cmd.class, &quot;.&quot;, &quot;/&quot;, -1)
+    classData, _, err := cp.ReadClass(className)
+    if err != nil &#123;
+        fmt.Printf(&quot;Could not find or load main class %s\n&quot;,
+            cmd.class)
+        return
+    &#125;
+    fmt.Printf(&quot;class data: %v\n&quot;, classData)
+&#125;</code></pre>
+<h3 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h3><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gvelors08pj60w20mw43n02.jpg" alt=""></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《自己动手写Java虚拟机》</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/09/15/Apereo%20Cas%204.1.X%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"><img class="prev-cover" src="https://tva1.sinaimg.cn/large/008i3skNly1guhe3jmjrpj60rs11wdkf02.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Apereo Cas 4.1.X 反序列化漏洞复现</div></div></a></div><div class="next-post pull-right"><a href="/2021/08/26/JBoss%E6%97%A0%E6%96%87%E4%BB%B6webshell%E7%A0%94%E7%A9%B6/"><img class="next-cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gtu9sivuhfj60u01degr902.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">JBoss无文件webshell研究</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/03/03/CommonsCollections 1分析/" title="CommonsCollections 1分析"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">CommonsCollections 1分析</div></div></a></div><div><a href="/2021/05/09/Java agent学习/" title="Java agent学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="title">Java agent学习</div></div></a></div><div><a href="/2021/04/11/solr漏洞分析--CVE-2017-3163/" title="solr漏洞分析--CVE-2017-3163"><img class="cover" src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-11</div><div class="title">solr漏洞分析--CVE-2017-3163</div></div></a></div><div><a href="/2021/08/03/Weblogic T3 反序列化学习/" title="Weblogic T3 反序列化学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gt3ekv3d2gj31hc0u0dn6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-03</div><div class="title">Weblogic T3 反序列化学习</div></div></a></div><div><a href="/2021/02/05/ysoserial -URLDNS的学习/" title="ysoserial -URLDNS的学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-05</div><div class="title">ysoserial -URLDNS的学习</div></div></a></div><div><a href="/2021/04/01/CommonsCollections 2分析/" title="CommonsCollections 2分析"><img class="cover" src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-01</div><div class="title">CommonsCollections 2分析</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变<br>当灾难来临时，精神意志才是人类面对危险的第一序列武器</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA%E2%80%93%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">1.</span> <span class="toc-text">手撸一个JVM虚拟机–命令行工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.2.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">Java 工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">1.4.</span> <span class="toc-text">编写命令行工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2class%E6%96%87%E4%BB%B6"><span class="toc-number">1.5.</span> <span class="toc-text">搜索class文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E7%B1%BB%E6%96%87%E4%BB%B6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">加载类文件的流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E8%B7%AF%E5%BE%84%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.5.2.</span> <span class="toc-text">类路径加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99"><span class="toc-number">1.5.3.</span> <span class="toc-text">代码编写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Entry%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">Entry接口</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DirEntry"><span class="toc-number">1.5.3.1.1.</span> <span class="toc-text">DirEntry</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ZipEntry"><span class="toc-number">1.5.3.1.2.</span> <span class="toc-text">ZipEntry</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CompositeEntry"><span class="toc-number">1.5.3.1.3.</span> <span class="toc-text">CompositeEntry</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#WildcardEntry"><span class="toc-number">1.5.3.1.4.</span> <span class="toc-text">WildcardEntry</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-number">1.5.4.</span> <span class="toc-text">结果展示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.6.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/09/15/Apereo%20Cas%204.1.X%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="Apereo Cas 4.1.X 反序列化漏洞复现"><img src="https://tva1.sinaimg.cn/large/008i3skNly1guhe3jmjrpj60rs11wdkf02.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Apereo Cas 4.1.X 反序列化漏洞复现"/></a><div class="content"><a class="title" href="/2021/09/15/Apereo%20Cas%204.1.X%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="Apereo Cas 4.1.X 反序列化漏洞复现">Apereo Cas 4.1.X 反序列化漏洞复现</a><time datetime="2021-09-15T08:23:01.000Z" title="Created 2021-09-15 16:23:01">2021-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/15/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" title="Apereo Cas 4.1.X 反序列化漏洞复现"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Apereo Cas 4.1.X 反序列化漏洞复现"/></a><div class="content"><a class="title" href="/2021/09/15/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" title="Apereo Cas 4.1.X 反序列化漏洞复现">Apereo Cas 4.1.X 反序列化漏洞复现</a><time datetime="2021-09-15T08:23:01.000Z" title="Created 2021-09-15 16:23:01">2021-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/26/JBoss%E6%97%A0%E6%96%87%E4%BB%B6webshell%E7%A0%94%E7%A9%B6/" title="JBoss无文件webshell研究"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gtu9sivuhfj60u01degr902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JBoss无文件webshell研究"/></a><div class="content"><a class="title" href="/2021/08/26/JBoss%E6%97%A0%E6%96%87%E4%BB%B6webshell%E7%A0%94%E7%A9%B6/" title="JBoss无文件webshell研究">JBoss无文件webshell研究</a><time datetime="2021-08-26T08:27:01.000Z" title="Created 2021-08-26 16:27:01">2021-08-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/10/Golang%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%BC%96%E5%86%99%E5%97%85%E6%8E%A2%E5%99%A8/" title="Golang学习笔记 编写嗅探器"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gtbt86fd03j61hc0u0tfx02.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Golang学习笔记 编写嗅探器"/></a><div class="content"><a class="title" href="/2021/08/10/Golang%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%BC%96%E5%86%99%E5%97%85%E6%8E%A2%E5%99%A8/" title="Golang学习笔记 编写嗅探器">Golang学习笔记 编写嗅探器</a><time datetime="2021-08-10T09:14:01.000Z" title="Created 2021-08-10 17:14:01">2021-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/03/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="Weblogic T3 反序列化学习"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gt3ekv3d2gj31hc0u0dn6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Weblogic T3 反序列化学习"/></a><div class="content"><a class="title" href="/2021/08/03/Weblogic%20T3%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="Weblogic T3 反序列化学习">Weblogic T3 反序列化学习</a><time datetime="2021-08-03T02:40:01.000Z" title="Created 2021-08-03 10:40:01">2021-08-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="http://xiao-tan.xyz/">blog</a>!<br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><img class="icp-icon" src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png"><span>备案号：浙ICP备2021025540号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+      appKey: 'NI4yNO6pe0VGcyaXWOjKtYkk',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
