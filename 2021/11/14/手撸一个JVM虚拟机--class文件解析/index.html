@@ -1,0 +1,1348 @@
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>手撸一个JVM虚拟机--class文件解析 | 小叹</title><meta name="keywords" content="Java"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="手撸一个JVM虚拟机--class文件解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手撸一个JVM虚拟机--class文件解析">
+<meta property="og:url" content="http://yoursite.com/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="手撸一个JVM虚拟机--class文件解析">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg">
+<meta property="article:published_time" content="2021-11-14T03:23:01.000Z">
+<meta property="article:modified_time" content="2021-11-14T03:21:15.867Z">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="悦读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="XGwjLQtdgDNnEDwkeuCK-ucz-j3-gHvZkeARGhb9hJU"/><meta name="baidu-site-verification" content="code-n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '手撸一个JVM虚拟机--class文件解析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-11-14 11:21:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">手撸一个JVM虚拟机--class文件解析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-11-14T03:23:01.000Z" title="Created 2021-11-14 11:23:01">2021-11-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-11-14T03:21:15.867Z" title="Updated 2021-11-14 11:21:15">2021-11-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>4min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="手撸一个JVM虚拟机--class文件解析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  Java程序“编写一次，处处实现”，为了实现这一目标，Java规范严格规范了class文件的文件格式。Class文件一般采用类似于C语言结构体的伪结构来储存数据，主要由无符号数和表组成，构成class文件的基本数据单位是字节。可以将class文件当做字节流来处理，这些数据做class文件中以打断的方式。在class的文件格式中，Java虚拟机规范定义了u1、u2、u3三种数据类型来表示1、2和4字节无符号整数，分别对应golang中的uint8、uint16和uint32类型，无论是无符号数还是表， 当需要描述同一类型但数量不定的多个数据时， 经常会使用一个前置的容量计数器加若干个连续的数据项的形式， 这时候称这一系列连续的某一类型的数据为某一类型的“集合”。</p>
+<h1 id="类文件简述"><a href="#类文件简述" class="headerlink" title="类文件简述"></a>类文件简述</h1><h2 id="类文件结构"><a href="#类文件结构" class="headerlink" title="类文件结构"></a>类文件结构</h2><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th>名称</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">u4</td>
+<td>magic</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>minor_version</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>major_version</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>constant_pool_count</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">cp_info</td>
+<td>constant_pool</td>
+<td>constant_pool_count-1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>access_flags</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>this_class</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>super_class</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>interfaces_count</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>interfaces</td>
+<td>interfaces_count</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>fields_count</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">field_info</td>
+<td>fields</td>
+<td>fields_count</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>methods_count</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">method_info</td>
+<td>methods</td>
+<td>methods_count</td>
+</tr>
+<tr>
+<td align="center">u2</td>
+<td>attributes_count</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">attribute_info</td>
+<td>attributes</td>
+<td>attributes_count</td>
+</tr>
+</tbody></table>
+<h2 id="魔数和Java版本号"><a href="#魔数和Java版本号" class="headerlink" title="魔数和Java版本号"></a>魔数和Java版本号</h2><p>Java的头四个字节被称为魔数，很多文件格式都会规定满足该格式的文件必须以某几个固定字节开头，这几个字节主要起标识作用，叫做魔数。例如PDF为“%PDF”（0x25，0x50，0x44，0x46）开头，而class文件的魔术是“0x CAFEBABE”。</p>
+<p>紧接着魔术的存储着4个字节的版本号，第5、6个字节是次版本号，第7、8个字节是主版本号。</p>
+<h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2><p>在版本号之后的就是Java的常量池类，常量池占据了class文件很大一部分数据，里面存放着各式各样的常量信息，包括数字和字符串常量，常量池入口需要放置一项u2类型的数据，代表常量池容量计数值（constant_pool_count）,但是表头给出的值是从1开始的，所以表头给出的值比实际大1.例如下图，常量池的偏移地址是0x00000008，即0x003B，实际值就是58.设计者将第0项常量空出来是有特殊考虑的， 这样做的目的在于， 如果后面某些指向常量池的索引值的数据在特定情况下需要表达“不引用任何一个常量池项目”的含义， 可以把索引值设置为0来表示。<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gvvva4gmbyj31ep0u0wt3.jpg" alt=""></p>
+<p>常量池主要存放两大类常量：字面量和符号引用。如下图：<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gvvvkacrmhj30ek0iiabx.jpg" alt=""></p>
+<table>
+<tbody>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">类型</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">项目</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">类型</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">描述</p>
+
+
+
+
+</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">
+<p align="left">CONSTANT_Utf8_info</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为1</p>
+
+
+
+
+</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">length</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">utf-8缩略编码字符串占用字节数</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">bytes</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">长度为length的utf-8缩略编码字符串</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">
+<p align="left">CONSTANT_Integer_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为3</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">bytes</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u4</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">按照高位在前储存的int值</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">
+<p align="left">CONSTANT_Float_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为4</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">bytes</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u4</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">按照高位在前储存的float值</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">
+<p align="left">CONSTANT_Long_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为5</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">bytes</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u8</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">按照高位在前储存的long值</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">
+<p align="left">CONSTANT_Double_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为6</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">bytes</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u8</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">按照高位在前储存的double值</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">
+<p align="left">CONSTANT_Class_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为7</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向全限定名常量项的索引</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">
+<p align="left">CONSTANT_String_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为8</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向字符串字面量的索引</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">
+<p align="left">CONSTANT_Fieldref_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为9</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向声明字段的类或接口描述符CONSTANT_Class_info的索引项</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向字段描述符CONSTANT_NameAndType_info的索引项</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">
+<p align="left">CONSTANT_Methodref_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为10</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向声明方法的类描述符CONSTANT_Class_info的索引项</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向名称及类型描述符CONSTANT_NameAndType_info的索引项</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">
+<p align="left">CONSTANT_InterfaceMethodref_info</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为11</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向声明方法的接口描述符CONSTANT_Class_info的索引项</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向名称及类型描述符CONSTANT_NameAndType_info的索引项</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">
+<p align="left">CONSTANT_NameAndType_info</p>
+<p align="left">&nbsp;</p>
+<p align="left">&nbsp;</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为12</p>
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向该字段或方法名称常量项的索引</p>
+
+</td>
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">index</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u2</p>
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">指向该字段或方法描述符常量项的索引</p>
+<div>&nbsp;</div>
+
+</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">CONSTANT_MethodHandle_info</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">tag</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">u1　　</p>
+
+
+
+
+</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">
+<p align="left">值为15</p>
+
+
+
+
+</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">refrence_kind</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u1</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须在1-9之间，决定了方法句柄的类型，方法句柄的类型的值表示方法句柄字节码的行为</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">refrence_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须是对常量池的有效索引</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">CONSTANT_MethodType_info</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">tag</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u1</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值为16</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">descriptor_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须对常量池的有效索引，常量池在该处的项必须是CONSTANT_Utf8_info表示方法的描述符</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">CONSTANT_Dynamic_info</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">tab</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u1</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值为17</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">bootstrap_method_attr_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须对当前Class文件中引导方法表的bootstrap_methods[]数组的有效索引</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">name_and_type_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须对当前常量池的有效索引，常量池中在该索引出的项必须是CONSTANT_NameAndType_info结构，表示方法名和方法描述符</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" rowspan="3" align="left" valign="middle">CONSTANT_InvokeDynamic_info</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">tag　</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u1</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值为18</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">bootstrap_method_attr_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须对当前Class文件中引导方法表的bootstrap_methods[]数组的有效索引</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">name_and_type_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须对当前常量池的有效索引，常量池中在该索引出的项必须是CONSTANT_NameAndType_info结构，表示方法名和方法描述符</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">CONSTANT_Module_info</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">tag</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u1</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值为19</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">name_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须对常量池的有效索引，常量池在该处的项必须是CONSTANT_Utf8_info表示模块名</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" rowspan="2" align="left" valign="middle">CONSTANT_Package_info</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">tag</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u1</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值为20</td>
+
+
+
+
+</tr>
+<tr style="height: 30px">
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">name_index</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1);  height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">u2</td>
+<td style="border: 1px solid rgba(65, 63, 192, 1); height: 30px; width: 814px" dir="ltr" scope="row" align="left" valign="middle">值必须对常量池的有效索引，常量池在该处的项必须是CONSTANT_Utf8_info表示包名</td>
+</tr>
+</tbody
+</table>
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">—-</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">## 类访问标志</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>在常量池后就是类访问标志(access_flags),用于识别class文件内是类还是接口，是公有还是私有。如果是类的话，是否被声明为final等。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gvw71lxc8zj31fu0u0ncd.jpg" alt=""></p>
+<h2 id="类和超类索引"><a href="#类和超类索引" class="headerlink" title="类和超类索引"></a>类和超类索引</h2><p>类访问标志之后是两个u2类型的常量池索引，分别给出类名和超类名.class文件存储的类名类似完全限定名，但是把点换成了斜线，Java语言规范把这种名字叫做二进制名。除了java.lang.Object之外，其他类都有超类，所以superclass只在Object.class中是0.</p>
+<p>name_index和descriptor_index。 它们都是对常量池项的引用， 分别代表着字段的简单名称以及字段和方法的描述符。<br>　　全限定名:仅仅是把类全名中的“.”替换成了“/”而已，例如类名org.apache.xxxx，器全限定名为org/apache/xxxx。<br>　　简单名称:就是指没有类型和参数修饰的方法或者字段名称， 比如类中的inc()方法和m字段的简单名称分别就是“inc”和“m”。<br>　　方法和字段的描述符：描述符的作用是用来描述字段的数据类型、 方法的参数列表（包括数量、 类型以及顺序） 和返回值。 根据描述符规则， 基本数据类型（byte、 char、 double、 float、 int、 long、 short、 boolean） 以及代表无返回值的void类型都用一个大写字符来表示， 而对象类型则用字符L加对象的全限定名来表示。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gw0hbqixsgj31g20u07i2.jpg" alt=""></p>
+<h2 id="接口索引表"><a href="#接口索引表" class="headerlink" title="接口索引表"></a>接口索引表</h2><p>类和超类索引后面是接口索引表，表中存放的也是常量池索引，给出该类实现的所有接口的名字，示例代码没有实现接口。</p>
+<h2 id="字段和方法表"><a href="#字段和方法表" class="headerlink" title="字段和方法表"></a>字段和方法表</h2><p>Class文件存储格式中对方法的描述与对字段的描述采用了几乎完全一致的方式， 方法表的结构如同字段表一样， 依次包括访问标志（access_flags） 、 名称索引（name_index） 、 描述符索引（descriptor_index） 、 属性表集合（attributes） 几项。</p>
+<pre><code>field_info &#123;
+    u2        access_flags;
+    u2        name_index;
+    u2        descriptor_count;
+    u2        attributes_count;
+    attribute_info        attributes[attributes_count]; 
+&#125;
+</code></pre><p>下面是本文中解析的Java代码</p>
+<pre><code class="java">public class go&#123;
+    public static final boolean FLAG = true;
+    public static final byte BYTE = 123;
+    public static final char X = &#39;X&#39;;
+    public static final short SHORT = 12345;
+    public static final int INT = 123456789;
+    public static final long LONG = 12345678901L;
+    public static final float PI = 3.14f;
+    public static final double E = 2.71828;
+
+    public static void main(String[] args) throws RuntimeException&#123;
+        System.out.println(&quot;Hello World!&quot;);
+    &#125;
+&#125;</code></pre>
+<h1 id="解析class文件"><a href="#解析class文件" class="headerlink" title="解析class文件"></a>解析class文件</h1><h2 id="结构体的创建"><a href="#结构体的创建" class="headerlink" title="结构体的创建"></a>结构体的创建</h2><p>因为直接去读去class文件的字节码不方便，而且会增加重复操作从而增加代码量，并且增大阅读难度，所以先定义一个结构体，来存储字节码。创建classfile/class_reader.go</p>
+<pre><code class="go">type ClassReader struct&#123;
+    data []byte
+&#125;</code></pre>
+<p>再定义几个方法去读取u1、u2、u4等字节的函数</p>
+<h3 id="readUint8"><a href="#readUint8" class="headerlink" title="readUint8"></a>readUint8</h3><p>构造readUint8来读取u1类型的参数</p>
+<pre><code class="go">func (self *ClassReader) readUint8() uint8 &#123;
+    val := self.data[0]
+    self.data = self.data[1:]
+    return val
+&#125;</code></pre>
+<h3 id="readUint16"><a href="#readUint16" class="headerlink" title="readUint16"></a>readUint16</h3><p>构造readUint16来读取u2类型的参数,go语言的标准库encoding/binary，正好定义了一个变量BigEndian，正好可以从[]byte中解码多字节数据。</p>
+<pre><code class="go">func (self *ClassReader) readUint16() uint16 &#123;
+    val := binary.BigEndian.Uint16(self.data)
+    self.data = self.data[2:]
+    return val
+&#125;</code></pre>
+<h3 id="readUint32"><a href="#readUint32" class="headerlink" title="readUint32"></a>readUint32</h3><p>构造readUint函数来读取u4类型的参数</p>
+<pre><code class="go">func (self *ClassReader) readUint32() uint32 &#123;
+    val := binary.BigEndian.Uint32(self.data)
+    self.data = self.data[4:]
+    return val
+&#125;</code></pre>
+<h3 id="readUint64"><a href="#readUint64" class="headerlink" title="readUint64"></a>readUint64</h3><p>readUint64读取uint64类型数据，Java虚拟机规范中并没有定义u8.</p>
+<pre><code class="go">func (self *ClassReader) readUint64() uint64 &#123;
+    val := binary.BigEndian.Uint64(self.data)
+    self.data = self.data[8:]
+    return val
+&#125;</code></pre>
+<h3 id="readUint16s"><a href="#readUint16s" class="headerlink" title="readUint16s"></a>readUint16s</h3><p>定义readUint16s去读取uint16表，而表的大小是由开头的uint16的数据标明的。</p>
+<pre><code class="go">func (self *ClassReader) readUint16s() []uint16 &#123;
+    n := self.readUint16()
+    s := make([]uint16, n)
+    for i := range s &#123;
+        s[i] = self.readUint16()
+    &#125;
+    return s
+&#125;</code></pre>
+<h3 id="readBytes"><a href="#readBytes" class="headerlink" title="readBytes"></a>readBytes</h3><p>定义readBytes去读取一定数量的字节数据</p>
+<pre><code class="go">func (self *ClassReader) readBytes(n uint32) []byte &#123;
+    bytes := self.data[:n]
+    self.data = self.data[n:]
+    return bytes
+&#125;</code></pre>
+<h2 id="整体读取"><a href="#整体读取" class="headerlink" title="整体读取"></a>整体读取</h2><p>有了ClassReader就可以读取class文件了。下面这里再重新列一下class文件结构，虽然前面已经给出，但是这里再提一下方便阅读：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gw0s473fc9j30v10u041j.jpg" alt=""></p>
+<p>在classfile目录下创建class_file.go,首先按照class文件的格式创建一个结构体，但是结构体中去掉了字段数、方法数、属性个数的属性，来减少内存的占用，在读取时直接去读取字节。</p>
+<pre><code class="go">type ClassFile struct &#123;
+    //magic uint32
+    minorVersion uint16
+    majorVersion uint16
+    constantPool ConstPool
+    accessFlags uint16
+    thisClass uint16
+    superClass uint16
+    interfaces []uint16
+    fields []*MemberInfo
+    methods []*MemberInfo
+    attributes []AttributeInfo
+&#125;</code></pre>
+<p>class_file.go还实现了一系列的函数</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwdfmrclp3j30sg0vwdjw.jpg" alt=""></p>
+<p>Parse函数将读取到的[]byte解析成ClassFile结构体，然后使用read函数存储金 ClassFile结构体中，read函数调用的是ClassRead，最后如果出错使用recover从错误场景中恢复，打印报错信息。</p>
+<pre><code class="go">func Parse(classData []byte)(cf *ClassFile, err error)&#123;
+    defer func() &#123;
+        if r := recover(); r != nil &#123;
+            var ok bool
+            err, ok = r.(error)
+            if !ok &#123;
+                err = fmt.Errorf(&quot;%v&quot;, r)
+            &#125;
+        &#125;
+    &#125;()
+
+    cr := &amp;ClassReader&#123;classData&#125;
+    cf = &amp;ClassFile&#123;&#125;
+    cf.read(cr)
+    return
+&#125;
+
+func (self *ClassFile)read(cr *ClassReader)  &#123;
+    self.readAndCheckMagic(cr)
+    self.readAndCheckVersion(cr)
+    self.constantPool = readConstantPool(cr)
+    self.accessFlags = cr.readUint16()
+    self.thisClass = cr.readUint16()
+    self.superClass = cr.readUint16()
+    self.interfaces = cr.readUint16s()
+    self.fields = readMembers(cr, self.constantPool)
+    self.methods = readMembers(cr, self.constantPool)
+    self.attributes = readAttributes(cr, self.constantPool)
+
+&#125;</code></pre>
+<pre><code>因为篇幅原因，下面给几个举例函数，其他几个函数的格式大抵相同：</code></pre><pre><code class="go">func (self *ClassFile)readAndCheckMagic(cr *ClassReader)&#123;  
+     magic := cr.readUint32()  
+     if magic != 0XCAFEBABE &#123;  
+         panic(&quot;not java file&quot;)  
+     &#125;
+&#125;
+
+func (self *ClassFile) SuperClassName() string &#123;  
+    if self.superClass &gt; 0 &#123;  
+         return self.constantPool.getClassName(self.superClass)  
+     &#125; 
+    return &quot;&quot;  
+&#125;    
+
+func (self *ClassFile) InterfaceNames() []string &#123;  
+     interfaceNames := make([]string, len(self.interfaces))  
+    for i, cpIndex := range self.interfaces &#123;  
+             interfaceNames[i] = self.constantPool.getClassName(cpIndex)  
+     &#125; 
+    return interfaceNames  
+&#125;
+
+func (self *ClassFile)MinorVersion() uint16&#123;  
+     return self.minorVersion  
+&#125;
+
+func (self *ClassFile) InterfaceNames() []string &#123;  
+    interfaceNames := make([]string, len(self.interfaces))  
+     for i, cpIndex := range self.interfaces &#123;  
+         interfaceNames[i] = self.constantPool.getClassName(cpIndex)  
+     &#125; 
+    return interfaceNames  
+&#125;</code></pre>
+<p>其中MajorVersion、MajorVersion、ConstantPool、AccessFlags、ClassName、Fields六个函数是gettet函数，用来返回字段值。SuperClassName用来返回超类名，InterfaceNames返回接口名。</p>
+<p>在前面的文章中已经讲过class文件是如何表示Java版本的，这里的readAndCheckVersion用来检查版本</p>
+<pre><code class="go">func (self *ClassFile)readAndCheckVersion(cr *ClassReader)&#123;  
+ self.minorVersion = cr.readUint16()  
+ self.majorVersion = cr.readUint16()  
+ switch self.majorVersion &#123;  
+ case 45:  
+      return  
+ case 46, 47, 48, 49, 50, 51, 52:  
+      if self.minorVersion == 0&#123;  
+ return  
+ &#125;  
+ &#125;&#125;</code></pre>
+<h2 id="常量池-1"><a href="#常量池-1" class="headerlink" title="常量池"></a>常量池</h2><p>在class文件中版本号后面就是常量池了，常量池占据了很大一部分的数据，包括数字、字符串、类和接口名。</p>
+<h3 id="ConstantInfo接口"><a href="#ConstantInfo接口" class="headerlink" title="ConstantInfo接口"></a>ConstantInfo接口</h3><p>ConstantInfo用来存储常量池中各种类型的数据，每个继承的结构体都需要实现readInfo()的函数来存储数据。创建一个classfile/const_pool.go，首先定义一些常量，来表示对应tag值的变量类型。</p>
+<pre><code>CONSTANT_Class = 7  
+CONSTANT_Fieldref = 9  
+CONSTANT_Methodref = 10  
+CONSTANT_InterfaceMethodref = 11  
+CONSTANT_String = 8  
+CONSTANT_Integer = 3  
+CONSTANT_Float = 4  
+CONSTANT_Long = 5  
+CONSTANT_Double = 6  
+CONSTANT_NameAndType = 12  
+CONSTANT_Utf8 = 1  
+CONSTANT_MethodHandle = 15  
+CONSTANT_MethodType = 16  
+CONSTANT_InvokeDynamic = 18</code></pre><p>完整的代码如下，先读取tag通过tag的值初始化常量，然后去常量池中读取数据。</p>
+<pre><code class="go">type ConstantInfo interface &#123;  
+ readInfo(reader *ClassReader)  
+&#125;  
+
+func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantInfo&#123;  
+ tag := reader.readUint8()  
+ c := newConstantInfo(tag, cp)  
+ c.readInfo(reader)  
+ return c  
+&#125;  
+
+// todo ugly code  
+func newConstantInfo(tag uint8, cp ConstantPool) ConstantInfo &#123;  
+ switch tag &#123;  
+ case CONSTANT_Integer:  
+      return &amp;ConstantIntegerInfo&#123;&#125;  
+ case CONSTANT_Float:  
+      return &amp;ConstantFloatInfo&#123;&#125;  
+ case CONSTANT_Long:  
+      return &amp;ConstantLongInfo&#123;&#125;  
+ case CONSTANT_Double:  
+      return &amp;ConstantDoubleInfo&#123;&#125;  
+ case CONSTANT_Utf8:  
+      return &amp;ConstantUtf8Info&#123;&#125;  
+ case CONSTANT_String:  
+      return &amp;ConstantStringInfo&#123;cp: cp&#125;  
+ case CONSTANT_Class:  
+      return &amp;ConstantClassInfo&#123;cp: cp&#125;  
+ case CONSTANT_Fieldref:  
+      return &amp;ConstantFieldrefInfo&#123;ConstantMemberrefInfo&#123;cp: cp&#125;&#125;  
+ case CONSTANT_Methodref:  
+      return &amp;ConstantMethodrefInfo&#123;ConstantMemberrefInfo&#123;cp: cp&#125;&#125;  
+ case CONSTANT_InterfaceMethodref:  
+      return &amp;ConstantInterfaceMethodrefInfo&#123;ConstantMemberrefInfo&#123;cp: cp&#125;&#125;  
+ case CONSTANT_NameAndType:  
+      return &amp;ConstantNameAndTypeInfo&#123;&#125;  
+ case CONSTANT_MethodType:  
+      return &amp;ConstantMethodTypeInfo&#123;&#125;  
+ case CONSTANT_MethodHandle:  
+      return &amp;ConstantMethodHandleInfo&#123;&#125;  
+ case CONSTANT_InvokeDynamic:  
+      return &amp;ConstantInvokeDynamicInfo&#123;&#125;  
+ default:  
+      panic(&quot;java.lang.ClassFormatError: constant pool tag!&quot;)  
+ &#125;&#125;</code></pre>
+<h3 id="ConstantPool"><a href="#ConstantPool" class="headerlink" title="ConstantPool"></a>ConstantPool</h3><p>在上面讲到获取常量，这里我们使用ConstantPool来存储常量池中所有的常量，因此ConstantPool是一个ConstantInfo的数组。</p>
+<p>接下来是一些获取常量信息的函数如下：</p>
+<pre><code class="go">func (self ConstantPool) getConstantInfo(index uint16) ConstantInfo &#123;  
+ if cpInfo := self[index]; cpInfo != nil &#123;  
+ return cpInfo  
+   &#125;  
+ panic(fmt.Errorf(&quot;Invalid constant pool index: %v!&quot;, index))  
+&#125;  
+
+func (self ConstantPool) getUtf8(index uint16) string&#123;  
+ utf8Info := self.getConstantInfo(index).(*ConstantUtf8Info)  
+ return utf8Info.str  
+&#125;  
+
+func (self ConstantPool)getNameAndType(index uint16)(string, string)&#123;  
+ ntInfo := self.getConstantInfo(index).(*ConstantNameAndTypeInfo)  
+ name := self.getUtf8(ntInfo.nameIndex)  
+ des := self.getUtf8(ntInfo.descriptorIndex)  
+ return name, des  
+&#125;  
+
+func (self ConstantPool)getClassName(index uint16) string&#123;  
+ classinfo := self.getConstantInfo(index).(*ConstantClassInfo)  
+ return self.getUtf8(classinfo.nameIndex)  
+&#125;    </code></pre>
+<p>上面的这些函数都比较简单就不一一说明了，值得一提的是</p>
+<blockquote>
+<p>self.getConstantInfo(index).(*ConstantUtf8Info) </p>
+</blockquote>
+<p>如上的语句上将获取到的结构题转换为ConstantUtf8Info的结构体。</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><h4 id="CONSTANT-Interger-info、CONSTANT-Float-info、CONSTANT-Long-info、ConstantDoubleInfo"><a href="#CONSTANT-Interger-info、CONSTANT-Float-info、CONSTANT-Long-info、ConstantDoubleInfo" class="headerlink" title="CONSTANT_Interger_info、CONSTANT_Float_info、CONSTANT_Long_info、ConstantDoubleInfo"></a>CONSTANT_Interger_info、CONSTANT_Float_info、CONSTANT_Long_info、ConstantDoubleInfo</h4><p>CONSTANT_Interger_info用4字节存储整数型常量，结构如下：</p>
+<pre><code>        CONSTANT_Interger_info&#123;
+            u1 tag;
+            u4 bytes;
+    &#125;</code></pre><p>CONSTANT_Float_info使用4字节存储IEEE754单精度浮点数常量，结构如下：</p>
+<pre><code>CONSTANT_Float_info&#123;
+        u1 tag;
+        u4 bytes;
+    &#125;    </code></pre><p>还要CONSTANT_Long_info使用8字节存储整数常量</p>
+<pre><code>CONSTANT_Long_info&#123;
+        u1 tag;
+        u4 high_bytes;
+        u4 low_bytes;
+    &#125;</code></pre><p>可以看见这三个变量的结构都很相似，因此放在同一文件下，创建cp_numeric.go</p>
+<pre><code class="go">type ConstantIntegerInfo struct &#123;  
+ val int32  
+&#125;  
+
+func (self *ConstantIntegerInfo)readInfo(cr *ClassReader)  &#123;  
+ bytes := cr.readUint32()  
+ self.val =int32(bytes)  
+&#125;  
+
+func (self *ConstantIntegerInfo) Value() int32 &#123;  
+ return self.val  
+&#125;
+
+type ConstantFloatInfo struct &#123;  
+ val float32  
+&#125;  
+
+func (self *ConstantFloatInfo)readInfo(cr *ClassReader)&#123;  
+ bytes := cr.readUint32()  
+ self.val = float32(bytes)  
+&#125;  
+
+func (self *ConstantFloatInfo)Value()float32&#123;  
+ return self.val  
+&#125;
+
+type ConstantLongInfo struct &#123;  
+ val int64  
+&#125;  
+
+func (self *ConstantLongInfo)readInfo(cr *ClassReader)&#123;  
+ bytes := cr.readUint64()  
+ self.val = int64(bytes)  
+&#125;  
+
+func (self *ConstantLongInfo)Value() int64 &#123;  
+ return self.val  
+&#125;
+
+type ConstantDoubleInfo struct &#123;  
+ val float64  
+&#125;  
+
+func (self *ConstantDoubleInfo)readInfo(cr *ClassReader)&#123;  
+ bytes := cr.readUint64()  
+ self.val = float64(bytes)  
+&#125;  
+
+func (self *ConstantDoubleInfo)Value() float64&#123;  
+ return self.val  
+&#125;</code></pre>
+<h3 id="CONSTANT-Utf8-info"><a href="#CONSTANT-Utf8-info" class="headerlink" title="CONSTANT_Utf8_info"></a>CONSTANT_Utf8_info</h3><p>在class文件中并没有使用UTF-8编码而是使用了MUTF-8编码，</p>
+<pre><code>MUTF-8（Modified UTF-8）编码，可以认为是对UTF-16编码的再编码。它的编码方式与UTF-8编码非常相似，只需要记住某些不同的情况，其他都与UTF-8编码一致。
+
+ 具体的不同情况有二：
+        1. 对于Unicode的0码点，UTF-8直接使用1个字节去存储（0000 0000），而MUTF-8会使用2个字节去存储，最后存储的值为0xC080（1100 0000 1000 0000）。
+
+        2. 对于0x10000-0x10FFFF这块区域的Unicode码，之前提过UTF-8是使用4个字节去存储，而MUTF-8是对UTF-16的再编码，所以**MUTF-8是对UTF-16编码的两个字符分别用3个字节去编码（因为这段区域的Unicode码值转为UTF-16编码后前导代理和后导代理的范围是0xD800—0xDFFF，明显大于0x0800），共需要6个字节**。</code></pre><p>下面是解析mutf-8的函数：</p>
+<pre><code class="go"> func decodeMUTF8(bytearr []byte) string &#123;  
+ utflen := len(bytearr)  
+ chararr := make([]uint16, utflen)  
+
+ var c, char2, char3 uint16  
+ count := 0  
+ chararr_count := 0  
+
+ for count &lt; utflen &#123;  
+ c = uint16(bytearr[count])  
+ if c &gt; 127 &#123;  
+ break  
+ &#125;  
+ count++  
+ chararr[chararr_count] = c  
+      chararr_count++  
+ &#125;  
+
+ for count &lt; utflen &#123;  
+ c = uint16(bytearr[count])  
+ switch c &gt;&gt; 4 &#123;  
+ case 0, 1, 2, 3, 4, 5, 6, 7:  
+         /* 0xxxxxxx*/  
+ count++  
+ chararr[chararr_count] = c  
+         chararr_count++  
+ case 12, 13:  
+         /* 110x xxxx   10xx xxxx*/  
+ count += 2  
+ if count &gt; utflen &#123;  
+ panic(&quot;malformed input: partial character at end&quot;)  
+ &#125; char2 = uint16(bytearr[count-1])  
+ if char2&amp;0xC0 != 0x80 &#123;  
+ panic(fmt.Errorf(&quot;malformed input around byte %v&quot;, count))  
+ &#125; chararr[chararr_count] = c&amp;0x1F&lt;&lt;6 | char2&amp;0x3F  
+ chararr_count++  
+ case 14:  
+         /* 1110 xxxx  10xx xxxx  10xx xxxx*/  
+ count += 3  
+ if count &gt; utflen &#123;  
+ panic(&quot;malformed input: partial character at end&quot;)  
+ &#125; char2 = uint16(bytearr[count-2])  
+ char3 = uint16(bytearr[count-1])  
+ if char2&amp;0xC0 != 0x80 || char3&amp;0xC0 != 0x80 &#123;  
+ panic(fmt.Errorf(&quot;malformed input around byte %v&quot;, (count - 1)))  
+ &#125; chararr[chararr_count] = c&amp;0x0F&lt;&lt;12 | char2&amp;0x3F&lt;&lt;6 | char3&amp;0x3F&lt;&lt;0  
+ chararr_count++  
+ default:  
+         /* 10xx xxxx,  1111 xxxx */  
+ panic(fmt.Errorf(&quot;malformed input around byte %v&quot;, count))  
+ &#125; &#125; // The number of chars produced may be less than utflen  
+ chararr = chararr[0:chararr_count]  
+ runes := utf16.Decode(chararr)  
+ return string(runes)  
+&#125;</code></pre>
+<h3 id="CONSTANT-String-info"><a href="#CONSTANT-String-info" class="headerlink" title="CONSTANT_String_info"></a>CONSTANT_String_info</h3><p>该常量点结构如下：</p>
+<pre><code>CONSTANT_String_info&#123;
+    u1 tag;
+    u2 string_index;
+&#125;    </code></pre><p>在如上结构中，可以看见有一个标识常量的tag值，然后一个常量池的索引,所以下面的代码直接通过索引获取到常量池中对应常量的值。</p>
+<pre><code class="go">type ConstantStringInfo struct &#123;  
+ cp ConstantPool  
+ stringIndex uint16  
+&#125;  
+
+func (self *ConstantStringInfo) readInfo(reader *ClassReader)&#123;  
+ self.stringIndex = reader.readUint16()  
+&#125;  
+
+func (self *ConstantStringInfo) String() string&#123;  
+ return self.cp.getUtf8(self.stringIndex)  
+&#125;    </code></pre>
+<p>同理CONSTANT_Class_info、CONSTANT_NameAndType_info也是如此</p>
+<h3 id="CONSTANT-Fieldref-info、CONSTATNT-Methodref-info、CONSTANT-InterfaceMethodref-info"><a href="#CONSTANT-Fieldref-info、CONSTATNT-Methodref-info、CONSTANT-InterfaceMethodref-info" class="headerlink" title="CONSTANT_Fieldref_info、CONSTATNT_Methodref_info、CONSTANT_InterfaceMethodref_info"></a>CONSTANT_Fieldref_info、CONSTATNT_Methodref_info、CONSTANT_InterfaceMethodref_info</h3><p>fieldref表示字段符号引用，methodref表示普通方法符号引用，interfacemethodref表示接口方法符号引用，这三个常量结构一模一样。</p>
+<pre><code class="go">type ConstantMemberrefInfo struct &#123;  
+ cp                 ConstantPool  
+ classIndex           uint16  
+ nameAndTypeIndex   uint16  
+&#125;  
+
+func (self *ConstantMemberrefInfo) readInfo(reader *ClassReader)&#123;  
+ self.classIndex = reader.readUint16()  
+ self.nameAndTypeIndex = reader.readUint16()  
+&#125;  
+
+func (self *ConstantMemberrefInfo) ClassName() string &#123;  
+ return self.cp.getClassName(self.classIndex)  
+&#125;  
+
+func (self *ConstantMemberrefInfo) NameAndDescriptor()(string, string)&#123;  
+ return self.cp.getNameAndType(self.nameAndTypeIndex)  
+&#125;  
+
+type ConstantFieldrefInfo struct &#123;  
+ ConstantMemberrefInfo  
+&#125;  
+
+type ConstantMethodrefInfo struct &#123;  
+ ConstantMemberrefInfo  
+&#125;  
+
+type ConstantInterfaceMethodrefInfo struct &#123;  
+ ConstantMemberrefInfo  
+&#125;</code></pre>
+<p>和上面的方法差不多，还有其他的几个常量也是类似就不一一说了。</p>
+<h2 id="字段和方法表-1"><a href="#字段和方法表-1" class="headerlink" title="字段和方法表"></a>字段和方法表</h2><p>字段表在存储字段和方法信息，这里如果忘记class文件的字节顺序的可以看前文。字段、方法表结构类似，差别仅在属性表，同时两表也有类访问标志，访问标志之后是一个常量池索引，给出字段名和方法名，然后又是一个常量池索引，指向字段和方法的描述符。在classfile目录下创建member_info.go代码</p>
+<pre><code>field_info &#123;  
+     u2             access_flags; 
+    u2             name_index;
+    u2             descriptor_index;
+    u2             attributes_count; 
+    attribute_info attributes[attributes_count];
+&#125;
+method_info &#123;  
+     u2             access_flags; 
+    u2             name_index; 
+    u2             descriptor_index;
+    u2             attributes_count; 
+    attribute_info attributes[attributes_count];&#125;</code></pre><pre><code class="go">type MemberInfo struct &#123;  
+ cp              ConstantPool  
+ accessFlags     uint16  
+ nameIndex       uint16  
+ descriptorIndex uint16  
+ attributes      []AttributeInfo  
+&#125;  
+
+// read field or method table  
+func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo &#123;  
+ memberCount := reader.readUint16()  
+ members := make([]*MemberInfo, memberCount)  
+ for i := range members &#123;  
+ members[i] = readMember(reader, cp)  
+ &#125; return members  
+&#125;  
+
+func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo &#123;  
+ return &amp;MemberInfo&#123;  
+ cp:              cp,  
+      accessFlags:     reader.readUint16(),  
+      nameIndex:       reader.readUint16(),  
+      descriptorIndex: reader.readUint16(),  
+      attributes:      readAttributes(reader, cp),  
+   &#125;  
+&#125;</code></pre>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最近的事情比较多，和去年比起来学习进度也比较慢，不过值得庆幸的是，这几个月也拿了两个省二和一个国三，希望在接下来时间中能够坚持学习。在学习大佬的代码中，也学习了很多go的方法和Java的基础知识。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>《自己动手写Java虚拟机》</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/"><img class="next-cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">接口断言：接口类型判断</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/03/03/CommonsCollections 1分析/" title="CommonsCollections 1分析"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">CommonsCollections 1分析</div></div></a></div><div><a href="/2021/05/09/Java agent学习/" title="Java agent学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="title">Java agent学习</div></div></a></div><div><a href="/2021/04/11/solr漏洞分析--CVE-2017-3163/" title="solr漏洞分析--CVE-2017-3163"><img class="cover" src="https://tva1.sinaimg.cn/large/008eGmZEly1gpewrft16cj31c00u0wx1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-11</div><div class="title">solr漏洞分析--CVE-2017-3163</div></div></a></div><div><a href="/2021/08/03/Weblogic T3 反序列化学习/" title="Weblogic T3 反序列化学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gt3ekv3d2gj31hc0u0dn6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-03</div><div class="title">Weblogic T3 反序列化学习</div></div></a></div><div><a href="/2021/02/05/ysoserial -URLDNS的学习/" title="ysoserial -URLDNS的学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-05</div><div class="title">ysoserial -URLDNS的学习</div></div></a></div><div><a href="/2021/04/01/CommonsCollections 2分析/" title="CommonsCollections 2分析"><img class="cover" src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp4m1tiui1j31hc0u07wi.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-01</div><div class="title">CommonsCollections 2分析</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变<br>当灾难来临时，精神意志才是人类面对危险的第一序列武器</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E6%96%87%E4%BB%B6%E7%AE%80%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">类文件简述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">2.1.</span> <span class="toc-text">类文件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AD%94%E6%95%B0%E5%92%8CJava%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="toc-number">2.2.</span> <span class="toc-text">魔数和Java版本号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-number">2.3.</span> <span class="toc-text">常量池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%92%8C%E8%B6%85%E7%B1%BB%E7%B4%A2%E5%BC%95"><span class="toc-number">2.4.</span> <span class="toc-text">类和超类索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E7%B4%A2%E5%BC%95%E8%A1%A8"><span class="toc-number">2.5.</span> <span class="toc-text">接口索引表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95%E8%A1%A8"><span class="toc-number">2.6.</span> <span class="toc-text">字段和方法表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90class%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">解析class文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-number">3.1.</span> <span class="toc-text">结构体的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#readUint8"><span class="toc-number">3.1.1.</span> <span class="toc-text">readUint8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readUint16"><span class="toc-number">3.1.2.</span> <span class="toc-text">readUint16</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readUint32"><span class="toc-number">3.1.3.</span> <span class="toc-text">readUint32</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readUint64"><span class="toc-number">3.1.4.</span> <span class="toc-text">readUint64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readUint16s"><span class="toc-number">3.1.5.</span> <span class="toc-text">readUint16s</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readBytes"><span class="toc-number">3.1.6.</span> <span class="toc-text">readBytes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E8%AF%BB%E5%8F%96"><span class="toc-number">3.2.</span> <span class="toc-text">整体读取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E6%B1%A0-1"><span class="toc-number">3.3.</span> <span class="toc-text">常量池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ConstantInfo%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.3.1.</span> <span class="toc-text">ConstantInfo接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConstantPool"><span class="toc-number">3.3.2.</span> <span class="toc-text">ConstantPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">3.3.3.</span> <span class="toc-text">常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CONSTANT-Interger-info%E3%80%81CONSTANT-Float-info%E3%80%81CONSTANT-Long-info%E3%80%81ConstantDoubleInfo"><span class="toc-number">3.3.3.1.</span> <span class="toc-text">CONSTANT_Interger_info、CONSTANT_Float_info、CONSTANT_Long_info、ConstantDoubleInfo</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CONSTANT-Utf8-info"><span class="toc-number">3.3.4.</span> <span class="toc-text">CONSTANT_Utf8_info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CONSTANT-String-info"><span class="toc-number">3.3.5.</span> <span class="toc-text">CONSTANT_String_info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CONSTANT-Fieldref-info%E3%80%81CONSTATNT-Methodref-info%E3%80%81CONSTANT-InterfaceMethodref-info"><span class="toc-number">3.3.6.</span> <span class="toc-text">CONSTANT_Fieldref_info、CONSTATNT_Methodref_info、CONSTANT_InterfaceMethodref_info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95%E8%A1%A8-1"><span class="toc-number">3.4.</span> <span class="toc-text">字段和方法表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/" title="手撸一个JVM虚拟机--class文件解析"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手撸一个JVM虚拟机--class文件解析"/></a><div class="content"><a class="title" href="/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/" title="手撸一个JVM虚拟机--class文件解析">手撸一个JVM虚拟机--class文件解析</a><time datetime="2021-11-14T03:23:01.000Z" title="Created 2021-11-14 11:23:01">2021-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" title="接口断言：接口类型判断"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="接口断言：接口类型判断"/></a><div class="content"><a class="title" href="/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" title="接口断言：接口类型判断">接口断言：接口类型判断</a><time datetime="2021-11-01T03:23:01.000Z" title="Created 2021-11-01 11:23:01">2021-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" title="手撸一个JVM虚拟机--命令行工具"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手撸一个JVM虚拟机--命令行工具"/></a><div class="content"><a class="title" href="/2021/10/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" title="手撸一个JVM虚拟机--命令行工具">手撸一个JVM虚拟机--命令行工具</a><time datetime="2021-10-14T08:23:01.000Z" title="Created 2021-10-14 16:23:01">2021-10-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/15/Apereo%20Cas%204.1.X%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="Apereo Cas 4.1.X 反序列化漏洞复现"><img src="https://tva1.sinaimg.cn/large/008i3skNly1guhe3jmjrpj60rs11wdkf02.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Apereo Cas 4.1.X 反序列化漏洞复现"/></a><div class="content"><a class="title" href="/2021/09/15/Apereo%20Cas%204.1.X%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="Apereo Cas 4.1.X 反序列化漏洞复现">Apereo Cas 4.1.X 反序列化漏洞复现</a><time datetime="2021-09-15T08:23:01.000Z" title="Created 2021-09-15 16:23:01">2021-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/26/JBoss%E6%97%A0%E6%96%87%E4%BB%B6webshell%E7%A0%94%E7%A9%B6/" title="JBoss无文件webshell研究"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gtu9sivuhfj60u01degr902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JBoss无文件webshell研究"/></a><div class="content"><a class="title" href="/2021/08/26/JBoss%E6%97%A0%E6%96%87%E4%BB%B6webshell%E7%A0%94%E7%A9%B6/" title="JBoss无文件webshell研究">JBoss无文件webshell研究</a><time datetime="2021-08-26T08:27:01.000Z" title="Created 2021-08-26 16:27:01">2021-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="http://xiao-tan.xyz/">blog</a>!<br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><img class="icp-icon" src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png"><span>备案号：浙ICP备2021025540号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+      appKey: 'NI4yNO6pe0VGcyaXWOjKtYkk',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

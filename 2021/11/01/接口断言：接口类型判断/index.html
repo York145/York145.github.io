@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>接口断言：接口类型判断 | 小叹</title><meta name="keywords" content="go"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="接口断言：接口类型判断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接口断言：接口类型判断">
+<meta property="og:url" content="http://yoursite.com/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="接口断言：接口类型判断">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg">
+<meta property="article:published_time" content="2021-11-01T03:23:01.000Z">
+<meta property="article:modified_time" content="2021-11-14T03:24:39.588Z">
+<meta property="article:tag" content="悦读">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="XGwjLQtdgDNnEDwkeuCK-ucz-j3-gHvZkeARGhb9hJU"/><meta name="baidu-site-verification" content="code-n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '接口断言：接口类型判断',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2021-11-14 11:24:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">接口断言：接口类型判断</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-11-01T03:23:01.000Z" title="Created 2021-11-01 11:23:01">2021-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-11-14T03:24:39.588Z" title="Updated 2021-11-14 11:24:39">2021-11-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/go/">go</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">226</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>1min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="接口断言：接口类型判断"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>一个接口类型的变量varI通常含有很多种类型多变量，我们需要一种方式来获取到接口到动态类型。即在程序运行阶段，堆栈变量中存储的真实的变量类型。类型断言即可判断接口的动态类型.</p>
+<pre><code>v := varI(T)</code></pre><p>在此之中varI必须为接口，否则编译器会报错。</p>
+<p>在一段代码中我尝试直接用if和==的方式来确定接口当前的类型，但是编译器直接就爆红了，编写的代码如下：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1644302/1635919350202-acb78c15-be0e-464a-9d9a-da384f6932bb.png" alt=""></p>
+<p>报错回显是：<strong>use of .(type) outside of type switch</strong></p>
+<p>有时候类型断言也是无效的，所以通常会采用另外一种安全的写法去书写类型断言</p>
+<p>if v, ok := varI.(T); ok {<br>    Process(v)<br>    return<br>}</p>
+<p>示例代码：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1644302/1635920983989-efa92ba6-c970-4400-a5b5-c09f450f63cd.png" alt=""></p>
+<p>同时也有另外一种方式来判断<strong>type-switch</strong>，示例代码如下：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1644302/1635919466037-567d0f50-19b7-4205-bc3e-c6865db4b663.png" alt=""></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><a class="post-meta__tags" href="/tags/go/">go</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/"><img class="prev-cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">手撸一个JVM虚拟机--class文件解析</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/"><img class="next-cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">手撸一个JVM虚拟机--命令行工具</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/08/01/Golang学习笔记 sync.WaitGroup/" title="Golang学习笔记 sync.WaitGroup"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gt1aq42qdej30u00u0n1o.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">Golang学习笔记 sync.WaitGroup</div></div></a></div><div><a href="/2021/08/10/Golang学习笔记 编写嗅探器/" title="Golang学习笔记 编写嗅探器"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gtbt86fd03j61hc0u0tfx02.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-10</div><div class="title">Golang学习笔记 编写嗅探器</div></div></a></div><div><a href="/2021/03/03/CommonsCollections 1分析/" title="CommonsCollections 1分析"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">CommonsCollections 1分析</div></div></a></div><div><a href="/2021/07/24/ATT&CK红队评估实战靶场（一） 练习/" title="ATT&CK红队评估实战靶场（一） 练习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gss9nrp63zj30ul0u00x0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-24</div><div class="title">ATT&CK红队评估实战靶场（一） 练习</div></div></a></div><div><a href="/2021/05/09/Java agent学习/" title="Java agent学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="title">Java agent学习</div></div></a></div><div><a href="/2020/09/04/Java反射的学习/" title="Java反射的学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-04</div><div class="title">Java反射的学习</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变<br>当灾难来临时，精神意志才是人类面对危险的第一序列武器</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/" title="手撸一个JVM虚拟机--class文件解析"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手撸一个JVM虚拟机--class文件解析"/></a><div class="content"><a class="title" href="/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/" title="手撸一个JVM虚拟机--class文件解析">手撸一个JVM虚拟机--class文件解析</a><time datetime="2021-11-14T03:23:01.000Z" title="Created 2021-11-14 11:23:01">2021-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" title="接口断言：接口类型判断"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="接口断言：接口类型判断"/></a><div class="content"><a class="title" href="/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" title="接口断言：接口类型判断">接口断言：接口类型判断</a><time datetime="2021-11-01T03:23:01.000Z" title="Created 2021-11-01 11:23:01">2021-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" title="手撸一个JVM虚拟机--命令行工具"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gvezmld9p0j60u01gsdl002.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手撸一个JVM虚拟机--命令行工具"/></a><div class="content"><a class="title" href="/2021/10/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" title="手撸一个JVM虚拟机--命令行工具">手撸一个JVM虚拟机--命令行工具</a><time datetime="2021-10-14T08:23:01.000Z" title="Created 2021-10-14 16:23:01">2021-10-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/15/Apereo%20Cas%204.1.X%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="Apereo Cas 4.1.X 反序列化漏洞复现"><img src="https://tva1.sinaimg.cn/large/008i3skNly1guhe3jmjrpj60rs11wdkf02.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Apereo Cas 4.1.X 反序列化漏洞复现"/></a><div class="content"><a class="title" href="/2021/09/15/Apereo%20Cas%204.1.X%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="Apereo Cas 4.1.X 反序列化漏洞复现">Apereo Cas 4.1.X 反序列化漏洞复现</a><time datetime="2021-09-15T08:23:01.000Z" title="Created 2021-09-15 16:23:01">2021-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/26/JBoss%E6%97%A0%E6%96%87%E4%BB%B6webshell%E7%A0%94%E7%A9%B6/" title="JBoss无文件webshell研究"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gtu9sivuhfj60u01degr902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JBoss无文件webshell研究"/></a><div class="content"><a class="title" href="/2021/08/26/JBoss%E6%97%A0%E6%96%87%E4%BB%B6webshell%E7%A0%94%E7%A9%B6/" title="JBoss无文件webshell研究">JBoss无文件webshell研究</a><time datetime="2021-08-26T08:27:01.000Z" title="Created 2021-08-26 16:27:01">2021-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="http://xiao-tan.xyz/">blog</a>!<br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><img class="icp-icon" src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png"><span>备案号：浙ICP备2021025540号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+      appKey: 'NI4yNO6pe0VGcyaXWOjKtYkk',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
