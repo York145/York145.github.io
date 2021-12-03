@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C++编程实现基于UDP的TFTP程序 | 小叹</title><meta name="keywords" content="c++"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C++编程实现基于UDP的TFTP程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++编程实现基于UDP的TFTP程序">
+<meta property="og:url" content="http://yoursite.com/2021/12/03/C++%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8EUDP%E7%9A%84TFTP%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="小叹">
+<meta property="og:description" content="C++编程实现基于UDP的TFTP程序">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx0ifraq9zj31hc0u010a.jpg">
+<meta property="article:published_time" content="2021-12-03T04:00:01.000Z">
+<meta property="article:modified_time" content="2021-12-03T04:01:49.420Z">
+<meta property="article:tag" content="悦读">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx0ifraq9zj31hc0u010a.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2021/12/03/C++%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8EUDP%E7%9A%84TFTP%E7%A8%8B%E5%BA%8F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="XGwjLQtdgDNnEDwkeuCK-ucz-j3-gHvZkeARGhb9hJU"/><meta name="baidu-site-verification" content="code-n7EnZXbI9l"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++编程实现基于UDP的TFTP程序',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2021-12-03 12:01:49'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="小叹" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/008i3skNly1gx0ifraq9zj31hc0u010a.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小叹</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fas fa-address-book"></i><span> 闲谈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 关系</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-heart"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C++编程实现基于UDP的TFTP程序</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-12-03T04:00:01.000Z" title="Created 2021-12-03 12:00:01">2021-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-12-03T04:01:49.420Z" title="Updated 2021-12-03 12:01:49">2021-12-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>9min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++编程实现基于UDP的TFTP程序"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="TFTP协议"><a href="#TFTP协议" class="headerlink" title="TFTP协议"></a>TFTP协议</h1><p>从一个直观的数据包中可以更清晰的认识下TFTP这个协议：<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwvt4u71lmj30tg03gmxw.jpg" alt=""><br>这是一个TFTP的读请求，可以看到请求端向服务器端请求一个文件rfc1530.txt，要求传输的方法是octet，也就是二进制流。服务器端收到这个请求之后，传输了558个字节的数据过来，而请求端收到这558个字节的数据后，发送一个Acknowledgement给服务器端，告诉请求端我已经妥善收到了这个558个字节。服务器端在收到这个对面的告知之后，他就知道对面已经妥善接收到这第一个数据块，于是服务器端开始向请求端发送下一个558字节。</p>
+<pre><code>值得注意的是这里服务器端的端口是固定的，而客户端的端口则是随机的。</code></pre><h2 id="TFTP包格式"><a href="#TFTP包格式" class="headerlink" title="TFTP包格式"></a>TFTP包格式</h2><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwz880p44vj30e00b0aar.jpg" alt=""></p>
+<p>上面是RFC中的原图，TFTP Formats描述了TFTP数据包的具体格式，根据操作符其中一共有五种数据包，读请求，写请求，数据包，确认包和错误包。在读写请求包中先是操作符，然后是文件名随后用一个1字节的0，接着是模式即用字节还是二进制流，最后又是一个字节的0。而数据包里，主要是块号和数据，对应的应答包里是块号，这样就知道某条应答是对于哪条数据包的。</p>
+<h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><h2 id="UI界面分析"><a href="#UI界面分析" class="headerlink" title="UI界面分析"></a>UI界面分析</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><p>关于需求分析需要分为客户端和服务端来说，首先来讲一下比较简单的服务端，对于用户来说只需要一个编辑框来显示当前的信息就行了。</p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><ul>
+<li>IP输入框</li>
+<li>文件夹显示（可读）</li>
+<li>文件名输入</li>
+<li>上传按钮</li>
+<li>下载按钮</li>
+<li>连接服务器按钮</li>
+<li>退出按钮</li>
+<li>各类提示弹窗</li>
+</ul>
+<h2 id="代码需求分析"><a href="#代码需求分析" class="headerlink" title="代码需求分析"></a>代码需求分析</h2><p>需要对代码进行一些宏定义，例如TFTP五种数据包： RRQ、WRQ、DATA、ACK、ERROR。</p>
+<pre><code class="c++">#define RRQ (short)1
+#define WRQ (short)2
+#define DATA (short)3
+#define ACK (short)4
+#define ERROR (short)5
+#define LIST (short)6
+#define HEAD (short)7</code></pre>
+<p>需要定义结构体用来解析数据包的各个字段，但是通过观察不同的数据包，他们的属性都是不相同的，所以其中应该使用联合体。除此之外还需要再定义一个结构体，用来存储放回包大小，数据包结构体指针和客户端地址。</p>
+<pre><code class="C++">struct tftpx_packet &#123;
+        USHORT cmd;
+        union &#123;
+            USHORT code;
+            USHORT block;
+            // For a RRQ and WRQ TFTP packet
+            char filename[2];
+        &#125;;
+        char data[DATA_SIZE];
+    &#125;;
+
+    struct tftpx_request &#123;
+        int size;
+        struct sockaddr_in client;
+        struct tftpx_packet packet;
+    &#125;;</code></pre>
+<p>除此之外就是WRQ、RRQ、ACK之类的处理函数和发送函数，下面再进行分析。</p>
+<h1 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h1><h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><h3 id="传输流程"><a href="#传输流程" class="headerlink" title="传输流程"></a>传输流程</h3><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwzejttufwj30k00nowfd.jpg" alt=""></p>
+<h3 id="服务器流程"><a href="#服务器流程" class="headerlink" title="服务器流程"></a>服务器流程</h3><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx0eafqodbj30u00wh416.jpg" alt=""></p>
+<h3 id="客户端流程"><a href="#客户端流程" class="headerlink" title="客户端流程"></a>客户端流程</h3><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx0hb18jg3j30vf0u0416.jpg" alt=""></p>
+<h3 id="关键代码分析"><a href="#关键代码分析" class="headerlink" title="关键代码分析"></a>关键代码分析</h3><h4 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h4><pre><code class="c++">switch (ntohs(request-&gt;packet.cmd)) &#123;
+    case RRQ:
+        log(&quot;handle_rrq called.\n&quot;);
+        handle_rrq(server, request);
+        break;
+    case WRQ:
+        printf(&quot;handle_wrq called.\n&quot;);
+        handle_wrq(server, request);
+        break;
+    case LIST:
+        printf(&quot;handle_list called.\n&quot;);
+        //handle_list(server, request);
+        break;
+    default:
+        printf(&quot;Illegal TFTP operation.\n&quot;);
+        break;
+    &#125;</code></pre>
+<p>RRQ处理函数，handle_rrq():</p>
+<pre><code class="c++">int s_size = 0;
+    USHORT block = 1;
+    snd_packet.cmd = htons(DATA);
+    do &#123;
+        memset(snd_packet.data, 0, sizeof(snd_packet.data));
+        snd_packet.block = htons(block);
+        s_size = fread(snd_packet.data, 1, blocksize, fp);
+        if (send_packet(sock, &amp;snd_packet, s_size + 4, request) == -1) &#123;
+            fprintf(stderr, &quot;Error occurs when sending packet.block = %d.\n&quot;, block);
+            goto rrq_error;
+        &#125;
+        block++;
+    &#125; while (s_size == blocksize);</code></pre>
+<p>send_packet</p>
+<pre><code class="c++">for (rxmt = 0; rxmt &lt; PKT_MAX_RXMT; rxmt++) &#123;
+        str.Format(&quot;Send block=%d\n&quot;, ntohs(packet-&gt;block));
+        log(str);
+        int result = sendto(server, (char*)packet, size, 0, (LPSOCKADDR)&amp;request-&gt;client, addrlen);
+        if (result == -1) &#123;
+            return -1;
+        &#125;
+        for (time_wait_ack = 0; time_wait_ack &lt; PKT_RCV_TIMEOUT; time_wait_ack += 10000) &#123;
+            // Try receive(Nonblock receive).
+            r_size = recv(sock, (char *)&amp;rcv_packet, sizeof(struct tftpx_packet), 0);
+            if (r_size &gt;= 4 &amp;&amp; rcv_packet.cmd == htons(ACK) &amp;&amp; rcv_packet.block == packet-&gt;block) &#123;
+
+                str.Format(&quot;ACK: block=%d\n&quot;, ntohs(rcv_packet.block));
+                log(str);
+                // Valid ACK
+                break;
+            &#125;
+            Sleep(10000);
+        &#125;
+        if (time_wait_ack &lt; PKT_RCV_TIMEOUT) &#123;
+            break;
+        &#125;
+        else &#123;
+            // Retransmission.
+            continue;
+        &#125;
+    &#125;</code></pre>
+<p>从上面的代码可以看出当收到RRQ的数据包就会跳转到handle_rrq()然后发送DATA数据包随后等待ACK，若收到则判断文件是否传输结束，若无，则继续传输DATA包，如果没有收到ACK则进入等待，若超过等待时间则退出。</p>
+<p>同理下面是handle_wrq()</p>
+<pre><code class="c++">do &#123;
+        for (time_wait_data = 0; time_wait_data &lt; PKT_RCV_TIMEOUT * PKT_MAX_RXMT; time_wait_data += 20000) &#123;
+            // Try receive(Nonblock receive).
+            r_size = recv(sock, (char *)&amp;rcv_packet, sizeof(struct tftpx_packet), 0);
+            if (r_size &gt; 0 &amp;&amp; r_size &lt; 4) &#123;
+                str.Format(&quot;Bad packet: r_size=%d, blocksize=%d\n&quot;, r_size, blocksize);
+                log(str);
+            &#125;
+            if (r_size &gt;= 4 &amp;&amp; rcv_packet.cmd == htons(DATA) &amp;&amp; rcv_packet.block == htons(block)) &#123;
+                str.Format(&quot;DATA: block=%d, data_size=%d\n&quot;, ntohs(rcv_packet.block), r_size - 4);
+                log(str);
+                // Valid DATA
+                fwrite(rcv_packet.data, 1, r_size - 4, fp);
+                break;
+            &#125;
+            Sleep(20000);
+        &#125;
+        if (time_wait_data &gt;= PKT_RCV_TIMEOUT * PKT_MAX_RXMT) &#123;
+            printf(&quot;Receive timeout.\n&quot;);
+            goto wrq_error;
+            break;
+        &#125;
+
+        ack_packet.block = htons(block);
+        if (send_ack(sock, &amp;ack_packet, 4, request) == -1) &#123;
+            fprintf(stderr, &quot;Error occurs when sending ACK = %d.\n&quot;, block);
+            log(_T(&quot;Error occurs when sending\r\n&quot;));
+            goto wrq_error;
+        &#125;
+        printf(&quot;Send ACK=%d\r\n&quot;, block);
+
+        block++;
+    &#125; while (r_size == blocksize + 4);</code></pre>
+<p>send_ack()</p>
+<pre><code class="c++">int CMFCTFTPSDlg::send_ack(SOCKET sock, tftpx_packet* packet, int size, tftpx_request* request)
+&#123;
+    int addrlen = sizeof(remote_addr);
+
+    int sieznew = sendto(server, (char*)packet, size, 0, (LPSOCKADDR)&amp;request-&gt;client, addrlen);
+    if (sieznew != size) &#123;
+        return -1;
+    &#125;
+    return size;
+&#125;</code></pre>
+<p>和rrq的处理类似，接收DATA，发送ACK，超时则退出。</p>
+<h4 id="客户端-1"><a href="#客户端-1" class="headerlink" title="客户端"></a>客户端</h4><p>do_put()</p>
+<pre><code class="c++">snd_packet.cmd = htons(WRQ);
+    sprintf(snd_packet.filename, &quot;%s%c%s%c%d%c&quot;, filename, 0, &quot;octet&quot;, 0, blocksize, 0);
+    sendto(client, (char *)&amp;snd_packet, sizeof(struct tftpx_packet), 0, (struct sockaddr*)&amp;server, addr_len);
+    for (time_wait_ack = 0; time_wait_ack &lt; PKT_RCV_TIMEOUT; time_wait_ack += 20000) &#123;
+        // Try receive(Nonblock receive).
+        r_size = recvfrom(client, (char *)&amp;rcv_packet, sizeof(struct tftpx_packet), 0,
+            (struct sockaddr*)&amp;sender,
+            &amp;addr_len);
+        if (r_size &gt; 0 &amp;&amp; r_size &lt; 4) &#123;
+            list_show.AddString(_T(&quot;Bad packet: r_size=%d\n&quot;));
+        &#125;
+        if (r_size &gt;= 4 &amp;&amp; rcv_packet.cmd == htons(ACK) &amp;&amp; rcv_packet.block == htons(0)) &#123;
+            break;
+        &#125;
+        Sleep(20000);
+    &#125;
+    if (time_wait_ack &gt;= PKT_RCV_TIMEOUT) &#123;
+        list_show.AddString(_T(&quot;Could not receive from server.\n&quot;));
+        return;
+    &#125;
+
+    FILE* fp = fopen(filename, &quot;r&quot;);
+    if (fp == NULL) &#123;
+        //printf(&quot;File not exists!\n&quot;);
+        list_show.AddString(_T(&quot;File not exists!\n&quot;));
+        return;
+    &#125;
+
+    int s_size = 0;
+    int rxmt;
+    USHORT block = 1;
+    snd_packet.cmd = htons(DATA);
+    // Send data.
+    do &#123;
+        memset(snd_packet.data, 0, sizeof(snd_packet.data));
+        snd_packet.block = htons(block);
+        s_size = fread(snd_packet.data, 1, blocksize, fp);
+
+        for (rxmt = 0; rxmt &lt; PKT_MAX_RXMT; rxmt++) &#123;
+            sendto(client, (char *)&amp;snd_packet, s_size + 4, 0, (struct sockaddr*)&amp;sender, addr_len);
+            //printf(&quot;Send %d\n&quot;, block);
+            CString str;
+            str.Format(&quot;Send %d\n&quot;, block);
+             list_show.AddString(str);
+            // Wait for ACK.
+            for (time_wait_ack = 0; time_wait_ack &lt; PKT_RCV_TIMEOUT; time_wait_ack += 20000) &#123;
+                // Try receive(Nonblock receive).
+                r_size = recvfrom(client, (char *)&amp;rcv_packet, sizeof(struct tftpx_packet), 0,
+                    (struct sockaddr*)&amp;sender,
+                    &amp;addr_len);
+                if (r_size &gt; 0 &amp;&amp; r_size &lt; 4) &#123;
+                    //printf(&quot;Bad packet: r_size=%d\n&quot;, r_size);
+                    str.Format(&quot;Bad packet: r_size=%d\n&quot;, r_size);
+                    list_show.AddString(str);
+                &#125;
+                if (r_size &gt;= 4 &amp;&amp; rcv_packet.cmd == htons(ACK) &amp;&amp; rcv_packet.block == htons(block)) &#123;
+                    break;
+                &#125;
+                Sleep(20000);
+            &#125;
+            if (time_wait_ack &lt; PKT_RCV_TIMEOUT) &#123;
+                // Send success.
+                break;
+            &#125;
+            else &#123;
+                // Retransmission.
+                continue;
+            &#125;
+        &#125;
+        if (rxmt &gt;= PKT_MAX_RXMT) &#123;
+            //printf(&quot;Could not receive from server.\n&quot;);
+            return;
+        &#125;
+
+        block++;
+    &#125; while (s_size &gt;= blocksize);</code></pre>
+<p>do_put()函数是发送WRQ的数据包的处理函数，首先先发WRQ包，打开文件读取文件后，发送DATA数据包，等待ACK后面的处理流程同上。do_get()函数也基本类似，关键代码如下。<br>do_get()</p>
+<pre><code class="c++">snd_packet.cmd = htons(ACK);
+    do &#123;
+        for (time_wait_data = 0; time_wait_data &lt; PKT_RCV_TIMEOUT * PKT_MAX_RXMT; time_wait_data += 10000) &#123;
+            // Try receive(Nonblock receive).
+            r_size = recvfrom(client, (char *)&amp;rcv_packet, sizeof(struct tftpx_packet), 0,
+                (struct sockaddr*)&amp;server,
+                &amp;addr_len);
+            if (r_size &gt; 0 &amp;&amp; r_size &lt; 4) &#123;
+                printf(&quot;Bad packet: r_size=%d\n&quot;, r_size);
+            &#125;
+            if (r_size &gt;= 4 &amp;&amp; rcv_packet.cmd == htons(DATA) &amp;&amp; rcv_packet.block == htons(block)) &#123;
+                printf(&quot;DATA: block=%d, data_size=%d\n&quot;, ntohs(rcv_packet.block), r_size - 4);
+                // Send ACK.
+                snd_packet.block = rcv_packet.block;
+                sendto(client, (char *)&amp;snd_packet, sizeof(struct tftpx_packet), 0, (struct sockaddr*)&amp;server, addr_len);
+                fwrite(rcv_packet.data, 1, r_size - 4, fp);
+                break;
+            &#125;
+            Sleep(10000);
+        &#125;
+        if (time_wait_data &gt;= PKT_RCV_TIMEOUT * PKT_MAX_RXMT) &#123;
+            printf(&quot;Wait for DATA #%d timeout.\n&quot;, block);
+            goto do_get_error;
+        &#125;
+        block++;
+    &#125; while (r_size == blocksize + 4);</code></pre>
+<h2 id="设计体会"><a href="#设计体会" class="headerlink" title="设计体会"></a>设计体会</h2><p>TFTP还是存在一些问题：假设在数据发送端重新发送了他认为丢失了的数据包之后，这个确认并没有丢失，而只是迷路了，或者堵塞到某一个地方，在一些乱七八糟的机遇之后，这个确认又到达了数据发送端。那么根据上面的拗口的定义，这时候数据发送端就会根据块号发送下一个数据包。</p>
+<p>但是很不巧，重发的那个数据包也正常的到达了对端并且对端按照协议也发送了对该数据块的确认，在数据发送端接收到这个重复的确认后，就开始有问题了，从这里开始，同一个数据块都会重复的被发送两边。如果网络状况不太好，那么这样双倍的数据包必定会导致网络流量更大，从而更加拥堵，更加可能发生上面的假设，周而复始结果网络就崩溃了。</p>
+<p>TFTP是一个很简单的协议，但是其中很多思想都有TCP里面概念的影子，所以说有时候基础而简单的东西并不是没有意义，透过他们，你可以看到更多的演变，从而更加深理解，没有什么软件是一个版本就成型的。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="http://www.woshipm.com/zhichang/2329530.html">画了多年的流程图，你真的画规范了吗？</a><br><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/tcp-udp-ip/15.md">UDP的实践—TFTP</a><br>UDP的RFC协议入门</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%82%A6%E8%AF%BB/">悦读</a><a class="post-meta__tags" href="/tags/c/">c++</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/008i3skNly1gx0ifraq9zj31hc0u010a.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/11/21/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/"><img class="next-cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gwpyy2sz64j30u01c0jum.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">手撸一个JVM虚拟机--运行时数据区</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/03/03/CommonsCollections 1分析/" title="CommonsCollections 1分析"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1go6zeqjin6j21hc0u0b2d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">CommonsCollections 1分析</div></div></a></div><div><a href="/2021/08/01/Golang学习笔记 sync.WaitGroup/" title="Golang学习笔记 sync.WaitGroup"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gt1aq42qdej30u00u0n1o.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">Golang学习笔记 sync.WaitGroup</div></div></a></div><div><a href="/2021/08/10/Golang学习笔记 编写嗅探器/" title="Golang学习笔记 编写嗅探器"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gtbt86fd03j61hc0u0tfx02.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-10</div><div class="title">Golang学习笔记 编写嗅探器</div></div></a></div><div><a href="/2021/07/24/ATT&CK红队评估实战靶场（一） 练习/" title="ATT&CK红队评估实战靶场（一） 练习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gss9nrp63zj30ul0u00x0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-24</div><div class="title">ATT&CK红队评估实战靶场（一） 练习</div></div></a></div><div><a href="/2021/05/09/Java agent学习/" title="Java agent学习"><img class="cover" src="https://tva1.sinaimg.cn/large/008i3skNly1gqc62dvybnj31ow0syqv6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="title">Java agent学习</div></div></a></div><div><a href="/2020/09/04/Java反射的学习/" title="Java反射的学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/York145/CDN@1.0.0/img/custom/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-04</div><div class="title">Java反射的学习</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gsxjbgddgvj30u00u0gnx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/York145"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/York145" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/2192557290@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">唯信仰与日月亘古不变<br>当灾难来临时，精神意志才是人类面对危险的第一序列武器</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TFTP%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.</span> <span class="toc-text">TFTP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TFTP%E5%8C%85%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">TFTP包格式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UI%E7%95%8C%E9%9D%A2%E5%88%86%E6%9E%90"><span class="toc-number">2.1.</span> <span class="toc-text">UI界面分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">2.1.1.</span> <span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.1.2.</span> <span class="toc-text">客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">代码需求分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">整体流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.1.</span> <span class="toc-text">传输流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.2.</span> <span class="toc-text">服务器流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.3.</span> <span class="toc-text">客户端流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">3.1.4.</span> <span class="toc-text">关键代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.1.4.1.</span> <span class="toc-text">服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-1"><span class="toc-number">3.1.4.2.</span> <span class="toc-text">客户端</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%BD%93%E4%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">设计体会</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">3.3.</span> <span class="toc-text">参考文献</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/12/03/C++%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8EUDP%E7%9A%84TFTP%E7%A8%8B%E5%BA%8F/" title="C++编程实现基于UDP的TFTP程序"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx0ifraq9zj31hc0u010a.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++编程实现基于UDP的TFTP程序"/></a><div class="content"><a class="title" href="/2021/12/03/C++%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8EUDP%E7%9A%84TFTP%E7%A8%8B%E5%BA%8F/" title="C++编程实现基于UDP的TFTP程序">C++编程实现基于UDP的TFTP程序</a><time datetime="2021-12-03T04:00:01.000Z" title="Created 2021-12-03 12:00:01">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/21/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/" title="手撸一个JVM虚拟机--运行时数据区"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwpyy2sz64j30u01c0jum.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手撸一个JVM虚拟机--运行时数据区"/></a><div class="content"><a class="title" href="/2021/11/21/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/" title="手撸一个JVM虚拟机--运行时数据区">手撸一个JVM虚拟机--运行时数据区</a><time datetime="2021-11-21T10:55:01.000Z" title="Created 2021-11-21 18:55:01">2021-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/16/GitLab%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2021-22205%EF%BC%89/" title="GitLab远程命令执行漏洞（CVE-2021-22205）"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwh253cyvuj31c00u043d.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GitLab远程命令执行漏洞（CVE-2021-22205）"/></a><div class="content"><a class="title" href="/2021/11/16/GitLab%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2021-22205%EF%BC%89/" title="GitLab远程命令执行漏洞（CVE-2021-22205）">GitLab远程命令执行漏洞（CVE-2021-22205）</a><time datetime="2021-11-16T08:09:01.000Z" title="Created 2021-11-16 16:09:01">2021-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/" title="手撸一个JVM虚拟机--class文件解析"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gweihn7vooj30u015ktf9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手撸一个JVM虚拟机--class文件解析"/></a><div class="content"><a class="title" href="/2021/11/14/%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AAJVM%E8%99%9A%E6%8B%9F%E6%9C%BA--class%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/" title="手撸一个JVM虚拟机--class文件解析">手撸一个JVM虚拟机--class文件解析</a><time datetime="2021-11-14T03:23:01.000Z" title="Created 2021-11-14 11:23:01">2021-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" title="接口断言：接口类型判断"><img src="https://tva1.sinaimg.cn/large/008i3skNly1gweil9hfptj30sg1i80vu.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="接口断言：接口类型判断"/></a><div class="content"><a class="title" href="/2021/11/01/%E6%8E%A5%E5%8F%A3%E6%96%AD%E8%A8%80%EF%BC%9A%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" title="接口断言：接口类型判断">接口断言：接口类型判断</a><time datetime="2021-11-01T03:23:01.000Z" title="Created 2021-11-01 11:23:01">2021-11-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By null</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="http://xiao-tan.xyz/">blog</a>!<br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><img class="icp-icon" src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png"><span>备案号：浙ICP备2021025540号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '0CCNA4v7N3NfIoztkmU8uOaf-gzGzoHsz',
+      appKey: 'NI4yNO6pe0VGcyaXWOjKtYkk',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
