@@ -6,10 +6,35 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-12-03T04:01:49.420Z</updated>
+  <updated>2021-12-13T01:48:43.156Z</updated>
   <id>http://yoursite.com/</id>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Apache Log4j2 远程代码执行漏洞 简析</title>
+    <link href="http://yoursite.com/2021/12/13/Apache%20Log4j2%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%20%E7%AE%80%E6%9E%90/"/>
+    <id>http://yoursite.com/2021/12/13/Apache%20Log4j2%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%20%E7%AE%80%E6%9E%90/</id>
+    <published>2021-12-13T01:06:01.000Z</published>
+    <updated>2021-12-13T01:48:43.156Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h1><p>Apache Log4j2是一个基于Java的日志记录工具。该工具重写了Log4j框架，并且引入了大量丰富的特性。该日志框架被大量用于业务系统开发，用来记录日志信息。大多数情况下，开发者可能会将用户输入导致的错误信息写入日志中。此次漏洞触发条件为只要外部用户输入的数据会被日志记录，即可造成远程代码执行。</p><pre><code>“ Lookups provide a way to add values to the Log4j configuration at arbitrary places. They are a particular type of Plugin that implements the StrLookup interface. ”</code></pre><p>以上内容复制与官方文档，表示lookup将某些特殊值引入到日志中。</p><h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>IDEA 2021.2<br>Java zulu1.8.121<br>Apache log4j2 2.14.0</p><pre><code>&lt;dependencies&gt;  &lt;dependency&gt;      &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;      &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;      &lt;version&gt;2.14.0&lt;/version&gt;  &lt;/dependency&gt;  &lt;dependency&gt;      &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;      &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;      &lt;version&gt;2.14.0&lt;/version&gt;  &lt;/dependency&gt;  </code></pre></dependencies><h2 id="影响范围"><a href="#影响范围" class="headerlink" title="影响范围"></a>影响范围</h2><p>Apache Log4j 2.x &lt; 2.15.0-rc2</p><p>但是大于2.14.1之上的版本需要进行绕过</p><h2 id="已知影响组件"><a href="#已知影响组件" class="headerlink" title="已知影响组件"></a>已知影响组件</h2><ul><li>Apache Struts2</li><li>Apache Solr</li><li>Apache Flink</li><li>Apache Druid</li><li>ElasticSearch</li><li>flume</li><li>dubbo</li><li>Redis</li><li>logstash</li><li>kafka</li></ul><h1 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h1><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx9tlb1xzej31fw0d4q49.jpg" alt=""></p><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx9t6am00dj31dg0u00z8.jpg" alt=""><br>如上substitute()的函数就是在传递进来字符串中解析类似与url的字符串并且送入resolveVariable()进行解析。</p><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx9tgocytnj31mo04ogn6.jpg" alt=""></p><p>而resolveVariable()则会利用三元表达式判断，如果非空就传入lookup。<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx9tb0s88lj31mk056myq.jpg" alt=""></p><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx9thbs61tj318y0lw424.jpg" alt=""></p><p>最后到这里进行触发。最后弹出计算器<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx9urfauanj31u00u0wjz.jpg" alt=""></p><h1 id="2-15-0"><a href="#2-15-0" class="headerlink" title="2.15.0"></a>2.15.0</h1><p>在2.15.0的版本中对log4j2进行了修复，我对其流程进行了观察，其他流程都是大抵一致的，不同的是在触发漏洞的前一步中，并没有跳转到漏洞点。就是在PatternFormatter#format中会对一个数组进行遍历，并去访问其中的format方法。如图：</p><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gxbweq8ww3j31mk09a0up.jpg" alt=""></p><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gxbwfudj7ij30y60akgmp.jpg" alt=""><br>然而在新版本中的MessagePatternConverter中同样也是可以触发的<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gxbwj86dubj31b20cgtb0.jpg" alt=""><br>但是在便利的类中并不存在MessagePatternConverter，也就不会去访问它的format。相反替代它的是SimpleMessagePatternConverter，而这个类并不能触发漏洞，<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gxbw86dpcij31c00u0dmm.jpg" alt=""></p><p>除此之外还需要打开lookup的功能，而这两个都需要用户配置，不知道还有没有其他方法绕过。具体的代码下面就不贴了。最后成功进入。</p><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gxbwxw29u7j31c00u0ahj.jpg" alt=""><br>接着触发lookup（需打开lookup）<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gxbx2i6syrj31ac0u0jxs.jpg" alt=""></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次分析的漏洞还蛮简单的，没有看别人的文章，不过绕过RC1的时候出了一些问题暂时还没解决QAQ。最近的手撸jvm虚拟机也卡壳了，期末要到了，有很多大作业要做。</p>]]></content>
+    
+    <summary type="html">
+    
+      Apache Log4j2 远程代码执行漏洞 简析
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="悦读" scheme="http://yoursite.com/tags/%E6%82%A6%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>C++编程实现基于UDP的TFTP程序</title>
@@ -485,29 +510,6 @@
       <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
       <category term="悦读" scheme="http://yoursite.com/tags/%E6%82%A6%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HW总结</title>
-    <link href="http://yoursite.com/2021/03/26/HW%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2021/03/26/HW%E6%80%BB%E7%BB%93/</id>
-    <published>2021-03-26T06:21:01.000Z</published>
-    <updated>2021-11-17T01:34:25.056Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="HW总结"><a href="#HW总结" class="headerlink" title="HW总结"></a>HW总结</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>已经两个星期没有发文章了，因为前个星期在HW，身为一个大二的在校生，当要去HW当红队的时候，心里还是蛮紧张的。在那里包吃包住，而且酒店也挺好的，蛮开心的。从中也学到了很多，不过HW还是蛮累的，结束的那天十点就睡着啦，结果回来又有通知要打HW，此时我的心里是裂开的，又要醉生梦死了QAQ。</p><h2 id="历程"><a href="#历程" class="headerlink" title="历程"></a>历程</h2><h3 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h3><p>第一天主要是在信息搜集，打点。运气蛮好的，在对某个网站进行C段扫描，和端口扫描的时候，发现了一个薄弱点。这里就不得不吐槽一下，服务器是真的垃圾呀，在当天晚上直接崩了，我都啥都没干就下了个数据库备份文件。当场脑溢血，没办法，当时只能想着第二天再想想办法，看看管理员会不会重启一下服务器。</p><h3 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h3><p>因为第一天晚上好不容易找到的服务器崩了，本来好不容易找到了mysql数据库的root权限账号密码，而且机缘巧合的该网站存在phpMyAdmin，结果网站炸了。第二天一大早起来，去看了看结果也还是依旧无法打开。哎，还能怎么办呢，只能重新再找一下看看有没有别的地方可以，结果找了一天无果。只有一些不痛不痒的小洞，还好，网站管理员在下午的时候，把网站又打开了，果断的利用phpMyAdmin写了一个webshell进去，结果可能被管理员发现了，好家伙，直接把网站给我关了，当场我就裂开了。</p><h3 id="第三天-amp-第四天"><a href="#第三天-amp-第四天" class="headerlink" title="第三天 &amp; 第四天"></a>第三天 &amp; 第四天</h3><p>运气好我又找到了一个点，并且种了一个内存马进去，可是虽然是root权限，可是我不能执行所有交互式的命令，反弹shell也弹不出，webshell写进去可是无法访问，哎终究是太菜了，哭泣。只能苦逼的找一找内网有啥利用点，因为内网不是很熟悉，在最后两天被别的队吊打了，因为队员都不太懂这些，基本上一个人在奋斗，QAQ好想被大佬带飞。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>正式学安全一年了，我咋还是这么菜。不知道下辈子能不能达到大佬们的一半水平QAQ。这次hw发现了自己的很多不足，在开发和内网的知识还有很多欠缺，还要更加努力的学习呀。今天更朱爷请教了一下审计的学习，很感谢大佬的指点，这段时间跟着木爷一起学习感觉很充实，希望以后还能继续努力。</p>]]></content>
-    
-    <summary type="html">
-    
-      闲谈
-    
-    </summary>
-    
-    
-      <category term="闲谈" scheme="http://yoursite.com/categories/%E9%97%B2%E8%B0%88/"/>
-    
-    
-      <category term="闲谈" scheme="http://yoursite.com/tags/%E9%97%B2%E8%B0%88/"/>
     
   </entry>
   
